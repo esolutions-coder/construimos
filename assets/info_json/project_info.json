@@ -1,0 +1,160 @@
+{
+    "project_title": "ENCHAPES CALLE 17 - JUSTO Y BUENO",
+    "project_general_info": {
+        "name": "ENCHAPES CALLE 17 - JUSTO Y BUENO",
+        "description": "Se solicitan diseños y construcción de redes hidráulicas, cargue de pisos y enchapes"
+    },
+    "project_description": "Se solicitan diseños y construcción de redes hidráulicas, cargue de pisos y enchapes",
+    "materials": [
+        {
+            "material_name": "PUNTILLAS",
+            "material_unitary_price": 500,
+            "material_provider": "FERRETERIA SAS",
+            "material_amount": 12,
+            "material_code": "MAT1",
+            "material_unit": "UND",
+            "material_rud": 0.3,
+            "material_partial_value": 400
+        }
+    ],
+    "equipment": [
+        {
+            "equipment_name": "PUNTILLAS",
+            "equipment_unitary_price": 500,
+            "equipment_provider": "FERRETERIA SAS",
+            "equipment_code": "EQP1",
+            "equipment_unit": "UND",
+            "equipment_amount": 123,
+            "equipment_rud": 0.3,
+            "equipment_partial_value": 400
+        }
+    ],
+    "workHand": [
+        {
+            "workHand_name": "PUNTILLAS",
+            "workHand_unitary_price": 500,
+            "workHand_provider": "FERRETERIA SAS",
+            "workHand_code": "MD01",
+            "workHand_unit": "UND",
+            "workHand_amount": 123,
+            "workHand_rud": 0.3,
+            "workHand_partial_value": 400
+        }
+    ],
+    "apus": [
+        {
+            "apu_name": "DISEÑOS",
+            "apu_id": "0001",
+            "apu_unit": "M2",
+            "apu_description": "DISEÑOS ARQUITECTÓNICOS",
+            "apu_materials": [
+                {
+                    "material_name": "PUNTILLAS",
+                    "material_unitary_price": 500,
+                    "material_amount": 100,
+                    "material_provider": "FERRETERIA SAS",
+                    "material_code": "MAT1",
+                    "material_unit": "UND",
+                    "material_rud": 0.3,
+                    "material_partial_value": 400
+                }
+            ],
+            "apu_equipment": [
+                {
+                    "equipment_name": "PUNTILLAS",
+                    "equipment_unitary_price": 500,
+                    "equipment_provider": "FERRETERIA SAS",
+                    "equipment_amount": 0,
+                    "equipment_code": "EQP1",
+                    "equipment_unit": "UND",
+                    "equipment_rud": 0.3,
+                    "equipment_partial_value": 400
+                }
+            ],
+            "apu_workHand": [
+                {
+                    "workHand_name": "PUNTILLAS",
+                    "workHand_unitary_price": 500,
+                    "workHand_provider": "FERRETERIA SAS",
+                    "workHand_code": "MDO1",
+                    "workHand_amount": 0,
+                    "workHand_unit": "UND",
+                    "workHand_rud": 0,
+                    "workHand_partial_value": 0
+                }
+            ],
+            "apu_price": 0
+        }
+    ],
+    "project_activities": [
+        {
+            "activity_id": "0001",
+            "activity_name": "ENCHAPES",
+            "subActivities": [
+                {
+                    "subActivity_apu": {
+                        "apu_name": "CARGUE DE PISO",
+                        "apu_id": "0001",
+                        "apu_unit": "M2",
+                        "apu_description": "",
+                        "apu_materials": [
+                            {
+                                "material_name": "PUNTILLAS",
+                                "material_amount": 100,
+                                "material_unitary_price": 500,
+                                "material_provider": "FERRETERIA SAS",
+                                "material_code": "MAT1",
+                                "material_unit": "UND",
+                                "material_rud": 0.3,
+                                "material_partial_value": 400
+                            }
+                        ],
+                        "apu_equipment": [
+                            {
+                                "equipment_name": "PUNTILLAS",
+                                "equipment_unitary_price": 500,
+                                "equipment_provider": "FERRETERIA SAS",
+                                "equipment_code": "EQP1",
+                                "equipment_unit": "UND",
+                                "equipment_amount": 123,
+                                "equipment_rud": 0.3,
+                                "equipment_partial_value": 400
+                            }
+                        ],
+                        "apu_workHand": [
+                            {
+                                "workHand_name": "PUNTILLAS",
+                                "workHand_unitary_price": 500,
+                                "workHand_provider": "FERRETERIA SAS",
+                                "workHand_code": "MDO1",
+                                "workHand_unit": "UND",
+                                "workHand_amount": 123,
+                                "workHand_rud": 0,
+                                "workHand_partial_value": 0
+                            }
+                        ],
+                        "apu_price": 10000
+                    },
+                    "amount": 657.2,
+                    "subActivity_total": 0,
+                    "subActivity_id": "0001"
+                }
+            ],
+            "subtotal_activity": 0
+        }
+    ],
+    "budget_prices": {
+        "IVA": 0,
+        "admin": 0,
+        "utility": 0,
+        "unforeseen": 0,
+        "direct_costs": 0,
+        "total_cost": 0
+    },
+    "project_config": {
+        "IVA": 0.19,
+        "ADMIN": 0.1,
+        "UNFORESEEN": 0.04,
+        "UTILITY": 0.06
+    }
+}

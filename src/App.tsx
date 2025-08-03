@@ -13,7 +13,6 @@ import EquipmentInfo from "./pages/equipment-info";
 import WorkhandInfo from "./pages/workhand-info";
 import ConstructorDetalle from "./components/ConstructorDetalle";
 import "../src/assets/styles/_constructord.scss";
-import Showroom from "./pages/showroom";
 
 function App() {
   return (

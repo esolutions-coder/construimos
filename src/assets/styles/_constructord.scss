@@ -1,0 +1,113 @@
+@use "colors";
+@use "navbar";
+@use "fonts";
+@use "flex";
+@use "buttons";
+@use "grid";
+@use "cards";
+@use "spacing";
+@use "layout";
+@use "tables";
+@use "forms";
+@use "pills";
+@use "warnings";
+@use "spinners";
+$primary: #fdbe33;
+$secondary: #030f27;
+$tertiary: #efe1c8;
+$success: rgb(32, 197, 32);
+
+.detalle-constructor-horizontal {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 2rem;
+  padding: 2rem;
+  background-color: $secondary;
+  border-radius: 1rem;
+  box-shadow: 10px 10px 10px $primary;
+  flex-wrap: wrap;
+  width: 80%;
+  margin: 0 auto;
+
+  .imagen-nombre-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    flex: 1;
+  }
+
+  .imagen-constructor-horizontal {
+    width: 250px;
+    height: 250px;
+    object-fit: cover;
+    border-radius: 50%;
+    margin-bottom: 2rem;
+    mask-image: none;
+    -webkit-mask-image: linear-gradient(
+      to bottom,
+      rgb(255, 255, 255) 50%,
+      transparent
+    );
+  }
+
+  .nombre-constructor-detalle {
+    font-size: 1.8rem;
+    font-weight: bold;
+    text-align: center;
+    color: $primary;
+  }
+
+  .info-constructor {
+    flex: 2;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    color: white;
+  }
+
+  .lista-detalles {
+    list-style: none;
+    padding: 0;
+    margin: 30px;
+
+    li {
+      margin-bottom: 0.8rem;
+      font-size: 1.3rem;
+
+      strong {
+        color: $primary;
+        margin-right: 0.3rem;
+      }
+    }
+  }
+
+  .contenedor-boton {
+    margin-top: 1rem;
+    display: flex;
+    justify-content: center;
+  }
+
+  .boton-contactar {
+    padding: 0.8rem 2rem;
+    font-size: 1.1rem;
+    background-color: $primary;
+    color: white;
+    border: none;
+    border-radius: 0.5rem;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    font-weight: bold;
+    text-align: center;
+    font-family: "Poppins", sans-serif;
+    letter-spacing: 0.1rem;
+    justify-content: center;
+    align-items: center;
+    display: flex;
+    background-image: linear-gradient(150deg, #f5a506, #0e090188);
+
+    &:hover {
+      background-color: #ffffff;
+    }
+  }
+}

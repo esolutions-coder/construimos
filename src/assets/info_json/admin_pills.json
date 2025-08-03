@@ -1,0 +1,27 @@
+[
+  {
+    "name": "materiales",
+    "icon": "tools_power_drill",
+    "state": false
+  },
+  {
+    "name": "Equipos",
+    "icon": "precision_manufacturing",
+    "state": false
+  },
+  {
+    "name": "mano de obra",
+    "icon": "front_hand",
+    "state": false
+  },
+  {
+    "name": "APUS GLOBAL",
+    "icon": "public",
+    "state": false
+  },
+  {
+    "name": "TRANSPORTE",
+    "icon": "local_shipping",
+    "state": false
+  }
+]

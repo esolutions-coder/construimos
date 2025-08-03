@@ -1,0 +1,38 @@
+[
+  {
+    "name": "Pintura",
+    "icon": "brush"
+  },
+  {
+    "name": "Remodelaciones",
+    "icon": "tools_power_drill"
+  },
+  {
+    "name": "Cielos Rasos",
+    "icon": "roofing"
+  },
+  {
+    "name": "Pisos",
+    "icon": "check_box_outline_blank"
+  },
+  {
+    "name": "Construcción",
+    "icon": "handyman"
+  },
+  {
+    "name": "Carpintería",
+    "icon": "carpenter"
+  },
+  {
+    "name": "Plomería",
+    "icon": "valve"
+  },
+  {
+    "name": "Electricidad",
+    "icon": "bolt"
+  },
+  {
+    "name": "Diseños",
+    "icon": "architecture"
+  }
+]

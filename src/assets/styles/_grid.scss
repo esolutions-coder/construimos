@@ -1,0 +1,110 @@
+
+
+.grid{
+    display: grid;
+}
+
+.col_3 {
+    grid-template-columns: repeat(3, 1fr);
+}
+
+.col_6{
+    grid-template-columns: repeat(6, 1fr);
+}
+
+.col_sm_2{
+    grid-template-columns: repeat(2, 1fr);
+}
+
+.span_sm_2{
+    grid-column: span 2;
+}
+
+
+///Create columns for the grid
+@mixin grid_mixin($count, $screenSize) {
+    @for $i from 1 through $count{
+        .col_#{$screenSize}_#{$i} { 
+            grid-template-columns: repeat(#{$i}, 1fr);
+         }
+    }
+}
+
+///Create spans for the grid
+@mixin grid_span_mixin($count, $screenSize) {
+    @for $i from 1 through $count{
+        .span_#{$screenSize}_#{$i} { 
+            grid-column: span #{$i};
+         }
+    }
+}
+
+///Create gaps for the grid
+@mixin grid_gap_mixin($count, $screenSize, ) {
+    @for $i from 1 through $count{
+        .gap_#{$screenSize}_#{$i*4} { 
+            gap: #{$i * 0.25rem};
+         }
+    }
+}
+
+
+//this is xsm - extra small
+@media (min-width: 599px) {
+    @include grid_mixin(12, xsm);
+    @include grid_span_mixin(12, xsm);
+    @include grid_gap_mixin(12, xsm);
+
+    .justify_content_xsm_center{
+        justify-content: center;
+    }
+
+    .alig_items_xsm_center{
+        align-items: center;
+    }
+}
+
+//this is sm - small
+@media (min-width: 904px) {
+    @include grid_mixin(12, sm);
+    @include grid_span_mixin(12, sm);
+    @include grid_gap_mixin(12, sm);
+
+    .justify_content_sm_center{
+        justify-content: center;
+    }
+
+    .alig_items_sm_center{
+        align-items: center;
+    }
+}
+
+//this is md - medium
+@media (min-width: 1239px) {
+    @include grid_mixin(12, md);
+    @include grid_span_mixin(12, md);
+    @include grid_gap_mixin(12, md);
+
+    .justify_content_md_center{
+        justify-content: center;
+    }
+
+    .alig_items_md_center{
+        align-items: center;
+    }
+}
+
+//this is large
+@media (min-width: 1440px) {
+    @include grid_mixin(12, lg);
+    @include grid_span_mixin(12, lg);
+    @include grid_gap_mixin(12, lg);
+
+    .justify_content_lg_center{
+        justify-content: center;
+    }
+
+    .alig_items_lg_center{
+        align-items: center;
+    }
+}

@@ -1,0 +1,47 @@
+$primary: #FDBE33;
+$secondary: #030F27;
+$tertiary: #EFE1C8;
+$success: rgb(32, 197, 32);
+
+//TEXT COLORS
+.txt_white{
+    color: white;
+}
+
+//THEMES
+.primary_theme{
+    background-color: $primary;
+    color: $secondary;
+}
+
+.secondary_theme{
+    background-color: $secondary;
+    color: $primary;
+}
+
+.error_theme{
+    background-color: rgb(255, 49, 49);
+    color: white
+}
+
+.success_theme{
+    background-color: $success;
+    color: white;
+}
+
+.txt_primary{
+    color: $primary;
+}
+
+.txt_secondary{
+    color: $secondary;
+}
+
+//background
+.bg_primary{
+    background-color: $primary;
+}
+
+.bg_secondary{
+    background-color: $secondary;
+}

@@ -1,0 +1,32 @@
+@use "colors";
+
+.pill{
+    background-color: colors.$secondary;
+    color: colors.$primary;
+    display: flex;
+    border-radius: 0.5rem;
+    padding: 0.25rem 0.75rem;
+    transition: all 0.3s ease;
+
+    &.active{
+        background-color: colors.$primary;
+        color: colors.$secondary;
+    }
+
+    &:hover{
+        background-color: colors.$primary;
+        color: colors.$secondary;
+        transition: all 0.5s ease;
+        cursor: pointer;
+    }
+
+    p{
+        text-transform: uppercase;
+        font-size: 0.9rem;
+    }
+    span{
+        display: flex;
+        align-items: center;
+        margin-right: 0.5rem;
+    }
+}

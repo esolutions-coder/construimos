@@ -1,0 +1,92 @@
+@use "colors";
+
+.table_container {
+    overflow-x: auto;
+}
+
+.cidein_table {
+    border-collapse: collapse;
+    width: 100%;
+    td {
+        padding: 0.75rem 0.5rem;
+
+        //Fonts
+        font-style: normal;
+        font-weight: 500;
+        font-size: 14px;
+        line-height: 16px;
+        letter-spacing: 0.1px;
+    }
+
+    thead {
+        td {
+            background-color: colors.$secondary;
+            color: colors.$primary;
+            &.border_top_right {
+                border-top-right-radius: 0.5rem;
+            }
+
+            &.border_top_left {
+                border-top-left-radius: 0.5rem;
+            }
+        }
+    }
+
+    tbody {
+        .activity_name {
+            background-color: colors.$tertiary;
+
+            .activity_header{
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                .activity_name_index{
+                    display: flex;
+                }
+                .activity_options{
+                    .delete_activity{
+                        color: colors.$secondary;
+                        transition: 0.1s ease;
+                        cursor: pointer;
+                        &:hover{
+                            color: rgb(255, 25, 25);
+                            transition: 0.3s ease;
+                        }
+                    }
+                }
+            }
+        }
+
+        .subActivity_row {
+            border-bottom: solid 1px black;
+        }
+
+        .subtotal_activity {
+            .subtotal_price {
+                text-align: right;
+            }
+        }
+    }
+}
+
+.table_index{
+    font-weight: 500;
+    font-size: 15px;
+    line-height:30px;
+    margin-right: 0.5rem;
+}
+
+.subActivity_options{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    transition: 0.3s ease-in-out;
+    span{
+        font-size: 1rem;
+        &:hover{
+            cursor: pointer;
+            color: rgb(255, 40, 40);
+            transition: 0.2s ease-in-out;
+        }
+    }
+}

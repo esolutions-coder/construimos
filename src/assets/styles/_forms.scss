@@ -1,0 +1,92 @@
+@use "colors"; 
+
+.table_input{
+    width: 15ch;
+    height: 100%;
+    border: none;
+}
+
+.table_name_input{
+    width: 40ch;
+    background-color: colors.$tertiary;
+    border: none;
+
+    //Font
+    font-weight: 500;
+    font-size: 15px;
+    line-height: 22px;
+}
+
+.title_input{
+    width: 100%;
+    border: 2px dashed colors.$secondary;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 30px;
+    line-height: 45px;
+}
+
+.unit_input{
+    width: 8ch;
+    border: 2px dashed colors.$secondary;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 30px;
+    line-height: 45px;
+}
+
+.editable_input{
+    border: 2px dashed colors.$secondary;
+}
+.description_input{
+    width: 100%;
+    border: 2px dashed colors.$secondary;
+}
+
+.search_box{
+    display: flex;
+    gap: 12px;
+
+    input{
+        width: 100%;
+        padding: 0 1rem;
+    }
+}
+
+.chapter_selector{
+    width: 100%;
+    background-color: white;
+    border: 2px dashed colors.$secondary;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 30px;
+    line-height: 45px;
+}
+
+.cidein_form{
+    .form_input_container{
+        display: flex;
+        flex-direction: column;
+        margin-bottom: 12px;
+        input{
+            border-radius: 4px;
+            padding: 0.75rem 0.75rem;
+            border: none;
+        }
+    }
+}
+
+.cidein_form_single{
+    .form_input_container{
+        display: flex;
+        flex-direction: column;
+
+        input{
+            padding: 0.25rem 0.25rem;
+        }
+    }
+}
+
+.form_100{
+    width: 100%;
+}

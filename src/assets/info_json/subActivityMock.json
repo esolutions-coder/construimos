@@ -1,0 +1,49 @@
+{
+  "apu_name": "CARGUE DE PISO",
+  "apu_id": "0001",
+  "_id": "123",
+  "apu_unit": "M2",
+  "apu_chapter": "",
+  "apu_description": "",
+  "apu_materials": [
+    {
+      "material_name": "PUNTILLAS",
+      "material_amount": 100,
+      "material_unitary_price": 500,
+      "material_provider": "FERRETERIA SAS",
+      "material_code": "MAT1",
+      "material_unit": "UND",
+      "material_rud": 0.3,
+      "material_partial_value": 400,
+      "_id": "",
+      "material_category": ""
+    }
+  ],
+  "apu_equipment": [
+    {
+      "equipment_name": "PUNTILLAS",
+      "equipment_unitary_price": 500,
+      "equipment_provider": "FERRETERIA SAS",
+      "equipment_code": "EQP1",
+      "equipment_unit": "UND",
+      "equipment_amount": 123,
+      "equipment_rud": 0.3,
+      "equipment_partial_value": 400
+    }
+  ],
+  "apu_workHand": [
+    {
+      "workHand_name": "PUNTILLAS",
+      "workHand_unitary_price": 500,
+      "workHand_provider": "FERRETERIA SAS",
+      "workHand_code": "MDO1",
+      "workHand_unit": "UND",
+      "workHand_amount": 123,
+      "workHand_rud": 0,
+      "workHand_partial_value": 0
+    }
+  ],
+  "apu_transportation": [],
+  "apu_apu": [],
+  "apu_price": 10000
+}

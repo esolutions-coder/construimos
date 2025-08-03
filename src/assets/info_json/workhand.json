@@ -1,0 +1,47 @@
+[
+  {
+    "workHand_name": "CUADRILLA TIPO CC (ACABADOS)",
+    "workHand_unit": "HH",
+    "workHand_rud": 0,
+    "workHand_unitary_price": 28221.06,
+    "workHand_provider": "CIRCULO DE INGENIEROS SAS",
+    "workHand_code": "MDO-010",
+    "workHand_category": "MANO DE OBRA"
+  },
+  {
+    "workHand_name": "CUADRILLA TIPO DD (CARPINTERÍA)",
+    "workHand_unit": "HH",
+    "workHand_rud": 0,
+    "workHand_unitary_price": 29503.84,
+    "workHand_provider": "CIRCULO DE INGENIEROS SAS",
+    "workHand_code": "MDO-011",
+    "workHand_category": "MANO DE OBRA"
+  },
+  {
+    "workHand_name": "CUADRILLA WF LOSA",
+    "workHand_unit": "HH",
+    "workHand_rud": 0,
+    "workHand_unitary_price": 81947.116,
+    "workHand_provider": "CIRCULO DE INGENIEROS SAS",
+    "workHand_code": "MDO-012",
+    "workHand_category": "MANO DE OBRA"
+  },
+  {
+    "workHand_name": "CUADRILLA WF MUROS",
+    "workHand_unit": "HH",
+    "workHand_rud": 0,
+    "workHand_unitary_price": 107699.67,
+    "workHand_provider": "CIRCULO DE INGENIEROS SAS",
+    "workHand_code": "MDO-013",
+    "workHand_category": "MANO DE OBRA"
+  },
+  {
+    "workHand_name": "CUADRILLA EXCAVACION",
+    "workHand_unit": "HH",
+    "workHand_rud": 0,
+    "workHand_unitary_price": 55015.54,
+    "workHand_provider": "CIRCULO DE INGENIEROS SAS",
+    "workHand_code": "MDO-014",
+    "workHand_category": "MANO DE OBRA"
+  }
+]

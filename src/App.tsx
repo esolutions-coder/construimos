@@ -13,12 +13,14 @@ import EquipmentInfo from "./pages/equipment-info";
 import WorkhandInfo from "./pages/workhand-info";
 import ConstructorDetalle from "./components/ConstructorDetalle";
 import "../src/assets/styles/_constructord.scss";
+import Showroom from "./pages/showroom";
 
 function App() {
   return (
     <div className="App">
       <Routes>
         <Route path="/constructores/:nombre" element={<ConstructorDetalle />} />
+        <Route path="/showroom" element={<Showroom />} />
         <Route path="/" element={<Home />} />
         <Route path="presupuestos" element={<Presupuestos />} />
         <Route path="/admin/apu-editor" element={<AdminApus />} />

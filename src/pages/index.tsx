@@ -20,7 +20,6 @@ function Home() {
     <>
       <LandingNavBar />
       <Banner />
-
       <Grid columns="3" gap={{ sm: "0", md: "0", lg: "0" }}>
         {CardsInfo.map((cardInfo) => {
           return (

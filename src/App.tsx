@@ -20,11 +20,10 @@ function App() {
     <div className="App">
       <Routes>
         <Route path="/constructores/:nombre" element={<ConstructorDetalle />} />
-        <Route path="/showroom" element={<Showroom />} />
+        <Route path="/showroom" element={<ShowRoom />} />
         <Route path="/" element={<Home />} />
         <Route path="presupuestos" element={<Presupuestos />} />
         <Route path="/admin/apu-editor" element={<AdminApus />} />
-        <Route path="/showroom" element={<ShowRoom />} />
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
         <Route path="/admin/materials" element={<Materials />} />

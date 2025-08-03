@@ -21,6 +21,9 @@ function LandingNavBar() {
           <li>
             <a href="">Proveedor</a>
           </li>
+          <li>
+            <a href="/#/showroom">Constructores</a>
+          </li>
         </ul>
       </div>
     </nav>

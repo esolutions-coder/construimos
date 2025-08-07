@@ -15,7 +15,7 @@ const ConstructorDetalle = () => {
   return (
     <div>
       <div className="title-section">
-        <h1>🔨 Conoce un poco más sobre {constructor.nombre}</h1>
+        <h1> Conoce un poco más sobre {constructor.nombre}</h1>
         <p>
           {" "}
           Da el primer paso hacia tu proyecto soñado! Conecta con nosotros para

@@ -43,7 +43,7 @@ function ShowRoom() {
   return (
     <CideinLayout>
       <div className="title-section">
-        <h1>🔨 Encuentra al Constructor Ideal para tu Proyecto</h1>
+        <h1> Encuentra al Constructor Ideal para tu Proyecto</h1>
         <p>Conecta con expertos confiables según tu ubicación y necesidades.</p>
       </div>
 

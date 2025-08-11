@@ -13,15 +13,22 @@ import EquipmentInfo from "./pages/equipment-info";
 import WorkhandInfo from "./pages/workhand-info";
 import ConstructorDetalle from "./components/ConstructorDetalle";
 import "../src/assets/styles/_constructord.scss";
+import "react-icons/io5";
+import "../src/assets/styles/_bannerprov.scss";
+import "../src/assets/styles/_navbarprov.scss";
+import "../src/assets/styles/_beneficiosprov.scss";
+
+import Proveedores from "./pages/proveedores";
 
 function App() {
   return (
     <div className="App">
       <Routes>
         <Route path="/constructores/:nombre" element={<ConstructorDetalle />} />
+        <Route path="/proveedores" element={<Proveedores />} />
         <Route path="/showroom" element={<ShowRoom />} />
         <Route path="/" element={<Home />} />
-        <Route path="presupuestos" element={<Presupuestos />} />
+        <Route path="/presupuestos" element={<Presupuestos />} />
         <Route path="/admin/apu-editor" element={<AdminApus />} />
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />

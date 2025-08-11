@@ -1,0 +1,40 @@
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+  background: #ffffff;
+  color: white;
+}
+
+.containerrse {
+  display: grid;
+  grid-template-areas:
+    "header header header"
+    "nav content aside"
+    "footer footer footer";
+  grid-template-columns: 50% 1fr 50%;
+  grid-template-rows: auto 1fr auto;
+  gap: 5px;
+  height: 110vh;
+  background-color: #ff9900;
+}
+
+.main-naver {
+  grid-area: nav;
+  background-color: #ff9900;
+  padding: 15px;
+  border-radius: 10px;
+}
+.section-fot {
+  background: #000000;
+  height: 800px;
+  width: 100%;
+  min-width: 100%;
+}
+
+.sidebarar {
+  grid-area: aside;
+  background: #ff9900;
+  padding: 15px;
+  border-radius: 10px;
+}

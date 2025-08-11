@@ -1,0 +1,104 @@
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+  color: white;
+}
+.section-foterrrer {
+  display: grid;
+  grid-template-areas:
+    "header header header"
+    "nav content aside"
+    "footer footer footer";
+  grid-template-columns: 800px 1fr 800px;
+  grid-template-rows: auto 1fr auto;
+  height: 130vh;
+}
+.headerfot {
+  grid-area: header;
+  background: #030f27;
+  padding: 15px;
+  text-align: center;
+}
+.sid {
+  grid-area: aside;
+  background: #030f27;
+  padding: 15px;
+}
+.navfoty {
+  grid-area: nav;
+  background: #030f27;
+  padding: 15px;
+}
+.logofots {
+  justify-content: center;
+  margin-left: 180px;
+  margin-top: 80px;
+}
+.parrafoarriba {
+  margin-top: 50px;
+  font-size: 20px;
+}
+.parrafoabajo {
+  font-size: 20px;
+  margin-top: 25px;
+}
+.infoput {
+  margin-top: 20px;
+  font-size: 18px;
+  color: rgb(244, 244, 244);
+}
+
+.formulario {
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+}
+.formulario input {
+  width: 600px;
+  height: 60px;
+  border: 10px;
+  background: #030f27;
+  color: white;
+  font-size: 20px;
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+.formulario input::placeholder {
+  font-size: 18px;
+  background-color: #030f27;
+  padding: 14px 32px 14px 16px;
+  border-radius: 4px 0 0 4px;
+  outline: none;
+  border: 2px solid #fdfdfd;
+}
+.formulario textarea {
+  font-size: 18px;
+  background-color: #030f27;
+  padding: 14px 32px 14px 16px;
+  border-radius: 4px 0 0 4px;
+  outline: none;
+  border: 2px solid #fdfdfd;
+  width: 600px;
+  height: 120px;
+  color: #fdfdfd;
+}
+.env-msg {
+  background-color: #ffc107;
+  border: none;
+  padding: 0.8rem 1.5rem;
+  font-size: 1rem;
+  cursor: pointer;
+  border-radius: 2px;
+  transition: 0.3s ease;
+  margin-top: 20px;
+  &:hover {
+    background-color: #d1c496;
+  }
+}
+.logoherramientas {
+  width: 600px;
+  margin-top: 650px;
+  margin-left: 125px;
+  position: absolute;
+}

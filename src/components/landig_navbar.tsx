@@ -21,7 +21,7 @@ function LandingNavBar() {
             <a href="/#/presupuestos">Contratista</a>
           </li>
           <li>
-            <a href="">Proveedor</a>
+            <a href="/#/proveedores">Proveedor</a>
           </li>
           <li>
             <a href="/#/showroom">Constructores</a>

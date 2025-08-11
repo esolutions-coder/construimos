@@ -28,9 +28,11 @@
   "homepage": "https://github.com/esolutions-coder/cidein-presupuestos#readme",
   "dependencies": {
     "@apollo/client": "^3.13.8",
+    "animate.css": "^4.1.1",
     "graphql": "^16.11.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
+    "react-icons": "^5.5.0",
     "react-router-dom": "^6.30.1"
   },
   "devDependencies": {

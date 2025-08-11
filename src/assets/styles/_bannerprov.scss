@@ -1,0 +1,139 @@
+@use "navbar";
+@use "fonts";
+@use "flex";
+@use "buttons";
+@use "grid";
+@use "cards";
+@use "spacing";
+@use "layout";
+@use "tables";
+@use "forms";
+@use "pills";
+@use "warnings";
+@use "colors";
+@use "spinners";
+
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@100;300;400;500;600;800;900&display=swap");
+
+body,
+html {
+  margin: 0;
+  padding: 0;
+  overflow-x: hidden;
+  width: 100%;
+}
+
+.section-foter {
+  height: 800px;
+  width: 100px;
+}
+.bannerprov-container {
+  background: linear-gradient(to right, #ff9900 0%, #dc8400 51%, #995c00 100%);
+  padding: 2rem 0;
+  position: relative;
+  height: 470px;
+  width: 100%;
+  min-width: 100%;
+}
+
+.bannerprov-content {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  max-width: 1300px;
+  margin: 0 auto;
+  flex-wrap: wrap;
+  padding: 0rem;
+}
+
+.bannerprov-text {
+  flex: 1;
+  max-width: 600px;
+
+  .tagline {
+    font-weight: 700;
+    color: white;
+    font-size: 1.2rem;
+    margin-bottom: 1.5rem;
+    text-align: left;
+    letter-spacing: 2px;
+  }
+
+  .headline {
+    color: white;
+    font-size: 2.6rem;
+    font-weight: 800;
+    margin-bottom: 1.5rem;
+    line-height: 1.3;
+  }
+
+  .subtext {
+    color: white;
+    font-size: 1.3rem;
+    margin-bottom: 2rem;
+    line-height: 1.5;
+    text-align: left;
+  }
+
+  .btn-register {
+    background-color: #ffc107;
+    color: black;
+    border: none;
+    padding: 0.8rem 1.5rem;
+    font-weight: bold;
+    font-size: 1rem;
+    cursor: pointer;
+    border-radius: 4px;
+    transition: 0.3s ease;
+
+    &:hover {
+      background-color: #ffda59;
+    }
+  }
+}
+
+.bannerprov-image {
+  flex: 1;
+  display: flex;
+  justify-content: left;
+  padding: 1rem;
+
+  img {
+    position: absolute;
+    top: -140px;
+    right: -0px;
+  }
+}
+
+// SCROLLBAR
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+::-webkit-scrollbar-track {
+  box-shadow: inset 0 0 2px grey;
+}
+
+::-webkit-scrollbar-thumb {
+  background: colors.$secondary;
+  border-radius: 2px;
+  transition: 0.5s ease;
+
+  &:hover {
+    background: colors.$primary;
+  }
+}
+
+.no_searched {
+  text-align: center;
+
+  span {
+    font-size: 3rem;
+  }
+}
+
+.no_select {
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: -moz-non;
+}

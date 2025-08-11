@@ -1,0 +1,140 @@
+@use "colors";
+
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+  background: #ffffff;
+  color: rgb(255, 255, 255);
+}
+.grind-item {
+  transition: transform 0.5s ease;
+  animation: levitate 3s ease-in-out infinite;
+}
+@keyframes levitate {
+  0% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-20px);
+  }
+  100% {
+    transform: translateY(0);
+  }
+}
+
+.iteso {
+  font-size: 20px;
+  justify-content: center;
+  text-align: center;
+  align-items: center;
+  margin-top: 15px;
+}
+h1 {
+  font-family: "Poppins", sans-serif;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 50px;
+  line-height: 72px;
+  letter-spacing: -1.5px;
+}
+p {
+  font-family: "Poppins", sans-serif;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 24px;
+}
+
+.container {
+  display: grid;
+  grid-template-areas:
+    "header header header"
+    "nav content aside"
+    "footer footer footer";
+  grid-template-columns: 100px 1fr 100px;
+  grid-template-rows: 300px 1fr 1px;
+  gap: 5px;
+  height: 750px;
+}
+.second-article {
+  background: #2e2e4f; // otro color si deseas diferenciarlo
+}
+
+.main-header {
+  grid-area: header;
+  background: #030f27;
+  padding: 110px;
+  text-align: center;
+  border-radius: 10px;
+}
+
+.main-nav {
+  grid-area: nav;
+  background: #000000;
+  padding: 15px;
+  border-radius: 10px;
+}
+.icon {
+  margin-top: 60px;
+  font-size: 60px;
+  margin-bottom: 10px;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.cajita,
+.rayito,
+.arribag,
+.carrito {
+  color: black;
+}
+
+.contents {
+  grid-area: content;
+  background: #030f27;
+  padding: 15px;
+  border-radius: none;
+  display: flex;
+  flex-direction: row;
+  gap: 10px;
+  width: 100%;
+  height: 100%;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+
+.section-header,
+.article,
+.section-footer {
+  background: #fdbe33;
+  padding: 10px;
+  border-radius: none;
+  width: 300px;
+  height: 90%;
+  justify-content: center;
+  text-align: center;
+  align-items: center;
+  font-size: 30px;
+  font-weight: bold;
+  color: black;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+
+.sidebar {
+  grid-area: aside;
+  background: #000000;
+  padding: 15px;
+  border-radius: 10px;
+}
+
+.main-footer {
+  grid-area: footer;
+  background: #000000;
+  padding: 15px;
+  text-align: center;
+  border-radius: 10px;
+}

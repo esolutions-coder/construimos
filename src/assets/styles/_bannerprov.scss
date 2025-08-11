@@ -104,36 +104,3 @@ html {
     right: -0px;
   }
 }
-
-// SCROLLBAR
-::-webkit-scrollbar {
-  width: 10px;
-}
-
-::-webkit-scrollbar-track {
-  box-shadow: inset 0 0 2px grey;
-}
-
-::-webkit-scrollbar-thumb {
-  background: colors.$secondary;
-  border-radius: 2px;
-  transition: 0.5s ease;
-
-  &:hover {
-    background: colors.$primary;
-  }
-}
-
-.no_searched {
-  text-align: center;
-
-  span {
-    font-size: 3rem;
-  }
-}
-
-.no_select {
-  -webkit-user-select: none;
-  -khtml-user-select: none;
-  -moz-user-select: -moz-non;
-}

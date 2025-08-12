@@ -17,8 +17,9 @@ import "react-icons/io5";
 import "../src/assets/styles/_bannerprov.scss";
 import "../src/assets/styles/_navbarprov.scss";
 import "../src/assets/styles/_beneficiosprov.scss";
-
+import Cliente from "./pages/cliente";
 import Proveedores from "./pages/proveedores";
+import "../src/assets/styles/_bannerclient.scss";
 
 function App() {
   return (
@@ -26,6 +27,7 @@ function App() {
       <Routes>
         <Route path="/constructores/:nombre" element={<ConstructorDetalle />} />
         <Route path="/proveedores" element={<Proveedores />} />
+        <Route path="/cliente" element={<Cliente />} />
         <Route path="/showroom" element={<ShowRoom />} />
         <Route path="/" element={<Home />} />
         <Route path="/presupuestos" element={<Presupuestos />} />

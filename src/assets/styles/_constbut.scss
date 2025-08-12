@@ -1,0 +1,41 @@
+.contentp {
+  grid-area: content;
+  background: #ff9900;
+  padding: 15px;
+  display: flex;
+  flex-direction: row;
+  gap: 20px;
+  align-items: center;
+  height: 40vh;
+}
+
+.section-headerp {
+  padding: 10px;
+  border-radius: 8px;
+  width: 500px;
+  margin-left: 200px;
+}
+
+.btn-presupuesto {
+  background-color: #030f27;
+  border: none;
+  padding: 0.8rem 1.5rem;
+  font-size: 1rem;
+  cursor: pointer;
+  border-radius: 2px;
+  transition: 0.3s ease;
+  color: #ff9900;
+  letter-spacing: 2px;
+  width: 400px;
+  font-weight: bold;
+  margin-left: 140px;
+}
+
+.btn-presupuesto:hover {
+  background-color: #d1c496;
+}
+.align-header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}

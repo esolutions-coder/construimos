@@ -6,6 +6,10 @@ function LandingNavBar() {
       <div id="top_logo_name">
         <img id="logo" src={cideinLogo} alt="" />
         <p id="landing_nav_title">CONSTRUÍMOS</p>
+        <div className="auth_buttons">
+          <button className="boton-iniciar">Iniciar Sesion</button>
+          <button className="boton-registrate">Registrate</button>
+        </div>
       </div>
       <div id="bottom_nav">
         <ul>
@@ -13,7 +17,7 @@ function LandingNavBar() {
             <a href="/">Inicio</a>
           </li>
           <li>
-            <a href="#">Cliente</a>
+            <a href="/#/cliente">Cliente</a>
           </li>
           <li>
             <a href="/#/presupuestos">Contratista</a>

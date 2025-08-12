@@ -4,6 +4,7 @@ body {
   padding: 0;
   background: #ffffff;
   color: white;
+  overflow-x: hidden;
 }
 
 .containerrse {
@@ -23,7 +24,6 @@ body {
   grid-area: nav;
   background-color: #ff9900;
   padding: 15px;
-  border-radius: 10px;
 }
 .section-fot {
   background: #000000;
@@ -36,5 +36,4 @@ body {
   grid-area: aside;
   background: #ff9900;
   padding: 15px;
-  border-radius: 10px;
 }

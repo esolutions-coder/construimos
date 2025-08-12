@@ -1,4 +1,3 @@
-import Lading_prov from "../components/landinbar_prov";
 import Bannerprov from "../components/lading_provban";
 import "../assets/styles/_benefics.scss";
 import { IoCartOutline } from "react-icons/io5";
@@ -15,12 +14,12 @@ import altavoz from "../assets/img/altavoz.png";
 import herramientas from "../assets/img/herramientas.png";
 import "../assets/styles/_sectioncuatro.scss";
 import CideinFooter from "../components/cidein_footer";
-import { FiFacebook } from "react-icons/fi";
+import LandingNavBar from "../components/landig_navbar";
 
 function Proveedores() {
   return (
     <>
-      <Lading_prov />
+      <LandingNavBar />
       <div className="section-foter">
         <Bannerprov />
       </div>

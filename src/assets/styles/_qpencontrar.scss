@@ -1,0 +1,42 @@
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+  color: white;
+}
+
+.containerc {
+  display: grid;
+  grid-template-areas:
+    "header header header"
+    "nav content aside"
+    "footer footer footer";
+  grid-template-columns: 0px 1fr 0px;
+  grid-template-rows: 200px 1fr auto;
+  height: 100vh;
+}
+
+.main-headerc {
+  grid-area: header;
+  background: #030f27;
+  padding: 15px;
+  text-align: center;
+}
+
+.contentc {
+  grid-area: content;
+  background: #030f27;
+  padding: 15px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.h1titulo {
+  margin-top: 80px;
+}
+.tituloeicono {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 2rem;
+  justify-content: flex-start;
+}

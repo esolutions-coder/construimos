@@ -18,8 +18,9 @@ import "../src/assets/styles/_bannerprov.scss";
 import "../src/assets/styles/_navbarprov.scss";
 import "../src/assets/styles/_beneficiosprov.scss";
 import Cliente from "./pages/cliente";
-import Proveedores from "./pages/proveedores";
 import "../src/assets/styles/_bannerclient.scss";
+import Proveedores from "./pages/proveedores";
+import Contratista from "./pages/contratista";
 
 function App() {
   return (
@@ -27,6 +28,7 @@ function App() {
       <Routes>
         <Route path="/constructores/:nombre" element={<ConstructorDetalle />} />
         <Route path="/proveedores" element={<Proveedores />} />
+        <Route path="/contratista" element={<Contratista />} />
         <Route path="/cliente" element={<Cliente />} />
         <Route path="/showroom" element={<ShowRoom />} />
         <Route path="/" element={<Home />} />

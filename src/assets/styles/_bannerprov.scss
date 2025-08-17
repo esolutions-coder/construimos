@@ -27,7 +27,7 @@ html {
   width: 100px;
 }
 .bannerprov-container {
-  background: linear-gradient(to right, #ff9900 0%, #dc8400 51%, #995c00 100%);
+  background: linear-gradient(to right, #ff9900 0%, #fdbe33 51%, #995c00 100%);
   padding: 2rem 0;
   position: relative;
   height: 470px;
@@ -75,7 +75,7 @@ html {
   }
 
   .btn-register {
-    background-color: #ffc107;
+    background-color: #fdbe33;
     color: black;
     border: none;
     padding: 0.8rem 1.5rem;
@@ -86,7 +86,7 @@ html {
     transition: 0.3s ease;
 
     &:hover {
-      background-color: #ffda59;
+      background-color: #fdbe33;
     }
   }
 }
@@ -99,7 +99,8 @@ html {
 
   img {
     position: absolute;
-    top: -140px;
-    right: -0px;
+    top: -110px;
+    right: -20px;
+    width: 820px;
   }
 }

@@ -3,6 +3,11 @@
   font-weight: bold;
   color: #030f27;
   margin-left: 130px;
+  transition: transform 0.3s ease-out, color 0.3s, text-shadow 0.3s;
+}
+.titux:hover {
+  transform: scale(1.1);
+  color: #000000;
 }
 
 .subtix {
@@ -11,6 +16,11 @@
   margin-left: 130px;
   justify-content: left;
   text-align: left;
+  transition: transform 0.3s ease-out, color 0.3s, text-shadow 0.3s;
+}
+.subtix:hover {
+  transform: scale(1.1);
+  color: #000000;
 }
 
 .iconocliente {
@@ -19,4 +29,11 @@
   color: #030f27;
   font-size: 100px;
   margin-top: 30px;
+  transition: transform 0.3s ease-out, color 0.3s, text-shadow 0.3s;
+  margin-right: 150px;
+}
+
+.iconocliente:hover {
+  transform: scale(1.1);
+  color: #000000;
 }

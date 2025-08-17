@@ -1,0 +1,40 @@
+.tituxk {
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: #030f27;
+  margin-left: 130px;
+  transition: transform 0.3s ease-out, color 0.3s, text-shadow 0.3s;
+}
+.tituxk:hover {
+  transform: scale(1.1);
+  color: #000000;
+}
+
+.subtixk {
+  font-size: 1.2rem;
+  color: #030f27;
+  margin-left: 130px;
+  justify-content: left;
+  text-align: left;
+  transition: transform 0.3s ease-out, color 0.3s, text-shadow 0.3s;
+  width: 500px;
+}
+.subtixk:hover {
+  transform: scale(1.1);
+  color: #000000;
+}
+
+.iconoclientek {
+  width: 500px;
+  height: 0px;
+  color: #030f27;
+  font-size: 90px;
+  margin-top: 10px;
+  transition: transform 0.3s ease-out, color 0.3s, text-shadow 0.3s;
+  margin-right: 150px;
+}
+
+.iconoclientek:hover {
+  transform: scale(1.1);
+  color: #000000;
+}

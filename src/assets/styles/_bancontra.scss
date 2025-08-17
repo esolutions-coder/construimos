@@ -1,0 +1,101 @@
+@use "navbar";
+@use "fonts";
+@use "flex";
+@use "buttons";
+@use "grid";
+@use "cards";
+@use "spacing";
+@use "layout";
+@use "tables";
+@use "forms";
+@use "pills";
+@use "warnings";
+@use "colors";
+@use "spinners";
+
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@100;300;400;500;600;800;900&display=swap");
+
+body,
+html {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+}
+
+.bannercontratista-container {
+  background: linear-gradient(to right, #aeaeb2 0%, #838383 100%);
+  padding: 2rem 0;
+  position: relative;
+  height: 570px;
+  width: 100%;
+  min-width: 100%;
+}
+
+.bannercontratista-content {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  max-width: 1300px;
+  margin: 0 auto;
+  flex-wrap: wrap;
+  padding: 0rem;
+}
+
+.bannercontratista-text {
+  flex: 1;
+  max-width: 600px;
+
+  .taglinecontratista {
+    font-weight: 700;
+    color: white;
+    font-size: 1.2rem;
+    text-align: left;
+    letter-spacing: 2px;
+    margin-top: 100px;
+  }
+
+  .headlinecontratista {
+    color: white;
+    font-size: 2.6rem;
+    font-weight: 800;
+    margin-bottom: 1.5rem;
+    line-height: 1.3;
+  }
+
+  p {
+    color: white;
+    font-size: 1.5rem;
+    margin-bottom: 1.5rem;
+    line-height: 1.3;
+    text-align: left;
+  }
+
+  .btn-registercontratista {
+    background-color: #ffc107;
+    color: black;
+    border: none;
+    padding: 0.8rem 1.5rem;
+    font-weight: bold;
+    font-size: 1rem;
+    cursor: pointer;
+    border-radius: 4px;
+    transition: 0.3s ease;
+
+    &:hover {
+      background-color: #ffda59;
+    }
+  }
+}
+
+.bannercontratista-image {
+  flex: 1;
+  display: flex;
+  justify-content: left;
+  padding: 1rem;
+
+  img {
+    position: absolute;
+    top: 32px;
+    right: 140px;
+  }
+}

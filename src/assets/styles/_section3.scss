@@ -17,12 +17,12 @@ body {
   grid-template-rows: auto 1fr auto;
   gap: 5px;
   height: 110vh;
-  background-color: #ff9900;
+  background-color: #fdbe33;
 }
 
 .main-naver {
   grid-area: nav;
-  background-color: #ff9900;
+  background-color: #fdbe33;
   padding: 15px;
 }
 .section-fot {
@@ -34,6 +34,6 @@ body {
 
 .sidebarar {
   grid-area: aside;
-  background: #ff9900;
+  background: #fdbe33;
   padding: 15px;
 }

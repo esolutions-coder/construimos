@@ -60,6 +60,10 @@
           color: white;
           font-weight: 500;
           padding: 1.5rem 1.5rem;
+
+          &:hover {
+            background-color: colors.$tertiary;
+          }
         }
       }
     }

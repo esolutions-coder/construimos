@@ -2,58 +2,54 @@
   font-size: 2rem;
   font-weight: bold;
   text-align: center;
-  color: white;
+  color: #030f27;
   justify-content: center;
 }
 
 .subtitulo {
   font-size: 1.3rem;
   text-align: center;
-  color: white;
+  color: #030f27;
 }
 
 .icono {
   width: 500px;
   height: 30px;
-  color: black;
+  color: #030f27;
   object-fit: cover;
   font-size: 200px;
   margin-top: 30px;
   transition: transform 0.3s ease-out, color 0.3s, text-shadow 0.3s;
-}
-.icono:hover {
-  transform: scale(1.1);
-  color: #000000;
 }
 
 .titulo {
   font-size: 4rem;
   font-weight: 700;
   text-align: center;
-  color: rgb(0, 0, 0);
+  color: #030f27;
   margin-top: 18rem;
   transition: transform 0.3s ease-out, color 0.3s, text-shadow 0.3s;
 }
 .titulo:hover {
   transform: scale(1.1);
-  color: #000000;
+  color: #030f27;
 }
 
 .parrafo {
   font-size: 1.3rem;
   text-align: center;
-  color: rgb(0, 0, 0);
+  color: #030f27;
   transition: transform 0.3s ease-out, color 0.3s, text-shadow 0.3s;
 }
 .parrafo:hover {
   transform: scale(1.1);
-  color: #000000;
+  color: #030f27;
 }
 .titulos {
   font-size: 2rem;
   font-weight: bold;
   text-align: left;
-  color: rgb(0, 0, 0);
+  color: #030f27;
   margin-top: 1rem;
   margin-left: 230px;
   transition: transform 0.3s ease-out, color 0.3s, text-shadow 0.3s;
@@ -61,12 +57,12 @@
 
 .titulos:hover {
   transform: scale(1.1);
-  color: #000000;
+  color: #030f27;
 }
 .subtitulos {
   font-size: 1.3rem;
   text-align: center;
-  color: rgb(0, 0, 0);
+  color: #030f27;
   justify-content: center;
   align-items: center;
   margin-left: 230px;
@@ -76,5 +72,5 @@
 
 .subtitulos:hover {
   transform: scale(1.1);
-  color: #000000;
+  color: #030f27;
 }

@@ -14,6 +14,7 @@ body {
   grid-template-columns: 0px 1fr 0px;
   grid-template-rows: 200px 1fr auto;
   height: 100vh;
+  background-color: #030f27;
 }
 
 .main-headerc {
@@ -21,6 +22,17 @@ body {
   background: #030f27;
   padding: 15px;
   text-align: center;
+
+  view-timeline-name: --texto;
+  view-timeline-axis: block;
+
+  animation-timeline: --texto;
+  animation-name: show;
+  animation-range: entry 20% cover 35%;
+  animation-fill-mode: both;
+  animation-duration: 1s;
+  animation-timing-function: cubic-bezier(0.25, 1, 0.5, 1);
+  will-change: opacity, transform, filter;
 }
 
 .contentc {

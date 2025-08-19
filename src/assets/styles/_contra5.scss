@@ -26,6 +26,31 @@ body {
   align-items: center;
   grid-area: header;
   margin-top: 2rem;
+  margin-left: 250px;
+
+  view-timeline-name: --ss;
+  view-timeline-axis: block;
+
+  animation-timeline: --ss;
+  animation-name: show;
+  animation-range: entry 20% cover 35%;
+  animation-fill-mode: both;
+  animation-duration: 1s;
+  animation-timing-function: cubic-bezier(0.25, 1, 0.5, 1);
+  will-change: opacity, transform, filter;
+}
+@keyframes show {
+  0% {
+    opacity: 0;
+    transform: translateY(60px) scale(0.95);
+    filter: blur(8px);
+  }
+
+  100% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+    filter: blur(0);
+  }
 }
 
 .contentpxxi {
@@ -60,7 +85,7 @@ body {
   font-size: 50px;
   line-height: 72px;
   letter-spacing: -1.5px;
-  color: #000000;
+  color: #030f27;
   text-align: center;
   margin: 0;
   margin-left: -90px;
@@ -73,7 +98,7 @@ body {
   font-size: 20px;
   line-height: 36px;
   letter-spacing: -1.5px;
-  color: #000000;
+  color: #030f27;
   text-align: center;
   margin: 1rem 0 0 0;
   margin-left: -100px;

@@ -64,7 +64,7 @@ function Clientes() {
       </div>
       <div className="containerc">
         <header className="main-headerc">
-          <h1 className="h1titulo">¿Qué puedes encontra?</h1>
+          <h1 className="h1titulo">¿Qué puedes encontrar?</h1>
           <p className="p1rrafo">
             Encuentra soluciones pertinentes para los problemas que puedas
             presentar

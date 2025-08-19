@@ -33,9 +33,20 @@ body {
 .titulocuatro {
   font-weight: 600;
   margin-top: 3rem;
-  color: black;
+  color: #030f27;
   text-align: left;
   margin-left: 90px;
+
+  view-timeline-name: --texto;
+  view-timeline-axis: block;
+
+  animation-timeline: --texto;
+  animation-name: show;
+  animation-range: entry 20% cover 35%;
+  animation-fill-mode: both;
+  animation-duration: 1s;
+  animation-timing-function: cubic-bezier(0.25, 1, 0.5, 1);
+  will-change: opacity, transform, filter;
 }
 
 .subtitulocuatro {
@@ -43,7 +54,7 @@ body {
   margin-top: 1rem;
   line-height: 1.6;
   text-align: left;
-  color: black;
+  color: #030f27;
   margin-left: 90px;
 }
 .btnregistrateya {
@@ -52,7 +63,6 @@ body {
   padding: 0.8rem 1.5rem;
   font-size: 1rem;
   cursor: pointer;
-  border-radius: 2px;
   transition: 0.3s ease;
   margin-top: 20px;
   margin-left: 90px;

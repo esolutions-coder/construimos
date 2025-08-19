@@ -18,6 +18,20 @@ body {
   background-color: #030f27;
 }
 
+@keyframes show {
+  0% {
+    opacity: 0;
+    transform: translateY(60px) scale(0.95);
+    filter: blur(8px);
+  }
+
+  100% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+    filter: blur(0);
+  }
+}
+
 .main-x {
   grid-area: header;
   background: #030f27;
@@ -26,6 +40,17 @@ body {
   width: 100%;
   max-width: 2000px;
   margin: 0 auto;
+
+  view-timeline-name: --ss;
+  view-timeline-axis: block;
+
+  animation-timeline: --ss;
+  animation-name: show;
+  animation-range: entry 20% cover 35%;
+  animation-fill-mode: both;
+  animation-duration: 1s;
+  animation-timing-function: cubic-bezier(0.25, 1, 0.5, 1);
+  will-change: opacity, transform, filter;
 }
 
 .contentpxx {
@@ -63,7 +88,7 @@ body {
   color: #ffffff;
   text-align: center;
   margin: 0;
-  margin-left: -120px;
+  margin-left: -180px;
   margin-top: 3rem;
 }
 
@@ -78,7 +103,7 @@ body {
   margin: 1rem 0 0 0;
   width: 800px;
   position: absolute;
-  margin-left: 400px;
+  margin-left: 350px;
   margin-top: 0px;
 }
 .contratust {

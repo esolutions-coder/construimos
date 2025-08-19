@@ -1,18 +1,18 @@
 .tituxksd {
   font-size: 1.3rem;
   font-weight: bold;
-  color: #000000;
+  color: #030f27;
   margin-left: 130px;
   transition: transform 0.3s ease-out, color 0.3s, text-shadow 0.3s;
 }
 .tituxksd:hover {
   transform: scale(1.1);
-  color: #000000;
+  color: #030f27;
 }
 
 .subtixksd {
   font-size: 1rem;
-  color: #000000;
+  color: #030f27;
   margin-left: 130px;
   justify-content: left;
   text-align: left;
@@ -21,20 +21,15 @@
 }
 .subtixksd:hover {
   transform: scale(1.1);
-  color: #000000;
+  color: #030f27;
 }
 
 .iconoclienteksd {
   width: 500px;
   height: 0px;
-  color: #000000;
+  color: #030f27;
   font-size: 70px;
   margin-top: 10px;
   transition: transform 0.3s ease-out, color 0.3s, text-shadow 0.3s;
   margin-right: 200px;
-}
-
-.iconoclienteksd:hover {
-  transform: scale(1.1);
-  color: #000000;
 }

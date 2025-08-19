@@ -26,7 +26,7 @@ function Proveedores() {
 
       <div className="section-foter1">
         <div className="container">
-          <header className="main-header">
+          <header className="main-headerxs">
             <h1>Beneficios</h1>
             <p>
               Conecta con más clientes, optimiza tus procesos y aumenta tus
@@ -38,7 +38,7 @@ function Proveedores() {
           <section className="contents">
             <header className="section-header grind-item">
               <BsBoxSeam className="icon cajita" />
-              <strong>Publica tu inventario</strong>
+              <strong className="tittlo">Publica tu inventario</strong>
               <p className="iteso">
                 Tus productos visibles para contratistas y clientes
               </p>
@@ -46,7 +46,7 @@ function Proveedores() {
 
             <article className="article animate__animated animate__pulse animate__delay-1s grind-item">
               <HiTrendingUp className="icon arribag" />
-              <strong>Más ventas</strong>
+              <strong className="tittlo">Más ventas</strong>
               <p className="iteso">
                 Conecta directamente con quienes necesitan tus materiales
               </p>
@@ -54,7 +54,7 @@ function Proveedores() {
 
             <article className="article grind-item">
               <AiOutlineThunderbolt className="icon rayito" />
-              <strong>Presupuestos automáticos</strong>
+              <strong className="tittlo">Presupuestos automáticos</strong>
               <p className="iteso">
                 Tus precios se integran a las cotizaciones de los contratistas
               </p>
@@ -62,7 +62,7 @@ function Proveedores() {
 
             <footer className="section-footer grind-item">
               <IoCartOutline className="icon carrito" />
-              <strong>Promociona tu tienda</strong>
+              <strong className="tittlo">Promociona tu tienda</strong>
               <p className="iteso">Anuncia descuentos y productos destacados</p>
             </footer>
           </section>

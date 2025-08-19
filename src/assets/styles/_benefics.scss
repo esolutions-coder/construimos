@@ -50,6 +50,7 @@ h1 {
   gap: 5px;
   height: 750px;
 }
+
 .second-article {
   background: #2e2e4f; // otro color si deseas diferenciarlo
 }
@@ -59,6 +60,11 @@ h1 {
   background: #030f27;
   padding: 110px;
   text-align: center;
+
+  /* Centrado horizontal del contenedor */
+  width: 100%;
+  max-width: 1100px;
+  margin: 0 auto;
 }
 
 .main-nav {

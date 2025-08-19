@@ -101,4 +101,10 @@ body {
   margin-top: 690px;
   margin-left: 160px;
   position: absolute;
+  mask-image: none;
+  -webkit-mask-image: linear-gradient(
+    to top,
+    rgb(255, 255, 255) 87%,
+    transparent
+  );
 }

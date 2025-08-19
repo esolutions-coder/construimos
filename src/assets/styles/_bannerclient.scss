@@ -66,7 +66,7 @@ html {
 
   p {
     color: white;
-    font-size: 1.5rem;
+    font-size: 1.3rem;
     margin-bottom: 2rem;
     line-height: 1.3;
     margin-bottom: 1.5rem;
@@ -75,15 +75,14 @@ html {
   }
 
   .btn-registerclient {
-    background-color: #ffc107;
-    color: black;
+    background-color: #fdbe33;
     border: none;
-    padding: 0.8rem 1.5rem;
-    font-weight: bold;
+    padding: 0.75rem 1rem;
     font-size: 1rem;
     cursor: pointer;
-    border-radius: 4px;
     transition: 0.3s ease;
+    margin-top: 0.5rem;
+    animation: levitate 3s infinite;
 
     &:hover {
       background-color: #ffda59;
@@ -102,4 +101,96 @@ html {
     top: 18px;
     right: 140px;
   }
+}
+
+@keyframes slideInLeft {
+  from {
+    opacity: 0;
+    transform: translateX(-100%);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+.headlineclient {
+  animation: fadeInUp 2s ease-out forwards;
+}
+
+@keyframes slideInRight {
+  from {
+    opacity: 0;
+    transform: translateX(100%);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+@keyframes rotateIn {
+  from {
+    transform: rotate(-200deg);
+    opacity: 0;
+  }
+  to {
+    transform: rotate(0);
+    opacity: 1;
+  }
+}
+@keyframes fadeScaleIn {
+  from {
+    opacity: 0;
+    transform: scale(1.1);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+.clind {
+  animation: fadeInUp 2s ease-out forwards;
+  mask-image: none;
+  -webkit-mask-image: linear-gradient(
+    to bottom,
+    rgb(255, 255, 255) 75%,
+    transparent
+  );
+}
+
+.taglineclient {
+  animation: zoomIn 2s ease-out forwards;
+}
+
+@keyframes flipInX {
+  from {
+    transform: perspective(400px) rotateX(90deg);
+    opacity: 0;
+  }
+  to {
+    transform: perspective(400px) rotateX(0deg);
+    opacity: 1;
+  }
+}
+
+@keyframes bounceIn {
+  0% {
+    opacity: 0;
+    transform: scale(0.3);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.05);
+  }
+  70% {
+    transform: scale(0.9);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+.subtextclientx {
+  animation: slideInRight 2s ease-out forwards;
 }

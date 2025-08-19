@@ -1,5 +1,7 @@
-.btn{
-    border: none;
-    padding: 0.75rem 1rem;
-    cursor: pointer;
+.btn {
+  border: none;
+  padding: 0.75rem 1rem;
+  cursor: pointer;
+  animation: fadeInUp 2s ease-out forwards;
+  margin-top: 1rem;
 }

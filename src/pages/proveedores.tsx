@@ -26,7 +26,7 @@ function Proveedores() {
 
       <div className="section-foter1">
         <div className="container">
-          <header className="main-header animate__animated animate__backInUp">
+          <header className="main-header">
             <h1>Beneficios</h1>
             <p>
               Conecta con más clientes, optimiza tus procesos y aumenta tus
@@ -35,7 +35,7 @@ function Proveedores() {
             </p>
           </header>
 
-          <section className="contents animate__animated animate__fadeInUp">
+          <section className="contents">
             <header className="section-header grind-item">
               <BsBoxSeam className="icon cajita" />
               <strong>Publica tu inventario</strong>
@@ -52,7 +52,7 @@ function Proveedores() {
               </p>
             </article>
 
-            <article className="article animate__animated animate__pulse animate__delay-2s grind-item">
+            <article className="article grind-item">
               <AiOutlineThunderbolt className="icon rayito" />
               <strong>Presupuestos automáticos</strong>
               <p className="iteso">

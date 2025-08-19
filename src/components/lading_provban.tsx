@@ -1,13 +1,24 @@
 import imagenc from "../assets/img/imagenc.png";
+import useTypewriter from "./useTypewriter";
 
 function Bannerprov() {
+  const text = useTypewriter(
+    "LLlega a más constructores\ny vende más materiales",
+    40
+  );
+
   return (
     <div className="bannerprov-container">
       <div className="bannerprov-content">
         <div className="bannerprov-text">
           <p className="tagline">PROVEEDORES</p>
           <h1 className="headline">
-            Llega a más constructores <br /> y vende más materiales
+            {text.split("\n").map((line, index) => (
+              <span key={index}>
+                {line}
+                <br />
+              </span>
+            ))}
           </h1>
           <p className="subtext">
             Registra tu tienda, publica tu inventario y conecta con cientos de
@@ -16,10 +27,11 @@ function Bannerprov() {
           <button className="btn-register">Regístrate gratis</button>
         </div>
         <div className="bannerprov-image">
-          <img src={imagenc} alt="Proveedor feliz" />
+          <img src={imagenc} alt="Proveedor feliz" className="confelizd" />
         </div>
       </div>
     </div>
   );
 }
+
 export default Bannerprov;

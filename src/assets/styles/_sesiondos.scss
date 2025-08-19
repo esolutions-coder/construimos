@@ -22,6 +22,12 @@ html {
   border-radius: 10px;
   margin-top: 116px;
   margin-left: 140px;
+  mask-image: none;
+  -webkit-mask-image: linear-gradient(
+    to bottom,
+    rgb(255, 255, 255) 80%,
+    transparent
+  );
 }
 
 .apartadoiconos {

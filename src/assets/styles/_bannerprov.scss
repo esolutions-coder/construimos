@@ -27,7 +27,7 @@ html {
   width: 100px;
 }
 .bannerprov-container {
-  background: linear-gradient(to right, #ff9900 0%, #fdbe33 51%, #995c00 100%);
+  background: linear-gradient(to right, #ff9900 0%, #dc8400 51%, #995c00 100%);
   padding: 2rem 0;
   position: relative;
   height: 470px;
@@ -76,17 +76,16 @@ html {
 
   .btn-register {
     background-color: #fdbe33;
-    color: black;
     border: none;
-    padding: 0.8rem 1.5rem;
-    font-weight: bold;
+    padding: 0.75rem 1rem;
     font-size: 1rem;
     cursor: pointer;
-    border-radius: 4px;
     transition: 0.3s ease;
+    margin-top: 0rem;
+    animation: levitate 3s infinite;
 
     &:hover {
-      background-color: #fdbe33;
+      background-color: #c7b99c;
     }
   }
 }
@@ -103,4 +102,44 @@ html {
     right: -20px;
     width: 820px;
   }
+}
+.typewriter {
+  overflow: hidden;
+  white-space: nowrap;
+  animation: typing 4s steps(50), blink 5s step-end infinite;
+  width: 0;
+}
+
+@keyframes typing {
+  from {
+    width: 0;
+  }
+  to {
+    width: 100%;
+  }
+}
+
+.headline::after {
+  animation: blink 1s infinite;
+  color: #ff9900;
+}
+
+@keyframes blink {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0;
+  }
+}
+
+.confelizd {
+  animation: slideInRight 2s ease-out forwards;
+  animation: fadeInUp 2s ease-out forwards;
+  mask-image: none;
+}
+
+.tagline {
+  animation: zoomIn 2s ease-out forwards;
 }

@@ -41,7 +41,7 @@
         transition: background-color 0.3s;
 
         &:hover {
-          background-color: darken(colors.$primary, 10%);
+          background-color: darken(colors.$tertiary, 10%);
         }
       }
     }
@@ -49,46 +49,41 @@
 
   #bottom_nav {
     background-color: colors.$secondary;
+
     ul {
       padding-left: 0;
       display: flex;
+
       li {
         list-style: none;
         display: flex;
+
         a {
           text-decoration: none;
           color: white;
           font-weight: 500;
           padding: 1.5rem 1.5rem;
-
-          &:hover {
-            background-color: colors.$tertiary;
-          }
+          transition: opacity 0.3s ease;
         }
       }
-    }
-  }
 
-  #logo {
-    object-fit: contain;
-    pointer-events: none;
-    animation: App-logo-spin 5s linear;
-  }
+      // Efecto de desenfoque a los que NO estén siendo hover
+      &:hover li a {
+        opacity: 0.5;
+      }
 
-  @media (prefers-reduced-motion: no-preference) {
-    #logo {
-      animation: App-logo-spin 5s linear;
+      li:hover a {
+        opacity: 3 !important;
+        color: colors.$primary;
+      }
     }
   }
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+#logo {
+  object-fit: contain;
+  pointer-events: none;
+  animation: App-logo-spin 5s linear;
 }
 
 .bottom_options_nav {

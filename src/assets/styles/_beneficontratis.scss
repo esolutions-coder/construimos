@@ -117,3 +117,13 @@ h1 {
   line-height: 1.5;
   margin-bottom: 40px;
 }
+
+.conxsz {
+  animation: fadeInUp 2s ease-out forwards;
+  mask-image: none;
+  -webkit-mask-image: linear-gradient(
+    to bottom,
+    rgb(255, 255, 255) 90%,
+    transparent
+  );
+}

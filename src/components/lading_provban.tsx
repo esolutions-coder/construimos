@@ -1,5 +1,6 @@
 import imagenc from "../assets/img/imagenc.png";
 import useTypewriter from "./useTypewriter";
+import "../assets/styles/_bannerprov.scss";
 
 function Bannerprov() {
   const text = useTypewriter(
@@ -26,9 +27,7 @@ function Bannerprov() {
           </p>
           <button className="btn-register">Regístrate gratis</button>
         </div>
-        <div className="bannerprov-image">
-          <img src={imagenc} alt="Proveedor feliz" className="confelizd" />
-        </div>
+        <img src={imagenc} alt="Proveedor feliz" className="confelizd" />
       </div>
     </div>
   );

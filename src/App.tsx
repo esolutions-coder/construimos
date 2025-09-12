@@ -12,13 +12,8 @@ import TransportationInfo from "./pages/transportation-info";
 import EquipmentInfo from "./pages/equipment-info";
 import WorkhandInfo from "./pages/workhand-info";
 import ConstructorDetalle from "./components/ConstructorDetalle";
-import "../src/assets/styles/_constructord.scss";
 import "react-icons/io5";
-import "../src/assets/styles/_bannerprov.scss";
-import "../src/assets/styles/_navbarprov.scss";
-import "../src/assets/styles/_beneficiosprov.scss";
 import Cliente from "./pages/cliente";
-import "../src/assets/styles/_bannerclient.scss";
 import Proveedores from "./pages/proveedores";
 import Contratista from "./pages/contratista";
 

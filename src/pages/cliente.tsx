@@ -34,7 +34,7 @@ function Clientes() {
           <img src={rojoclient} alt="logocliente" className="rojocliente" />
         </nav>
 
-        <section className="apartadoiconos">
+        <aside className="apartadoiconos">
           <Numeroscliente
             icono={<PiNumberCircleOneFill />}
             titulo="Contratistas calificados."
@@ -60,7 +60,7 @@ function Clientes() {
             titulo="Soporte y asesoría"
             subtitulo="Recibe ayuda para tomar decisiones informadas."
           />
-        </section>
+        </aside>
       </div>
       <div className="containerc">
         <header className="main-headerc">
@@ -94,14 +94,14 @@ function Clientes() {
           </div>
         </section>
       </div>
-      <div className="containerp">
-        <section className="contentp">
-          <header className="section-headerp align-header">
-            <img id="logo" src={cideinLogo} alt="" />
-            <p id="landing_nav_title">CONSTRUÍMOS</p>
-          </header>
+      <div className="contentp">
+        <nav className="btn-presupuestodoss">
           <button className="btn-presupuesto">Pide tu presupuesto</button>
-        </section>
+        </nav>
+        <header className="section-headerp align-header">
+          <img id="logo" src={cideinLogo} alt="" />
+          <p id="landing_nav_title">CONSTRUÍMOS</p>
+        </header>
       </div>
       <CideinFooter />
     </>

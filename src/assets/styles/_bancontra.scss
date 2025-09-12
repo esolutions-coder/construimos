@@ -15,20 +15,9 @@
 
 @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@100;300;400;500;600;800;900&display=swap");
 
-body,
-html {
-  margin: 0;
-  padding: 0;
-  width: 100%;
-}
-
 .bannercontratista-container {
   background: linear-gradient(to right, #6c6b6b 0%, #a4a4a6 100%);
   padding: 2rem 0;
-  position: relative;
-  height: 570px;
-  width: 100%;
-  min-width: 100%;
 }
 
 .bannercontratista-content {
@@ -151,4 +140,36 @@ html {
 }
 .subtextcontratista {
   animation: slideInRight 2s ease-out forwards;
+}
+
+@media (max-width: 1300px) {
+  .bannercontratista-text {
+    margin: 0 auto;
+  }
+  .conxsz {
+    margin: 0 auto;
+  }
+}
+
+@media (max-width: 908px) {
+  .conxsz {
+    margin: 0 auto;
+  }
+
+  .bannercontratista-text {
+    margin: 0 auto;
+    margin-left: 1rem;
+  }
+}
+
+@media (max-width: 508px) {
+  .conxsz {
+    margin: 0 auto;
+    width: 400px;
+  }
+
+  .bannercontratista-text {
+    margin: 0 auto;
+    margin-left: 1rem;
+  }
 }

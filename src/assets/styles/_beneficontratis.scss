@@ -6,6 +6,7 @@ body {
   padding: 0;
   background: #ffffff;
   color: rgb(255, 255, 255);
+  overflow-x: hidden;
 }
 .grind-item {
   transition: transform 0.5s ease;
@@ -35,6 +36,7 @@ h1 {
   font-size: 50px;
   line-height: 72px;
   letter-spacing: -1.5px;
+  font-size: clamp(20px, 8vw, 44px);
 }
 
 .main-headerx {
@@ -45,7 +47,6 @@ h1 {
   border-radius: 10px;
 }
 .mainx {
-  height: 800px;
   background-color: #030f27;
 }
 
@@ -66,32 +67,24 @@ h1 {
 }
 
 .contentsx {
-  grid-area: content;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  justify-items: center;
   background: #030f27;
   padding: 15px;
-  border-radius: none;
-  display: flex;
-  flex-direction: row;
-  gap: 30px;
-  align-items: center;
-  justify-content: center;
-  text-align: center;
-  align-items: stretch;
-  height: 400px;
+  row-gap: var(--gap-y);
 }
 
 .section-headerx,
 .articlex,
 .section-footerx {
   background: #fdbe33;
-  padding: 20px;
   width: 295px;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
   text-align: center;
   color: #030f27;
   font-size: 1.5rem;
+  height: 330px;
+  margin-bottom: 3rem;
 }
 
 .card-content {

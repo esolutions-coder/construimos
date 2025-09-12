@@ -1,124 +1,123 @@
 @use "colors";
 
-.landing_card_body{
-    display: flex;
-    padding: 2rem 2rem;
-    gap: 1.5rem;
-    .landing_card_icon{
-        align-self: center;
-        span{
-            font-size: 80px !important;
-        }
-
+.landing_card_body {
+  display: flex;
+  flex-wrap: wrap;
+  padding: 2rem 2rem;
+  gap: 1.5rem;
+  .landing_card_icon {
+    align-self: center;
+    span {
+      font-size: 80px !important;
     }
+  }
 }
 
-.smallCard_body{
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
+.smallCard_body {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 
-    padding: 2rem 0.75rem;
+  padding: 2rem 0.75rem;
 
-    .smallCard_icon{
-        .material-symbols-outlined{
-            font-size: 48px;
-        }
+  .smallCard_icon {
+    .material-symbols-outlined {
+      font-size: 48px;
     }
+  }
 }
 
-.apu_card{
-    background-color: colors.$tertiary;
-    padding: 0.25rem 1rem;
-    border-radius: 0.5rem;
+.apu_card {
+  background-color: colors.$tertiary;
+  padding: 0.25rem 1rem;
+  border-radius: 0.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 12px;
+  .apu_card_title {
+    font-size: 1rem;
+    text-align: left;
+    line-height: 1.5rem;
+  }
+  .apu_card_description {
+    font-size: 0.75rem;
+    font-weight: 500;
+    text-align: left;
+    letter-spacing: 0.4px;
+    line-height: 1rem;
+  }
+  .apu_card_actions {
     display: flex;
-    align-items: center;
-    justify-content: space-between;
-    margin-bottom: 12px;
-    .apu_card_title{
-            font-size: 1rem;
-            text-align: left;
-            line-height: 1.5rem;
-    }
-    .apu_card_description{
-        font-size: 0.75rem;
-        font-weight: 500;
-        text-align: left;
-        letter-spacing: 0.4px;
-        line-height: 1rem;
-    }
-    .apu_card_actions{
-        display: flex;
-        gap: 12px;
-        span{
-            display: flex;
-            align-items: center;
-            cursor: pointer;
-        }
-    }
-}
-
-.showroom_item_container{
-    display: flex;
-
-    .showroom_title_container{
-        display: flex;
-        gap: 0.5rem;
-        .showroom_date_container{
-            background-color: colors.$secondary;
-            color: colors.$primary;
-            padding: 0.75rem;
-        }
-        .showroom_title{
-            p{
-                text-align: left;
-            }
-        }
-    }
-
-    .showroom_description{
-        margin: 1rem 0 1rem;
-        p{
-            text-align: left;
-        }
-    }
-
-    .showroom_calification{
-        display: flex;
-        gap: 12px;
-        ul{
-            padding-left: 0;
-            display: flex;
-            align-items: center;
-            li{
-                list-style: none;
-            }
-        }
-    }
-
-    .showroom_contractor{
-        p{
-            text-align: left;
-        }
-    }
-}
-
-.showroom_stars_container{
-    background-color: colors.$secondary;
-    color: colors.$primary;
-    display: flex;
-    border-radius: 4px;
-    align-items: center;
-    padding: 0.75rem;
     gap: 12px;
-    .showroom_starts_image{
-        img{
-            width: 56px;
-            aspect-ratio: 1/1;
-            object-fit: cover;
-            border-radius: 50%;
-        }
+    span {
+      display: flex;
+      align-items: center;
+      cursor: pointer;
     }
+  }
+}
 
+.showroom_item_container {
+  display: flex;
+
+  .showroom_title_container {
+    display: flex;
+    gap: 0.5rem;
+    .showroom_date_container {
+      background-color: colors.$secondary;
+      color: colors.$primary;
+      padding: 0.75rem;
+    }
+    .showroom_title {
+      p {
+        text-align: left;
+      }
+    }
+  }
+
+  .showroom_description {
+    margin: 1rem 0 1rem;
+    p {
+      text-align: left;
+    }
+  }
+
+  .showroom_calification {
+    display: flex;
+    gap: 12px;
+    ul {
+      padding-left: 0;
+      display: flex;
+      align-items: center;
+      li {
+        list-style: none;
+      }
+    }
+  }
+
+  .showroom_contractor {
+    p {
+      text-align: left;
+    }
+  }
+}
+
+.showroom_stars_container {
+  background-color: colors.$secondary;
+  color: colors.$primary;
+  display: flex;
+  border-radius: 4px;
+  align-items: center;
+  padding: 0.75rem;
+  gap: 12px;
+  .showroom_starts_image {
+    img {
+      width: 56px;
+      aspect-ratio: 1/1;
+      object-fit: cover;
+      border-radius: 50%;
+    }
+  }
 }

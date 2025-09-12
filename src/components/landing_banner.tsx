@@ -6,7 +6,7 @@ function Banner() {
       <img src={BannerImage} alt="" />
       <div id="over_banner_info">
         <h4 className="txt_white">Soy un cliente</h4>
-        <p className="txt_white">
+        <p className="txt_whitedos">
           Los clientes son las personas que quieren desarrollar un proyecto y
           necesitan de profesionales para llevarlos a cabo
         </p>

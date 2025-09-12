@@ -9,6 +9,7 @@
     justify-content: space-between;
     align-items: center;
     gap: 1rem;
+    flex-wrap: wrap;
 
     .auth_buttons {
       display: flex;
@@ -25,7 +26,7 @@
         transition: background-color 0.3s;
 
         &:hover {
-          background-color: darken(colors.$tertiary, 10%);
+          background-color: colors.$tertiary;
         }
       }
 
@@ -39,7 +40,7 @@
         transition: background-color 0.3s;
 
         &:hover {
-          background-color: darken(colors.$tertiary, 10%);
+          background-color: colors.$tertiary;
         }
       }
     }
@@ -137,5 +138,27 @@
         }
       }
     }
+  }
+}
+@media (max-width: 1008px) {
+  #bottom_nav ul {
+    display: flex;
+    flex-wrap: wrap;
+  }
+
+  .auth_buttons {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    margin-bottom: 1rem;
+  }
+  .boton-iniciar,
+  .boton-registrate {
+  }
+}
+
+@media (max-width: 1008px) {
+  #landing_navbar {
+    margin: 0 auto;
   }
 }

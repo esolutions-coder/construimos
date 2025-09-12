@@ -15,35 +15,14 @@
 
 @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@100;300;400;500;600;800;900&display=swap");
 
-body,
-html {
-  margin: 0;
-  padding: 0;
-  width: 100%;
-}
-
 .bannerclient-container {
   background: linear-gradient(to right, #1e124a 0%, #170460 51%, #230496 100%);
   padding: 2rem 0;
-  position: relative;
-  height: 570px;
-  width: 100%;
-  min-width: 100%;
-}
-
-.bannerclient-content {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  max-width: 1300px;
-  margin: 0 auto;
-  flex-wrap: wrap;
-  padding: 0rem;
 }
 
 .bannerclient-text {
-  flex: 1;
   max-width: 600px;
+  margin-left: 10rem;
 
   .taglineclient {
     font-weight: 700;
@@ -61,7 +40,6 @@ html {
     font-weight: 800;
     margin-bottom: 1.5rem;
     line-height: 1.3;
-    text-align: 50px;
   }
 
   p {
@@ -70,7 +48,6 @@ html {
     margin-bottom: 2rem;
     line-height: 1.3;
     margin-bottom: 1.5rem;
-    text-align: 50px;
     text-align: left;
   }
 
@@ -87,19 +64,6 @@ html {
     &:hover {
       background-color: #ffda59;
     }
-  }
-}
-
-.bannerclient {
-  flex: 1;
-  display: flex;
-  justify-content: left;
-  padding: 1rem;
-
-  img {
-    position: absolute;
-    top: 18px;
-    right: 140px;
   }
 }
 
@@ -149,6 +113,11 @@ html {
   }
 }
 
+.bannerclient-content {
+  display: flex;
+  flex-wrap: wrap;
+}
+
 .clind {
   animation: fadeInUp 2s ease-out forwards;
   mask-image: none;
@@ -193,4 +162,36 @@ html {
 
 .subtextclientx {
   animation: slideInRight 2s ease-out forwards;
+}
+
+@media (max-width: 1300px) {
+  .bannerclient-text {
+    margin: 0 auto;
+  }
+  .clind {
+    margin: 0 auto;
+  }
+}
+
+@media (max-width: 908px) {
+  .clind {
+    margin: 0 auto;
+  }
+
+  .bannerclient-text {
+    margin: 0 auto;
+    margin-left: 1rem;
+  }
+}
+
+@media (max-width: 508px) {
+  .clind {
+    margin: 0 auto;
+    width: 400px;
+  }
+
+  .bannerclient-text {
+    margin: 0 auto;
+    margin-left: 1rem;
+  }
 }

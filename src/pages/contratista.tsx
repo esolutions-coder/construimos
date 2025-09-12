@@ -28,16 +28,16 @@ function Contratista() {
         <Bannercontratista />
       </div>
       <div className="mainx">
-        <header className="main-header">
+        <div className="main-header">
           <h1>Beneficios</h1>
           <p>
             Conecta con más clientes, optimiza tus procesos y aumenta tus ventas
             gracias a nuestras soluciones diseñadas especialmente para
             proveedores
           </p>
-        </header>
-        <section className="contentsx">
-          <header className="section-headerx grind-item">
+        </div>
+        <content className="contentsx">
+          <div className="section-headerx grind-item">
             <div className="card-content">
               <IoNewspaper className="iconx cajita" />
               <strong className="titxlos">Creación de presupuestos</strong>
@@ -45,9 +45,9 @@ function Contratista() {
                 Crea presupuestos con precios actuales de forma rápida y eficaz
               </p>
             </div>
-          </header>
+          </div>
 
-          <header className="section-headerx  grind-item">
+          <div className="section-headerx  grind-item">
             <div className="card-content">
               <MdSecurity className="iconx rayito" />
               <strong className="titxlos">SG-SST</strong>
@@ -56,18 +56,18 @@ function Contratista() {
                 Trabajo
               </p>
             </div>
-          </header>
-          <header className="section-headerx grind-item">
+          </div>
+          <div className="section-headerx grind-item">
             <div className="card-content">
               <IoMdPerson className="iconx carrito" />
               <strong className="titxlos">Clientes</strong>
               <p className="itesox">Encuentra a personas que te necesiten</p>
             </div>
-          </header>
-        </section>
+          </div>
+        </content>
       </div>
       <div className="containerph">
-        <header className="main-k">
+        <div className="main-header">
           <h1 className="tixtsss">Creación de presupuestos</h1>
           <p className="paxfo">
             Construimos pone a tu disposición precios, rendimientos y lo más
@@ -75,11 +75,11 @@ function Contratista() {
             de materiales, equipos, herramientas para que puedas formular tus
             proyectos acertadamente
           </p>
-        </header>
+        </div>
         <nav className="contnavpx">
           <img src={laptop} className="imagenlaptop" alt="laptop" />
         </nav>
-        <section className="contentph">
+        <aside className="contentph">
           <Numeroscontratista
             icono={<PiNumberCircleOneFill />}
             titulo="Selecciona categoría"
@@ -93,28 +93,30 @@ function Contratista() {
           <Numeroscontratista
             icono={<PiNumberCircleThreeFill />}
             titulo="Añade a tu presupuesto"
-            subtitulo="Una vez encuentres lo que buscas añadeos a tu presupuesto"
+            subtitulo="Una vez encuentres lo que buscas añadelos a tu presupuesto"
           />
           <Numeroscontratista
             icono={<PiNumberCircleFourFill />}
-            titulo="Prescios al día"
+            titulo="Precios al día"
             subtitulo="Todos los materiales, herramientas, equipos y mano de obra tienen precios actuales y por región"
           />
-        </section>
+        </aside>
       </div>
       <div className="containerphx">
-        <header className="main-x">
+        <div className="main-header">
           <h1 className="tixtsssx">Conecta con tus clientes</h1>
           <p className="paxfox">
             Ya sea que ellos te contacten a tí o tu contactes con ellos, te
-            brindamos las herramientas para llevar a cabo esa conexión
+            brindamos <br />
+            las herramientas para llevar a cabo esa conexión
           </p>
-        </header>
+        </div>
+
         <nav className="contnavpxx">
           <Numeroscon
             icono={<PiNumberCircleOneFill />}
             titulo="Selecciona categoría"
-            subtitulo="Busca entre materiales, "
+            subtitulo="Busca entre materiales"
           />
           <Numeroscon
             icono={<PiNumberCircleTwoFill />}
@@ -129,16 +131,15 @@ function Contratista() {
           <Numeroscon
             icono={<PiNumberCircleFourFill />}
             titulo="Prescios al día"
-            subtitulo="Todos los materialesales"
+            subtitulo="Todos los materiales"
           />{" "}
         </nav>
-
-        <section className="contentpxx">
+        <aside className="acidepersons">
           <img src={twopersonsc} className="contratust" alt="contratust" />
-        </section>
+        </aside>
       </div>
       <div className="containerphxi">
-        <header className="main-xi">
+        <header className="main-header">
           <h1 className="tixtsssxi">
             Sistemas de Gestión - Seguridad y salud <br />
             en el trabajo
@@ -149,22 +150,21 @@ function Contratista() {
             solo lugar
           </p>
         </header>
-        <img src={compui} className="contratusti" alt="contratusti" />
-
-        <section className="contentpxxi">
-          <nav className="contnavpxxi">
-            <Numr
-              icono={<PiNumberCircleOneFill />}
-              titulo="Selecciona categoría"
-              subtitulo="Busca entre materiales, "
-            />
-            <Numr
-              icono={<PiNumberCircleTwoFill />}
-              titulo="Introduce palabra clave"
-              subtitulo="Introduce tu criterio de búsqueda"
-            />
-          </nav>{" "}
-        </section>
+        <nav className="navsistemas">
+          <img src={compui} className="contratusti" alt="contratusti" />
+        </nav>
+        <aside className="contentph">
+          <Numr
+            icono={<PiNumberCircleOneFill />}
+            titulo="Selecciona categoría"
+            subtitulo="Busca entre materiales, "
+          />
+          <Numr
+            icono={<PiNumberCircleTwoFill />}
+            titulo="Introduce palabra clave"
+            subtitulo="Introduce tu criterio de búsqueda"
+          />
+        </aside>
       </div>
       <CideinFooter />
     </>

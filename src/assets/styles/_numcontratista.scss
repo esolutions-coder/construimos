@@ -33,3 +33,45 @@
   transition: transform 0.3s ease-out, color 0.3s, text-shadow 0.3s;
   margin-right: 150px;
 }
+
+@media (max-width: 1500px) {
+  .tituxk {
+    font-size: 1.6rem;
+    margin-left: 9rem;
+  }
+  .subtixk {
+    margin-left: 9rem;
+  }
+  .iconoclientek {
+    font-size: 7rem;
+  }
+}
+
+@media (max-width: 950px) {
+  .tituxk {
+    font-size: 1.8rem;
+    margin-left: 9rem;
+  }
+  .subtixk {
+    margin-left: 9rem;
+    width: 300px;
+  }
+  .iconoclientek {
+    font-size: 7rem;
+  }
+}
+
+@media (max-width: 500px) {
+  .tituxk {
+    font-size: 1.3rem;
+    margin-left: 5rem;
+  }
+  .subtixk {
+    margin-left: 5rem;
+    font-size: 1rem;
+    width: 250px;
+  }
+  .iconoclientek {
+    font-size: 5rem;
+  }
+}

@@ -46,3 +46,12 @@ $success: rgb(32, 197, 32);
 .bg_secondary {
   background-color: $secondary;
 }
+
+@media (max-width: 800px) {
+  .txt_white {
+    font-size: 1.6rem;
+  }
+  .txt_whitedos {
+    font-size: 1.2rem;
+  }
+}

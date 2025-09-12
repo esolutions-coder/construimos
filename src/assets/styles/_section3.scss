@@ -1,12 +1,3 @@
-body {
-  font-family: Arial, sans-serif;
-  margin: 0;
-  padding: 0;
-  background: #ffffff;
-  color: white;
-  overflow-x: hidden;
-}
-
 .containerrse {
   display: grid;
   grid-template-areas:
@@ -16,25 +7,54 @@ body {
   grid-template-columns: 50% 1fr 50%;
   grid-template-rows: auto 1fr auto;
   gap: 5px;
-  height: 110vh;
   background-color: #fdbe33;
+  display: flex;
+  flex-wrap: wrap;
 }
 
 .main-naver {
   grid-area: nav;
-  background-color: #fdbe33;
   padding: 15px;
-}
-
-.section-fot {
-  background: #000000;
-  height: 800px;
-  width: 100%;
-  min-width: 100%;
+  margin-left: 4rem;
 }
 
 .sidebarar {
   grid-area: aside;
-  background: #fdbe33;
-  padding: 15px;
+  margin-bottom: 4rem;
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 6rem;
+  margin-left: 6rem;
+  width: 575px;
+}
+
+/* Secciones */
+
+/* Si quieres alturas mínimas: */
+.section-foter {
+  background: linear-gradient(to right, #ff9900 0%, #dc8400 51%, #995c00 100%);
+  padding: 5rem 0;
+  position: relative;
+}
+
+.section-foter1 {
+  background-color: #030f27;
+}
+
+.section-foterrrer {
+  background-color: #030f27;
+}
+
+.sectioncuatro {
+  background-color: #fdbe33;
+}
+
+@media (max-width: 1300px) {
+  .main-naver {
+    margin: 0 auto;
+  }
+  .sidebarar {
+    margin: 0 auto;
+    margin-bottom: 3rem;
+  }
 }

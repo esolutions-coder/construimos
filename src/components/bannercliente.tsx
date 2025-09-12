@@ -17,9 +17,7 @@ function Bannercliente() {
           </p>
           <button className="btn-registerclient">Regístrate gratis</button>
         </div>
-        <div className="bannerclient">
-          <img src={cliente} alt="client" className="clind" />
-        </div>
+        <img src={cliente} alt="client" className="clind" />
       </div>
     </div>
   );

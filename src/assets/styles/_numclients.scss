@@ -4,6 +4,9 @@
   color: #030f27;
   margin-left: 130px;
   transition: transform 0.3s ease-out, color 0.3s, text-shadow 0.3s;
+  width: 800px;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  display: grid;
 }
 .titux:hover {
   transform: scale(1.1);
@@ -31,4 +34,45 @@
   margin-top: 30px;
   transition: transform 0.3s ease-out, color 0.3s, text-shadow 0.3s;
   margin-right: 150px;
+}
+
+@media (max-width: 1300px) {
+  .titux {
+    font-size: 1.8rem;
+    margin-left: 9rem;
+  }
+  .subtix {
+    margin-left: 9rem;
+  }
+  .iconocliente {
+    font-size: 7rem;
+  }
+}
+
+@media (max-width: 950px) {
+  .titux {
+    font-size: 1.8rem;
+    margin-left: 9rem;
+  }
+  .subtix {
+    margin-left: 9rem;
+  }
+  .iconocliente {
+    font-size: 6rem;
+  }
+}
+
+@media (max-width: 508px) {
+  .titux {
+    font-size: 1.4rem;
+    margin-left: 6rem;
+  }
+  .subtix {
+    margin-left: 6rem;
+    font-size: 1.2rem;
+    width: 280px;
+  }
+  .iconocliente {
+    font-size: 6rem;
+  }
 }

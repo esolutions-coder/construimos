@@ -15,9 +15,7 @@ function Bannercontratista() {
           </p>
           <button className="btn-registercontratista">Regístrate gratis</button>
         </div>
-        <div className="bannercontratista-image">
-          <img src={Contrator} alt="contrator" className="conxsz" />
-        </div>
+        <img src={Contrator} alt="contrator" className="conxsz" />
       </div>
     </div>
   );

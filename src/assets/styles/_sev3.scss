@@ -1,25 +1,18 @@
-body {
-  font-family: Arial, sans-serif;
-  margin: 0;
-  padding: 0;
-  color: white;
-}
 .section-foterrrer {
   display: grid;
   grid-template-areas:
     "header header header"
     "nav content aside"
     "footer footer footer";
-  grid-template-columns: 800px 1fr 800px;
-  grid-template-rows: auto 1fr auto;
-  height: 130vh;
+  gap: 5px;
 }
 .headerfot {
   grid-area: header;
-  background: #030f27;
   padding: 15px;
+  margin: 0 auto;
+  margin-left: 16rem;
+  width: 1000px;
   text-align: center;
-
   view-timeline-name: --texto;
   view-timeline-axis: block;
 
@@ -33,18 +26,16 @@ body {
 }
 .sid {
   grid-area: aside;
-  background: #030f27;
+
   padding: 15px;
 }
 .navfoty {
   grid-area: nav;
-  background: #030f27;
   padding: 15px;
 }
 .logofots {
-  justify-content: center;
-  margin-left: 180px;
-  margin-top: 80px;
+  margin-left: 10rem;
+  margin-top: 2rem;
 }
 .parrafoarriba {
   margin-top: 50px;
@@ -59,18 +50,17 @@ body {
   font-size: 18px;
   color: rgb(244, 244, 244);
 }
-
 .formulario {
-  flex-wrap: wrap;
-  align-items: center;
-  justify-content: center;
+  margin-bottom: 6rem;
+  margin-left: -20rem;
 }
+
 .formulario input {
-  width: 600px;
+  width: 80%;
   height: 60px;
   border: 10px;
-  background: #030f27;
-  color: white;
+  background: #ffffff;
+  color: rgb(0, 0, 0);
   font-size: 20px;
   margin-top: 10px;
   margin-bottom: 10px;
@@ -90,8 +80,8 @@ body {
   border-radius: 4px 0 0 4px;
   outline: none;
   border: 2px solid #fdfdfd;
-  width: 600px;
-  height: 120px;
+  width: 80%;
+  height: 100px;
   color: #fdfdfd;
 }
 .env-msg {
@@ -101,20 +91,74 @@ body {
   font-size: 1rem;
   cursor: pointer;
   transition: 0.3s ease;
-  margin-top: 20px;
+  margin-top: 2rem;
+  margin-bottom: 2rem;
+  margin-left: 2rem;
+
   &:hover {
     background-color: #d1c496;
   }
 }
 .logoherramientas {
-  width: 570px;
-  margin-top: 690px;
-  margin-left: 160px;
-  position: absolute;
   mask-image: none;
+  margin-left: -4rem;
+
   -webkit-mask-image: linear-gradient(
-    to top,
-    rgb(255, 255, 255) 87%,
+    to right,
+    rgb(255, 255, 255) 90%,
     transparent
   );
+}
+
+@media (min-width: 1700px) {
+  .logoherramientas {
+    margin-left: 34rem;
+    mask-image: none;
+    -webkit-mask-image: linear-gradient(
+      to right,
+      rgb(255, 255, 255) 90%,
+      transparent
+    );
+  }
+  .headerfot {
+    margin-left: 26rem;
+  }
+  .logofots {
+    margin-left: 25rem;
+  }
+}
+
+@media (max-width: 1020px) {
+  .section-foterrrer {
+    grid-template-areas:
+      "header "
+      "nav "
+      "aside";
+    gap: 5px;
+  }
+
+  .formulario {
+    margin: 0 auto;
+  }
+
+  .logofots {
+    margin: 0 auto;
+    width: 360px;
+  }
+
+  .navfoty {
+    margin: 0 auto;
+  }
+  .sid {
+    margin: 0 auto;
+  }
+  .logoherramientas {
+    margin-left: -1rem;
+  }
+}
+
+@media (max-width: 500px) {
+  .logoherramientas {
+    width: 400px;
+  }
 }

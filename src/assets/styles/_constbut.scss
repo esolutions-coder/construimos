@@ -7,13 +7,14 @@
   gap: 20px;
   align-items: center;
   height: 40vh;
+  flex-wrap: wrap;
 }
 
 .section-headerp {
   padding: 10px;
   border-radius: 8px;
   width: 500px;
-  margin-left: 200px;
+  margin-left: 100px;
 }
 
 .btn-presupuesto {
@@ -27,7 +28,7 @@
   letter-spacing: 2px;
   width: 401px;
   font-weight: bold;
-  margin-left: 140px;
+  margin-left: 4rem;
 }
 
 .btn-presupuesto:hover {
@@ -37,4 +38,46 @@
   display: flex;
   align-items: center;
   gap: 10px;
+}
+
+@media (min-width: 1900px) {
+  .align-header {
+    margin-left: 25rem;
+    width: 40%;
+  }
+  .align-header {
+    margin-left: 18rem;
+    margin-top: 0rem;
+  }
+}
+
+@media (max-width: 1300px) {
+  .align-header {
+    margin: 0 auto;
+  }
+
+  .btn-presupuestodoss {
+    margin: 0 auto;
+  }
+}
+
+@media (max-width: 1000px) {
+  .align-header {
+    margin: 0 auto;
+  }
+
+  .btn-presupuestodoss {
+    margin: 0 auto;
+  }
+}
+
+@media (max-width: 508px) {
+  .align-header {
+    font-size: 1.2rem;
+  }
+
+  .btn-presupuesto {
+    margin: 0 auto;
+    width: 200px;
+  }
 }

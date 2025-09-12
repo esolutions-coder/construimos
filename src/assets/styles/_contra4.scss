@@ -1,10 +1,3 @@
-body {
-  font-family: Arial, sans-serif;
-  margin: 0;
-  padding: 0;
-  color: white;
-}
-
 .containerphx {
   display: grid;
   grid-template-areas:
@@ -14,8 +7,9 @@ body {
   grid-template-columns: 200px 1fr 200px;
   grid-template-rows: auto 1fr auto;
   gap: 5px;
-  height: 105vh;
   background-color: #030f27;
+  display: flex;
+  flex-wrap: wrap;
 }
 
 @keyframes show {
@@ -33,13 +27,8 @@ body {
 }
 
 .main-x {
-  grid-area: header;
   background: #030f27;
   padding: 15px;
-  text-align: center;
-  width: 100%;
-  max-width: 2000px;
-  margin: 0 auto;
 
   view-timeline-name: --ss;
   view-timeline-axis: block;
@@ -54,7 +43,6 @@ body {
 }
 
 .contentpxx {
-  grid-area: content;
   background: #030f27;
   padding: 15px;
   border-radius: 10px;
@@ -63,33 +51,34 @@ body {
   align-items: center;
   justify-content: center;
   gap: 10px;
-  width: 800px;
   height: 500px;
   margin-left: 510px;
   margin-top: -10px;
 }
 
-.contnavpxx {
-  grid-area: nav;
-  background: #030f27;
-  border-radius: 10px;
-  height: 500px;
-  width: 800px;
-  margin-top: 50px;
-  margin-left: 11rem;
+.acidepersons {
+  grid-area: aside;
+  margin-left: 0rem;
 }
+
+.contnavpxx {
+  border-radius: 10px;
+  margin-top: -1rem;
+  margin-left: 14rem;
+  margin-bottom: 3rem;
+  grid-area: nav;
+}
+
 .tixtsssx {
   font-family: "Poppins", sans-serif;
-  font-style: normal;
   font-weight: 500;
   font-size: 50px;
   line-height: 72px;
   letter-spacing: -1.5px;
   color: #ffffff;
   text-align: center;
-  margin: 0;
-  margin-left: -180px;
   margin-top: 3rem;
+  font-size: clamp(20px, 8vw, 44px);
 }
 
 .paxfox {
@@ -101,16 +90,14 @@ body {
   letter-spacing: -1.5px;
   color: #fffbf4;
   margin: 1rem 0 0 0;
-  width: 800px;
-  position: absolute;
-  margin-left: 350px;
-  margin-top: 0px;
+  text-align: center;
+}
+
+.asidecontratista {
+  grid-area: nav;
 }
 .contratust {
-  position: absolute;
-  margin-top: 147px;
-  margin-left: 100px;
-  width: 50%;
+  grid-area: aside;
   mask-image: none;
   -webkit-mask-image: linear-gradient(
     to bottom,
@@ -118,4 +105,51 @@ body {
     rgb(0, 0, 0) 60%,
     transparent
   );
+}
+@media (max-width: 2000px) {
+  .contnavpxx {
+    margin-left: 13rem;
+  }
+  .acidepersons {
+    margin: 0 auto;
+  }
+}
+
+@media (max-width: 1500px) {
+  .acidepersons {
+    margin: 0 auto;
+    margin-bottom: 4rem;
+  }
+  .contnavpxx {
+    margin: 0 auto;
+  }
+}
+
+@media (max-width: 950px) {
+  .acidepersons {
+    margin: 0 auto;
+    margin-bottom: 4rem;
+    margin-top: 2rem;
+  }
+  .contnavpxx {
+    margin: 0 auto;
+  }
+  .contratust {
+    width: 500px;
+  }
+}
+
+@media (max-width: 500px) {
+  .acidepersons {
+    margin: 0 auto;
+    margin-bottom: 4rem;
+    margin-top: 2rem;
+  }
+
+  .contnavpxx {
+    margin: 0 auto;
+  }
+  .contratust {
+    width: 400px;
+  }
 }

@@ -26,14 +26,14 @@ function Proveedores() {
 
       <div className="section-foter1">
         <div className="container">
-          <header className="main-headerxs">
+          <div className="main-header">
             <h1>Beneficios</h1>
             <p>
               Conecta con más clientes, optimiza tus procesos y aumenta tus
               ventas gracias a nuestras soluciones diseñadas especialmente para
               proveedores
             </p>
-          </header>
+          </div>
 
           <section className="contents">
             <header className="section-header grind-item">
@@ -44,27 +44,27 @@ function Proveedores() {
               </p>
             </header>
 
-            <article className="article animate__animated animate__pulse animate__delay-1s grind-item">
+            <div className="article  grind-item">
               <HiTrendingUp className="icon arribag" />
               <strong className="tittlo">Más ventas</strong>
               <p className="iteso">
                 Conecta directamente con quienes necesitan tus materiales
               </p>
-            </article>
+            </div>
 
-            <article className="article grind-item">
+            <div className="article grind-item">
               <AiOutlineThunderbolt className="icon rayito" />
               <strong className="tittlo">Presupuestos automáticos</strong>
               <p className="iteso">
                 Tus precios se integran a las cotizaciones de los contratistas
               </p>
-            </article>
+            </div>
 
-            <footer className="section-footer grind-item">
+            <div className="section-footer grind-item">
               <IoCartOutline className="icon carrito" />
               <strong className="tittlo">Promociona tu tienda</strong>
               <p className="iteso">Anuncia descuentos y productos destacados</p>
-            </footer>
+            </div>
           </section>
         </div>
       </div>
@@ -97,13 +97,14 @@ function Proveedores() {
         </div>
       </div>
       <div className="section-foterrrer">
-        <header className="headerfot">
+        <div className="main-header">
           <p className="parrafoarriba">A UN CLICK DE SABER MÁS</p>
           <h1 className="titulx">¿Quieres más información?</h1>
           <p className="parrafoabajo">
-            Dejanos un mensaje con tus dudas y en breve las resolveremos
+            Dejanos un mensaje con tus dudas
+            <br /> y en breve las resolveremos
           </p>
-        </header>
+        </div>
         <nav className="navfoty">
           <img className="logofots" src={altavoz} alt="logo" />
         </nav>
@@ -118,16 +119,9 @@ function Proveedores() {
               placeholder="Quiero saber cómo puedo hacer la portabilidad de todo mi inventario"
               className="textarea w-full h-28 bg-[#030c26] text-white border border-white/25 rounded-md p-3 text-base resize-none"
             />
+            <button className="env-msg">ENVIAR MENSAJE</button>
           </form>
-          <button className="env-msg">ENVIAR MENSAJE</button>
         </aside>
-        <footer className="section-foot ">
-          <img
-            className="logoherramientas"
-            src={herramientas}
-            alt="logoherramientas"
-          />
-        </footer>
       </div>
       <div className="sectioncuatro">
         <nav className="navcuatro">
@@ -143,6 +137,13 @@ function Proveedores() {
           </p>
           <button className="btnregistrateya">REGISTRATE</button>
         </nav>
+        <aside className="section-foot ">
+          <img
+            className="logoherramientas"
+            src={herramientas}
+            alt="logoherramientas"
+          />
+        </aside>
       </div>
       <CideinFooter />
     </>

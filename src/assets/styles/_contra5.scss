@@ -1,43 +1,15 @@
-body {
-  font-family: Arial, sans-serif;
-  margin: 0;
-  padding: 0;
-  color: white;
-}
-
 .containerphxi {
   display: grid;
   grid-template-areas:
     "header header header"
     "nav content aside"
     "footer footer footer";
-  grid-template-columns: 200px 1fr 200px;
-  grid-template-rows: auto 1fr auto;
+  grid-template-columns: 100px 1fr 100px;
+  grid-template-rows: 400px;
   gap: 5px;
-  height: 105vh;
-  background-color: #fdbe33;
-}
-
-.main-xi {
-  width: 100%;
-  max-width: 1100px;
-  margin: 0 auto;
-  justify-content: center;
-  align-items: center;
-  grid-area: header;
-  margin-top: 2rem;
-  margin-left: 250px;
-
-  view-timeline-name: --ss;
-  view-timeline-axis: block;
-
-  animation-timeline: --ss;
-  animation-name: show;
-  animation-range: entry 20% cover 35%;
-  animation-fill-mode: both;
-  animation-duration: 1s;
-  animation-timing-function: cubic-bezier(0.25, 1, 0.5, 1);
-  will-change: opacity, transform, filter;
+  background: #fdbe33;
+  display: flex;
+  flex-wrap: wrap;
 }
 @keyframes show {
   0% {
@@ -54,8 +26,6 @@ body {
 }
 
 .contentpxxi {
-  grid-area: content;
-  background: #fdbe33;
   padding: 15px;
   border-radius: 10px;
   display: flex;
@@ -65,18 +35,14 @@ body {
   gap: 10px;
   width: 800px;
   height: 200px;
-  margin-left: 550px;
-  margin-top: 40px;
+  margin-top: 4rem;
+  margin-left: 40rem;
+  margin-bottom: 18rem;
 }
 
 .contnavpxxi {
-  grid-area: nav;
-  background: #fdbe33;
-  border-radius: 10px;
-  height: 500px;
-  width: 800px;
-  margin-top: 120px;
-  margin-left: 22rem;
+  margin-top: -5rem;
+  margin-left: 15rem;
 }
 .tixtsssxi {
   font-family: "Poppins", sans-serif;
@@ -88,7 +54,12 @@ body {
   color: #030f27;
   text-align: center;
   margin: 0;
-  margin-left: -90px;
+  font-size: clamp(20px, 8vw, 44px);
+}
+
+.navsistemas {
+  margin-left: 13rem;
+  margin-bottom: 2rem;
 }
 
 .paxfoxi {
@@ -101,11 +72,40 @@ body {
   color: #030f27;
   text-align: center;
   margin: 1rem 0 0 0;
-  margin-left: -100px;
 }
-.contratusti {
-  position: absolute;
-  margin-top: 290px;
-  margin-left: 150px;
-  width: 50%;
+
+@media (min-width: 1900px) {
+  .navsistemas {
+    width: 800px;
+  }
+
+  .contratusti {
+    margin-left: 10rem;
+  }
+}
+
+@media (max-width: 1500px) {
+  .navsistemas {
+    margin: 0 auto;
+  }
+}
+
+@media (max-width: 950px) {
+  .navsistemas {
+    margin: 0 auto;
+  }
+  .contratusti {
+    margin: 0 auto;
+    width: 450px;
+  }
+}
+
+@media (max-width: 500px) {
+  .navsistemas {
+    margin: 0 auto;
+  }
+  .contratusti {
+    margin: 0 auto;
+    width: 400px;
+  }
 }

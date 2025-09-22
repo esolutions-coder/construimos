@@ -125,5 +125,6 @@ p {
 @media (max-width: 508px) {
   #landing_nav_title {
     font-size: clamp(20px, 8vw, 54px);
+    text-align: center;
   }
 }

@@ -1,4 +1,5 @@
 import cideinLogo from "../assets/img/cidein_logo.png";
+import { Link } from "react-router-dom";
 
 function LandingNavBar() {
   return (
@@ -7,8 +8,12 @@ function LandingNavBar() {
         <img id="logo" src={cideinLogo} alt="" />
         <p id="landing_nav_title">CONSTRUÍMOS</p>
         <div className="auth_buttons">
-          <button className="boton-iniciar">Iniciar Sesion</button>
-          <button className="boton-registrate">Registrate</button>
+          <Link to="/login">
+            <button className="boton-iniciar">Iniciar Sesion</button>
+          </Link>
+          <Link to="/register">
+            <button className="boton-registrate">Registrate</button>
+          </Link>
         </div>
       </div>
       <div id="bottom_nav">

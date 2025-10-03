@@ -50,7 +50,9 @@ const ConstructorDetalle = () => {
               </li>
             </ul>
           </div>
-          <div className="contenedor-boton"></div>
+          <div className="contenedor-boton">
+            
+          </div>
         </div>
       </div>
     </div>

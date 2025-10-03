@@ -22,6 +22,7 @@
 
 .bannerclient-text {
   max-width: 600px;
+  margin-top: -1rem;
   margin-left: 10rem;
 
   .taglineclient {
@@ -116,6 +117,7 @@
 .bannerclient-content {
   display: flex;
   flex-wrap: wrap;
+  margin-top: 3rem;
 }
 
 .clind {
@@ -126,6 +128,7 @@
     rgb(255, 255, 255) 75%,
     transparent
   );
+  margin-left: 6rem;
 }
 
 .taglineclient {

@@ -33,6 +33,7 @@
 .bannercontratista-text {
   flex: 1;
   max-width: 600px;
+  margin-top: -6rem;
 
   .taglinecontratista {
     font-weight: 700;
@@ -145,6 +146,7 @@
 @media (max-width: 1300px) {
   .bannercontratista-text {
     margin: 0 auto;
+    margin-top: 4rem;
   }
   .conxsz {
     margin: 0 auto;
@@ -159,6 +161,7 @@
   .bannercontratista-text {
     margin: 0 auto;
     margin-left: 1rem;
+    margin-top: 4rem;
   }
 }
 
@@ -171,5 +174,6 @@
   .bannercontratista-text {
     margin: 0 auto;
     margin-left: 1rem;
+    margin-top: 4rem;
   }
 }

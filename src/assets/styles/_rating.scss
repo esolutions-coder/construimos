@@ -1,0 +1,36 @@
+.rating {
+  unicode-bidi: bidi-override;
+  font-size: 2rem;
+  display: inline-flex;
+  flex-direction: row-reverse;
+  gap: 0.3rem;
+  justify-content: left;
+
+  input[type="radio"] {
+    display: none;
+  }
+
+  label {
+    cursor: pointer;
+    color: #ccc;
+
+    &::before {
+      content: "★";
+      display: inline-block;
+    }
+  }
+
+  input:checked ~ label::before,
+  input:checked + label::before,
+  input:checked + label ~ label::before {
+    color: #ffd700;
+  }
+
+  &.display-only {
+    pointer-events: none;
+
+    label {
+      cursor: default;
+    }
+  }
+}

@@ -1,0 +1,32 @@
+{
+  "items": [
+    {
+      "name": "HOJA DE VIDA",
+      "propName": "ccv"
+    },
+    {
+      "name": "EXAMENES DE INGRESO",
+      "propName": "examenes"
+    },
+    {
+      "name": "ANTECEDENTES",
+      "propName": "antecedentes"
+    },
+    {
+      "name": "CERTIFICADO EPS",
+      "propName": "eps"
+    },
+    {
+      "name": "CERTIFICADO ARL",
+      "propName": "arl"
+    },
+    {
+      "name": "CERTIFICADO CCF",
+      "propName": "ccf"
+    },
+    {
+      "name": "CERTIFICADO PENSIONES",
+      "propName": "ffpp"
+    }
+  ]
+}

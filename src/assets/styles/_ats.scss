@@ -1,0 +1,190 @@
+@use "colors";
+
+.atsTable{
+    margin-top: 12px;
+    border: solid black 1px;
+    font-size: 12px;
+    border-collapse: collapse;
+    tr{
+        td{
+            border: solid black 1px;
+        }
+    }
+}
+
+.checkboxContainer{
+    display: flex;
+    gap: 4px;
+}
+
+//Grid
+.atsContainer{
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    font-size: 12px;
+    div{
+        margin: 0.5px;
+        text-transform: uppercase;
+    }
+}
+
+.optionContainer{
+    border: none !important;
+}
+
+.riskIdentificationContainer{
+    justify-content: space-between;
+}
+
+.atsLogo{
+    height: 60px;
+    object-fit:cover;
+}
+
+.allBorder{
+    border: solid rgb(168, 168, 168) 1px;
+}
+
+//Fonts
+.atsTitle{
+    font-size: 12px;
+    font-weight: 500;
+    padding: 2px 4px;
+}
+
+
+//Config panel
+.atsConfiguration{
+    gap: 12px;
+    margin-top: 12px;
+    .workerImage{
+        img{
+            padding: 8px;
+            border-radius: 50%;
+            width: 100%;
+            aspect-ratio: 1/1;
+            object-fit: cover;
+        }
+    }
+}
+
+.workerInfoBox{
+    display: flex;
+    justify-content: space-between;
+    padding: 4px 4px;
+    border: solid rgb(201, 201, 201) 1px;
+    border-radius: 4px;
+    align-items: center;
+    margin-bottom:12px ;
+    font-size: 12px;
+    a{
+        color: black;
+        text-decoration: none;
+        user-select: none;
+        cursor: pointer;
+    }
+    span{
+        font-size: 16px;
+    }
+}
+
+.machine_container{
+    position: relative;
+    width: 100%;
+    height: 400px;
+    .machine{
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        .seeMore{
+            position: absolute;
+            color: white;
+            z-index: 100;
+            cursor: pointer;
+            text-shadow: #FC0 1px 0 10px;
+            user-select: none;
+        }
+        img{
+            position: relative;
+            filter: grayscale(1);
+            transition: all 0.3s ease;
+            object-fit: cover;
+            width: 100%;
+            height: 100%;
+            &.colorful{
+                filter: grayscale(0) blur(0);
+                transition: all 0.3s ease;
+                z-index: 99;
+            }
+            
+        }
+    }
+}
+
+.imageContainer{
+    position: relative;
+    .points{
+        position: absolute;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+}
+.shiny{
+    color: white;
+    user-select: none;
+    transition: all 0.3s ease;
+    text-shadow: rgb(255, 255, 255) 1px 0 10px;
+    &.active{
+        transition: all 0.3s ease;
+        color: rgb(72, 255, 0);
+        text-shadow: 1px 4px 16px rgb(9, 255, 0);
+        animation: zoom-in-zoom-out 1s ease infinite;
+    }
+}
+
+.createTaskContainer{
+    display: flex;
+    gap: 12px;
+    .createTaskOptions{
+        width: 500px;
+        .active{
+            display: block;
+        }
+        .disabled{
+            display: none;
+        }
+    }
+    .createTaskSidebar{
+        ul{
+            list-style: none;
+            padding-left: 0;
+            border-right: colors.$secondary 2px solid;
+            padding-right: 3px;
+            li {
+                padding: 4px;
+                text-transform: capitalize;
+                cursor: pointer;
+                user-select: none;
+                &.selected {
+                    background-color: #FC0;
+                    padding: 4px;
+                    border-radius: 4px;
+                }
+            }
+        }
+    }
+}
+
+@keyframes zoom-in-zoom-out {
+    0% {
+      scale: 100%;
+    }
+    50% {
+      scale: 150%;
+    }
+    100% {
+      scale: 100%;
+    }
+  }

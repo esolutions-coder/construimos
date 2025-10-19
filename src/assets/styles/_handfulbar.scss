@@ -1,0 +1,53 @@
+@use "colors";
+
+.cleanLists{
+        padding: 0;
+        li{
+            list-style: none;
+        }
+}
+.handfulbarContainer {
+    position: relative;
+    top: 0;
+
+    .handfulBar {
+        width: 100%;
+        font-size: 12px;
+        z-index: 100;
+
+        ul {
+            display: flex;
+
+            .dropdown {
+                position: relative;
+                display: inline-block;
+                list-style: none;
+                cursor: pointer;
+                user-select: none;
+                margin-left: 4px;
+                .dropName {
+                    padding: 2px 4px;
+                    
+                }
+
+                .dropdown-content {
+                    display: none;
+                    position: absolute;
+                    min-width: 160px;
+                    padding: 4px;
+                    z-index: 1;
+                    background-color: white;
+                    box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 1px 3px 1px;
+                    li{
+                        
+                        padding: 4px;
+                    }
+                    &.show{
+                        display: block;
+                    }
+                }
+            }
+
+        }
+    }
+}

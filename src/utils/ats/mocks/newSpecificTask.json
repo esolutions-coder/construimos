@@ -1,0 +1,271 @@
+{
+    "name": "",
+    "parent": "",
+    "_id": "",
+    "riskIdentification": {
+      "surroundings": [
+        {
+          "option": "Nivel de ruido",
+          "isActive": false
+        },
+        {
+          "option": "Iluminación",
+          "isActive": false
+        },
+        {
+          "option": "Trabajos de altura",
+          "isActive": false
+        },
+        {
+          "option": "Resbaloso / caídas",
+          "isActive": false
+        },
+        {
+          "option": "Muelle / Agua",
+          "isActive": false
+        },
+        {
+          "option": "Clima",
+          "isActive": false
+        },
+        {
+          "option": "Cables y tuberías enterradas",
+          "isActive": false
+        },
+        {
+          "option": "Químicos",
+          "isActive": false
+        },
+        {
+          "option": "Caminos",
+          "isActive": false
+        },
+        {
+          "option": "Material con filo",
+          "isActive": false
+        },
+        {
+          "option": "Guayas / cables",
+          "isActive": false
+        },
+        {
+          "option": "Lineas de alto voltaje",
+          "isActive": false
+        },
+        {
+          "option": "Combustible",
+          "isActive": false
+        },
+        {
+          "option": "Congestión",
+          "isActive": false
+        }
+      ],
+      "equipmentAndTools": [
+        {
+          "option": "Herramienta de mano",
+          "isActive": false
+        },
+        {
+          "option": "Opera con aire",
+          "isActive": false
+        },
+        {
+          "option": "Generador",
+          "isActive": false
+        },
+        {
+          "option": "Escaleras",
+          "isActive": false
+        },
+        {
+          "option": "Bombas",
+          "isActive": false
+        },
+        {
+          "option": "Andamio",
+          "isActive": false
+        },
+        {
+          "option": "Manguera",
+          "isActive": false
+        },
+        {
+          "option": "Extintor de fuego",
+          "isActive": false
+        },
+        {
+          "option": "Herramientas / extensiones eléctricas",
+          "isActive": false
+        },
+        {
+          "option": "Grúa / Malacate / Winche",
+          "isActive": false
+        },
+        {
+          "option": "Equipo móvil",
+          "isActive": false
+        },
+        {
+          "option": "Guayas para cargar",
+          "isActive": false
+        },
+        {
+          "option": "Circuito / malla tierra",
+          "isActive": false
+        },
+        {
+          "option": "Otros",
+          "isActive": false
+        }
+      ],
+      "requiredEpp": [
+        {
+          "option": "casco",
+          "isActive": false
+        },
+        {
+          "option": "Gafas de seguridad",
+          "isActive": false
+        },
+        {
+          "option": "Respirador",
+          "isActive": false
+        },
+        {
+          "option": "Protección auditiva",
+          "isActive": false
+        },
+        {
+          "option": "Guantes",
+          "isActive": false
+        },
+        {
+          "option": "Ropa protectora soladura",
+          "isActive": false
+        },
+        {
+          "option": "Otros",
+          "isActive": false
+        },
+        {
+          "option": "Ropa protectora",
+          "isActive": false
+        },
+        {
+          "option": "Botas de seguridad",
+          "isActive": false
+        },
+        {
+          "option": "Careta",
+          "isActive": false
+        },
+        {
+          "option": "Chaleco reflectivo",
+          "isActive": false
+        },
+        {
+          "option": "Arnés de seguridad",
+          "isActive": false
+        },
+        {
+          "option": "Equipo de rescate",
+          "isActive": false
+        }
+      ],
+      "identifiedRisks": [
+        {
+          "option": "Eléctrico",
+          "isActive": false
+        },
+        {
+          "option": "Caliente",
+          "isActive": false
+        },
+        {
+          "option": "Excavación",
+          "isActive": false
+        },
+        {
+          "option": "AGUA EN HUECO",
+          "isActive": false
+        },
+        {
+          "option": "ESPACIO CONFINADO",
+          "isActive": false
+        },
+        {
+          "option": "TRABAJOS EN ALTURAS",
+          "isActive": false
+        },
+        {
+          "option": "OTROS",
+          "isActive": false
+        }
+      ],
+      "productMaterial": [
+        {
+          "option": "CORROSIVO",
+          "isActive": false
+        },
+        {
+          "option": "FRÍO",
+          "isActive": false
+        },
+        {
+          "option": "TÓXICO",
+          "isActive": false
+        },
+        {
+          "option": "HIDROCARBURO",
+          "isActive": false
+        },
+        {
+          "option": "LÍQUIDO",
+          "isActive": false
+        },
+        {
+          "option": "CALIENTE",
+          "isActive": false
+        },
+        {
+          "option": "SÓLIDOS",
+          "isActive": false
+        },
+        {
+          "option": "GAS VAPOR",
+          "isActive": false
+        },
+        {
+          "option": "PARTICULAS EN EL AMBIENTE",
+          "isActive": false
+        },
+        {
+          "option": "OTROS",
+          "isActive": false
+        }
+      ],
+      "other": [
+        {
+          "option": "PROCEDIMIENTOS",
+          "isActive": false
+        },
+        {
+          "option": "CONSIDERACIONES AMBIENTALES",
+          "isActive": false
+        },
+        {
+          "option": "INSPECCIONES DE EQUIPOS",
+          "isActive": false
+        },
+        {
+          "option": "¿OTROS?, ¿CUÁLES?",
+          "isActive": false
+        }
+      ]
+    },
+    "steps": [],
+    "potentialRisks": [],
+    "consequences": [],
+    "controlMeasures": []
+  }

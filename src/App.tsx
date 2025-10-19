@@ -16,6 +16,10 @@ import "react-icons/io5";
 import Cliente from "./pages/cliente";
 import Proveedores from "./pages/proveedores";
 import Contratista from "./pages/contratista";
+import ProviderSection from "./pages/proveedores";
+import CrearPro from "./pages/crearnewpro";
+import MaterialById from "./pages/material";
+import Dashboard from "./pages/dashboard";
 
 function App() {
   return (
@@ -23,7 +27,11 @@ function App() {
       <Routes>
         <Route path="/constructores/:nombre" element={<ConstructorDetalle />} />
         <Route path="/proveedores" element={<Proveedores />} />
+        <Route path="/dashboard" element={<Dashboard />} />
+        <Route path="presupuestos" element={<Presupuestos />} />
+        <Route path="/crearnuevoproducto" element={<CrearPro />} />
         <Route path="/contratista" element={<Contratista />} />
+        <Route path="/provider" element={<ProviderSection />} />
         <Route path="/cliente" element={<Cliente />} />
         <Route path="/showroom" element={<ShowRoom />} />
         <Route path="/" element={<Home />} />
@@ -32,7 +40,7 @@ function App() {
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
         <Route path="/admin/materials" element={<Materials />} />
-        <Route path="/material-info/:id" element={<MaterialInfo />} />
+        <Route path="/material/:materialId" element={<MaterialById />} />
         <Route
           path="/transportation-info/:code"
           element={<TransportationInfo />}

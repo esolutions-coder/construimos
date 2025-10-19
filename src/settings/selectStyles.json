@@ -1,0 +1,7 @@
+{
+    "styles":{
+        "borderRadius": 0,
+        "border": "none",
+        "minHeight": 30
+    }
+}

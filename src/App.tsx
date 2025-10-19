@@ -1,25 +1,23 @@
-import { Link, Route, Routes, BrowserRouter } from "react-router-dom";
+import { Route, Routes } from "react-router-dom";
 //PAGES
-import Home from "../src/pages/index";
-import Presupuestos from "./pages/presupuestos";
-import AdminApus from "./pages/admin_apus";
-import ShowRoom from "./pages/showroom";
-import Login from "./pages/login";
-import Register from "./pages/register";
-import Materials from "./pages/materials";
-import MaterialInfo from "./pages/material-info";
-import TransportationInfo from "./pages/transportation-info";
-import EquipmentInfo from "./pages/equipment-info";
-import WorkhandInfo from "./pages/workhand-info";
-import ConstructorDetalle from "./components/ConstructorDetalle";
 import "react-icons/io5";
+import Home from "../src/pages/index";
+import ConstructorDetalle from "./components/ConstructorDetalle";
+import AdminApus from "./pages/admin_apus";
 import Cliente from "./pages/cliente";
-import Proveedores from "./pages/proveedores";
 import Contratista from "./pages/contratista";
-import ProviderSection from "./pages/proveedores";
 import CrearPro from "./pages/crearnewpro";
-import MaterialById from "./pages/material";
 import Dashboard from "./pages/dashboard";
+import EquipmentInfo from "./pages/equipment-info";
+import Login from "./pages/login";
+import MaterialById from "./pages/material";
+import Materials from "./pages/materials";
+import Presupuestos from "./pages/presupuestos";
+import { default as Proveedores, default as ProviderSection } from "./pages/proveedores";
+import Register from "./pages/register";
+import ShowRoom from "./pages/showroom";
+import TransportationInfo from "./pages/transportation-info";
+import WorkhandInfo from "./pages/workhand-info";
 
 function App() {
   return (

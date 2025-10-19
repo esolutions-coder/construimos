@@ -1,13 +1,13 @@
 export default class Materiales {
-  materiales: MaterialfromQuery[];
-  material: MaterialfromQuery;
+  materiales: CurrentMaterialFromQuery[];
+  material: CurrentMaterialFromQuery;
 
-  constructor(materiales: MaterialfromQuery[]) {
+  constructor(materiales: CurrentMaterialFromQuery[]) {
     this.materiales = materiales;
     this.material = materiales[0];
   }
 
   getState() {
-    return JSON.parse(JSON.stringify(this.material)) as MaterialfromQuery;
+    return JSON.parse(JSON.stringify(this.material)) as CurrentMaterialFromQuery;
   }
 }

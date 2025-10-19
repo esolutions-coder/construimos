@@ -1,5 +1,4 @@
 import React, { useMemo, useState } from "react";
-import "../assets/styles/_rating.scss";
 
 interface Material {
   votes: number[];

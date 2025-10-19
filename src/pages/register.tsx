@@ -92,8 +92,7 @@ export default function Register() {
   useEffect(() => {
     if (data) {
       setRegisterState(data.addNewUser);
-      console.log(data);
-    }
+         }
   }, [data]);
 
   return (

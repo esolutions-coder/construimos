@@ -1,0 +1,8 @@
+type APP_MODE = "DEV" | "PRODUCTION";
+
+enum MODE_TYPES {
+    DEV = "DEV",
+    PRODUCTION = "PRODUCTION"
+}
+
+export const MODE:APP_MODE = MODE_TYPES.PRODUCTION;

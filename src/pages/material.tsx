@@ -1,27 +1,25 @@
 import { useQuery } from "@apollo/client";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import Materiales from "../utils/materials/controllers/material.controller";
-import MATERIAL_MOCK from "../utils/materials/mocks/material.json";
 import { GET_MATERIAL_BY_ID } from "../assets/apus_queries/materialsQueries";
 import Sidebar from "../components/layout/sidebar";
-import "../assets/styles/_materials.scss";
-import Rating from "../components/rating";
+import Materiales from "../utils/materials/controllers/material.controller";
+import MATERIAL_MOCK from "../utils/materials/mocks/old_material.json";
 
-let MaterialController = new Materiales([MATERIAL_MOCK]);
+let MaterialController = new Materiales([MATERIAL_MOCK]); //Estas clases son de Miguel
 
 export default function MaterialById() {
   const { materialId } = useParams();
 
   const { loading, error, data } = useQuery(GET_MATERIAL_BY_ID, {
     variables: { materialId },
-  });
+  }); // Las Queries y Mutations son de Miguel, te las entrego con sus parametros ya definidos
 
   const [material, setMaterial] = useState(MaterialController.getState());
 
   useEffect(() => {
     if (data) {
-      MaterialController.material = data.getMaterialById;
+      MaterialController.material = JSON.parse(JSON.stringify(data.material));
       setMaterial(MaterialController.getState());
     }
     if (error) {
@@ -36,32 +34,30 @@ export default function MaterialById() {
     <div className="material-details">
       <Sidebar />
       <h1 className="materititulo">MATERIALES</h1>
-      <img
-        src={material.image}
-        alt={material.image}
-        className="material-image"
-      />
+      {/* <img src={material.image} alt={material.image} className="material-image" /> */}
 
       <div className="material-header">
         <div className="material-info">
-          <h1 className="material-title">{material.name}</h1>
-          <Rating material={material} />
-          <span className="material-price">${material.price}</span>
+          <h1 className="material-title">{material.material_name}</h1>
+          {/* <Rating material={material} /> */}
+          <span className="material-price">${material.material_unitary_price}</span>
           <p className="material-description-title">Descripción</p>
-          <p className="material-description">{material.description}</p>
+          {/* <p className="material-description">{material.description}</p> */}
           <div className="tech-sheet">
             <h2 className="tech-sheet-title">FICHA TÉCNICA</h2>
-            <table className="tech-sheet-table">
-              {material.tech_sheet.map((item, index) => {
+            {/* <table className="tech-sheet-table">
+              {material.map((item, index) => {
                 return (
-                  <tr>
-                    <td>{item.prop}</td>
-                    <td>{item.value}</td>
-                    <td>{item.pinturaacaba}</td>
-                  </tr>
+                  <tbody>
+                    <tr key={index}>
+                      <td>{item.prop}</td>
+                      <td>{item.value}</td>
+                      <td>{item.pinturaacaba}</td>
+                    </tr>
+                  </tbody>
                 );
               })}
-            </table>
+            </table> */}
           </div>
         </div>
       </div>

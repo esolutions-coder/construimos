@@ -10,11 +10,29 @@ import { HashRouter } from "react-router-dom";
 import App from "./App";
 
 //APOLLO
-import { ApolloProvider, ApolloClient, InMemoryCache } from "@apollo/client";
+import { ApolloClient, InMemoryCache, ApolloProvider, HttpLink, ApolloLink } from "@apollo/client";
+import { graphDataSource } from "./api/datasources/datasources";
+import getToken from "./utils/getToken";
+
+const httpLink = new HttpLink({ uri: graphDataSource() });
+
+const authLink = new ApolloLink((operation, forward) => {
+  // Retrieve the authorization token from local storage.
+  const token = getToken();
+  // Use the setContext method to set the HTTP headers.
+  operation.setContext({
+    headers: {
+      authorization: token ? `Bearer ${token}` : "",
+    },
+  });
+  // Call the next link in the middleware chain.
+  return forward(operation);
+});
 
 const client = new ApolloClient({
-  uri: "http://localhost:4000/",
+  link: authLink.concat(httpLink), // Chain it with the HttpLink
   cache: new InMemoryCache({
+    addTypename: false,
     typePolicies: {
       MinifiedApu: {
         keyFields: false,
@@ -22,6 +40,7 @@ const client = new ApolloClient({
     },
   }),
 });
+
 const container = document.getElementById("root") as HTMLDivElement;
 
 const root = ReactDOM.createRoot(container);

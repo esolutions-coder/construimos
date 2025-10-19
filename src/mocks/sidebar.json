@@ -1,0 +1,27 @@
+
+{
+    "sections":[
+    {
+        "title": "CONTRATISTAS",
+        "icon": "engineering",
+        "options":[
+            {
+                "title": "PRESUPUESTOS",
+                "url": "/presupuestos",
+                "icon": "architecture"
+            },
+            {
+                "title": "NÓMINAS",
+                "url": "/nominas/start",
+                "icon": "payments"
+            },
+            {
+                "title": "SG-SST",
+                "url": "/sg-sst",
+                "icon": "health_and_safety"
+            }
+
+        ]
+    }
+]
+}

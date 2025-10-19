@@ -1,0 +1,8 @@
+{
+  "tasks": [
+    { "value": "0001", "label": "FUNDIDA DE CONCRETO" },
+    { "value": "0002", "label": "ARMADO DE FORMALETAS EN ALTURA" },
+    { "value": "0003", "label": "EXCAVACIONES" },
+    { "value": "0004", "label": "PINTURA EN ALTURAS" }
+  ]
+}

@@ -1,0 +1,47 @@
+$toastWidth: 400px;
+
+.toastContainer{
+    position: fixed;
+    bottom: 12px;
+    right: -$toastWidth - 12px;
+    // border: solid white 2px;
+    border-radius: 8px;
+    width: $toastWidth;
+    transition: ease 300ms;
+    z-index: 1000;
+    
+    &.show{
+        transition: ease 300ms;
+        right: 12px;
+    }
+
+    .toastHeaderContainer{
+        border-bottom: solid white 2px;
+        display: flex;
+        justify-content: space-between;
+        .toastHeader{
+            p{
+                font-size: 12px;
+            }
+            padding: 4px;
+        }
+        .close{
+            padding: 12px;
+            background-color: red;
+            color: white;
+            border-top-right-radius: 8px;
+            user-select: none;
+            cursor: pointer;
+        }
+    }
+
+    .toastBody{
+        padding: 12px;
+    }
+
+    .toastFooter{
+        border-top: solid white 2px;
+        padding: 12px;
+        font-size: 8px;
+    }
+}

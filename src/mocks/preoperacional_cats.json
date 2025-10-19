@@ -1,0 +1,6 @@
+{
+  "categories": [
+    { "label": "Maquinaria amarilla", "value": "machine" },
+    { "label": "Herramientas rotativas", "value": "tools" }
+  ]
+}

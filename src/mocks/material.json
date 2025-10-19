@@ -1,0 +1,30 @@
+{
+  "name": "Nombre del material",
+  "unit": "UNIDAD",
+  "rud": 0.05,
+  "price": 1000,
+  "code": "MAT-005",
+  "category": "CATEGORIA",
+  "provider": "PROVEEDOR SAS",
+  "image": "url.jpg",
+  "description": "Descripción del material",
+  "gallery": ["url1.jpg", "url2.jpg"],
+  "tech_sheet": [
+    {
+      "prop": "Tipo",
+      "value": "VALOR 2",
+      "pinturaacaba": "VALOR 3"
+    },
+    {
+      "prop": "Color",
+      "value": "VALOR 2",
+      "pinturaacaba": "VALOR 3"
+    },
+    {
+      "prop": "Acabado pintura",
+      "value": "VALOR 2",
+      "pinturaacaba": "VALOR 3"
+    }
+  ],
+  "votes": [4, 5, 2, 3]
+}

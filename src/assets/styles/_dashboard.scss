@@ -1,0 +1,99 @@
+.dashboard-details {
+  display: flex;
+}
+
+.dashboardtitulo {
+  margin-top: 2rem;
+  margin-left: 3rem;
+}
+
+.ventas-totales {
+  width: 200px;
+  height: 100px;
+  background-color: #061840;
+  margin-top: 7rem;
+  margin-left: -15rem;
+}
+
+.ordenes {
+  width: 200px;
+  height: 100px;
+  background-color: #061840;
+  margin-top: 7rem;
+  margin-left: 1rem;
+}
+.productosvendidos {
+  width: 200px;
+  height: 100px;
+  background-color: #061840;
+  margin-top: 7rem;
+  margin-left: 1rem;
+}
+
+.subtitulomini {
+  font-size: 0.9rem;
+  margin-top: 0.5rem;
+  margin-left: 1.2rem;
+  color: #ffd700;
+}
+.graficos {
+  margin-top: 15rem;
+  margin-left: -40rem;
+}
+
+.grafvenord {
+  width: 660px;
+  height: 390px;
+  display: flex;
+  justify-content: left;
+  align-items: center;
+  margin-top: 19rem;
+  margin-left: -10rem;
+  background-color: rgb(61, 59, 59);
+}
+
+.vent-ord {
+  margin-top: 0.5rem;
+  font-size: 1.5rem;
+  font-weight: 550;
+  text-align: center;
+}
+.graford {
+  width: 500px;
+  height: 390px;
+  display: flex;
+  align-items: center;
+  margin-top: 19rem;
+  margin-left: 1rem;
+  background-color: rgb(61, 59, 59);
+}
+.apartadogris {
+  background-color: grey;
+  width: 660px;
+  height: 60px;
+  margin-top: -330px;
+}
+
+.ventasnumero {
+  font-size: 2rem;
+  margin-top: 0.5rem;
+  color: #ffd700;
+  display: flex;
+  margin-left: 1rem;
+}
+
+.productosnumero {
+  font-size: 2rem;
+  margin-top: 0.5rem;
+  color: #ffd700;
+  display: flex;
+  margin-left: 1rem;
+}
+
+.ordenesnumero {
+  font-size: 2rem;
+  margin-top: 0.5rem;
+  color: #ffd700;
+  display: flex;
+  margin-left: 1rem;
+}

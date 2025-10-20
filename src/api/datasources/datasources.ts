@@ -12,12 +12,12 @@ export function excelSource(){
 
 export function dataSource(){
     if(MODE === "PRODUCTION"){
-        return "https://capi.lorem.fun/prica"
+        return "https://capi.lorem.fun/construimosApi"
     }
     if(MODE === "DEV"){
-        return "http://localhost:3500/prica"
+        return "http://localhost:3500/construimosApi"
     }
-    return "http://localhost:3500/prica"
+    return "http://localhost:3500/construimosApi"
 }
 
 export function imagesSource(){
@@ -46,8 +46,8 @@ export function graphDataSource(){
         return "https://cgraph.lorem.fun/"
     }
     if(MODE === "DEV"){
-        return "http://localhost:5000/"
+        return "http://localhost:3000/"
     }
-    return "http://localhost:5000/"
+    return "http://localhost:3000/"
 }
 

@@ -1,13 +1,5 @@
 @use "colors";
 
-body {
-  font-family: Arial, sans-serif;
-  margin: 0;
-  padding: 0;
-  background: #ffffff;
-  color: rgb(255, 255, 255);
-  overflow-x: hidden;
-}
 .grind-item {
   transition: transform 0.5s ease;
   animation: levitate 3s ease-in-out infinite;

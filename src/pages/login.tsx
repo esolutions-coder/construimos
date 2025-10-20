@@ -16,7 +16,7 @@ export default function Login() {
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     let myForm = new FormData();
-    myForm.append("userInfo", JSON.stringify({ name, password }));
+    myForm.append("userInfo", JSON.stringify({ username: name, password }));
     try {
       const result = await postDataNoToken(`${dataSource()}/user/login`, myForm);
       const parsedData = await result.json();

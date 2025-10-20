@@ -1,20 +1,3 @@
-@use "navbar";
-@use "fonts";
-@use "flex";
-@use "buttons";
-@use "grid";
-@use "cards";
-@use "spacing";
-@use "layout";
-@use "tables";
-@use "forms";
-@use "pills";
-@use "warnings";
-@use "colors";
-@use "spinners";
-
-@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@100;300;400;500;600;800;900&display=swap");
-
 .bannercontratista-container {
   background: linear-gradient(to right, #6c6b6b 0%, #a4a4a6 100%);
   padding: 2rem 0;

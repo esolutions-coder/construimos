@@ -638,11 +638,11 @@ function Presupuestos() {
           )}
         </div>
         <div className="span_sm_1">
-          {/* <div className="grid col_sm_2 gap_sm_12 my_sm_16">
+          <div className="grid col_sm_2 gap_sm_12 my_sm_16">
             {PillsInfo.map((pill, index) => (
               <BudgetPills name={pill.name} icon={pill.icon} key={index} />
             ))}
-          </div> */}
+          </div>
           <div className="pill_selection_container my_sm_16">
             <div className="activity_selector_nav">
               <h5>APUS</h5>

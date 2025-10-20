@@ -18,12 +18,16 @@ import Register from "./pages/register";
 import ShowRoom from "./pages/showroom";
 import TransportationInfo from "./pages/transportation-info";
 import WorkhandInfo from "./pages/workhand-info";
+import { AuthProvider } from "./customHooks/auth/useAuth";
+import { ProtectedRoute } from "./pages/protectedRoute";
+import AUTHORIZATION from "./settings/authorized.json";
 
 function App() {
   return (
     <div className="App">
+      <AuthProvider>
       <Routes>
-        <Route path="/constructores/:nombre" element={<ConstructorDetalle />} />
+        <Route path="/constructores/:nombre" element={<ProtectedRoute roles={AUTHORIZATION.CONSTRUCTORES}><ConstructorDetalle /></ProtectedRoute>} />
         <Route path="/proveedores" element={<Proveedores />} />
         <Route path="/dashboard" element={<Dashboard />} />
         <Route path="presupuestos" element={<Presupuestos />} />
@@ -46,6 +50,7 @@ function App() {
         <Route path="/equipment-info/:code" element={<EquipmentInfo />} />
         <Route path="/workhand-info/:code" element={<WorkhandInfo />} />
       </Routes>
+      </AuthProvider>
     </div>
   );
 }

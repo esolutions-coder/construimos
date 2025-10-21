@@ -1,22 +1,12 @@
 [
   {
-    "name": "materiales",
-    "icon": "tools_power_drill"
+    "name": "LISTA APUS LOCAL",
+    "icon": "widgets",
+    "slug": "apus_local"
   },
   {
-    "name": "Equipos",
-    "icon": "precision_manufacturing"
-  },
-  {
-    "name": "mano de obra",
-    "icon": "front_hand"
-  },
-  {
-    "name": "APUS GLOBAL",
-    "icon": "public"
-  },
-  {
-    "name": "APUS LOCAL",
-    "icon": "widgets"
+    "name": "CREAR APUS LOCAL",
+    "icon": "widgets",
+    "slug": "create_apus_local"
   }
 ]

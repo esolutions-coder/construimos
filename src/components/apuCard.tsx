@@ -3,8 +3,9 @@ import Formatter from "../utils/formatter";
 interface ApuCard {
   apuInfo: APU;
   addSubActivity: Function;
-  setTab: React.Dispatch<React.SetStateAction<boolean>>;
+  setTab: React.Dispatch<React.SetStateAction<string>>;
   visualizeExternalAPU: Function;
+  flag: string
 }
 
 function ApuCard({
@@ -12,9 +13,10 @@ function ApuCard({
   addSubActivity,
   setTab,
   visualizeExternalAPU,
+  flag
 }: ApuCard) {
   const setTabAndShowAPU = () => {
-    setTab(false);
+    setTab("apu_viewer");
     visualizeExternalAPU(apuInfo._id);
   };
   return (
@@ -35,7 +37,7 @@ function ApuCard({
         </span>
         <span
           className="material-symbols-outlined"
-          onClick={() => addSubActivity(apuInfo._id)}
+          onClick={() => addSubActivity(apuInfo._id, flag)}
         >
           add_box
         </span>

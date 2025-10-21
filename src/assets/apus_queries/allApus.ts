@@ -129,6 +129,7 @@ export const GET_EQUIPMENT_BY_USERINPUT = gql`query SearchEquipment($userInput: 
     equipment_code
     equipment_unit
     equipment_rud
+    _id
   }
 }
 `
@@ -141,6 +142,7 @@ export const GET_WORKHAND_BY_USERINPUT = gql`query searchWorkhand($userInput: St
     workHand_code
     workHand_unit
     workHand_rud
+    _id
   }
 }`
 
@@ -153,6 +155,7 @@ export const GET_TRANSPORTATION_BY_USERINPUT = gql`query searchTransportation($u
     transportation_unit
     transportation_rud
     transportation_category
+    _id
   }
 }
 `

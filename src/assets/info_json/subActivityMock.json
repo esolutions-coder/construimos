@@ -7,6 +7,7 @@
   "apu_description": "",
   "apu_materials": [
     {
+      
       "material_name": "PUNTILLAS",
       "material_amount": 100,
       "material_unitary_price": 500,
@@ -21,6 +22,7 @@
   ],
   "apu_equipment": [
     {
+      "_id": "",
       "equipment_name": "PUNTILLAS",
       "equipment_unitary_price": 500,
       "equipment_provider": "FERRETERIA SAS",
@@ -33,6 +35,7 @@
   ],
   "apu_workHand": [
     {
+      "_id": "",
       "workHand_name": "PUNTILLAS",
       "workHand_unitary_price": 500,
       "workHand_provider": "FERRETERIA SAS",

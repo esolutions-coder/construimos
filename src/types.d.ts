@@ -24,6 +24,7 @@ type ProjectGeneralInfo = {
 }
 
 type CIDEINEquipment = {
+    _id: string,
     equipment_name: string,
     equipment_unitary_price: number,
     equipment_provider: string,
@@ -35,6 +36,7 @@ type CIDEINEquipment = {
 }
 
 type CIDEINWorkhand = {
+    _id: string,
     workHand_name: string,
     workHand_unitary_price: number,
     workHand_provider: string,
@@ -46,6 +48,7 @@ type CIDEINWorkhand = {
 }
 
 type CIDEINTransportation = {
+    _id: string,
     transportation_name: string,
     transportation_unitary_price: number,
     transportation_provider: string,
@@ -63,6 +66,7 @@ type SubActivities = {
     amount: number,
     subActivity_total: number
     subActivity_id: string
+    flag: string
 }
 
 type ProjecActivities = {
@@ -126,3 +130,8 @@ interface CIDEINProject {
 }
 
 type SmallCard = Omit<Card, "description">
+
+type SearchedApusState = {
+    apus: APU[];
+    db: "construimos_db" | "local_db";
+  }

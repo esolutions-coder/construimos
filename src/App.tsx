@@ -37,7 +37,7 @@ function App() {
         <Route path="/cliente" element={<Cliente />} />
         <Route path="/showroom" element={<ShowRoom />} />
         <Route path="/" element={<Home />} />
-        <Route path="/presupuestos" element={<Presupuestos />} />
+        <Route path="/presupuestos/pill/:slug" element={<Presupuestos />} />
         <Route path="/admin/apu-editor" element={<AdminApus />} />
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />

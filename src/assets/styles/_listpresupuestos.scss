@@ -1,0 +1,262 @@
+$navy: #061840;
+$gold: #ffd700;
+$ink: #0e1116;
+$bg: #f6f8fb;
+
+.col-12 h1 {
+  margin-left: 3rem;
+  text-align: center;
+  font-size: clamp(2rem, 5vw, 3rem);
+  font-weight: 600;
+  margin-bottom: 1rem;
+  margin-top: 3rem;
+}
+
+.col-12 p {
+  text-align: center;
+  margin-left: 3rem;
+  font-size: 1.2rem;
+  margin-bottom: 4rem;
+}
+
+.btn_buscar_presupuestos {
+  background-color: $gold;
+  height: 30px;
+  width: 150px;
+  color: white;
+  font-weight: 600;
+  border: none;
+  cursor: pointer;
+  font-size: 16px;
+  transition: all 0.5s ease;
+  box-shadow: 0 4px 15px rgba(199, 192, 11, 0.74);
+  background-image: linear-gradient(150deg, $gold, #856015 0%, #f4a70cc5 100%);
+}
+
+.btn_buscar_presupuestos:hover {
+  color: black;
+}
+
+.busqueda_presupuestos {
+  margin-left: 2rem;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  border-radius: 12px;
+  padding: 0.75rem 1rem;
+  background-color: #f9f9f9;
+  max-width: 700px;
+  box-shadow: 5px 5px 5px 3px #fdbd3380;
+  width: 100%;
+  margin-bottom: 2rem;
+}
+.busqueda_presupuestos input {
+  flex: 1;
+  padding: 0.75rem 1rem;
+  border: none;
+  border-radius: 8px;
+  font-size: 1rem;
+  outline: none;
+}
+
+.table-wrap {
+  max-width: 1200px;
+  margin: 6rem auto 3rem;
+  padding: 0 1rem;
+}
+
+.input-group {
+  display: flex;
+  justify-content: center;
+  margin: 2rem auto 0;
+  .input-gr {
+    width: min(680px, 90%);
+    height: 48px;
+    padding: 0 1rem;
+    border-radius: 12px;
+    background: $gold;
+    color: #fff;
+    font: 500 1rem/1.2 "Poppins", system-ui, sans-serif;
+    border: none;
+    outline: none;
+  }
+}
+
+.table {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0;
+  background: #fff;
+  box-shadow: 0 6px 24px rgba(0, 0, 0, 0.08);
+  border-radius: 14px;
+  overflow: hidden; /* redondeo en todo el borde */
+  table-layout: fixed; /* evita que “salten” los anchos */
+  margin-left: 2rem;
+}
+
+/* Cabezera */
+.table thead th {
+  background: $navy;
+  color: $gold;
+  font: 500 0.75rem / 1.2 "Poppins", system-ui, sans-serif;
+  text-transform: uppercase;
+  padding: 14px 16px;
+  position: sticky;
+  top: 0;
+  z-index: 2;
+}
+.presupuestos_no_hay {
+  font-size: clamp(2rem, 5vw, 3rem);
+
+  color: #888;
+}
+
+.table tbody td {
+  padding: 14px 16px;
+  color: $ink;
+  font: 600 1rem/1.2 "Poppins", system-ui, sans-serif;
+  text-transform: none; /* mejor legibilidad */
+  border-top: 1px solid rgba(0, 0, 0, 0.06);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.table tbody tr:nth-child(odd) {
+  background: $bg;
+}
+.table tbody tr:hover {
+  background: #eef3ff;
+}
+
+.table th:nth-child(1),
+.table td:nth-child(1) {
+  width: 100%;
+  text-align: center;
+}
+.table th:nth-child(2),
+.table td:nth-child(2) {
+  width: 100%;
+  text-align: center;
+}
+.table th:nth-child(3),
+.table td:nth-child(3) {
+  width: 100%;
+  text-align: center;
+}
+.table th:nth-child(4),
+.table td:nth-child(4) {
+  width: 100%;
+  text-align: center;
+}
+.table th:nth-child(5),
+.table td:nth-child(5) {
+  width: 100%;
+  text-align: center;
+}
+
+/* Inputs dentro de celdas */
+.table input,
+.table textarea {
+  width: 100%;
+  padding: 10px 12px;
+  border: 1px solid rgba(0, 0, 0, 0.15);
+  border-radius: 10px;
+  font: 500 0.95rem/1.2 "Poppins", system-ui, sans-serif;
+  background: #fff;
+  outline: none;
+  transition: box-shadow 0.2s ease, border-color 0.2s ease;
+}
+.table input:focus,
+.table textarea:focus {
+  border-color: #6384ff;
+  box-shadow: 0 0 0 4px rgba(99, 132, 255, 0.15);
+}
+
+/* Badge para la fecha */
+.badge-date {
+  display: inline-block;
+  background: #eaf0ff;
+  color: #223a8f;
+  padding: 6px 10px;
+  border-radius: 999px;
+  font: 600 0.85rem/1 "Poppins", system-ui, sans-serif;
+}
+
+/* Responsivo: tarjetas en móvil */
+@media (max-width: 568px) {
+  .page-presupuestos h1 {
+    font-size: 1.8rem;
+    line-height: 1.2;
+  }
+
+  .page-presupuestos .input-group {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 10px;
+  }
+
+  .page-presupuestos .input-group .btn {
+    width: 100%;
+    height: 44px;
+  }
+
+  /* Desactivamos look de “tabla” y mostramos tarjetas */
+  .table {
+    background: transparent;
+    box-shadow: none;
+    border-radius: 0;
+    table-layout: auto;
+  }
+
+  .table thead {
+    display: none;
+  }
+
+  .table,
+  .table tbody {
+    display: block;
+    width: 100%;
+  }
+
+  .table tbody {
+    display: grid;
+    grid-template-columns: 1fr; /* una tarjeta por fila */
+    gap: 12px;
+  }
+
+  .table tr {
+    display: block;
+    background: #fff;
+    border: 1px solid rgba(0, 0, 0, 0.06);
+    border-radius: 12px;
+    padding: 12px 14px;
+    box-shadow: 0 4px 14px rgba(0, 0, 0, 0.06);
+    width: 100%;
+    box-sizing: border-box;
+  }
+
+  .table td {
+    display: block;
+    padding: 8px 0;
+    border: 0;
+    white-space: normal;
+    word-break: break-word;
+    overflow-wrap: anywhere; /* textos largos no rompen */
+  }
+
+  .table td::before {
+    content: attr(data-label);
+    display: block;
+    font: 600 0.82rem/1 "Poppins", system-ui, sans-serif;
+    color: #5b6b82;
+    text-transform: uppercase;
+    margin-bottom: 4px;
+    letter-spacing: 0.02em;
+  }
+
+  .badge-date {
+    display: inline-block;
+    max-width: 100%;
+  }
+}

@@ -33,14 +33,17 @@ export default function MaterialById() {
   return (
     <div className="material-details">
       <Sidebar />
-      <h1 className="materititulo">MATERIALES</h1>
       {/* <img src={material.image} alt={material.image} className="material-image" /> */}
 
       <div className="material-header">
+        <h1 className="materititulo">MATERIALES</h1>
+
         <div className="material-info">
           <h1 className="material-title">{material.material_name}</h1>
           {/* <Rating material={material} /> */}
-          <span className="material-price">${material.material_unitary_price}</span>
+          <span className="material-price">
+            ${material.material_unitary_price}
+          </span>
           <p className="material-description-title">Descripción</p>
           {/* <p className="material-description">{material.description}</p> */}
           <div className="tech-sheet">

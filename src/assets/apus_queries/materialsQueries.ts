@@ -1,6 +1,7 @@
 import { gql } from "@apollo/client";
 
-export const ALL_MATERIALS = gql`query GetMaterials {
+export const ALL_MATERIALS = gql`
+  query GetMaterials {
     materials {
       material_name
       material_unitary_price
@@ -10,9 +11,10 @@ export const ALL_MATERIALS = gql`query GetMaterials {
       material_rud
     }
   }
-  `
+`;
 
-export const ADD_NEW_MATERIALS = gql`mutation AddMaterials($materialsData: [NewMaterial]!) {
+export const ADD_NEW_MATERIALS = gql`
+  mutation AddMaterials($materialsData: [NewMaterial]!) {
     addMaterials(materialsData: $materialsData) {
       code
       message
@@ -20,9 +22,10 @@ export const ADD_NEW_MATERIALS = gql`mutation AddMaterials($materialsData: [NewM
       materials
     }
   }
-  `
+`;
 
-export const GET_MATERIAL_BY_ID = gql`query Material($materialId: ID!) {
+export const GET_MATERIAL_BY_ID = gql`
+  query Material($materialId: ID!) {
     material(materialId: $materialId) {
       material_name
       material_unitary_price
@@ -32,9 +35,24 @@ export const GET_MATERIAL_BY_ID = gql`query Material($materialId: ID!) {
       material_rud
       material_category
     }
-  }`
+  }
+`;
 
-export const GET_MATERIAL_BY_CODE = gql`query MaterialByCode($materialCode: ID!) {
+export const GET_PROJECTS_BY_USER_ID = gql`
+  query GetProjectByUserId($userId: ID!) {
+    getProjectByUserId(userId: $userId) {
+      project_general_info {
+        name
+        description
+        totalCost
+      }
+      _id
+    }
+  }
+`;
+
+export const GET_MATERIAL_BY_CODE = gql`
+  query MaterialByCode($materialCode: ID!) {
     materialByCode(materialCode: $materialCode) {
       _id
       material_name
@@ -45,9 +63,11 @@ export const GET_MATERIAL_BY_CODE = gql`query MaterialByCode($materialCode: ID!)
       material_rud
       material_category
     }
-  }`
+  }
+`;
 
-export const UPDATE_MATERIAL = gql`mutation EditMaterial($materialData: NewMaterial!, $editMaterialId: ID!) {
+export const UPDATE_MATERIAL = gql`
+  mutation EditMaterial($materialData: NewMaterial!, $editMaterialId: ID!) {
     editMaterial(materialData: $materialData, id: $editMaterialId) {
       code
       success
@@ -56,4 +76,5 @@ export const UPDATE_MATERIAL = gql`mutation EditMaterial($materialData: NewMater
         material_name
       }
     }
-  }`
+  }
+`;

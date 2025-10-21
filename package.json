@@ -29,6 +29,7 @@
   "dependencies": {
     "@apollo/client": "^3.13.8",
     "animate.css": "^4.1.1",
+    "date-fns": "^4.1.0",
     "graphql": "^16.11.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",

@@ -13,7 +13,8 @@
 }
 
 .icono {
-  width: 500px;
+  max-width: 100%; /* ✅ que no supere su celda */
+  overflow-x: clip;
   height: 30px;
   color: #030f27;
   object-fit: cover;
@@ -53,8 +54,8 @@
   color: #030f27;
   margin-top: 1rem;
   margin-left: 230px;
-  width: 600px;
-
+  max-width: 100%; /* ✅ que no supere su celda */
+  overflow-x: clip;
   transition: transform 0.3s ease-out, color 0.3s, text-shadow 0.3s;
 }
 

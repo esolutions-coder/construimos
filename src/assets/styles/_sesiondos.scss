@@ -31,6 +31,7 @@
   animation-duration: 1s;
   animation-timing-function: cubic-bezier(0.25, 1, 0.5, 1);
   will-change: opacity, transform, filter;
+  width: 100%;
 }
 
 .apartadoiconos {
@@ -38,9 +39,9 @@
   display: flex;
   flex-direction: column;
   gap: 10px;
-  margin-bottom: 6rem;
-  width: 500px;
-  margin-left: 10rem;
+  margin-bottom: 5rem;
+  max-width: 100%; /* ✅ que no supere su celda */
+  overflow-x: clip;
 }
 
 @media (min-width: 1900px) {
@@ -68,6 +69,7 @@
 @media (max-width: 1000px) {
   .apartadoiconos {
     margin: 0 auto;
+
     margin-bottom: 4rem;
   }
   .imagencliente {
@@ -78,6 +80,9 @@
 @media (max-width: 508px) {
   .rojocliente {
     margin: 0 auto;
-    width: 400px;
+  }
+  .apartadoiconos {
+    margin: 0 auto;
+    margin-bottom: 5rem;
   }
 }

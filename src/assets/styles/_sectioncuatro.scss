@@ -11,6 +11,8 @@
 
 .navcuatro {
   grid-area: nav;
+  max-width: 100%;
+  overflow-x: clip;
 }
 
 .section-foot {
@@ -70,5 +72,25 @@
 @media (max-width: 1300px) {
   .navcuatro {
     margin: 0 auto;
+  }
+}
+
+@media (max-width: 500px) {
+  .navcuatro {
+    text-align: center;
+    margin-left: 0rem;
+  }
+  .btnregistrateya {
+    margin-left: 0rem;
+    text-align: center;
+    margin-top: 2rem;
+  }
+  .titulocuatro {
+    margin-left: 0rem;
+    text-align: center;
+  }
+  .subtitulocuatro {
+    margin-left: 0rem;
+    text-align: center;
   }
 }

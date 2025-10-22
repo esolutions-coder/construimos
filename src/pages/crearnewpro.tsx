@@ -7,7 +7,7 @@ function CrearPro() {
       <Sidebar />
       <h1 className="añadirnewmat">AÑADIR NUEVO MATERIAL</h1>
       <textarea placeholder="Nombre del material" className="inputnombre" />
-      <textarea placeholder="Descripción larga" className="textarea " />
+      <textarea placeholder="Descripción larga" className="textareass" />
       <div className="infoazul">
         <h1 className="infopro">INFORMACIÓN DEL PRODUCTO</h1>
       </div>

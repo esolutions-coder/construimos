@@ -1,5 +1,16 @@
 @use "colors";
 
+.container {
+  display: grid;
+  grid-template-areas:
+    "header header header"
+    "nav content aside"
+    "footer footer footer";
+  grid-template-columns: 67px 1fr 67px;
+  grid-template-rows: 300px 1fr 1px;
+  gap: 5px;
+}
+
 .grind-item {
   transition: transform 0.5s ease;
   animation: levitate 3s ease-in-out infinite;
@@ -27,25 +38,6 @@
 
 .tittlo {
   color: #030f27;
-}
-h1 {
-  font-family: "Poppins", sans-serif;
-  font-style: normal;
-  font-weight: 500;
-  font-size: 50px;
-  line-height: 72px;
-  letter-spacing: -1.5px;
-}
-
-.container {
-  display: grid;
-  grid-template-areas:
-    "header header header"
-    "nav content aside"
-    "footer footer footer";
-  grid-template-columns: 67px 1fr 67px;
-  grid-template-rows: 300px 1fr 1px;
-  gap: 5px;
 }
 
 .main-header {
@@ -80,6 +72,29 @@ h1 {
     transform: translateY(0) scale(1);
     filter: blur(0);
   }
+}
+.main-header p {
+  font-size: 1.2rem;
+  color: #ffffff;
+  margin-top: 10px;
+  font-family: "Poppins";
+  font-style: normal;
+  font-weight: 500;
+  font-size: 24px;
+  line-height: 36px;
+  text-align: center;
+  letter-spacing: -1.5px;
+}
+
+.main-header h1 {
+  font-family: "Poppins", sans-serif;
+  font-style: normal;
+  color: #ffffff;
+  font-weight: 500;
+  font-size: 50px;
+  line-height: 72px;
+  letter-spacing: -1.5px;
+  font-size: clamp(20px, 8vw, 44px);
 }
 
 .main-nav {

@@ -16,7 +16,6 @@ export default function ListPresupuestos() {
 
   const { loading, error, data } = useQuery(GET_PROJECTS_BY_USER_ID, {
     variables: { userId },
-    // si userId puede venir undefined, evita error de la query:
     skip: !userId,
   });
 
@@ -42,7 +41,6 @@ export default function ListPresupuestos() {
     });
   };
 
-  // 🔹 Nada de early return por error. Solo muestra loader inicial si quieres.
   if (loading) {
     return (
       <div className="loading-screen">
@@ -51,7 +49,6 @@ export default function ListPresupuestos() {
     );
   }
 
-  // 🔹 Calcula filas aunque no haya data (queda []).
   const rows = (data?.getProjectByUserId ?? []).map((p: any) => ({
     _id: p._id,
     name: p.project_general_info?.name,
@@ -67,7 +64,6 @@ export default function ListPresupuestos() {
         <div className="col-12">
           <h1>PRESUPUESTOS</h1>
 
-          {/* Aviso no bloqueante si hubo error de red/servidor */}
           {error && (
             <div
               style={{

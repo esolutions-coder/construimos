@@ -25,11 +25,19 @@
   flex-direction: column;
   align-items: center;
   width: 150px;
-  margin-left: 120px;
+  margin-left: 100px;
   transition: transform 0.3s ease-out, color 0.3s, text-shadow 0.3s;
 }
 
 .item-numeros:hover {
   transform: scale(1.1);
   color: #000000;
+}
+
+@media (max-width: 600px) {
+  .item-numeros {
+    margin-left: 0px;
+    margin: 0 auto;
+    margin-bottom: 20px;
+  }
 }

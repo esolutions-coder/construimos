@@ -4,6 +4,7 @@ import { useParams } from "react-router-dom";
 import { GET_MATERIAL_BY_ID } from "../assets/apus_queries/materialsQueries";
 import Sidebar from "../components/layout/sidebar";
 import Materiales from "../utils/materials/controllers/material.controller";
+import Loading from "../components/loading";
 import MATERIAL_MOCK from "../utils/materials/mocks/old_material.json";
 
 let MaterialController = new Materiales([MATERIAL_MOCK]); //Estas clases son de Miguel
@@ -26,7 +27,9 @@ export default function MaterialById() {
       <div>Hubo un error</div>;
     }
     if (loading) {
-      <div>Cargando....</div>;
+      <div>
+        <Loading />
+      </div>;
     }
   }, [data]);
 

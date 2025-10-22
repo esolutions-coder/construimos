@@ -8,6 +8,11 @@ import React, {
 } from "react";
 import { CREATE_USER } from "../assets/apus_queries/userQueries";
 import construimosLogo from "../assets/img/cidein_logo_yellow.png";
+import Swal from "sweetalert2";
+import withReactContent from "sweetalert2-react-content";
+
+const MySwal = withReactContent(Swal);
+
 const cleanForm = {
   username: "",
   email: "",
@@ -71,6 +76,14 @@ export default function Register() {
   const registerButton = useRef<HTMLButtonElement>(null);
 
   const saveUser = () => {
+    MySwal.fire({
+      title: "Registro exitoso",
+      text: "Inicia sesión para continuar",
+      icon: "success",
+      background: "#061840",
+      color: "#ffd700",
+    });
+
     createNewUser({
       variables: {
         userData: {
@@ -92,7 +105,7 @@ export default function Register() {
   useEffect(() => {
     if (data) {
       setRegisterState(data.addNewUser);
-         }
+    }
   }, [data]);
 
   return (

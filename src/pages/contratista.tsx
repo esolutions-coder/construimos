@@ -67,7 +67,7 @@ function Contratista() {
         </content>
       </div>
       <div className="containerph">
-        <div className="main-header">
+        <div className="main-hedit">
           <h1 className="tixtsss">Creación de presupuestos</h1>
           <p className="paxfo">
             Construimos pone a tu disposición precios, rendimientos y lo más
@@ -139,15 +139,14 @@ function Contratista() {
         </aside>
       </div>
       <div className="containerphxi">
-        <header className="main-header">
+        <header className="main-hedit">
           <h1 className="tixtsssxi">
-            Sistemas de Gestión - Seguridad y salud <br />
-            en el trabajo
+            Sistemas de Gestión - Seguridad y salud en el trabajo
           </h1>
           <p className="paxfoxi">
             Desde la documentación de tus colaboradores hasta los permisos de
-            trabajo necesarios para ejecutar tus actividades, <br /> todo en un
-            solo lugar
+            trabajo necesarios para ejecutar tus actividades, todo en un solo
+            lugar
           </p>
         </header>
         <nav className="navsistemas">

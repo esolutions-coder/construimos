@@ -106,7 +106,7 @@ export default function ListPresupuestos() {
                     : "Guardar presupuesto actual"
                 }
               >
-                {saving ? "Guardando..." : "Guardar presupuesto actual"}
+                {saving ? "Guardando..." : "Guardar "}
               </button>
             </div>
           </div>

@@ -8,15 +8,16 @@ import Formatter from "../../../utils/formatter";
 
 type BudgetPageProps = {
     currentProject: CideinProject
+    projectInfo: CIDEINProject
+    setProjectInfo: React.Dispatch<React.SetStateAction<CIDEINProject>>
     setActivityList: React.Dispatch<React.SetStateAction<{
         activity_name: string;
         activity_id: string;
     }[]>>
 }
 
-export default function BudgetPage({currentProject, setActivityList}: BudgetPageProps) {
+export default function BudgetPage({currentProject, setActivityList, projectInfo, setProjectInfo}: BudgetPageProps) {
 
-    const [projectInfo, setProjectInfo] = useState<CIDEINProject>(Project);
     // const [activityList, setActivityList] = useState([{ name: "", id: "" }]);
     const [selectedActivity, setSelectedActivity] = useState("");
     const [searchedApus, setSearchedApus] = useState<APU[]>([]);
@@ -37,11 +38,7 @@ export default function BudgetPage({currentProject, setActivityList}: BudgetPage
     const [addFullApu, addFullApuResponse] = useLazyQuery(GET_FULL_APU_BY_ID);
     //AddSubactivity
     const [addSubCounter, setAddSubCounter] = useState(true);
-  
-    useEffect(() => {
-      const initializedProject = currentProject.state;
-      setProjectInfo({ ...initializedProject });
-    }, []);
+
   
     const handleSubactivityValue = (evt: React.ChangeEvent<HTMLInputElement>) => {
       const inputId = evt.target.id;
@@ -85,6 +82,7 @@ export default function BudgetPage({currentProject, setActivityList}: BudgetPage
           amount: 0,
           subActivity_total: 0,
           subActivity_id: Date.now().toString(),
+          flag: "construimos_db"
         };
   
         newSubActivity.subActivity_total =
@@ -231,7 +229,7 @@ export default function BudgetPage({currentProject, setActivityList}: BudgetPage
                   ) : (
                     <tbody>
                       {/* ACTIVIDADES */}
-                      {projectInfo.project_activities.map((activity, index) => {
+                      {projectInfo.project_activities?.map((activity, index) => {
                         return (
                           <React.Fragment key={activity.activity_id}>
                             <tr className="activity_name">
@@ -265,7 +263,8 @@ export default function BudgetPage({currentProject, setActivityList}: BudgetPage
                               </td>
                             </tr>
                             {/* CREAR FILA PARA MATERIALES */}
-                            {activity.subActivities.map(
+
+                            {activity.subActivities?.map(
                               (subActivity, subIndex) => {
                                 return (
                                   <React.Fragment
@@ -342,7 +341,7 @@ export default function BudgetPage({currentProject, setActivityList}: BudgetPage
                       <tr className="subtotal_activity">
                         <td colSpan={2}>
                           Administración (
-                          {projectInfo.project_config.ADMIN * 100}
+                          {projectInfo.project_config.admin * 100}
                           %)
                         </td>
                         <td colSpan={4} className="subtotal_price">
@@ -352,7 +351,7 @@ export default function BudgetPage({currentProject, setActivityList}: BudgetPage
                       <tr className="subtotal_activity">
                         <td colSpan={2}>
                           Imprevistos (
-                          {projectInfo.project_config.UNFORESEEN * 100}
+                          {projectInfo.project_config.unforeseen * 100}
                           %)
                         </td>
                         <td colSpan={4} className="subtotal_price">
@@ -361,7 +360,7 @@ export default function BudgetPage({currentProject, setActivityList}: BudgetPage
                       </tr>
                       <tr className="subtotal_activity">
                         <td colSpan={2}>
-                          Utilidad ({projectInfo.project_config.UTILITY * 100}%)
+                          Utilidad ({projectInfo.project_config.utility * 100}%)
                         </td>
                         <td colSpan={4} className="subtotal_price">
                           {Formatter(projectInfo.budget_prices.utility)}
@@ -369,7 +368,7 @@ export default function BudgetPage({currentProject, setActivityList}: BudgetPage
                       </tr>
                       <tr className="subtotal_activity">
                         <td colSpan={2}>
-                          IVA ({projectInfo.project_config.IVA * 100}%)
+                          IVA ({projectInfo.project_config.iva * 100}%)
                         </td>
                         <td colSpan={4} className="subtotal_price">
                           {Formatter(projectInfo.budget_prices.IVA)}

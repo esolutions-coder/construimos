@@ -1,9 +1,10 @@
+import ApuCreator from "./apus_constructor";
+
 class CideinProject {
   project_general_info: ProjectGeneralInfo;
-  materials: CIDEINMaterials[];
-  equipment: CIDEINEquipment[];
-  workHand: CIDEINWorkhand[];
   apus: APU[];
+  local_apus: APU[];
+  project_activities_initial_state!: ProjecActivitiesInitialState[];
   project_activities: ProjecActivities[];
   budget_prices: BudgetPrices;
   project_config: CIDEINProjectConfig;
@@ -22,49 +23,103 @@ class CideinProject {
   subActivityId!: string;
 
   constructor(
-    materials: CIDEINMaterials[],
-    equipment: CIDEINEquipment[],
-    workHand: CIDEINWorkhand[],
     apus: APU[],
-    project_activities: ProjecActivities[],
+    local_apus: APU[],
+    project_activities_initial_state: ProjecActivitiesInitialState[],
     budget_prices: BudgetPrices,
     project_config: CIDEINProjectConfig,
     project_general_info: ProjectGeneralInfo
   ) {
     this.project_general_info = project_general_info;
-    this.materials = materials;
-    this.equipment = equipment;
-    this.workHand = workHand;
     this.apus = apus;
-    this.project_activities = project_activities;
+    this.local_apus = local_apus;
+    this.project_activities = this.projectActivitiesBuilder(project_activities_initial_state);
     this.budget_prices = budget_prices;
     this.project_config = project_config;
+    this.project_activities_initial_state = project_activities_initial_state;
   }
 
-  get state() {
+  get state():CIDEINProject {
     this.updateProject();
     return {
-      materials: this.materials,
-      equipment: this.equipment,
-      workHand: this.workHand,
       apus: this.apus,
       project_activities: this.project_activities,
       budget_prices: this.budget_prices,
       project_config: this.project_config,
       project_general_info: this.project_general_info,
+      local_apus: this.local_apus
     };
   }
 
   get toApi() {
     let toApiJson = {
-      projectData: {
         project_general_info: this.project_general_info,
         project_config: this.project_config,
-        apus: this.minimizeApus(this.apus),
-        project_activities: this.minimizeProjectActivities(this.project_activities),
-      },
+        apus: this.apus,
+        local_apus: this.local_apus,
+        project_activities: this.projectActivityToApi(this.project_activities),
     };
-    return toApiJson;
+    return JSON.parse(JSON.stringify(toApiJson));
+  }
+
+  projectActivityToApi(activities: ProjecActivities[]): ProjecActivitiesInitialState[] {
+    return activities.map(activity=>{
+      return{
+        activity_id: activity.activity_id,
+        activity_name: activity.activity_name,
+        subActivities: activity.subActivities.map(subActivity=>{
+          return{
+            amount: subActivity.amount,
+            subActivity_id: subActivity.subActivity_id,
+            flag: subActivity.flag,
+            subActivity_apu: {
+              apu_id: subActivity.subActivity_apu.apu_id,
+              _id: subActivity.subActivity_apu._id
+            }
+          }
+        })
+      }
+    })
+  }
+
+  // Estos metodos son los necesarios para construir el proyecto una vez se ha cargado la informacion desde la base de datos
+  projectActivitiesBuilder(activitiesData: ProjecActivitiesInitialState[]):ProjecActivities[] {
+    console.log(activitiesData);
+    const builtActivities = activitiesData.map((activity) => {
+      let subActivities = this.projectSubActivitiesBuilder(activity.subActivities);
+      return {
+        activity_id: activity.activity_id,
+        activity_name: activity.activity_name,
+        subtotal_activity: this.calculateActivitySubtotal(subActivities),
+        subActivities: subActivities,
+      }});
+
+      return builtActivities;
+  }
+
+    //MODULO ACTIVIDADES
+    calculateActivitySubtotal(subActivities: SubActivities[]): number {
+      let subtotal = 0;
+      for (let i = 0; i < subActivities.length; i++) {
+        const currentSubActivity = subActivities[i];
+        subtotal += currentSubActivity.subActivity_total;
+      }
+      return subtotal;
+    }
+
+  projectSubActivitiesBuilder(subActivitiesData: SubActivitiesInitialState[]):SubActivities[] {
+    return subActivitiesData.map((subActivity) => ({
+      amount: subActivity.amount,
+      subActivity_id: subActivity.subActivity_id,
+      flag: subActivity.flag,
+      subActivity_apu: ApuCreator.CalculateApuCost(this.searchApuFromId(subActivity.subActivity_apu.apu_id)!),
+      subActivity_total: ApuCreator.CalculateApuCost(this.searchApuFromId(subActivity.subActivity_apu.apu_id)!).apu_price,
+    }))
+  }
+
+  searchApuFromId(id: string){
+    const foundApu = this.apus.find((apu) => apu.apu_id === id);
+    return foundApu;
   }
 
   minimizeProjectActivities(activities: ProjecActivities[]) {
@@ -78,7 +133,6 @@ class CideinProject {
           subActivity_apu: {
             apu_id: subActivity.subActivity_apu.apu_id,
             flag: subActivity.flag,
-            _id: subActivity.subActivity_apu._id,
           },
         })),
         subtotal_activity: activity.subtotal_activity,
@@ -144,19 +198,19 @@ class CideinProject {
     /**COSTOS DE ADMINISTRACION
      * Son un porcentaje de los costos directos, debe ser asignado por el usuario en las configuraciones del proyecto
      */
-    this.budget_prices.admin = directCosts * this.project_config.ADMIN;
+    this.budget_prices.admin = directCosts * this.project_config.admin;
     /**COSTOS POR IMPREVISTOS
      * Son un porcentaje de los costos directos, debe ser asignado por el usuario en las configuraciones del proyecto
      */
-    this.budget_prices.unforeseen = directCosts * this.project_config.UNFORESEEN;
+    this.budget_prices.unforeseen = directCosts * this.project_config.unforeseen;
     /**UTILIDAD
      * Son un porcentaje de los costos directos, debe ser asignado por el usuario en las configuraciones del proyecto
      */
-    this.budget_prices.utility = directCosts * this.project_config.UTILITY;
+    this.budget_prices.utility = directCosts * this.project_config.utility;
     /**IVA
      * Es un porcentaje calculado sobre el valor de la utilidad
      */
-    this.budget_prices.IVA = this.budget_prices.utility * this.project_config.IVA;
+    this.budget_prices.IVA = this.budget_prices.utility * this.project_config.iva;
 
     /**VALOR TOTAL
      * Es la suma de los costos por administracion, imprevistos, utilidad, iva y costos directos
@@ -187,25 +241,27 @@ class CideinProject {
        */
       directCosts += currentActivity.subtotal_activity;
     }
-
+    // The calculateBudget and updateProject methods are nearly identical.
+    // The only difference is that calculateBudget does not call updateProject at the beginning.
+    // You can refactor the code to avoid duplication if needed.
     //Asignar la variable direcCosts a budget_prices > direct_costs
     this.budget_prices.direct_costs = directCosts;
     /**COSTOS DE ADMINISTRACION
      * Son un porcentaje de los costos directos, debe ser asignado por el usuario en las configuraciones del proyecto
      */
-    this.budget_prices.admin = directCosts * this.project_config.ADMIN;
+    this.budget_prices.admin = directCosts * this.project_config.admin;
     /**COSTOS POR IMPREVISTOS
      * Son un porcentaje de los costos directos, debe ser asignado por el usuario en las configuraciones del proyecto
      */
-    this.budget_prices.unforeseen = directCosts * this.project_config.UNFORESEEN;
+    this.budget_prices.unforeseen = directCosts * this.project_config.unforeseen;
     /**UTILIDAD
      * Son un porcentaje de los costos directos, debe ser asignado por el usuario en las configuraciones del proyecto
      */
-    this.budget_prices.utility = directCosts * this.project_config.UTILITY;
+    this.budget_prices.utility = directCosts * this.project_config.utility;
     /**IVA
      * Es un porcentaje calculado sobre el valor de la utilidad
      */
-    this.budget_prices.IVA = this.budget_prices.utility * this.project_config.IVA;
+    this.budget_prices.IVA = this.budget_prices.utility * this.project_config.iva;
 
     /**VALOR TOTAL
      * Es la suma de los costos por administracion, imprevistos, utilidad, iva y costos directos
@@ -215,22 +271,22 @@ class CideinProject {
   }
 
   updateIva(newIva: number) {
-    this.project_config.IVA = newIva;
+    this.project_config.iva = newIva;
     this.calculateBudget();
   }
 
   updateAdmin(newAdmin: number) {
-    this.project_config.ADMIN = newAdmin;
+    this.project_config.admin = newAdmin;
     this.calculateBudget();
   }
 
   updateUnforeseen(newUnforeseen: number) {
-    this.project_config.UNFORESEEN = newUnforeseen;
+    this.project_config.unforeseen = newUnforeseen;
     this.calculateBudget();
   }
 
   updateUtility(newUtility: number) {
-    this.project_config.UTILITY = newUtility;
+    this.project_config.utility = newUtility;
     this.calculateBudget();
   }
 
@@ -406,14 +462,16 @@ class CideinProject {
   }
 
   filterApusByUserInput(userInput: string): APU[] {
-    const filteredApus = this.apus.filter((apu) => apu.apu_name.toLowerCase().includes(userInput.toLowerCase()));
+    const filteredApus = this.local_apus.filter((apu) => apu.apu_name.toLowerCase().includes(userInput.toLowerCase()));
     return filteredApus;
   }
 
   filterApuById(apuId: string): APU | undefined {
-    const filteredApu = this.apus.find((apu) => apu._id === apuId);
+    const filteredApu = this.local_apus.find((apu) => apu._id === apuId);
     return filteredApu;
   }
+
+
 }
 
 export default CideinProject;

@@ -2,31 +2,33 @@
 import { useEffect, useState } from "react";
 
 //COMPONENTS
-import CideinLayOut from "../components/cidein_layout";
+import CideinLayOut from "../../../components/cidein_layout";
 
 //INFO
-import Project from "../assets/info_json/project_info.json";
-import SubActivityMock from "../assets/info_json/subActivityMock.json";
+import Project from "../../../assets/info_json/project_info.json";
+import SubActivityMock from "../../../assets/info_json/subActivityMock.json";
 
 //UTILS
 import React from "react";
-import CideinWarning from "../components/warning";
-import CideinProject from "../utils/project_constructor";
+import CideinWarning from "../../../components/warning";
+import CideinProject from "../../../utils/project_constructor";
 
 //APOLLO
-import { useLazyQuery, useMutation } from "@apollo/client";
+import { useLazyQuery, useMutation, useQuery } from "@apollo/client";
 
 //QUERIES
-import { SAVE_PROJECT_BUDGET } from "../api/budgets/projects.mutations";
-import { GET_FULL_APU_BY_ID } from "../assets/apus_queries/allApus";
-import ApuMock from "../assets/info_json/layout_apu.json";
-import ApuCreator from "../utils/apus_constructor";
-import BudgetBottomNavBar from "./budgets/components/budgetBottomNavBar";
-import BudgetRightMenu from "./budgets/components/budgetRightMenu";
-import LocalApuRightMenu from "./budgets/components/localApuRightMenu";
-import ApusPreview from "./budgets/pages/apusPreview";
-import BudgetPage from "./budgets/pages/budgetPage";
-import CreateLocalApu from "./budgets/pages/createLocalApu";
+import { SAVE_PROJECT_BUDGET } from "../../../api/budgets/projects.mutations";
+import { GET_FULL_APU_BY_ID } from "../../../assets/apus_queries/allApus";
+import ApuMock from "../../../assets/info_json/layout_apu.json";
+import ApuCreator from "../../../utils/apus_constructor";
+import BudgetBottomNavBar from "../.././budgets/components/budgetBottomNavBar";
+import BudgetRightMenu from "../.././budgets/components/budgetRightMenu";
+import LocalApuRightMenu from "../.././budgets/components/localApuRightMenu";
+import ApusPreview from "../.././budgets/pages/apusPreview";
+import BudgetPage from "../.././budgets/pages/budgetPage";
+import CreateLocalApu from "../.././budgets/pages/createLocalApu";
+import { GET_PROJECT_BY_ID } from "../../../api/budgets/projects.queries";
+import { useParams } from "react-router-dom";
 
 
 const apus = Project.apus;
@@ -59,7 +61,26 @@ const currentApu = new ApuCreator(
   ApuMock.apu_chaper
 );
 
-function Presupuestos() {
+export default function PresupuestosEditor() {
+  const {projectId} = useParams();
+  const {loading, error, data} = useQuery(GET_PROJECT_BY_ID, {
+    variables: {
+      projectId
+    }
+  })
+
+  useEffect(()=>{
+    if(data){
+      let projectData = data.getProjectById as CIDEINProject;
+      currentProject.apus = JSON.parse(JSON.stringify(projectData.apus));
+      currentProject.project_activities = currentProject.projectActivitiesBuilder(JSON.parse(JSON.stringify(projectData.project_activities))),
+      currentProject.project_config = JSON.parse(JSON.stringify(projectData.project_config)),
+      currentProject.project_general_info = JSON.parse(JSON.stringify(projectData.project_general_info))
+      
+      setProjectInfo(currentProject.state);
+    }
+  },[data])
+
   const [projectInfo, setProjectInfo] = useState<CIDEINProject>(currentProject.state);
   const [activityList, setActivityList] = useState([{ activity_name: "", activity_id: "" }]);
   const [selectedActivity, setSelectedActivity] = useState("");
@@ -88,13 +109,7 @@ function Presupuestos() {
   const [addFullApu, addFullApuResponse] = useLazyQuery(GET_FULL_APU_BY_ID);
   //AddSubactivity
   const [addSubCounter, setAddSubCounter] = useState(true);
-  // Save project budget
-  const [saveBuget, { data: saveBudgetData, loading: saveBudgetLoading, error: saveBudgetError }] = useMutation(SAVE_PROJECT_BUDGET);
 
-  useEffect(() => {
-    const initializedProject = currentProject.state;
-    setProjectInfo({ ...initializedProject });
-  }, []);
 
   useEffect(() => {
     if (addFullApuResponse.data) {
@@ -252,7 +267,7 @@ function Presupuestos() {
 
   switch (activeTab) {
     case "budget":
-      activeTabContent = <BudgetPage currentProject={currentProject} setActivityList ={setActivityList}/>
+      activeTabContent = <BudgetPage currentProject={currentProject} setActivityList ={setActivityList} projectInfo={projectInfo} setProjectInfo={setProjectInfo}/>
 
       rightMenu=<BudgetRightMenu handleSelectedActivity={handleSelectedActivity} projectInfo={projectInfo} setSearchedApus={setSearchedApus} searchedApus={searchedApus} addSubActivity={addSubActivity} setActiveTab={setActiveTab} visualizeExternalAPU={visualizeExternalAPU} currentProject={currentProject}/>;
       break;
@@ -264,21 +279,11 @@ function Presupuestos() {
         rightMenu=<LocalApuRightMenu currentApu={currentApu} setApuInfo={setApuInfo}/>
         break;
     default:
-      activeTabContent = <BudgetPage currentProject={currentProject} setActivityList ={setActivityList}/>
+      activeTabContent = <BudgetPage currentProject={currentProject} setActivityList ={setActivityList} projectInfo={projectInfo} setProjectInfo={setProjectInfo}/>
 
       rightMenu=<BudgetRightMenu handleSelectedActivity={handleSelectedActivity} projectInfo={projectInfo} setSearchedApus={setSearchedApus} searchedApus={searchedApus} addSubActivity={addSubActivity} setActiveTab={setActiveTab} visualizeExternalAPU={visualizeExternalAPU} currentProject={currentProject}/>;
       break;
   }
-
-  const saveProject = ()=> {
-    console.log(currentProject.state)
-    saveBuget({
-      variables: {
-        projectData: currentProject.toApi,
-      },
-    });
-  }
-
 
   return (
     <CideinLayOut>
@@ -298,9 +303,7 @@ function Presupuestos() {
           {rightMenu}
         </div>
       </div>
-      <BudgetBottomNavBar currentProject={currentProject} projectInfo={projectInfo} setProjectInfo={setProjectInfo} setActiveTab={setActiveTab} saveProject={saveProject}/>
+      <BudgetBottomNavBar currentProject={currentProject} projectInfo={projectInfo} setProjectInfo={setProjectInfo} setActiveTab={setActiveTab} saveProject={()=>{}}/>
     </CideinLayOut>
   );
 }
-
-export default Presupuestos;

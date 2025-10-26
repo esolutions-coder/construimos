@@ -31,6 +31,7 @@ export const GET_MATERIAL_BY_ID = gql`query Material($materialId: ID!) {
       material_unit
       material_rud
       material_category
+      _id
     }
   }`
 

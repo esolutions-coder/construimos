@@ -1,14 +1,16 @@
 import { useState } from "react";
 import CideinProject from "../../../utils/project_constructor";
 
+
 type BudgetBottomNavBarProps = {
     setProjectInfo: (value: React.SetStateAction<CIDEINProject>) => void,
     projectInfo: CIDEINProject
     currentProject: CideinProject
     setActiveTab: React.Dispatch<React.SetStateAction<string>>
+    saveProject: ()=>void
 }
 
-export default function BudgetBottomNavBar({setProjectInfo, projectInfo, currentProject, setActiveTab}:BudgetBottomNavBarProps){
+export default function BudgetBottomNavBar({setProjectInfo, projectInfo, currentProject, setActiveTab, saveProject }:BudgetBottomNavBarProps){
       //Show or hide general config menu
       const [configMenu, setConfigMenu] = useState(true);
       const [activityList, setActivityList] = useState([{ name: "", id: "" }]);
@@ -46,7 +48,8 @@ export default function BudgetBottomNavBar({setProjectInfo, projectInfo, current
         }
       
         currentProject.addActivity(activity_mock);
-        setProjectInfo(currentProject.state);};
+        setProjectInfo(currentProject.state);
+      };
 
               
     return(
@@ -64,7 +67,7 @@ export default function BudgetBottomNavBar({setProjectInfo, projectInfo, current
               <div className="config_value">
                 <input
                   type="number"
-                  value={projectInfo.project_config.IVA * 100}
+                  value={projectInfo.project_config.iva * 100}
                   placeholder="iva"
                   onChange={editIva}
                 />
@@ -77,7 +80,7 @@ export default function BudgetBottomNavBar({setProjectInfo, projectInfo, current
               <div className="config_value">
                 <input
                   type="number"
-                  value={projectInfo.project_config.ADMIN * 100}
+                  value={projectInfo.project_config.admin * 100}
                   placeholder="ADMINISTRACIÓN"
                   onChange={editAdmin}
                 />
@@ -90,7 +93,7 @@ export default function BudgetBottomNavBar({setProjectInfo, projectInfo, current
               <div className="config_value">
                 <input
                   type="number"
-                  value={projectInfo.project_config.UNFORESEEN * 100}
+                  value={projectInfo.project_config.unforeseen * 100}
                   placeholder="IMPREVISTOS"
                   onChange={editUnforeseen}
                 />
@@ -103,7 +106,7 @@ export default function BudgetBottomNavBar({setProjectInfo, projectInfo, current
               <div className="config_value">
                 <input
                   type="number"
-                  value={projectInfo.project_config.UTILITY * 100}
+                  value={projectInfo.project_config.utility * 100}
                   placeholder="utilidad"
                   onChange={editUtility}
                 />
@@ -115,7 +118,11 @@ export default function BudgetBottomNavBar({setProjectInfo, projectInfo, current
               <div className="bottom_nav_icon">
                 <span
                   className="material-symbols-outlined"
-                  onClick={() => setActiveTab("budget")}
+                  onClick={() => {
+                    console.log("Desde barra inferior")
+                    console.log(currentProject)
+                    setActiveTab("budget")
+                  }}
                 >
                   hub
                 </span>
@@ -133,7 +140,7 @@ export default function BudgetBottomNavBar({setProjectInfo, projectInfo, current
             </li>
             <li>
               <div className="bottom_nav_icon">
-                <span className="material-symbols-outlined"onClick={()=>{console.log(currentProject.toApi)}}>save</span>
+                <span className="material-symbols-outlined"onClick={()=>{saveProject()}}>save</span>
               </div>
             </li>
             <li>

@@ -21,6 +21,7 @@ import WorkhandInfo from "./pages/workhand-info";
 import { AuthProvider } from "./customHooks/auth/useAuth";
 import { ProtectedRoute } from "./pages/protectedRoute";
 import AUTHORIZATION from "./settings/authorized.json";
+import PresupuestosEditor from "./pages/budgets/pages/presupuestos-editor";
 
 function App() {
   return (
@@ -49,6 +50,7 @@ function App() {
         />
         <Route path="/equipment-info/:code" element={<EquipmentInfo />} />
         <Route path="/workhand-info/:code" element={<WorkhandInfo />} />
+        <Route path="/presupuestos/pill/:slug/id/:projectId" element={<PresupuestosEditor />} />
       </Routes>
       </AuthProvider>
     </div>

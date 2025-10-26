@@ -303,6 +303,77 @@ class ApuCreator {
     return newApu;
   }
 
+  static CalculateApuCost(apu: APU) {
+    let materialCost = 0;
+    let equipmentCost = 0;
+    let workHandCost = 0;
+    let apuCost = 0;
+    for (let i = 0; i < apu.apu_materials.length; i++) {
+      const currentMaterial = apu.apu_materials[i];
+      const partialValue = currentMaterial.material_amount * currentMaterial.material_unitary_price * (1 + currentMaterial.material_rud);
+
+      materialCost += partialValue;
+
+      currentMaterial.material_partial_value = partialValue;
+    }
+
+    for (let i = 0; i < apu.apu_equipment.length; i++) {
+      const currentEquipment = apu.apu_equipment[i];
+      const partialValue = currentEquipment.equipment_amount * currentEquipment.equipment_unitary_price * (1 + currentEquipment.equipment_rud);
+
+      equipmentCost += partialValue;
+
+      currentEquipment.equipment_partial_value = partialValue;
+    }
+
+    for (let i = 0; i < apu.apu_workHand.length; i++) {
+      const currentWorkHand = apu.apu_workHand[i];
+      const partialValue = currentWorkHand.workHand_amount * currentWorkHand.workHand_unitary_price * (1 + currentWorkHand.workHand_rud);
+
+      currentWorkHand.workHand_partial_value = partialValue;
+
+      workHandCost += partialValue;
+    }
+
+    for (let i = 0; i < apu.apu_apu.length; i++) {
+      const currentApu = apu.apu_apu[i];
+      const partialValue = currentApu.apu_price * currentApu.apu_amount * (1 + currentApu.apu_rud);
+
+      currentApu.apu_partial_value = partialValue;
+
+      apuCost += partialValue;
+    }
+
+    for (let i = 0; i < apu.apu_transportation.length; i++) {
+      const currentTransportation = apu.apu_transportation[i];
+      const partialValue =
+        currentTransportation.transportation_unitary_price *
+        currentTransportation.transportation_amount *
+        (1 + currentTransportation.transportation_rud);
+
+      currentTransportation.transportation_partial_value = partialValue;
+
+      apuCost += partialValue;
+    }
+
+    let apu_price = workHandCost + materialCost + equipmentCost + apuCost;
+
+    return {
+      _id: apu._id,
+      apu_id: apu.apu_id,
+      apu_name: apu.apu_name,
+      apu_unit: apu.apu_unit,
+      apu_price: apu_price,
+      apu_materials: apu.apu_materials,
+      apu_equipment: apu.apu_equipment,
+      apu_workHand: apu.apu_workHand,
+      apu_description: apu.apu_description,
+      apu_apu: apu.apu_apu,
+      apu_transportation: apu.apu_transportation,
+      apu_chapter: apu.apu_chapter,
+    };
+  }
+
   deleteApuInfo() {
     const newApu = {
       _id: "",

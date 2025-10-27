@@ -11,7 +11,7 @@
   align-items: center;
   justify-content: space-between;
   background: #f7b617;
-  z-index: 1000;
+  z-index: 99999;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12);
 }
 
@@ -165,7 +165,7 @@
   }
 }
 
-.bottom_options_nav{
+.bottom_options_nav {
   width: 300px;
   position: fixed;
   bottom: 0;
@@ -173,55 +173,54 @@
   background-color: colors.$secondary;
   padding: 0.5rem 1rem;
   border-top-left-radius: 0.25rem;
-  .bottom_nav_container{
-      .project_general_config_menu{
-          position: absolute;
-          bottom: 40px;
-          width: 100%;
-          background-color: colors.$secondary;
-          color: colors.$primary;
-          border-radius: 0.25rem;
-          transition: 0.3s ease;
-          .config_field{
-              display: flex;
-              align-items: center;
-              gap: 12px;
-              padding: 0.75rem 1rem;
+  .bottom_nav_container {
+    .project_general_config_menu {
+      position: absolute;
+      bottom: 40px;
+      width: 100%;
+      background-color: colors.$secondary;
+      color: colors.$primary;
+      border-radius: 0.25rem;
+      transition: 0.3s ease;
+      .config_field {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        padding: 0.75rem 1rem;
 
-              input{
-                  width: 100%;
-              }
-          }
-          &.hide{
-              bottom: -500px;
-              transition: 0.6s ease;
-          }
+        input {
+          width: 100%;
+        }
       }
-      position: relative;
-      ul{
-          padding-left: 0;
+      &.hide {
+        bottom: -500px;
+        transition: 0.6s ease;
+      }
+    }
+    position: relative;
+    ul {
+      padding-left: 0;
+      display: flex;
+      gap: 12px;
+      li {
+        .bottom_nav_icon {
           display: flex;
-          gap: 12px;
-          li{
-              .bottom_nav_icon{
-                  display: flex;
-                  align-items: center; 
-                  cursor: pointer;
-              }
-              list-style: none;
-              color: colors.$primary
-          }
+          align-items: center;
+          cursor: pointer;
+        }
+        list-style: none;
+        color: colors.$primary;
       }
+    }
   }
-  
 }
 
-.activity_selector_nav{
+.activity_selector_nav {
   display: flex;
   gap: 12px;
   margin-bottom: 1rem;
-  select{
-      width: 100%;
-      padding: 0.5rem;
+  select {
+    width: 100%;
+    padding: 0.5rem;
   }
 }

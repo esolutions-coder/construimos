@@ -29,11 +29,14 @@
   "dependencies": {
     "@apollo/client": "^3.13.8",
     "animate.css": "^4.1.1",
+    "date-fns": "^4.1.0",
     "graphql": "^16.11.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-icons": "^5.5.0",
-    "react-router-dom": "^6.30.1"
+    "react-router-dom": "^6.30.1",
+    "sweetalert2": "^11.26.3",
+    "sweetalert2-react-content": "^5.1.0"
   },
   "devDependencies": {
     "@babel/preset-react": "^7.18.6",

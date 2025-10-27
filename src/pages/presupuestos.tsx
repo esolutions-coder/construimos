@@ -252,7 +252,7 @@ function Presupuestos() {
 
   switch (activeTab) {
     case "budget":
-      activeTabContent = <BudgetPage currentProject={currentProject} setActivityList ={setActivityList}/>
+      activeTabContent = <BudgetPage currentProject={currentProject} setActivityList ={setActivityList} projectInfo={projectInfo} setProjectInfo={setProjectInfo}/>
 
       rightMenu=<BudgetRightMenu handleSelectedActivity={handleSelectedActivity} projectInfo={projectInfo} setSearchedApus={setSearchedApus} searchedApus={searchedApus} addSubActivity={addSubActivity} setActiveTab={setActiveTab} visualizeExternalAPU={visualizeExternalAPU} currentProject={currentProject}/>;
       break;
@@ -264,7 +264,7 @@ function Presupuestos() {
         rightMenu=<LocalApuRightMenu currentApu={currentApu} setApuInfo={setApuInfo}/>
         break;
     default:
-      activeTabContent = <BudgetPage currentProject={currentProject} setActivityList ={setActivityList}/>
+      activeTabContent = <BudgetPage currentProject={currentProject} setActivityList ={setActivityList} projectInfo={projectInfo} setProjectInfo={setProjectInfo}/>
 
       rightMenu=<BudgetRightMenu handleSelectedActivity={handleSelectedActivity} projectInfo={projectInfo} setSearchedApus={setSearchedApus} searchedApus={searchedApus} addSubActivity={addSubActivity} setActiveTab={setActiveTab} visualizeExternalAPU={visualizeExternalAPU} currentProject={currentProject}/>;
       break;

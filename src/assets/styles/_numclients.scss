@@ -4,7 +4,6 @@
   color: #030f27;
   margin-left: 130px;
   transition: transform 0.3s ease-out, color 0.3s, text-shadow 0.3s;
-  width: 800px;
   grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
   display: grid;
 }
@@ -39,6 +38,8 @@
 @media (max-width: 1300px) {
   .titux {
     font-size: 1.8rem;
+    width: 300px;
+
     margin-left: 9rem;
   }
   .subtix {
@@ -52,6 +53,8 @@
 @media (max-width: 950px) {
   .titux {
     font-size: 1.8rem;
+    width: 300px;
+
     margin-left: 9rem;
   }
   .subtix {
@@ -66,6 +69,7 @@
   .titux {
     font-size: 1.4rem;
     margin-left: 6rem;
+    width: 270px;
   }
   .subtix {
     margin-left: 6rem;

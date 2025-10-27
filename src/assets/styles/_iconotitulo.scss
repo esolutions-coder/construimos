@@ -35,3 +35,11 @@
   transform: scale(1.1);
   color: #000000;
 }
+
+@media (max-width: 600px) {
+  .item-numeros {
+    margin-left: 0px;
+    margin: 0 auto;
+    margin-bottom: 20px;
+  }
+}

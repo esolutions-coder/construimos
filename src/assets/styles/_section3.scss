@@ -25,7 +25,8 @@
   flex-direction: column;
   margin-bottom: 6rem;
   margin-left: 6rem;
-  width: 575px;
+  max-width: 100%; /* ✅ que no supere su celda */
+  overflow-x: clip;
 }
 
 /* Secciones */

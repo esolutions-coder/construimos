@@ -1,12 +1,18 @@
 import { useState } from "react";
 import cideinLogoYellow from "../assets/img/cidein_logo_yellow.png";
 import userImage from "../assets/img/user_image.png";
+import { useNavigate } from "react-router-dom";
 
 type CideinLayouProps = {
   children: React.ReactNode;
 };
 
 function CideinLayout({ children }: CideinLayouProps) {
+  const navigate = useNavigate(); // inicializas el hook
+
+  const goToDashboard = () => {
+    navigate("/presupuestos/editor/:budgetId"); // navega a la ruta /dashboard
+  };
   //When false the navbar is minimized
   const [leftNav, setLeftNav] = useState(false);
   return (
@@ -92,6 +98,10 @@ function CideinLayout({ children }: CideinLayouProps) {
                     <p>SG-SST</p>
                   </a>
                 </li>
+                <button
+                  onClick={goToDashboard}
+                  className="btn-gotodasboard"
+                ></button>
               </ul>
             </div>
           </div>

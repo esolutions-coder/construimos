@@ -1,31 +1,32 @@
 .warning {
-    position: fixed;
+  z-index: 9999;
+  position: fixed;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.5rem 1rem;
+  width: 100%;
+  top: 0;
+  left: 0;
+  transition: 0.5s ease;
+
+  .warning_info {
     display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 0.5rem 1rem;
-    width: 100%;
-    top: 0;
-    left: 0;
+    gap: 12px;
+  }
+
+  .warning_option {
+    span {
+      cursor: pointer;
+    }
+  }
+
+  .warning_container {
+    display: flex;
+  }
+
+  &.close {
+    top: -100px;
     transition: 0.5s ease;
-
-    .warning_info {
-        display: flex;
-        gap: 12px;
-    }
-
-    .warning_option{
-        span{
-            cursor: pointer;
-        }
-    }
-
-    .warning_container {
-        display: flex;
-    }
-
-    &.close {
-        top: -100px;
-        transition: 0.5s ease
-    }
+  }
 }

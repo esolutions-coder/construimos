@@ -13,7 +13,10 @@ import Login from "./pages/login";
 import MaterialById from "./pages/material";
 import Materials from "./pages/materials";
 import Presupuestos from "./pages/presupuestos";
-import { default as Proveedores, default as ProviderSection } from "./pages/proveedores";
+import {
+  default as Proveedores,
+  default as ProviderSection,
+} from "./pages/proveedores";
 import Register from "./pages/register";
 import ShowRoom from "./pages/showroom";
 import TransportationInfo from "./pages/transportation-info";

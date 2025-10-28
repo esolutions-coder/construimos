@@ -93,6 +93,9 @@ $bg: #f6f8fb;
   table-layout: fixed; /* evita que “salten” los anchos */
   margin-left: 2rem;
 }
+.table-responsive {
+  width: 100%;
+}
 
 /* Cabezera */
 .table thead th {

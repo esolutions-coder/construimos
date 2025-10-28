@@ -20,6 +20,8 @@
   object-fit: cover;
   font-size: 150px;
   margin-top: 30px;
+  margin-bottom: 13px;
+
   transition: transform 0.3s ease-out, color 0.3s, text-shadow 0.3s;
 }
 
@@ -33,7 +35,6 @@
   font-size: clamp(20px, 8vw, 54px);
 }
 .titulo:hover {
-  transform: scale(1.1);
   color: #030f27;
 }
 
@@ -44,7 +45,6 @@
   transition: transform 0.3s ease-out, color 0.3s, text-shadow 0.3s;
 }
 .parrafo:hover {
-  transform: scale(1.1);
   color: #030f27;
 }
 .titulos {
@@ -60,7 +60,6 @@
 }
 
 .titulos:hover {
-  transform: scale(1.1);
   color: #030f27;
 }
 .subtitulos {
@@ -76,7 +75,6 @@
 }
 
 .subtitulos:hover {
-  transform: scale(1.1);
   color: #030f27;
 }
 
@@ -106,15 +104,17 @@
   }
 }
 
-@media (max-width: 500px) {
+@media (max-width: 600px) {
   .titulos {
     font-size: 1.3rem;
     margin-left: 5rem;
+    margin-top: -2rem;
   }
   .subtitulos {
     margin-left: 5rem;
+
     font-size: 1rem;
-    width: 280px;
+    width: 70%;
   }
   .icono {
     font-size: 5rem;

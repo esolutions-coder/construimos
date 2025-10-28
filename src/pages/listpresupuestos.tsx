@@ -90,7 +90,7 @@ export default function ListPresupuestos() {
             <div className="busqueda_presupuestos">
               <input
                 type="text"
-                placeholder="🔎 Buscar tu presupuesto por su nombre..."
+                placeholder="Buscar tu presupuesto por su nombre..."
               />
               <button
                 disabled={

@@ -114,7 +114,7 @@ export default function Register() {
         <div className="logo txt_center">
           <img src={construimosLogo} alt="" />
         </div>
-        <h3 id="landing_nav_title" className="txt_primary">
+        <h3 id="landing_nav_titles" className="txt_primary">
           CONSTRUIMOS
         </h3>
         <h6 className="txt_800 txt_center txt_primary">REGISTRO</h6>

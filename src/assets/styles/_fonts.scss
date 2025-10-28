@@ -28,9 +28,8 @@ h6 {
   font-family: "Poppins";
   font-style: normal;
   font-weight: 600;
-  font-size: 32px;
+  font-size: 27px;
   line-height: 48px;
-  /* identical to box height */
 
   letter-spacing: -1.5px;
 }
@@ -122,9 +121,13 @@ p {
   font-weight: 800;
 }
 
-@media (max-width: 508px) {
+@media (max-width: 908px) {
   #landing_nav_title {
     font-size: clamp(20px, 8vw, 54px);
     text-align: center;
   }
+}
+#landing_nav_titles {
+  font-size: clamp(20px, 8vw, 44px);
+  text-align: center;
 }

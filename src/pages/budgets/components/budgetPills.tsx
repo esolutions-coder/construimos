@@ -3,15 +3,23 @@ import Pills from "../../../assets/info_json/pills.json";
 
 type BudgetPillsProps = {
   setActiveTab: React.Dispatch<React.SetStateAction<string>>
+  env: "editor" | "creator"
+  id?: string
 }
 
-function BudgetPills({setActiveTab}:BudgetPillsProps) {
+function BudgetPills({setActiveTab, env, id}:BudgetPillsProps) {
     const {slug} = useParams();
     const navigate = useNavigate();
 
     const handlePillClick = (pillSlug: string) => {
-      navigate(`/presupuestos/pill/${pillSlug}`)
-      setActiveTab(pillSlug);
+      if(env === "creator"){
+        navigate(`/presupuestos/pill/${pillSlug}`)
+        setActiveTab(pillSlug);
+      }
+      if(env === "editor"){
+        navigate(`/presupuestos/pill/${pillSlug}/id/${id}`)
+        setActiveTab(pillSlug);
+      }
     }
 
   return (

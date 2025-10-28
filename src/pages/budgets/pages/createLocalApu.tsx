@@ -164,14 +164,8 @@ export default function CreateLocalApu({
 
   const saveApu = () => {
     currentApu.apu_id = `APU-${Date.now()}`;
-    currentProject.apus.push(currentApu.state);
-    console.log(currentApu.state);
-    helpfulAlert(
-      "APU guardado en el proyecto exitosamente",
-      "success_theme",
-      5,
-      "check_circle"
-    );
+    currentProject.local_apus.push(currentApu.state);
+    helpfulAlert("APU guardado en el proyecto exitosamente", "success_theme", 5, "check_circle");
   };
 
   return (

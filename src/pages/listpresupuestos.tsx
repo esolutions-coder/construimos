@@ -1,8 +1,7 @@
-import { useQuery, useMutation, gql } from "@apollo/client";
+import { gql, useMutation, useQuery } from "@apollo/client";
 import { useParams } from "react-router-dom";
-import { format } from "date-fns";
-import Sidebar from "../components/layout/sidebar";
 import { GET_PROJECTS_BY_USER_ID } from "../assets/apus_queries/materialsQueries";
+import Sidebar from "../components/layout/sidebar";
 import Loading from "../components/loading";
 
 export default function ListPresupuestos() {
@@ -54,7 +53,7 @@ export default function ListPresupuestos() {
     name: p.project_general_info?.name,
     description: p.project_general_info?.description,
     totalCost: p.project_general_info?.totalCost,
-    fecha: format(new Date(), "yyyy-MM-dd"),
+    fecha: new Date(),
   }));
 
   return (
@@ -92,7 +91,7 @@ export default function ListPresupuestos() {
                 type="text"
                 placeholder="Buscar tu presupuesto por su nombre..."
               />
-              <button
+              {/* <button
                 disabled={
                   saving ||
                   MIGUEL_MUTATION.definitions[0]?.name?.value === "__TEMP__"
@@ -107,7 +106,7 @@ export default function ListPresupuestos() {
                 }
               >
                 {saving ? "Guardando..." : "Guardar "}
-              </button>
+              </button> */}
             </div>
           </div>
 

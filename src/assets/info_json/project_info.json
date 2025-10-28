@@ -3,98 +3,8 @@
     "name": "",
     "description": ""
   },
-  "materials": [
-    {
-      "_id": "",
-      "material_name": "PUNTILLAS",
-      "material_unitary_price": 500,
-      "material_provider": "FERRETERIA SAS",
-      "material_amount": 12,
-      "material_code": "MAT1",
-      "material_unit": "UND",
-      "material_rud": 0.3,
-      "material_partial_value": 400,
-      "material_category": ""
-    }
-  ],
-  "equipment": [
-    {
-      "_id": "",
-      "equipment_name": "PUNTILLAS",
-      "equipment_unitary_price": 500,
-      "equipment_provider": "FERRETERIA SAS",
-      "equipment_code": "EQP1",
-      "equipment_unit": "UND",
-      "equipment_amount": 123,
-      "equipment_rud": 0.3,
-      "equipment_partial_value": 400
-    }
-  ],
-  "workHand": [
-    {
-      "_id": "",
-      "workHand_name": "PUNTILLAS",
-      "workHand_unitary_price": 500,
-      "workHand_provider": "FERRETERIA SAS",
-      "workHand_code": "MD01",
-      "workHand_unit": "UND",
-      "workHand_amount": 123,
-      "workHand_rud": 0.3,
-      "workHand_partial_value": 400
-    }
-  ],
-  "apus": [
-    {
-      "apu_name": "DISEÑOS",
-      "_id": "123",
-      "apu_id": "0001",
-      "apu_unit": "M2",
-      "apu_description": "DISEÑOS ARQUITECTÓNICOS",
-      "apu_materials": [
-        {
-          "_id": "",
-          "material_category": "",
-          "material_name": "PUNTILLAS",
-          "material_unitary_price": 500,
-          "material_amount": 100,
-          "material_provider": "FERRETERIA SAS",
-          "material_code": "MAT1",
-          "material_unit": "UND",
-          "material_rud": 0.3,
-          "material_partial_value": 400
-        }
-      ],
-      "apu_equipment": [
-        {
-          "_id": "",
-          "equipment_name": "PUNTILLAS",
-          "equipment_unitary_price": 500,
-          "equipment_provider": "FERRETERIA SAS",
-          "equipment_amount": 0,
-          "equipment_code": "EQP1",
-          "equipment_unit": "UND",
-          "equipment_rud": 0.3,
-          "equipment_partial_value": 400
-        }
-      ],
-      "apu_workHand": [
-        {
-          "_id": "",
-          "workHand_name": "PUNTILLAS",
-          "workHand_unitary_price": 500,
-          "workHand_provider": "FERRETERIA SAS",
-          "workHand_code": "MDO1",
-          "workHand_amount": 0,
-          "workHand_unit": "UND",
-          "workHand_rud": 0,
-          "workHand_partial_value": 0
-        }
-      ],
-      "apu_transportation": [],
-      "apu_apu": [],
-      "apu_price": 0
-    }
-  ],
+  "apus": [],
+  "local_apus":[],
   "project_activities": [],
   "budget_prices": {
     "IVA": 0,
@@ -105,9 +15,9 @@
     "total_cost": 0
   },
   "project_config": {
-    "IVA": 0,
-    "ADMIN": 0,
-    "UNFORESEEN": 0,
-    "UTILITY": 0
+    "iva": 0,
+    "admin": 0,
+    "unforeseen": 0,
+    "utility": 0
   }
 }

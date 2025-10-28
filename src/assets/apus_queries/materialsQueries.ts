@@ -44,7 +44,8 @@ export const GET_PROJECTS_BY_USER_ID = gql`
       project_general_info {
         name
         description
-        totalCost
+        total_cost
+        date
       }
       _id
     }

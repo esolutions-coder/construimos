@@ -24,11 +24,12 @@ import ApuCreator from "../../../utils/apus_constructor";
 import BudgetBottomNavBar from "../.././budgets/components/budgetBottomNavBar";
 import BudgetRightMenu from "../.././budgets/components/budgetRightMenu";
 import LocalApuRightMenu from "../.././budgets/components/localApuRightMenu";
-import ApusPreview from "../.././budgets/pages/apusPreview";
 import BudgetPage from "../.././budgets/pages/budgetPage";
 import CreateLocalApu from "../.././budgets/pages/createLocalApu";
-import { GET_PROJECT_BY_ID } from "../../../api/budgets/projects.queries";
+import { EDIT_PROJECT_BY_ID, GET_PROJECT_BY_ID } from "../../../api/budgets/projects.queries";
 import { useParams } from "react-router-dom";
+import ApusPreview from "./apusPreview";
+import LocalApusPreview from "./localApuPreview";
 
 
 const apus = Project.apus;
@@ -69,17 +70,7 @@ export default function PresupuestosEditor() {
     }
   })
 
-  useEffect(()=>{
-    if(data){
-      let projectData = data.getProjectById as CIDEINProject;
-      currentProject.apus = JSON.parse(JSON.stringify(projectData.apus));
-      currentProject.project_activities = currentProject.projectActivitiesBuilder(JSON.parse(JSON.stringify(projectData.project_activities))),
-      currentProject.project_config = JSON.parse(JSON.stringify(projectData.project_config)),
-      currentProject.project_general_info = JSON.parse(JSON.stringify(projectData.project_general_info))
-      
-      setProjectInfo(currentProject.state);
-    }
-  },[data])
+  const [editProject, {data: editData, error:editError, loading:editLoading}] = useMutation(EDIT_PROJECT_BY_ID)
 
   const [projectInfo, setProjectInfo] = useState<CIDEINProject>(currentProject.state);
   const [activityList, setActivityList] = useState([{ activity_name: "", activity_id: "" }]);
@@ -262,14 +253,37 @@ export default function PresupuestosEditor() {
     }, time * 1000);
   };
 
+  useEffect(()=>{
+    if(data){
+      let projectData = data.getProjectById as CIDEINProject;
+      currentProject.apus = JSON.parse(JSON.stringify(projectData.apus));
+      currentProject.local_apus = JSON.parse(JSON.stringify(projectData.local_apus))
+      currentProject.project_activities = currentProject.projectActivitiesBuilder(JSON.parse(JSON.stringify(projectData.project_activities))),
+      currentProject.project_config = JSON.parse(JSON.stringify(projectData.project_config)),
+      currentProject.project_general_info = JSON.parse(JSON.stringify(projectData.project_general_info))
+      
+      setProjectInfo(currentProject.state);
+    }
+  },[data])
+
+  useEffect(() => {
+    if(editData){
+      alert("Exito actualizando")
+    }
+    if(editError){
+      alert("Error Guardando los datos")
+    }
+  }, [editData, editError, editLoading]);
+
   let activeTabContent:JSX.Element = <></>;
   let rightMenu:JSX.Element = <></>;
+
 
   switch (activeTab) {
     case "budget":
       activeTabContent = <BudgetPage currentProject={currentProject} setActivityList ={setActivityList} projectInfo={projectInfo} setProjectInfo={setProjectInfo}/>
 
-      rightMenu=<BudgetRightMenu handleSelectedActivity={handleSelectedActivity} projectInfo={projectInfo} setSearchedApus={setSearchedApus} searchedApus={searchedApus} addSubActivity={addSubActivity} setActiveTab={setActiveTab} visualizeExternalAPU={visualizeExternalAPU} currentProject={currentProject}/>;
+      rightMenu=<BudgetRightMenu handleSelectedActivity={handleSelectedActivity} projectInfo={projectInfo} setSearchedApus={setSearchedApus} searchedApus={searchedApus} addSubActivity={addSubActivity} setActiveTab={setActiveTab} currentProject={currentProject} env="editor" id={projectId} setSelectedApu={setSelectedApu} getFullApu={getFullApu}/>;
       break;
     case "apu_viewer":
       activeTabContent = <ApusPreview GetFullApuResponse={GetFullApuResponse} selectedApu={selectedApu} />
@@ -278,10 +292,13 @@ export default function PresupuestosEditor() {
         activeTabContent = <CreateLocalApu  apuInfo={apuInfo} setApuInfo={setApuInfo} currentApu={currentApu} currentProject={currentProject}/>
         rightMenu=<LocalApuRightMenu currentApu={currentApu} setApuInfo={setApuInfo}/>
         break;
+      case "local_apu_viewer":
+          activeTabContent = <LocalApusPreview selectedApu={selectedApu} />
+          break;
     default:
       activeTabContent = <BudgetPage currentProject={currentProject} setActivityList ={setActivityList} projectInfo={projectInfo} setProjectInfo={setProjectInfo}/>
 
-      rightMenu=<BudgetRightMenu handleSelectedActivity={handleSelectedActivity} projectInfo={projectInfo} setSearchedApus={setSearchedApus} searchedApus={searchedApus} addSubActivity={addSubActivity} setActiveTab={setActiveTab} visualizeExternalAPU={visualizeExternalAPU} currentProject={currentProject}/>;
+      rightMenu=<BudgetRightMenu handleSelectedActivity={handleSelectedActivity} projectInfo={projectInfo} setSearchedApus={setSearchedApus} searchedApus={searchedApus} addSubActivity={addSubActivity} setActiveTab={setActiveTab} currentProject={currentProject}  env="editor" id={projectId} setSelectedApu={setSelectedApu} getFullApu={getFullApu}/>;
       break;
   }
 
@@ -303,7 +320,14 @@ export default function PresupuestosEditor() {
           {rightMenu}
         </div>
       </div>
-      <BudgetBottomNavBar currentProject={currentProject} projectInfo={projectInfo} setProjectInfo={setProjectInfo} setActiveTab={setActiveTab} saveProject={()=>{}}/>
+      <BudgetBottomNavBar currentProject={currentProject} projectInfo={projectInfo} setProjectInfo={setProjectInfo} setActiveTab={setActiveTab} saveProject={()=>{
+        editProject({
+          variables: {
+            projectId: projectId,
+            projectData: currentProject.toApi
+          }
+        })
+      }}/>
     </CideinLayOut>
   );
 }

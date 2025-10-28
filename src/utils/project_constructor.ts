@@ -49,6 +49,7 @@ class CideinProject {
       project_general_info: this.project_general_info,
       local_apus: this.local_apus
     };
+    
   }
 
   get toApi() {
@@ -84,7 +85,6 @@ class CideinProject {
 
   // Estos metodos son los necesarios para construir el proyecto una vez se ha cargado la informacion desde la base de datos
   projectActivitiesBuilder(activitiesData: ProjecActivitiesInitialState[]):ProjecActivities[] {
-    console.log(activitiesData);
     const builtActivities = activitiesData.map((activity) => {
       let subActivities = this.projectSubActivitiesBuilder(activity.subActivities);
       return {
@@ -112,13 +112,19 @@ class CideinProject {
       amount: subActivity.amount,
       subActivity_id: subActivity.subActivity_id,
       flag: subActivity.flag,
-      subActivity_apu: ApuCreator.CalculateApuCost(this.searchApuFromId(subActivity.subActivity_apu.apu_id)!),
-      subActivity_total: ApuCreator.CalculateApuCost(this.searchApuFromId(subActivity.subActivity_apu.apu_id)!).apu_price,
+      subActivity_apu: ApuCreator.CalculateApuCost(this.searchApuFromId(subActivity.subActivity_apu.apu_id, subActivity.flag)!),
+      subActivity_total: 0//ApuCreator.CalculateApuCost(this.searchApuFromId(subActivity.subActivity_apu.apu_id, subActivity.flag)!).apu_price,
     }))
   }
 
-  searchApuFromId(id: string){
-    const foundApu = this.apus.find((apu) => apu.apu_id === id);
+  searchApuFromId(id: string, db: string){
+    let foundApu: APU | undefined
+    if(db==="construimos_db"){
+      foundApu = this.apus.find((apu) => apu.apu_id === id);
+    }
+    else if(db==="local_db"){
+      foundApu = this.local_apus.find((apu) => apu.apu_id === id);
+    }
     return foundApu;
   }
 

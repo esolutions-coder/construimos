@@ -24,9 +24,10 @@ import ApuCreator from "../utils/apus_constructor";
 import BudgetBottomNavBar from "./budgets/components/budgetBottomNavBar";
 import BudgetRightMenu from "./budgets/components/budgetRightMenu";
 import LocalApuRightMenu from "./budgets/components/localApuRightMenu";
-import ApusPreview from "./budgets/pages/apusPreview";
 import BudgetPage from "./budgets/pages/budgetPage";
 import CreateLocalApu from "./budgets/pages/createLocalApu";
+import ApusPreview from "./budgets/pages/apusPreview";
+import LocalApusPreview from "./budgets/pages/localApuPreview";
 
 
 const apus = Project.apus;
@@ -67,9 +68,7 @@ function Presupuestos() {
     apus: [],
     db: "construimos_db"
   });
-
   const [apuInfo, setApuInfo] = useState<APUNoId>(currentApu);
-
   //Active tab changes between the cidein_window_1 (true) --> Presupuesto and cidein_window_2 (false)--> Single APU
   const [activeTab, setActiveTab] = useState("budget");
   const [warningProps, setWarningProps] = useState({
@@ -79,7 +78,6 @@ function Presupuestos() {
     color: "primary_theme",
     icon: "info",
   });
-
   const subAct = SubActivityMock as APU;
   const [selectedApu, setSelectedApu] = useState(subAct);
   //Search the full info of the selected APU
@@ -216,14 +214,6 @@ function Presupuestos() {
     }
   }, [GetFullApuResponse.data]);
 
-  const visualizeExternalAPU = (apuId: string) => {
-    getFullApu({
-      variables: {
-        apuId,
-      },
-    });
-  };
-
   const helpfulAlert = (
     message: string,
     color: string,
@@ -254,10 +244,13 @@ function Presupuestos() {
     case "budget":
       activeTabContent = <BudgetPage currentProject={currentProject} setActivityList ={setActivityList} projectInfo={projectInfo} setProjectInfo={setProjectInfo}/>
 
-      rightMenu=<BudgetRightMenu handleSelectedActivity={handleSelectedActivity} projectInfo={projectInfo} setSearchedApus={setSearchedApus} searchedApus={searchedApus} addSubActivity={addSubActivity} setActiveTab={setActiveTab} visualizeExternalAPU={visualizeExternalAPU} currentProject={currentProject}/>;
+      rightMenu=<BudgetRightMenu getFullApu={getFullApu} handleSelectedActivity={handleSelectedActivity} projectInfo={projectInfo} setSearchedApus={setSearchedApus} searchedApus={searchedApus} addSubActivity={addSubActivity} setActiveTab={setActiveTab} currentProject={currentProject} env="creator" setSelectedApu={setSelectedApu} />;
       break;
     case "apu_viewer":
-      activeTabContent = <ApusPreview GetFullApuResponse={GetFullApuResponse} selectedApu={selectedApu} />
+      activeTabContent = <ApusPreview  selectedApu={selectedApu} GetFullApuResponse={GetFullApuResponse} />
+      break;
+    case "local_apu_viewer":
+      activeTabContent = <LocalApusPreview selectedApu={selectedApu} />
       break;
     case "create_apus_local":
         activeTabContent = <CreateLocalApu  apuInfo={apuInfo} setApuInfo={setApuInfo} currentApu={currentApu} currentProject={currentProject}/>
@@ -266,12 +259,11 @@ function Presupuestos() {
     default:
       activeTabContent = <BudgetPage currentProject={currentProject} setActivityList ={setActivityList} projectInfo={projectInfo} setProjectInfo={setProjectInfo}/>
 
-      rightMenu=<BudgetRightMenu handleSelectedActivity={handleSelectedActivity} projectInfo={projectInfo} setSearchedApus={setSearchedApus} searchedApus={searchedApus} addSubActivity={addSubActivity} setActiveTab={setActiveTab} visualizeExternalAPU={visualizeExternalAPU} currentProject={currentProject}/>;
+      rightMenu=<BudgetRightMenu  getFullApu={getFullApu} handleSelectedActivity={handleSelectedActivity} projectInfo={projectInfo} setSearchedApus={setSearchedApus} searchedApus={searchedApus} addSubActivity={addSubActivity} setActiveTab={setActiveTab} currentProject={currentProject} env="creator" setSelectedApu={setSelectedApu}/>;
       break;
   }
 
   const saveProject = ()=> {
-    console.log(currentProject.state)
     saveBuget({
       variables: {
         projectData: currentProject.toApi,

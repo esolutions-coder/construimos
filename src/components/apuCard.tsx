@@ -1,24 +1,44 @@
+import { SetStateAction } from "react";
 import Formatter from "../utils/formatter";
+import CideinProject from "../utils/project_constructor";
 
 interface ApuCard {
   apuInfo: APU;
   addSubActivity: Function;
   setTab: React.Dispatch<React.SetStateAction<string>>;
-  visualizeExternalAPU: Function;
   flag: string
+  currentProject: CideinProject
+  setSelectedApu: React.Dispatch<SetStateAction<APU>>
+  //@ts-ignore
+  getFullApu: LazyQueryExecFunction<any, OperationVariables>
 }
 
 function ApuCard({
   apuInfo,
   addSubActivity,
   setTab,
-  visualizeExternalAPU,
-  flag
+  setSelectedApu,
+  flag,
+  getFullApu
 }: ApuCard) {
+
   const setTabAndShowAPU = () => {
-    setTab("apu_viewer");
-    visualizeExternalAPU(apuInfo._id);
+    if(flag==="construimos_db"){
+      setTab("apu_viewer");
+      getFullApu({
+        variables:{
+          apuId: apuInfo._id
+        }
+      });
+    }
+
+    if(flag==="local_db"){
+      setTab("local_apu_viewer");
+      setSelectedApu(apuInfo);
+    }
+
   };
+
   return (
     <div className="apu_card">
       <div className="apu_card_body">

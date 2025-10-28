@@ -17,7 +17,6 @@ type BudgetPageProps = {
 }
 
 export default function BudgetPage({currentProject, setActivityList, projectInfo, setProjectInfo}: BudgetPageProps) {
-
     // const [activityList, setActivityList] = useState([{ name: "", id: "" }]);
     const [selectedActivity, setSelectedActivity] = useState("");
     const [searchedApus, setSearchedApus] = useState<APU[]>([]);
@@ -67,7 +66,6 @@ export default function BudgetPage({currentProject, setActivityList, projectInfo
         subActivityId,
         newSubActivityPrice
       );
-      console.log(currentProject.state);
       setProjectInfo(currentProject.state);
     };
   

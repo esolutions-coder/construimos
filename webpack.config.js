@@ -2,14 +2,7 @@ const path = require("path");
 
 const sassLoaderRules = {
   test: /\.s[ac]ss$/i,
-  use: [
-    // Creates `style` nodes from JS strings
-    "style-loader",
-    // Translates CSS into CommonJS
-    "css-loader",
-    // Compiles Sass to CSS
-    "sass-loader",
-  ],
+  use: ["style-loader", "css-loader", "sass-loader"],
 };
 
 const babelLoaderRules = {
@@ -20,12 +13,7 @@ const babelLoaderRules = {
       loader: "babel-loader",
       options: {
         presets: [
-          [
-            "@babel/preset-react",
-            {
-              runtime: "automatic",
-            },
-          ],
+          ["@babel/preset-react", { runtime: "automatic" }],
           "@babel/preset-typescript",
         ],
       },
@@ -33,40 +21,32 @@ const babelLoaderRules = {
   ],
 };
 
-// const filesLoader = {
-//   test: /\.(png|jpe?g|gif)$/i,
-//   use: [
-//     {
-//       loader: "url-loader",
-//     },
-//   ],
-// };
-
-const cssImageLoader =       {
+const cssImageLoader = {
   test: /\.(png|svg|jpg|jpeg|gif)$/i,
-  type: 'asset/resource',
-}
+  type: "asset/resource",
+};
 
 const svgLoader = {
   test: /\.svg$/,
-  use: ['@svgr/webpack'],
-}
+  use: ["@svgr/webpack"],
+};
 
 module.exports = {
+  mode: "development",                 // 👈 set an explicit mode
   entry: "./src/index.tsx",
   output: {
-    // options related to how webpack emits results
-    path: path.resolve(__dirname, "../construimos-front"), // string (default)
-    // the target directory for all output files
-    // must be an absolute path (use the Node.js path module)
-    filename: "[name].js", // string (default)
-    // the filename template for entry chunks
-    publicPath: "/"
+    path: path.resolve(__dirname, "../cidein-presupuestos/construimos-front"),
+    filename: "[name].js",             // will emit main.js
+    publicPath: "/",
+    clean: { keep: /\.html$/ }, // 👈 preserve any .html files in the output dir
   },
-  module: { rules: [babelLoaderRules,svgLoader, cssImageLoader, sassLoaderRules] },
+  module: { rules: [babelLoaderRules, svgLoader, cssImageLoader, sassLoaderRules] },
   resolve: { extensions: [".ts", ".d.ts", ".tsx", ".js", ".json"] },
   devtool: "source-map",
   devServer: {
     historyApiFallback: true,
-  }
+    devMiddleware: { writeToDisk: true }, // 👈 see changes on disk while serving
+  },
+  // Optional: turn off the persistent cache once
+  // cache: false,
 };

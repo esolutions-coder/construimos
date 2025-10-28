@@ -58,7 +58,7 @@ export default function ListPresupuestos() {
   }));
 
   return (
-    <div className="container">
+    <div className="containersss">
       <Sidebar />
       <div className="row">
         <div className="col-12">
@@ -90,7 +90,7 @@ export default function ListPresupuestos() {
             <div className="busqueda_presupuestos">
               <input
                 type="text"
-                placeholder="🔎 Buscar tu presupuesto por su nombre..."
+                placeholder="Buscar tu presupuesto por su nombre..."
               />
               <button
                 disabled={
@@ -125,7 +125,9 @@ export default function ListPresupuestos() {
               <tbody>
                 {rows.length ? (
                   rows.map((r: any) => (
-                    <tr>
+                    <tr key={r._id}>
+                      {" "}
+                      {/* ← key */}
                       <td data-label="ID">{r._id}</td>
                       <td data-label="Nombre">{r.name}</td>
                       <td data-label="Descripción actividad">

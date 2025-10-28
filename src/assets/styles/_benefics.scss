@@ -9,6 +9,8 @@
   grid-template-columns: 67px 1fr 67px;
   grid-template-rows: 300px 1fr 1px;
   gap: 5px;
+  overflow: clip;
+  max-width: 100%;
 }
 
 .grind-item {
@@ -47,10 +49,8 @@
   width: 100%;
   max-width: 1100px;
   margin: 0 auto;
-
   view-timeline-name: --texto;
   view-timeline-axis: block;
-
   animation-timeline: --texto;
   animation-name: show;
   animation-range: entry 20% cover 35%;
@@ -80,7 +80,7 @@
   color: #030f27;
   font-weight: 500;
   font-size: 50px;
-  line-height: 72px;
+  line-height: 52px;
   letter-spacing: -1.5px;
   font-size: clamp(20px, 8vw, 44px);
 }
@@ -136,8 +136,8 @@
   color: #ffffff;
   font-weight: 500;
   font-size: 50px;
-  line-height: 72px;
   letter-spacing: -1.5px;
+  line-height: 3rem;
   font-size: clamp(20px, 8vw, 44px);
 }
 
@@ -216,5 +216,13 @@
 @media (max-width: 600px) {
   .contents {
     grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  }
+  .main-header p {
+    font-size: 20px;
+    line-height: 24px;
+  }
+  .paxfoxi {
+    font-size: 20px;
+    line-height: 24px;
   }
 }

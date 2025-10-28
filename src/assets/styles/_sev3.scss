@@ -93,7 +93,6 @@
   transition: 0.3s ease;
   margin-top: 2rem;
   margin-bottom: 2rem;
-  margin-left: 2rem;
 
   &:hover {
     background-color: #d1c496;
@@ -101,6 +100,7 @@
 }
 .logoherramientas {
   mask-image: none;
+  width: 100%;
   margin-left: -4rem;
 
   -webkit-mask-image: linear-gradient(
@@ -112,7 +112,6 @@
 
 @media (min-width: 1700px) {
   .logoherramientas {
-    margin-left: 34rem;
     mask-image: none;
     -webkit-mask-image: linear-gradient(
       to right,
@@ -120,9 +119,7 @@
       transparent
     );
   }
-  .headerfot {
-    margin-left: 26rem;
-  }
+
   .logofots {
     margin-left: 25rem;
   }
@@ -143,7 +140,7 @@
 
   .logofots {
     margin: 0 auto;
-    width: 360px;
+    width: 100%;
   }
 
   .navfoty {
@@ -159,6 +156,6 @@
 
 @media (max-width: 500px) {
   .logoherramientas {
-    width: 400px;
+    width: 100%;
   }
 }

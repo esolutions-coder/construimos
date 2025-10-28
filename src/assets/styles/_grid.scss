@@ -61,7 +61,7 @@
 }
 
 //this is sm - small
-@media (min-width: 904px) {
+@media (min-width: 304px) {
   @include grid_mixin(12, sm);
   @include grid_span_mixin(12, sm);
   @include grid_gap_mixin(12, sm);

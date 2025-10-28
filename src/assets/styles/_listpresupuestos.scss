@@ -3,6 +3,18 @@ $gold: #ffd700;
 $ink: #0e1116;
 $bg: #f6f8fb;
 
+.containersss {
+  display: grid;
+  grid-template-areas:
+    "header header header"
+    "nav content aside"
+    "footer footer footer";
+  grid-template-columns: 67px 1fr 67px;
+  grid-template-rows: 300px 1fr 1px;
+  gap: 5px;
+  height: 100vh;
+}
+
 .col-12 h1 {
   margin-left: 3rem;
   text-align: center;

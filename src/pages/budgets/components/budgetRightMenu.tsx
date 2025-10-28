@@ -1,3 +1,4 @@
+import { SetStateAction } from "react";
 import ApuCard from "../../../components/apuCard";
 import SearchBox from "../../../components/search";
 import CideinProject from "../../../utils/project_constructor";
@@ -11,16 +12,18 @@ type BudgetRightMenuProps = {
     searchedApus: SearchedApusState
     addSubActivity: (apuId: string, flag: string) => Promise<void>
     setActiveTab: React.Dispatch<React.SetStateAction<string>>
-    visualizeExternalAPU: (apuId: string) => void
     currentProject: CideinProject
+    env: "editor" | "creator"
+    id?: string
+    setSelectedApu: React.Dispatch<React.SetStateAction<APU>>
+      //@ts-ignore
+  getFullApu: LazyQueryExecFunction<any, OperationVariables>
 }
 
-export default function BudgetRightMenu({handleSelectedActivity, projectInfo, setSearchedApus, searchedApus, addSubActivity, setActiveTab, visualizeExternalAPU, currentProject}: BudgetRightMenuProps) {
-
-  
+export default function BudgetRightMenu({handleSelectedActivity, projectInfo, setSearchedApus, searchedApus, addSubActivity, setActiveTab, currentProject, env, id, setSelectedApu, getFullApu}: BudgetRightMenuProps) {
     return(
         <div className="pill_selection_container my_sm_16">
-          <BudgetPills setActiveTab={setActiveTab} />
+          <BudgetPills setActiveTab={setActiveTab} env={env} id={id}/>
           
             <div className="activity_selector_nav">
               <h5>ACTIVIDAD</h5>
@@ -53,10 +56,11 @@ export default function BudgetRightMenu({handleSelectedActivity, projectInfo, se
                       apuInfo={{ ...apu }}
                       addSubActivity={addSubActivity}
                       setTab={setActiveTab}
-                      visualizeExternalAPU={visualizeExternalAPU}
                       key={apu.apu_id}
-                      flag={searchedApus.db}
-                    />
+                      flag={searchedApus.db} 
+                      currentProject={currentProject} 
+                      setSelectedApu={setSelectedApu}        
+                      getFullApu={getFullApu}            />
                   );
                 })
               )}

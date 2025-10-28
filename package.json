@@ -9,7 +9,7 @@
     "wp": "webpack --mode=development --watch",
     "dev": "webpack serve --mode=development",
     "start": "node public/main.js",
-    "build": "webpack --mode production"
+    "build": "webpack --mode development --progress --color --no-cache"
   },
   "repository": {
     "type": "git",
@@ -45,6 +45,7 @@
     "@types/react-dom": "^18.0.6",
     "babel-loader": "^8.2.5",
     "css-loader": "^6.11.0",
+    "dotenv": "^17.2.3",
     "file-loader": "^6.2.0",
     "gh-pages": "^6.3.0",
     "postcss": "^8.5.6",

@@ -17,6 +17,7 @@
   transition: transform 0.5s ease;
   animation: levitate 3s ease-in-out infinite;
 }
+
 @keyframes levitate {
   0% {
     transform: translateY(0);
@@ -40,6 +41,26 @@
 
 .tittlo {
   color: #030f27;
+}
+
+h1 {
+  font-family: "Poppins", sans-serif;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 50px;
+  line-height: 72px;
+  letter-spacing: -1.5px;
+}
+
+.container {
+  display: grid;
+  grid-template-areas:
+    "header header header"
+    "nav content aside"
+    "footer footer footer";
+  grid-template-columns: 67px 1fr 67px;
+  grid-template-rows: 300px 1fr 1px;
+  gap: 5px;
 }
 
 .main-header {

@@ -1,0 +1,139 @@
+{
+    "apus": [
+        {
+            "apu_name": "DISEÑOS",
+            "apu_chapter": "DISEÑOS ARQUITECTÓNICOS",
+            "_id": "123",
+            "apu_id": "0001",
+            "apu_unit": "M2",
+            "apu_description": "DISEÑOS ARQUITECTÓNICOS",
+            "apu_materials": [
+                {
+                    "_id": "",
+                    "material_category": "AAA",
+                    "material_name": "PUNTILLAS",
+                    "material_unitary_price": 500,
+                    "material_amount": 100,
+                    "material_provider": "FERRETERIA SAS",
+                    "material_code": "MAT1",
+                    "material_unit": "UND",
+                    "material_rud": 0.3,
+                    "material_partial_value": 400
+                }
+            ],
+            "apu_equipment": [
+                {
+                    "_id": "",
+                    "equipment_name": "PUNTILLAS",
+                    "equipment_unitary_price": 500,
+                    "equipment_provider": "FERRETERIA SAS",
+                    "equipment_amount": 0,
+                    "equipment_code": "EQP1",
+                    "equipment_unit": "UND",
+                    "equipment_rud": 0.3,
+                    "equipment_partial_value": 400
+                }
+            ],
+            "apu_workHand": [
+                {
+                    "_id": "",
+                    "workHand_name": "PUNTILLAS",
+                    "workHand_unitary_price": 500,
+                    "workHand_provider": "FERRETERIA SAS",
+                    "workHand_code": "MDO1",
+                    "workHand_amount": 0,
+                    "workHand_unit": "UND",
+                    "workHand_rud": 0,
+                    "workHand_partial_value": 0
+                }
+            ],
+            "apu_transportation": [],
+            "apu_apu": [],
+            "apu_price": 0
+        },
+        {
+            "_id": "1761420019870",
+            "apu_id": "APU-1761420019870",
+            "apu_name": "APU PRUEBA",
+            "apu_unit": "M2",
+            "apu_price": 13885.278,
+            "apu_materials": [
+                {
+                    "material_name": "Acero 40000 PSI Ton",
+                    "_id": "631ce9901374b300165fcfed",
+                    "material_category": "ESTRUCTURAL",
+                    "material_unitary_price": 6150,
+                    "material_provider": "CIRCULO DE INGENIEROS SAS",
+                    "material_code": "MATES-085",
+                    "material_unit": "Kg",
+                    "material_rud": 0.03,
+                    "material_partial_value": 12669,
+                    "material_amount": 2
+                },
+                {
+                    "material_name": "Cemento Gris",
+                    "_id": "6313ca47beb7e67b5e3e3c49",
+                    "material_category": "CONCRETOS",
+                    "material_unitary_price": 579.18,
+                    "material_provider": "CIRCULO DE INGENIEROS SAS",
+                    "material_code": "MATCC-001",
+                    "material_unit": "KG",
+                    "material_rud": 0.05,
+                    "material_partial_value": 1216.278,
+                    "material_amount": 2
+                }
+            ],
+            "apu_equipment": [],
+            "apu_description": "DESCRIPCIÓN APU DE PRUEBA",
+            "apu_workHand": [],
+            "apu_apu": [],
+            "apu_chapter": "CONCRETOS EN OBRA",
+            "apu_transportation": []
+        }
+    ],
+    "local_apus":[],
+    "project_activities": [
+        {
+            "activity_id": "1761419952576",
+            "activity_name": "ACTIVIDAD DE PRUEBA",
+            "subActivities": [
+                {
+                    "subActivity_apu": {
+                        "apu_id": "0001",
+                        "_id": "63127ca94683d5fc65e1d0f7"
+                    },
+                    "amount": 12,
+                    "subActivity_id": "1761419964603",
+                    "flag": "construimos_db"
+                },
+                {
+                    "subActivity_apu": {
+                        "_id": "1761420019870",
+                        "apu_id": "APU-1761420019870"
+                    },
+                    "amount": 12,
+                    "subActivity_id": "1761420032736",
+                    "flag": "local_db"
+                }
+            ]
+        }
+    ],
+    "budget_prices": {
+        "IVA": 8880.045969600002,
+        "admin": 68308.04592,
+        "utility": 68308.04592,
+        "unforeseen": 68308.04592,
+        "direct_costs": 3415402.296,
+        "total_cost": 3629206.4797296003
+    },
+    "project_config": {
+        "iva": 0.13,
+        "admin": 0.02,
+        "unforeseen": 0.02,
+        "utility": 0.02
+    },
+    "project_general_info": {
+        "name": "PROBANDO",
+        "description": "PRUEBAS"
+    }
+}

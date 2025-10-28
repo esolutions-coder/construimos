@@ -1,7 +1,7 @@
 import { useState } from "react";
 import construimosLogo from "../assets/img/cidein_logo.png";
 import { postDataNoToken } from "../api/fetchData";
-import { dataSource } from "../api/datasources/datasources";
+import { dataSource, imagesSource } from "../api/datasources/datasources";
 import { useAuth } from "../customHooks/auth/useAuth";
 
 export default function Login() {
@@ -18,7 +18,7 @@ export default function Login() {
     let myForm = new FormData();
     myForm.append("userInfo", JSON.stringify({ username: name, password }));
     try {
-      const result = await postDataNoToken(`${dataSource()}/user/login`, myForm);
+      const result = await postDataNoToken(`${imagesSource()}/construimos/login`, myForm);
       const parsedData = await result.json();
       if (result.status === 200) {
         login(parsedData);

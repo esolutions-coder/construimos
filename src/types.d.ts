@@ -69,6 +69,24 @@ type SubActivities = {
     flag: string
 }
 
+type SubActivitiesInitialState = {
+    subActivity_apu: SubActivityApuInitialState,
+    amount: number
+    subActivity_id: string
+    flag: string
+}
+
+type SubActivityApuInitialState = {
+    apu_id: string
+    _id: string
+}
+
+type ProjecActivitiesInitialState = {
+    activity_id: string,
+    activity_name: string,
+    subActivities: SubActivitiesInitialState[]
+}
+
 type ProjecActivities = {
     activity_id: string,
     activity_name: string,
@@ -98,6 +116,7 @@ interface APU {
     apu_apu: CIDEINAPU[]
     apu_transportation: CIDEINTransportation[]
     apu_description: string
+    apu_chapter: string
 }
 
 interface APUNoId extends Omit<APU, "apu_id"> {
@@ -112,18 +131,16 @@ interface CIDEINAPU extends Omit<APU, "apu_materials" | "apu_equipment" | "apu_w
 
 
 type CIDEINProjectConfig = {
-    IVA: number,
-    ADMIN: number,
-    UNFORESEEN: number,
-    UTILITY: number
+    iva: number,
+    admin: number,
+    unforeseen: number,
+    utility: number
 }
 
 interface CIDEINProject {
     project_general_info: ProjectGeneralInfo
-    materials: CIDEINMaterials[],
-    equipment: CIDEINEquipment[],
-    workHand: CIDEINWorkhand[],
     apus: APU[],
+    local_apus: APU[]
     project_activities: ProjecActivities[]
     budget_prices: BudgetPrices,
     project_config: CIDEINProjectConfig

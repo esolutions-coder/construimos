@@ -1,7 +1,9 @@
+@use '_colors';
+
 .subtsss {
   font-size: 1.5rem;
   text-align: center;
-  color: #fdbe33;
+  color: colors.$primary;
   transition: transform 0.3s ease-out, color 0.3s, text-shadow 0.3s;
 }
 .subtss:hover {

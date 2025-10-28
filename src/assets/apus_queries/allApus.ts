@@ -55,6 +55,7 @@ export const GET_APU_BY_USERINPUT = gql`query Apu($userInput: String!) {
 export const GET_FULL_APU_BY_ID = gql`query Apu($apuId: ID!) {
   apu(id: $apuId) {
     apu_materials {
+      _id
       material_unit
       material_code
       material_provider
@@ -64,6 +65,7 @@ export const GET_FULL_APU_BY_ID = gql`query Apu($apuId: ID!) {
       material_amount
     }
     apu_equipment {
+      _id
       equipment_name
       equipment_unitary_price
       equipment_provider
@@ -73,6 +75,7 @@ export const GET_FULL_APU_BY_ID = gql`query Apu($apuId: ID!) {
       equipment_rud
     }
     apu_workHand {
+      _id
       workHand_name
       workHand_unitary_price
       workHand_provider
@@ -82,6 +85,7 @@ export const GET_FULL_APU_BY_ID = gql`query Apu($apuId: ID!) {
       workHand_rud
     }
     apu_transportation {
+      _id
       transportation_name
       transportation_unitary_price
       transportation_provider
@@ -105,6 +109,7 @@ export const GET_FULL_APU_BY_ID = gql`query Apu($apuId: ID!) {
     apu_unit
     apu_id
     apu_name
+    apu_chapter
     _id
   }
 }
@@ -118,6 +123,8 @@ export const GET_MATERIAL_BY_USERINPUT = gql`query SearchMaterials($userInput: S
     material_code
     material_unit
     material_rud
+    _id
+    material_category
   }
 }`
 

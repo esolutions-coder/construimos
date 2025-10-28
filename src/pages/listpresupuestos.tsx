@@ -58,7 +58,7 @@ export default function ListPresupuestos() {
   }));
 
   return (
-    <div className="container">
+    <div className="containersss">
       <Sidebar />
       <div className="row">
         <div className="col-12">
@@ -125,7 +125,9 @@ export default function ListPresupuestos() {
               <tbody>
                 {rows.length ? (
                   rows.map((r: any) => (
-                    <tr>
+                    <tr key={r._id}>
+                      {" "}
+                      {/* ← key */}
                       <td data-label="ID">{r._id}</td>
                       <td data-label="Nombre">{r.name}</td>
                       <td data-label="Descripción actividad">

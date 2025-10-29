@@ -30,22 +30,16 @@ import { EDIT_PROJECT_BY_ID, GET_PROJECT_BY_ID } from "../../../api/budgets/proj
 import { useParams } from "react-router-dom";
 import ApusPreview from "./apusPreview";
 import LocalApusPreview from "./localApuPreview";
-
-
-const apus = Project.apus;
-const local_apus = Project.local_apus;
-const project_activities_initial_state = Project.project_activities;
-const budget_prices = Project.budget_prices;
-const project_config = Project.project_config;
-const project_general_info = Project.project_general_info;
+import { useAuth } from "../../../customHooks/auth/useAuth";
 
 const currentProject = new CideinProject(
-  apus,
-  project_activities_initial_state,
-  local_apus,
-  budget_prices,
-  project_config,
-  project_general_info
+  Project.apus,
+  Project.project_activities,
+  Project.local_apus,
+  Project.budget_prices,
+  Project.project_config,
+  Project.project_general_info,
+  Project.user_id
 );
 
 const currentApu = new ApuCreator(
@@ -222,14 +216,6 @@ export default function PresupuestosEditor() {
     }
   }, [GetFullApuResponse.data]);
 
-  const visualizeExternalAPU = (apuId: string) => {
-    getFullApu({
-      variables: {
-        apuId,
-      },
-    });
-  };
-
   const helpfulAlert = (
     message: string,
     color: string,
@@ -278,6 +264,18 @@ export default function PresupuestosEditor() {
   let activeTabContent:JSX.Element = <></>;
   let rightMenu:JSX.Element = <></>;
 
+  const {user} = useAuth();
+
+  const saveProject = ()=> {
+    currentProject.user_id = user.id;
+    editProject({
+      variables: {
+        projectId: projectId,
+        projectData: currentProject.toApi
+      }
+    });
+  }
+
 
   switch (activeTab) {
     case "budget":
@@ -320,14 +318,7 @@ export default function PresupuestosEditor() {
           {rightMenu}
         </div>
       </div>
-      <BudgetBottomNavBar currentProject={currentProject} projectInfo={projectInfo} setProjectInfo={setProjectInfo} setActiveTab={setActiveTab} saveProject={()=>{
-        editProject({
-          variables: {
-            projectId: projectId,
-            projectData: currentProject.toApi
-          }
-        })
-      }}/>
+      <BudgetBottomNavBar currentProject={currentProject} projectInfo={projectInfo} setProjectInfo={setProjectInfo} setActiveTab={setActiveTab} saveProject={saveProject}/>
     </CideinLayOut>
   );
 }

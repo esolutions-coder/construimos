@@ -21,6 +21,7 @@ class CideinProject {
   apuId!: string;
   apuInfo!: APU;
   subActivityId!: string;
+  user_id: string;
 
   constructor(
     apus: APU[],
@@ -28,7 +29,8 @@ class CideinProject {
     project_activities_initial_state: ProjecActivitiesInitialState[],
     budget_prices: BudgetPrices,
     project_config: CIDEINProjectConfig,
-    project_general_info: ProjectGeneralInfo
+    project_general_info: ProjectGeneralInfo,
+    user_id: string
   ) {
     this.project_general_info = project_general_info;
     this.apus = apus;
@@ -37,6 +39,7 @@ class CideinProject {
     this.budget_prices = budget_prices;
     this.project_config = project_config;
     this.project_activities_initial_state = project_activities_initial_state;
+    this.user_id = user_id
   }
 
   get state():CIDEINProject {
@@ -53,12 +56,14 @@ class CideinProject {
   }
 
   get toApi() {
+    this.updateProject();
     let toApiJson = {
-        project_general_info: this.project_general_info,
+        project_general_info: {...this.project_general_info, total_cost: this.budget_prices.total_cost, date: new Date()},
         project_config: this.project_config,
         apus: this.apus,
         local_apus: this.local_apus,
         project_activities: this.projectActivityToApi(this.project_activities),
+        user_id: this.user_id,
     };
     return JSON.parse(JSON.stringify(toApiJson));
   }

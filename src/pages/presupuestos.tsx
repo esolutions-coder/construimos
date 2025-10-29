@@ -28,22 +28,17 @@ import BudgetPage from "./budgets/pages/budgetPage";
 import CreateLocalApu from "./budgets/pages/createLocalApu";
 import ApusPreview from "./budgets/pages/apusPreview";
 import LocalApusPreview from "./budgets/pages/localApuPreview";
+import { useAuth } from "../customHooks/auth/useAuth";
 
-
-const apus = Project.apus;
-const local_apus = Project.local_apus;
-const project_activities_initial_state = Project.project_activities;
-const budget_prices = Project.budget_prices;
-const project_config = Project.project_config;
-const project_general_info = Project.project_general_info;
 
 const currentProject = new CideinProject(
-  apus,
-  project_activities_initial_state,
-  local_apus,
-  budget_prices,
-  project_config,
-  project_general_info
+  Project.apus,
+  Project.project_activities,
+  Project.local_apus,
+  Project.budget_prices,
+  Project.project_config,
+  Project.project_general_info,
+  Project.user_id
 );
 
 const currentApu = new ApuCreator(
@@ -263,7 +258,9 @@ function Presupuestos() {
       break;
   }
 
+  const {user} = useAuth();
   const saveProject = ()=> {
+    currentProject.user_id = user.id;
     saveBuget({
       variables: {
         projectData: currentProject.toApi,

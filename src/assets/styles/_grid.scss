@@ -115,3 +115,9 @@
     column-gap: 20px;
   }
 }
+
+@media (max-width: 810px) {
+  .grid {
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  }
+}

@@ -1,7 +1,8 @@
 {
   "project_general_info": {
     "name": "",
-    "description": ""
+    "description": "",
+    "total_cost": 0
   },
   "apus": [],
   "local_apus":[],
@@ -19,5 +20,6 @@
     "admin": 0,
     "unforeseen": 0,
     "utility": 0
-  }
+  },
+  "user_id": ""
 }

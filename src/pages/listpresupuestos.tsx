@@ -8,26 +8,55 @@ import Pagination from "../components/pagination";
 import { useAuth } from "../customHooks/auth/useAuth";
 import { useNavigate } from "react-router-dom";
 import Formatter from "../utils/formatter";
+import { useMutation } from "@apollo/client";
+import { DELETE_PROJECT_BUDGET } from "../api/budgets/projects.mutations";
+import CideinWarning from "../components/warning";
 
 export default function ListPresupuestos() {
+  const { user } = useAuth();
   const [query, setQuery] = useState("");
   const [submittedQuery, setSubmittedQuery] = useState("");
   const [filtro, setFiltro] = useState("");
-  const [startDateStr, setStartDateStr] = useState(""); // "YYYY-MM-DD"
-  const [endDateStr, setEndDateStr] = useState(""); // "YYYY-MM-DD"
+  const [startDateStr, setStartDateStr] = useState("");
+  const [endDateStr, setEndDateStr] = useState("");
+  const navigate = useNavigate();
+  const [warningProps, setWarningProps] = useState({
+    warningState: false,
+    message: "La APU se ha creado correctamente",
+    color: "primary_theme",
+    icon: "info",
+  });
 
-  const { user } = useAuth();
+  const helpfulAlert = (
+    message: string,
+    color: string,
+    time: number,
+    icon: string
+  ) => {
+    setWarningProps({
+      message: message,
+      warningState: true,
+      icon: icon,
+      color: color,
+    });
+
+    setTimeout(() => {
+      setWarningProps({
+        message: "Aquí aparecerán tus mensajes",
+        warningState: false,
+        icon: "info",
+        color: "primary_theme",
+      });
+    }, time * 1000);
+  };
 
   const { loading, error, data } = useQuery(GET_PROJECTS_BY_USER_ID, {
     variables: { userId: user?.id },
   });
 
-  const onSubmitBuscar = (e: React.FormEvent) => {
-    e.preventDefault();
-    setSubmittedQuery(query.trim());
-  };
-
-  const navigate = useNavigate();
+  const [deleteProject, { loading: deletingProject }] = useMutation(
+    DELETE_PROJECT_BUDGET
+  );
 
   useEffect(() => {
     if (error) {
@@ -39,6 +68,11 @@ export default function ListPresupuestos() {
       </div>;
     }
   }, [data]);
+
+  const onSubmitBuscar = (e: React.FormEvent) => {
+    e.preventDefault();
+    setSubmittedQuery(query.trim());
+  };
 
   const rows = useMemo(() => {
     const list = (data?.getProjectByUserId ?? []).map((p: any) => ({
@@ -55,14 +89,12 @@ export default function ListPresupuestos() {
 
   const startDate = useMemo(() => {
     if (!startDateStr) return null;
-    // Fecha a las 00:00 (inicio del día)
     const d = new Date(startDateStr + "T00:00:00");
     return isNaN(d.getTime()) ? null : d;
   }, [startDateStr]);
 
   const endDateExclusive = useMemo(() => {
     if (!endDateStr) return null;
-    // Para incluir completamente el día "Hasta", sumamos 1 día y usamos < endExclusive
     const d = new Date(endDateStr + "T00:00:00");
     if (isNaN(d.getTime())) return null;
     d.setDate(d.getDate() + 1);
@@ -73,28 +105,68 @@ export default function ListPresupuestos() {
     const q = submittedQuery.trim().toLowerCase();
 
     return rows.filter((r) => {
-      // 1) Texto (opcional)
       const passText =
         !q ||
         (r.name ?? "").toLowerCase().includes(q) ||
         (r.description ?? "").toLowerCase().includes(q);
 
-      // 2) Rango de fechas (opcional)
       let passDate = true;
       if (startDate || endDateExclusive) {
         if (!r.fecha) {
-          passDate = false; // si piden rango y no hay fecha, se excluye
+          passDate = false;
         } else {
           const t = r.fecha.getTime();
           if (startDate && t < startDate.getTime()) passDate = false;
           if (endDateExclusive && t >= endDateExclusive.getTime())
-            passDate = false; // rango inclusivo
+            passDate = false;
         }
       }
 
       return passText && passDate;
     });
   }, [rows, submittedQuery, startDate, endDateExclusive]);
+
+  const onRowAction = async (action: string, id: string) => {
+    if (!action) return;
+
+    if (action === "edit") {
+      navigate(`/presupuestos/editor/${id}`);
+      return;
+    }
+
+    if (action === "delete") {
+      const ok = window.confirm(
+        "¿Seguro que quieres eliminar este presupuesto?"
+      );
+      if (!ok) return;
+
+      try {
+        await deleteProject({
+          variables: { projectId: id },
+          update(cache) {
+            const existing: any = cache.readQuery({
+              query: GET_PROJECTS_BY_USER_ID,
+              variables: { userId: user?.id },
+            });
+
+            if (!existing?.getProjectByUserId) return;
+
+            cache.writeQuery({
+              query: GET_PROJECTS_BY_USER_ID,
+              variables: { userId: user?.id },
+              data: {
+                getProjectByUserId: existing.getProjectByUserId.filter(
+                  (p: any) => p._id !== id
+                ),
+              },
+            });
+          },
+        });
+      } catch (e) {
+        alert("No se pudo eliminar. Intenta de nuevo.");
+      }
+    }
+  };
 
   return (
     <CideinLayout>
@@ -155,7 +227,6 @@ export default function ListPresupuestos() {
               </div>
             </div>
 
-            {/* ✅ FORM: el submit dispara el filtrado */}
             <form
               className="input-groups"
               style={{ marginBottom: "2rem" }}
@@ -188,6 +259,13 @@ export default function ListPresupuestos() {
                   </tr>
                 </thead>
                 <tbody>
+                  <CideinWarning
+                    state={warningProps.warningState}
+                    message={warningProps.message}
+                    color={warningProps.color}
+                    icon={warningProps.icon}
+                    setWarningProps={setWarningProps}
+                  />
                   {filteredRows.length ? (
                     filteredRows.map((item, index) => (
                       <tr key={item._id}>
@@ -215,7 +293,39 @@ export default function ListPresupuestos() {
                               : "—"}
                           </span>
                         </td>
-                        <td data-label="options"></td>
+                        <td data-label="options">
+                          <select
+                            defaultValue=""
+                            disabled={deletingProject}
+                            onChange={(e) => {
+                              const value = e.target.value;
+                              onRowAction(value, item._id);
+                              // volver al placeholder
+                              e.currentTarget.selectedIndex = 0;
+                              helpfulAlert(
+                                "Presupuesto eliminado correctamente",
+                                "success_theme",
+                                5,
+                                "check_circle"
+                              );
+                            }}
+                            style={{
+                              padding: "6px 8px",
+                              borderRadius: 8,
+                              border: "1px solid #ddd",
+                              background: "#fff",
+                              cursor: "pointer",
+                            }}
+                            aria-label="Acciones del presupuesto"
+                            title="Acciones"
+                          >
+                            <option value="" disabled>
+                              ⚙️
+                            </option>
+                            <option value="edit">✏️ Editar</option>
+                            <option value="delete">🗑️ Eliminar</option>
+                          </select>
+                        </td>
                       </tr>
                     ))
                   ) : (

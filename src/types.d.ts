@@ -21,6 +21,8 @@ type CIDEINMaterials = {
 type ProjectGeneralInfo = {
     name: string,
     description: string
+    location: string
+    postal_code: number
 }
 
 type CIDEINEquipment = {

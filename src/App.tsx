@@ -48,13 +48,13 @@ function App() {
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
         <Route path="/admin/materials" element={<Materials />} />
-        <Route path="/material/:materialId" element={<MaterialById />} />
+        <Route path="/material/info/:materialId" element={<MaterialById />} />
         <Route
-          path="/transportation-info/:code"
+          path="/transportation/info/:code"
           element={<TransportationInfo />}
         />
-        <Route path="/equipment-info/:code" element={<EquipmentInfo />} />
-        <Route path="/workhand-info/:code" element={<WorkhandInfo />} />
+        <Route path="/equipment/info/:code" element={<EquipmentInfo />} />
+        <Route path="/workhand/info/:code" element={<WorkhandInfo />} />
       </Routes>
       </AuthProvider>
     </div>

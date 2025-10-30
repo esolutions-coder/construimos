@@ -1,13 +1,23 @@
-$navy: #061840;
-$gold: #ffd700;
-$ink: #0e1116;
-$bg: #f6f8fb;
+$primary: #fdbe33;
+$secondary: #030f27;
+$tertiary: #efe1c8;
+$success: rgb(32, 197, 32);
+
+.containersss {
+  display: grid;
+  grid-template-areas:
+    "header header header"
+    "nav content aside"
+    "footer footer footer";
+  gap: 5px;
+  height: 100vh;
+}
 
 .col-12 h1 {
-  margin-left: 3rem;
-  text-align: center;
-  font-size: clamp(2rem, 5vw, 3rem);
-  font-weight: 600;
+  text-align: left;
+  font-size: clamp(2rem, 5vw, 2rem);
+  font-weight: 800;
+  margin-top: 2rem;
   margin-bottom: 1rem;
   margin-top: 3rem;
 }
@@ -19,41 +29,17 @@ $bg: #f6f8fb;
   margin-bottom: 4rem;
 }
 
-.btn_buscar_presupuestos {
-  background-color: $gold;
-  height: 30px;
-  width: 150px;
-  color: white;
-  font-weight: 600;
-  border: none;
-  cursor: pointer;
-  font-size: 16px;
-  transition: all 0.5s ease;
-  box-shadow: 0 4px 15px rgba(199, 192, 11, 0.74);
-  background-image: linear-gradient(150deg, $gold, #856015 0%, #f4a70cc5 100%);
-}
-
-.btn_buscar_presupuestos:hover {
-  color: black;
-}
-
 .busqueda_presupuestos {
-  margin-left: 2rem;
   display: flex;
   align-items: center;
   gap: 1rem;
   border-radius: 12px;
-  padding: 0.75rem 1rem;
   background-color: #f9f9f9;
-  max-width: 700px;
-  box-shadow: 5px 5px 5px 3px #fdbd3380;
   width: 100%;
-  margin-bottom: 2rem;
 }
 .busqueda_presupuestos input {
   flex: 1;
-  padding: 0.75rem 1rem;
-  border: none;
+  color: black;
   border-radius: 8px;
   font-size: 1rem;
   outline: none;
@@ -64,26 +50,42 @@ $bg: #f6f8fb;
   margin: 6rem auto 3rem;
   padding: 0 1rem;
 }
+.tooltip title {
+  font-size: 1.2rem;
+  background-color: white;
+  color: #000000;
+}
 
-.input-group {
+.container-pagination {
+  width: 100%;
   display: flex;
   justify-content: center;
-  margin: 2rem auto 0;
+}
+
+.input-groups {
+  display: flex;
+  justify-content: center;
+  margin: 0rem auto 0;
   .input-gr {
     width: min(680px, 90%);
-    height: 48px;
+    height: 50px;
     padding: 0 1rem;
-    border-radius: 12px;
-    background: $gold;
-    color: #fff;
+    border-radius: 8px;
+    color: #000000;
     font: 500 1rem/1.2 "Poppins", system-ui, sans-serif;
-    border: none;
     outline: none;
+    border: 2px solid rgb(0, 0, 0);
   }
 }
 
+.filltroo {
+  border: none;
+  font-weight: 500;
+  font-size: 1rem;
+}
+
 .table {
-  width: 100%;
+  width: 99%;
   border-collapse: separate;
   border-spacing: 0;
   background: #fff;
@@ -91,13 +93,12 @@ $bg: #f6f8fb;
   border-radius: 14px;
   overflow: hidden; /* redondeo en todo el borde */
   table-layout: fixed; /* evita que “salten” los anchos */
-  margin-left: 2rem;
 }
 
 /* Cabezera */
 .table thead th {
-  background: $navy;
-  color: $gold;
+  background: $secondary;
+  color: $primary;
   font: 500 0.75rem / 1.2 "Poppins", system-ui, sans-serif;
   text-transform: uppercase;
   padding: 14px 16px;
@@ -110,10 +111,66 @@ $bg: #f6f8fb;
 
   color: #888;
 }
+.btn_buscar_presupuestoss {
+  background-color: $primary;
+  border: none;
+  color: #111a2b;
+  padding: 10px;
+  border-radius: 6px;
+  font-weight: 500;
+  cursor: pointer;
+  text-align: center;
+  margin-left: 1rem;
+  width: 130px;
+}
+.btn_buscar_presupuestoss:hover {
+  background-color: #9d7d2a;
+  color: #fff;
+}
+
+.presupuestos-name {
+  cursor: pointer;
+  text-decoration: underline;
+  color: #113cd9;
+}
+.presupuestos-name:hover {
+  color: #113cd9;
+}
+.input-group {
+  display: flex;
+  margin: 0rem auto 0;
+  .input-gr {
+    width: min(680px, 90%);
+    height: 48px;
+    padding: 0 1rem;
+    border-radius: 12px;
+    color: #fff;
+    font: 500 1rem/1.2 "Poppins", system-ui, sans-serif;
+    border: none;
+    outline: none;
+  }
+}
+.busquedafechass {
+  margin-left: inherit;
+  margin-right: 7.3rem;
+}
+
+.input-group input {
+  padding: 0.75rem 1rem;
+  border-radius: 8px;
+  font-size: 1rem;
+  outline: none;
+  border: none;
+}
+
+.input-group span {
+  margin-top: 14px;
+  font-weight: 500;
+}
 
 .table tbody td {
   padding: 14px 16px;
-  color: $ink;
+  color: $secondary;
   font: 600 1rem/1.2 "Poppins", system-ui, sans-serif;
   text-transform: none; /* mejor legibilidad */
   border-top: 1px solid rgba(0, 0, 0, 0.06);
@@ -122,9 +179,6 @@ $bg: #f6f8fb;
   white-space: nowrap;
 }
 
-.table tbody tr:nth-child(odd) {
-  background: $bg;
-}
 .table tbody tr:hover {
   background: #eef3ff;
 }
@@ -154,7 +208,11 @@ $bg: #f6f8fb;
   width: 100%;
   text-align: center;
 }
-
+.table th:nth-child(6),
+.table td:nth-child(6) {
+  width: 100%;
+  text-align: center;
+}
 /* Inputs dentro de celdas */
 .table input,
 .table textarea {

@@ -6,30 +6,30 @@ import constructor from "../assets/img/constructor.png";
 import "../assets/styles/_containers.scss";
 import { useState } from "react";
 import ConstructorCard from "../components/ConstructorCard";
-import luis from "../assets/img/luis.png";
-import alberto from "../assets/img/alberto.png";
+import camila from "../assets/img/camila.png";
+import miguel from "../assets/img/miguel.png";
 import carlos from "../assets/img/carlos.png";
-import gareth from "../assets/img/gareth.png";
-import davies from "../assets/img/davies.png";
+import rafael from "../assets/img/rafael.png";
+import angelyn from "../assets/img/angelyn.png";
 
 function ShowRoom() {
   const [busqueda, setBusqueda] = useState("");
   const [resultados, setResultados] = useState<string[]>([]);
 
   const constructores = [
-    "Alberto Jimenez",
-    "Luis Diaz",
-    "Gareth Bale",
+    "Miguel Tapia",
+    "Camila Lopez",
+    "Rafael Zambrano",
     "Juan Carlos",
-    "Davies Fernandez",
+    "Angelyn Alameda",
   ];
 
   const obtenerImagen = (nombre: string) => {
-    if (nombre === "Luis Diaz") return luis;
-    if (nombre === "Alberto Jimenez") return alberto;
-    if (nombre === "Gareth Bale") return gareth;
+    if (nombre === "Camila Lopez") return camila;
+    if (nombre === "Miguel Tapia") return miguel;
+    if (nombre === "Rafael Zambrano") return rafael;
     if (nombre === "Juan Carlos") return carlos;
-    if (nombre === "Davies Fernandez") return davies;
+    if (nombre === "Angelyn Alameda") return angelyn;
     return constructor;
   };
 
@@ -51,7 +51,7 @@ function ShowRoom() {
         <div className="areabusqueda">
           <input
             type="text"
-            placeholder="🔎 Buscar constructores por su nombre..."
+            placeholder="Buscar constructores por su nombre..."
             value={busqueda}
             onChange={(e) => setBusqueda(e.target.value)}
           />

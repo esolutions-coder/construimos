@@ -11,7 +11,7 @@ function CideinLayout({ children }: CideinLayouProps) {
   const navigate = useNavigate(); // inicializas el hook
 
   const goToDashboard = () => {
-    navigate("/presupuestos/editor/:budgetId"); // navega a la ruta /dashboard
+    navigate("/presupuestos/list"); // navega a la ruta /dashboard
   };
   //When false the navbar is minimized
   const [leftNav, setLeftNav] = useState(false);

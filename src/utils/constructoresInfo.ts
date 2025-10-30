@@ -1,8 +1,8 @@
-import alberto from "../assets/img/alberto.png";
-import luis from "../assets/img/luis.png";
+import miguel from "../assets/img/miguel.png";
+import camila from "../assets/img/camila.png";
 import carlos from "../assets/img/carlos.png";
-import gareth from "../assets/img/gareth.png";
-import davies from "../assets/img/davies.png";
+import rafael from "../assets/img/rafael.png";
+import angelyn from "../assets/img/angelyn.png";
 
 interface InfoConstructor {
   nombre: string;
@@ -15,43 +15,43 @@ interface InfoConstructor {
 
 export const CONSTRUCTORES: InfoConstructor[] = [
   {
-    nombre: "Alberto Jimenez",
+    nombre: "Miguel Tapia",
     especialidad: "Diseño estructural",
-    ubicacion: "Medellín, Colombia",
-    experiencia: "9 años en proyectos urbanos y sostenibles",
-    contacto: "albertojimenez@email.com",
-    imagen: alberto,
+    ubicacion: "Sevilla, Esapaña",
+    experiencia: "5 años en proyectos urbanos y sostenibles",
+    contacto: "loremdisenoweb@gmail.com",
+    imagen: miguel,
   },
   {
-    nombre: "Luis Diaz",
+    nombre: "Camila Lopez",
     especialidad: "Reformas residenciales",
     ubicacion: "Cali, Colombia",
-    experiencia: "12 años en remodelación de viviendas",
-    contacto: "luchodiaz@email.com",
-    imagen: luis,
+    experiencia: "8 años en remodelación de viviendas",
+    contacto: "camilopez@gmail.com",
+    imagen: camila,
   },
   {
-    nombre: "Gareth Bale",
+    nombre: "Rafael Zambrano",
     especialidad: "Construcción general",
     ubicacion: "Bogotá, Colombia",
     experiencia: "10 años en obras civiles y remodelaciones",
-    contacto: "garethb@email.com",
-    imagen: gareth,
+    contacto: "rafaelzambr@gmail.com",
+    imagen: rafael,
   },
   {
     nombre: "Juan Carlos",
     especialidad: "Reformas residenciales",
     ubicacion: "Cali, Colombia",
     experiencia: "12 años en remodelación de viviendas",
-    contacto: "carlitos@email.com",
+    contacto: "carlitos@gmail.com",
     imagen: carlos,
   },
   {
-    nombre: "Davies Fernandez",
+    nombre: "Angelyn alameda",
     especialidad: "Construcción general",
     ubicacion: "Bogotá, Colombia",
     experiencia: "10 años en obras civiles y remodelaciones",
-    contacto: "daviesf@email.com",
-    imagen: davies,
+    contacto: "angelynalameda@gmail.com",
+    imagen: angelyn,
   },
 ];

@@ -61,7 +61,7 @@
 }
 
 //this is sm - small
-@media (min-width: 904px) {
+@media (min-width: 304px) {
   @include grid_mixin(12, sm);
   @include grid_span_mixin(12, sm);
   @include grid_gap_mixin(12, sm);
@@ -113,5 +113,11 @@
     grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
     row-gap: 20px;
     column-gap: 20px;
+  }
+}
+
+@media (max-width: 810px) {
+  .grid {
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
   }
 }

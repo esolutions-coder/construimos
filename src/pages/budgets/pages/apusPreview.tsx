@@ -7,7 +7,7 @@ type ApusPreviewProps = {
     GetFullApuResponse: QueryResult<any, OperationVariables>
     selectedApu: APU
 }
-//Check
+//Checking Github
 export default function ApusPreview({GetFullApuResponse, selectedApu}: ApusPreviewProps) {
     return(
         <div className="cidein_window_2">

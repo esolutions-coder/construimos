@@ -7,7 +7,7 @@ type ApusPreviewProps = {
     GetFullApuResponse: QueryResult<any, OperationVariables>
     selectedApu: APU
 }
-
+//Check
 export default function ApusPreview({GetFullApuResponse, selectedApu}: ApusPreviewProps) {
     return(
         <div className="cidein_window_2">
@@ -41,7 +41,7 @@ export default function ApusPreview({GetFullApuResponse, selectedApu}: ApusPrevi
                         return (
                           <tr className="subActivity_row" key={index}>
                             <td>{material.material_code}</td>
-                            <td>{material.material_name}</td>
+                            <td><a href={`/#/material/info/${material._id}`} target="_blank">{material.material_name}</a></td>
                             <td>{material.material_unit}</td>
                             <td>{material.material_amount}</td>
                             <td>
@@ -58,7 +58,7 @@ export default function ApusPreview({GetFullApuResponse, selectedApu}: ApusPrevi
                         return (
                           <tr className="subActivity_row" key={index}>
                             <td>{equipment.equipment_code}</td>
-                            <td>{equipment.equipment_name}</td>
+                            <td><a href={`/#/equipment/info/${equipment._id}`} target="_blank">{equipment.equipment_name}</a></td>
                             <td>{equipment.equipment_unit}</td>
                             <td>{equipment.equipment_amount}</td>
                             <td>
@@ -75,7 +75,7 @@ export default function ApusPreview({GetFullApuResponse, selectedApu}: ApusPrevi
                         return (
                           <tr className="subActivity_row" key={index}>
                             <td>{workHand.workHand_code}</td>
-                            <td>{workHand.workHand_name}</td>
+                            <td><a href={`/#/workhand/info/${workHand._id}`} target="_blank">{workHand.workHand_name}</a></td>
                             <td>{workHand.workHand_unit}</td>
                             <td>{workHand.workHand_amount}</td>
                             <td>
@@ -93,7 +93,7 @@ export default function ApusPreview({GetFullApuResponse, selectedApu}: ApusPrevi
                           return (
                             <tr className="subActivity_row" key={index}>
                               <td>{transport.transportation_code}</td>
-                              <td>{transport.transportation_name}</td>
+                              <td><a href={`/#/transportation/info/${transport._id}`} target="_blank">{transport.transportation_name}</a></td>
                               <td>{transport.transportation_unit}</td>
                               <td>{transport.transportation_amount}</td>
                               <td>

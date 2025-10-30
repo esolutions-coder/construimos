@@ -31,42 +31,31 @@ function App() {
   return (
     <div className="App">
       <AuthProvider>
-        <Routes>
-          <Route path="/presupuestos/list" element={<ListPresupuestos />} />
-          <Route
-            path="/constructores/:nombre"
-            element={
-              <ProtectedRoute roles={AUTHORIZATION.CONSTRUCTORES}>
-                <ConstructorDetalle />
-              </ProtectedRoute>
-            }
-          />
-          <Route path="/proveedores" element={<Proveedores />} />
-          <Route path="/dashboard" element={<Dashboard />} />
-          <Route path="presupuestos" element={<Presupuestos />} />
-          <Route path="/crearnuevoproducto" element={<CrearPro />} />
-          <Route path="/contratista" element={<Contratista />} />
-          <Route path="/provider" element={<ProviderSection />} />
-          <Route path="/cliente" element={<Cliente />} />
-          <Route path="/showroom" element={<ShowRoom />} />
-          <Route path="/" element={<Home />} />
-          <Route path="/presupuestos/pill/:slug" element={<Presupuestos />} />
-          <Route
-            path="/presupuestos/pill/:slug/id/:projectId"
-            element={<PresupuestosEditor />}
-          />
-          <Route path="/admin/apu-editor" element={<AdminApus />} />
-          <Route path="/login" element={<Login />} />
-          <Route path="/register" element={<Register />} />
-          <Route path="/admin/materials" element={<Materials />} />
-          <Route path="/material/:materialId" element={<MaterialById />} />
-          <Route
-            path="/transportation-info/:code"
-            element={<TransportationInfo />}
-          />
-          <Route path="/equipment-info/:code" element={<EquipmentInfo />} />
-          <Route path="/workhand-info/:code" element={<WorkhandInfo />} />
-        </Routes>
+      <Routes>
+        <Route path="/constructores/:nombre" element={<ProtectedRoute roles={AUTHORIZATION.CONSTRUCTORES}><ConstructorDetalle /></ProtectedRoute>} />
+        <Route path="/proveedores" element={<Proveedores />} />
+        <Route path="/dashboard" element={<Dashboard />} />
+        <Route path="presupuestos" element={<Presupuestos />} />
+        <Route path="/crearnuevoproducto" element={<CrearPro />} />
+        <Route path="/contratista" element={<Contratista />} />
+        <Route path="/provider" element={<ProviderSection />} />
+        <Route path="/cliente" element={<Cliente />} />
+        <Route path="/showroom" element={<ShowRoom />} />
+        <Route path="/" element={<Home />} />
+        <Route path="/presupuestos/pill/:slug" element={<Presupuestos />} />
+        <Route path="/presupuestos/pill/:slug/id/:projectId" element={<PresupuestosEditor />} />
+        <Route path="/admin/apu-editor" element={<AdminApus />} />
+        <Route path="/login" element={<Login />} />
+        <Route path="/register" element={<Register />} />
+        <Route path="/admin/materials" element={<Materials />} />
+        <Route path="/material/info/:materialId" element={<MaterialById />} />
+        <Route
+          path="/transportation/info/:code"
+          element={<TransportationInfo />}
+        />
+        <Route path="/equipment/info/:code" element={<EquipmentInfo />} />
+        <Route path="/workhand/info/:code" element={<WorkhandInfo />} />
+      </Routes>
       </AuthProvider>
     </div>
   );

@@ -2,7 +2,9 @@
   "project_general_info": {
     "name": "",
     "description": "",
-    "total_cost": 0
+    "total_cost": 0,
+    "location": "",
+    "postal_code": 0
   },
   "apus": [],
   "local_apus":[],

@@ -238,7 +238,6 @@ function Presupuestos() {
   switch (activeTab) {
     case "budget":
       activeTabContent = <BudgetPage currentProject={currentProject} setActivityList ={setActivityList} projectInfo={projectInfo} setProjectInfo={setProjectInfo}/>
-
       rightMenu=<BudgetRightMenu getFullApu={getFullApu} handleSelectedActivity={handleSelectedActivity} projectInfo={projectInfo} setSearchedApus={setSearchedApus} searchedApus={searchedApus} addSubActivity={addSubActivity} setActiveTab={setActiveTab} currentProject={currentProject} env="creator" setSelectedApu={setSelectedApu} />;
       break;
     case "apu_viewer":
@@ -253,7 +252,6 @@ function Presupuestos() {
         break;
     default:
       activeTabContent = <BudgetPage currentProject={currentProject} setActivityList ={setActivityList} projectInfo={projectInfo} setProjectInfo={setProjectInfo}/>
-
       rightMenu=<BudgetRightMenu  getFullApu={getFullApu} handleSelectedActivity={handleSelectedActivity} projectInfo={projectInfo} setSearchedApus={setSearchedApus} searchedApus={searchedApus} addSubActivity={addSubActivity} setActiveTab={setActiveTab} currentProject={currentProject} env="creator" setSelectedApu={setSelectedApu}/>;
       break;
   }
@@ -271,6 +269,7 @@ function Presupuestos() {
 
   return (
     <CideinLayOut>
+      {/* Estas son las alertas */}
       <CideinWarning
         state={warningProps.warningState}
         message={warningProps.message}
@@ -283,7 +282,6 @@ function Presupuestos() {
           {activeTabContent}
         </div>
         <div className="span_sm_1">
-        
           {rightMenu}
         </div>
       </div>

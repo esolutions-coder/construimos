@@ -47,6 +47,8 @@ export const GET_PROJECTS_BY_USER_ID = gql`
         description
         total_cost
         date
+        location
+        postal_code
       }
       _id
     }

@@ -1,6 +1,7 @@
 import { FiFacebook } from "react-icons/fi";
 import { FiTwitter } from "react-icons/fi";
 import { FaInstagram } from "react-icons/fa";
+import { RiTiktokLine } from "react-icons/ri";
 
 function CideinFooter() {
   return (
@@ -23,9 +24,30 @@ function CideinFooter() {
           gap: "1.5rem",
         }}
       >
-        <FiFacebook style={{ fontSize: "28px" }} />
-        <FiTwitter style={{ fontSize: "28px" }} />
-        <FaInstagram style={{ fontSize: "28px" }} />
+        <FaInstagram
+          style={{ fontSize: "28px", cursor: "pointer" }}
+          onClick={() =>
+            (window.location.href = "https://www.instagram.com/loremwebs/")
+          }
+          target="_blank"
+          rel="noopener noreferrer"
+        />
+        <FiFacebook
+          style={{ fontSize: "28px", cursor: "pointer" }}
+          onClick={() =>
+            (window.location.href = "https://www.facebook.com/loremwebs")
+          }
+          target="_blank"
+          rel="noopener noreferrer"
+        />
+        <RiTiktokLine
+          style={{ fontSize: "28px", cursor: "pointer" }}
+          onClick={() =>
+            (window.location.href = "https://www.tiktok.com/@loremwebdesign")
+          }
+          target="_blank"
+          rel="noopener noreferrer"
+        />
       </div>
     </footer>
   );

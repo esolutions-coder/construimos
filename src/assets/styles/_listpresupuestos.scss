@@ -10,7 +10,6 @@ $success: rgb(32, 197, 32);
     "nav content aside"
     "footer footer footer";
   gap: 5px;
-  height: 100vh;
 }
 
 .col-12 h1 {
@@ -138,6 +137,7 @@ $success: rgb(32, 197, 32);
 }
 .input-group {
   display: flex;
+  flex-wrap: wrap;
   margin: 0rem auto 0;
   .input-gr {
     width: min(680px, 90%);
@@ -152,7 +152,7 @@ $success: rgb(32, 197, 32);
 }
 .busquedafechass {
   margin-left: inherit;
-  margin-right: 7.3rem;
+  margin-right: 9.9rem;
 }
 
 .input-group input {
@@ -164,7 +164,6 @@ $success: rgb(32, 197, 32);
 }
 
 .input-group span {
-  margin-top: 14px;
   font-weight: 500;
 }
 
@@ -213,6 +212,12 @@ $success: rgb(32, 197, 32);
   width: 100%;
   text-align: center;
 }
+.table th:nth-child(7),
+.table td:nth-child(7) {
+  width: 100%;
+  text-align: center;
+}
+
 /* Inputs dentro de celdas */
 .table input,
 .table textarea {
@@ -242,7 +247,7 @@ $success: rgb(32, 197, 32);
 }
 
 /* Responsivo: tarjetas en móvil */
-@media (max-width: 568px) {
+@media (max-width: 768px) {
   .page-presupuestos h1 {
     font-size: 1.8rem;
     line-height: 1.2;
@@ -317,4 +322,10 @@ $success: rgb(32, 197, 32);
     display: inline-block;
     max-width: 100%;
   }
+}
+.input-group span {
+  margin-left: 1rem;
+}
+.filtro {
+  margin-bottom: 1rem;
 }

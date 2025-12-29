@@ -57,21 +57,21 @@ const currentApu = new ApuCreator(
 );
 
 export default function PresupuestosEditor() {
-  const {projectId} = useParams();
-  const {loading, error, data} = useQuery(GET_PROJECT_BY_ID, {
+  const { projectId } = useParams();
+  const { loading, error, data } = useQuery(GET_PROJECT_BY_ID, {
     variables: {
-      projectId
-    }
-  })
+      projectId,
+    },
+  });
 
-  const [editProject, {data: editData, error:editError, loading:editLoading}] = useMutation(EDIT_PROJECT_BY_ID)
+  const [editProject, { data: editData, error: editError, loading: editLoading }] = useMutation(EDIT_PROJECT_BY_ID);
 
   const [projectInfo, setProjectInfo] = useState<CIDEINProject>(currentProject.state);
   const [activityList, setActivityList] = useState([{ activity_name: "", activity_id: "" }]);
   const [selectedActivity, setSelectedActivity] = useState("");
   const [searchedApus, setSearchedApus] = useState<SearchedApusState>({
     apus: [],
-    db: "construimos_db"
+    db: "construimos_db",
   });
 
   const [apuInfo, setApuInfo] = useState<APUNoId>(currentApu);
@@ -80,8 +80,7 @@ export default function PresupuestosEditor() {
   const [activeTab, setActiveTab] = useState("budget");
   const [warningProps, setWarningProps] = useState({
     warningState: false,
-    message:
-      "Hey Hola, aquí aparecerán tus advertencias, deja de fisgonear jeje",
+    message: "Hey Hola, aquí aparecerán tus advertencias, deja de fisgonear jeje",
     color: "primary_theme",
     icon: "info",
   });
@@ -95,33 +94,24 @@ export default function PresupuestosEditor() {
   //AddSubactivity
   const [addSubCounter, setAddSubCounter] = useState(true);
 
-
   useEffect(() => {
     if (addFullApuResponse.data) {
-      const analizedApu = currentProject.APUCalculator(
-        addFullApuResponse.data.apu
-      );
+      const analizedApu = currentProject.APUCalculator(addFullApuResponse.data.apu);
 
       const newSubActivity: SubActivities = {
         subActivity_apu: { ...analizedApu },
         amount: 0,
         subActivity_total: 0,
         subActivity_id: Date.now().toString(),
-        flag: "construimos_db"
+        flag: "construimos_db",
       };
 
       currentProject.apus.push(JSON.parse(JSON.stringify(addFullApuResponse.data.apu)));
 
-      newSubActivity.subActivity_total =
-        currentProject.subActivityCalculator(newSubActivity);
+      newSubActivity.subActivity_total = currentProject.subActivityCalculator(newSubActivity);
 
       if (selectedActivity === "") {
-        helpfulAlert(
-          "Debes seleccionar una actividad",
-          "primary_theme",
-          5,
-          "info"
-        );
+        helpfulAlert("Debes seleccionar una actividad", "primary_theme", 5, "info");
         return;
       } else {
         setWarningProps({
@@ -138,14 +128,9 @@ export default function PresupuestosEditor() {
   }, [addFullApuResponse.data, addSubCounter]);
 
   const addSubActivity = async (apuId: string, flag: string) => {
-    if(flag === "construimos_db"){
+    if (flag === "construimos_db") {
       if (selectedActivity !== "") {
-        helpfulAlert(
-          "Añadiendo actividad, por favor espere...",
-          "success_theme",
-          5,
-          "add_task"
-        );
+        helpfulAlert("Añadiendo actividad, por favor espere...", "success_theme", 5, "add_task");
         setAddSubCounter(!addSubCounter);
         addFullApu({
           variables: {
@@ -155,33 +140,25 @@ export default function PresupuestosEditor() {
       }
     }
 
-    if(flag === "local_db"){
+    if (flag === "local_db") {
       //Look for the APU in the local DB and add it to currentProject
       const localApu = currentProject.filterApuById(apuId);
-      
+
       if (localApu) {
-        const analizedApu = currentProject.APUCalculator(
-          localApu
-        );
-  
+        const analizedApu = currentProject.APUCalculator(localApu);
+
         const newSubActivity: SubActivities = {
           subActivity_apu: { ...analizedApu },
           amount: 0,
           subActivity_total: 0,
           subActivity_id: Date.now().toString(),
-          flag: "local_db"
+          flag: "local_db",
         };
-  
-        newSubActivity.subActivity_total =
-          currentProject.subActivityCalculator(newSubActivity);
-  
+
+        newSubActivity.subActivity_total = currentProject.subActivityCalculator(newSubActivity);
+
         if (selectedActivity === "") {
-          helpfulAlert(
-            "Debes seleccionar una actividad",
-            "primary_theme",
-            5,
-            "info"
-          );
+          helpfulAlert("Debes seleccionar una actividad", "primary_theme", 5, "info");
           return;
         } else {
           setWarningProps({
@@ -190,7 +167,7 @@ export default function PresupuestosEditor() {
             color: "primary_theme",
             icon: "info",
           });
-  
+
           currentProject.addSubActivity(selectedActivity, newSubActivity);
           setProjectInfo(currentProject.state);
         }
@@ -198,30 +175,20 @@ export default function PresupuestosEditor() {
     }
   };
 
-  const handleSelectedActivity = (
-    evt: React.ChangeEvent<HTMLSelectElement>
-  ) => {
+  const handleSelectedActivity = (evt: React.ChangeEvent<HTMLSelectElement>) => {
     const selectedActivity = evt.target.value;
     setSelectedActivity(selectedActivity);
   };
 
-
   //Cargar data del apu seleccionado una vez el estado de data cambie
   useEffect(() => {
     if (GetFullApuResponse.data) {
-      const analizedApu = currentProject.APUCalculator(
-        GetFullApuResponse.data.apu
-      );
+      const analizedApu = currentProject.APUCalculator(GetFullApuResponse.data.apu);
       setSelectedApu(analizedApu);
     }
   }, [GetFullApuResponse.data]);
 
-  const helpfulAlert = (
-    message: string,
-    color: string,
-    time: number,
-    icon: string
-  ) => {
+  const helpfulAlert = (message: string, color: string, time: number, icon: string) => {
     setWarningProps({
       message: message,
       warningState: true,
@@ -239,64 +206,107 @@ export default function PresupuestosEditor() {
     }, time * 1000);
   };
 
-  useEffect(()=>{
-    if(data){
+  useEffect(() => {
+    if (data) {
+      console.log(data);
       let projectData = data.getProjectById as CIDEINProject;
-      currentProject.apus = JSON.parse(JSON.stringify(projectData.apus));
-      currentProject.local_apus = JSON.parse(JSON.stringify(projectData.local_apus))
-      currentProject.project_activities = currentProject.projectActivitiesBuilder(JSON.parse(JSON.stringify(projectData.project_activities))),
-      currentProject.project_config = JSON.parse(JSON.stringify(projectData.project_config)),
-      currentProject.project_general_info = JSON.parse(JSON.stringify(projectData.project_general_info))
-      
-      setProjectInfo(currentProject.state);
+      if (projectData !== null) {
+        currentProject.apus = JSON.parse(JSON.stringify(projectData.apus));
+        currentProject.local_apus = JSON.parse(JSON.stringify(projectData.local_apus));
+        (currentProject.project_activities = currentProject.projectActivitiesBuilder(JSON.parse(JSON.stringify(projectData.project_activities)))),
+          (currentProject.project_config = JSON.parse(JSON.stringify(projectData.project_config))),
+          (currentProject.project_general_info = JSON.parse(JSON.stringify(projectData.project_general_info)));
+        setProjectInfo(currentProject.state);
+      } else {
+        setActiveTab("project_not_found");
+      }
     }
-  },[data])
+  }, [data]);
 
   useEffect(() => {
-    if(editData){
-      alert("Exito actualizando")
+    if (editData) {
+      alert("Exito actualizando");
     }
-    if(editError){
-      alert("Error Guardando los datos")
+    if (editError) {
+      alert("Error Guardando los datos");
     }
   }, [editData, editError, editLoading]);
 
-  let activeTabContent:JSX.Element = <></>;
-  let rightMenu:JSX.Element = <></>;
+  let activeTabContent: JSX.Element = <></>;
+  let rightMenu: JSX.Element = <></>;
 
-  const {user} = useAuth();
+  const { user } = useAuth();
 
-  const saveProject = ()=> {
+  const saveProject = () => {
     currentProject.user_id = user.id;
     editProject({
       variables: {
         projectId: projectId,
-        projectData: currentProject.toApi
-      }
+        projectData: currentProject.toApi,
+      },
     });
-  }
-
+  };
 
   switch (activeTab) {
     case "budget":
-      activeTabContent = <BudgetPage currentProject={currentProject} setActivityList ={setActivityList} projectInfo={projectInfo} setProjectInfo={setProjectInfo}/>
+      activeTabContent = (
+        <BudgetPage currentProject={currentProject} setActivityList={setActivityList} projectInfo={projectInfo} setProjectInfo={setProjectInfo} />
+      );
 
-      rightMenu=<BudgetRightMenu handleSelectedActivity={handleSelectedActivity} projectInfo={projectInfo} setSearchedApus={setSearchedApus} searchedApus={searchedApus} addSubActivity={addSubActivity} setActiveTab={setActiveTab} currentProject={currentProject} env="editor" id={projectId} setSelectedApu={setSelectedApu} getFullApu={getFullApu}/>;
+      rightMenu = (
+        <BudgetRightMenu
+          handleSelectedActivity={handleSelectedActivity}
+          projectInfo={projectInfo}
+          setSearchedApus={setSearchedApus}
+          searchedApus={searchedApus}
+          addSubActivity={addSubActivity}
+          setActiveTab={setActiveTab}
+          currentProject={currentProject}
+          env="editor"
+          id={projectId}
+          setSelectedApu={setSelectedApu}
+          getFullApu={getFullApu}
+        />
+      );
       break;
     case "apu_viewer":
-      activeTabContent = <ApusPreview GetFullApuResponse={GetFullApuResponse} selectedApu={selectedApu} />
+      activeTabContent = <ApusPreview GetFullApuResponse={GetFullApuResponse} selectedApu={selectedApu} />;
       break;
     case "create_apus_local":
-        activeTabContent = <CreateLocalApu  apuInfo={apuInfo} setApuInfo={setApuInfo} currentApu={currentApu} currentProject={currentProject}/>
-        rightMenu=<LocalApuRightMenu currentApu={currentApu} setApuInfo={setApuInfo}/>
-        break;
-      case "local_apu_viewer":
-          activeTabContent = <LocalApusPreview selectedApu={selectedApu} />
-          break;
+      activeTabContent = <CreateLocalApu apuInfo={apuInfo} setApuInfo={setApuInfo} currentApu={currentApu} currentProject={currentProject} />;
+      rightMenu = <LocalApuRightMenu currentApu={currentApu} setApuInfo={setApuInfo} />;
+      break;
+    case "local_apu_viewer":
+      activeTabContent = <LocalApusPreview selectedApu={selectedApu} />;
+      break;
+    case "project_not_found":
+      activeTabContent = <div className="no_searched">
+      <span className="material-symbols-outlined no_select">
+        sentiment_very_dissatisfied
+      </span>
+      <p className="caption">No hemos encontrado este proyecto...</p>
+    </div>;
+      break;
     default:
-      activeTabContent = <BudgetPage currentProject={currentProject} setActivityList ={setActivityList} projectInfo={projectInfo} setProjectInfo={setProjectInfo}/>
+      activeTabContent = (
+        <BudgetPage currentProject={currentProject} setActivityList={setActivityList} projectInfo={projectInfo} setProjectInfo={setProjectInfo} />
+      );
 
-      rightMenu=<BudgetRightMenu handleSelectedActivity={handleSelectedActivity} projectInfo={projectInfo} setSearchedApus={setSearchedApus} searchedApus={searchedApus} addSubActivity={addSubActivity} setActiveTab={setActiveTab} currentProject={currentProject}  env="editor" id={projectId} setSelectedApu={setSelectedApu} getFullApu={getFullApu}/>;
+      rightMenu = (
+        <BudgetRightMenu
+          handleSelectedActivity={handleSelectedActivity}
+          projectInfo={projectInfo}
+          setSearchedApus={setSearchedApus}
+          searchedApus={searchedApus}
+          addSubActivity={addSubActivity}
+          setActiveTab={setActiveTab}
+          currentProject={currentProject}
+          env="editor"
+          id={projectId}
+          setSelectedApu={setSelectedApu}
+          getFullApu={getFullApu}
+        />
+      );
       break;
   }
 
@@ -310,15 +320,16 @@ export default function PresupuestosEditor() {
         setWarningProps={setWarningProps}
       />
       <div className="grid col_sm_3 gap_sm_12">
-        <div className="span_sm_2 cidein_window">
-          {activeTabContent}
-        </div>
-        <div className="span_sm_1">
-        
-          {rightMenu}
-        </div>
+        <div className="span_sm_2 cidein_window">{activeTabContent}</div>
+        <div className="span_sm_1">{rightMenu}</div>
       </div>
-      <BudgetBottomNavBar currentProject={currentProject} projectInfo={projectInfo} setProjectInfo={setProjectInfo} setActiveTab={setActiveTab} saveProject={saveProject}/>
+      <BudgetBottomNavBar
+        currentProject={currentProject}
+        projectInfo={projectInfo}
+        setProjectInfo={setProjectInfo}
+        setActiveTab={setActiveTab}
+        saveProject={saveProject}
+      />
     </CideinLayOut>
   );
 }

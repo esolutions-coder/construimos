@@ -4,6 +4,10 @@ class CideinProject {
   project_general_info: ProjectGeneralInfo;
   apus: APU[];
   local_apus: APU[];
+  local_materials: CIDEINMaterials[];
+  local_equipment: CIDEINEquipment[];
+  local_workHand: CIDEINWorkhand[];
+  local_transportation: CIDEINTransportation[];
   project_activities_initial_state!: ProjecActivitiesInitialState[];
   project_activities: ProjecActivities[];
   budget_prices: BudgetPrices;
@@ -26,6 +30,10 @@ class CideinProject {
   constructor(
     apus: APU[],
     local_apus: APU[],
+    local_materials: CIDEINMaterials[],
+    local_equipment: CIDEINEquipment[],
+    local_transportation: CIDEINTransportation[],
+    local_workHand: CIDEINWorkhand[],
     project_activities_initial_state: ProjecActivitiesInitialState[],
     budget_prices: BudgetPrices,
     project_config: CIDEINProjectConfig,
@@ -35,14 +43,18 @@ class CideinProject {
     this.project_general_info = project_general_info;
     this.apus = apus;
     this.local_apus = local_apus;
+    this.local_materials = local_materials;
+    this.local_equipment = local_equipment;
+    this.local_transportation = local_transportation;
+    this.local_workHand = local_workHand;
     this.project_activities = this.projectActivitiesBuilder(project_activities_initial_state);
     this.budget_prices = budget_prices;
     this.project_config = project_config;
     this.project_activities_initial_state = project_activities_initial_state;
-    this.user_id = user_id
+    this.user_id = user_id;
   }
 
-  get state():CIDEINProject {
+  get state(): CIDEINProject {
     this.updateProject();
     return {
       apus: this.apus,
@@ -50,46 +62,25 @@ class CideinProject {
       budget_prices: this.budget_prices,
       project_config: this.project_config,
       project_general_info: this.project_general_info,
-      local_apus: this.local_apus
+      local_apus: this.local_apus,
     };
-    
   }
 
   get toApi() {
     this.updateProject();
     let toApiJson = {
-        project_general_info: {...this.project_general_info, total_cost: this.budget_prices.total_cost, date: new Date()},
-        project_config: this.project_config,
-        apus: this.apus,
-        local_apus: this.local_apus,
-        project_activities: this.projectActivityToApi(this.project_activities),
-        user_id: this.user_id,
+      project_general_info: { ...this.project_general_info, total_cost: this.budget_prices.total_cost, date: new Date() },
+      project_config: this.project_config,
+      apus: this.apus,
+      local_apus: this.local_apus,
+      project_activities: this.projectActivityToApi(this.project_activities),
+      user_id: this.user_id,
     };
     return JSON.parse(JSON.stringify(toApiJson));
   }
 
-  projectActivityToApi(activities: ProjecActivities[]): ProjecActivitiesInitialState[] {
-    return activities.map(activity=>{
-      return{
-        activity_id: activity.activity_id,
-        activity_name: activity.activity_name,
-        subActivities: activity.subActivities.map(subActivity=>{
-          return{
-            amount: subActivity.amount,
-            subActivity_id: subActivity.subActivity_id,
-            flag: subActivity.flag,
-            subActivity_apu: {
-              apu_id: subActivity.subActivity_apu.apu_id,
-              _id: subActivity.subActivity_apu._id
-            }
-          }
-        })
-      }
-    })
-  }
-
-  // Estos metodos son los necesarios para construir el proyecto una vez se ha cargado la informacion desde la base de datos
-  projectActivitiesBuilder(activitiesData: ProjecActivitiesInitialState[]):ProjecActivities[] {
+    // Estos metodos son los necesarios para construir el proyecto una vez se ha cargado la informacion desde la base de datos
+  projectActivitiesBuilder(activitiesData: ProjecActivitiesInitialState[]): ProjecActivities[] {
     const builtActivities = activitiesData.map((activity) => {
       let subActivities = this.projectSubActivitiesBuilder(activity.subActivities);
       return {
@@ -97,37 +88,59 @@ class CideinProject {
         activity_name: activity.activity_name,
         subtotal_activity: this.calculateActivitySubtotal(subActivities),
         subActivities: subActivities,
-      }});
+      };
+    });
 
-      return builtActivities;
+    return builtActivities;
   }
 
-    //MODULO ACTIVIDADES
-    calculateActivitySubtotal(subActivities: SubActivities[]): number {
-      let subtotal = 0;
-      for (let i = 0; i < subActivities.length; i++) {
-        const currentSubActivity = subActivities[i];
-        subtotal += currentSubActivity.subActivity_total;
-      }
-      return subtotal;
-    }
+  projectActivityToApi(activities: ProjecActivities[]): ProjecActivitiesInitialState[] {
+    return activities.map((activity) => {
+      return {
+        activity_id: activity.activity_id,
+        activity_name: activity.activity_name,
+        subActivities: activity.subActivities.map((subActivity) => {
+          return {
+            amount: subActivity.amount,
+            subActivity_id: subActivity.subActivity_id,
+            flag: subActivity.flag,
+            subActivity_apu: {
+              apu_id: subActivity.subActivity_apu.apu_id,
+              _id: subActivity.subActivity_apu._id,
+            },
+          };
+        }),
+      };
+    });
+  }
 
-  projectSubActivitiesBuilder(subActivitiesData: SubActivitiesInitialState[]):SubActivities[] {
+
+
+  //MODULO ACTIVIDADES
+  calculateActivitySubtotal(subActivities: SubActivities[]): number {
+    let subtotal = 0;
+    for (let i = 0; i < subActivities.length; i++) {
+      const currentSubActivity = subActivities[i];
+      subtotal += currentSubActivity.subActivity_total;
+    }
+    return subtotal;
+  }
+
+  projectSubActivitiesBuilder(subActivitiesData: SubActivitiesInitialState[]): SubActivities[] {
     return subActivitiesData.map((subActivity) => ({
       amount: subActivity.amount,
       subActivity_id: subActivity.subActivity_id,
       flag: subActivity.flag,
       subActivity_apu: ApuCreator.CalculateApuCost(this.searchApuFromId(subActivity.subActivity_apu.apu_id, subActivity.flag)!),
-      subActivity_total: 0//ApuCreator.CalculateApuCost(this.searchApuFromId(subActivity.subActivity_apu.apu_id, subActivity.flag)!).apu_price,
-    }))
+      subActivity_total: 0, //ApuCreator.CalculateApuCost(this.searchApuFromId(subActivity.subActivity_apu.apu_id, subActivity.flag)!).apu_price,
+    }));
   }
 
-  searchApuFromId(id: string, db: string){
-    let foundApu: APU | undefined
-    if(db==="construimos_db"){
+  searchApuFromId(id: string, db: string) {
+    let foundApu: APU | undefined;
+    if (db === "construimos_db") {
       foundApu = this.apus.find((apu) => apu.apu_id === id);
-    }
-    else if(db==="local_db"){
+    } else if (db === "local_db") {
       foundApu = this.local_apus.find((apu) => apu.apu_id === id);
     }
     return foundApu;
@@ -482,7 +495,26 @@ class CideinProject {
     return filteredApu;
   }
 
+  addMaterial(data: CIDEINMaterials){
+    this.local_materials.push(data);
+  }
+  addEquipment(data: CIDEINEquipment){
+    this.local_equipment.push(data);
+  }
+  addTransportation(data: CIDEINTransportation){
+    this.local_transportation.push(data);
+  }
+  addWorkhand(data: CIDEINWorkhand){
+    this.local_workHand.push(data);
+  }
 
+  searchLocalMaterialsByString(string: string){
+    //search in this.local_materials by string filtering material_name
+    return this.local_materials.filter((material) => 
+      material.material_name.toLowerCase().includes(string.toLowerCase())
+    );
+
+  }
 }
 
 export default CideinProject;

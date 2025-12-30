@@ -1,3 +1,13 @@
+type CreateMaterial = {
+name: string;
+unit: string;
+rud: number;
+price: number;
+code: string;
+category: string;
+provider: string;
+}
+
 type MaterialfromQuery = {
   name: string;
   description: string;

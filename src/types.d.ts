@@ -35,6 +35,7 @@ type CIDEINEquipment = {
     equipment_amount: number,
     equipment_rud: number,
     equipment_partial_value: number
+    equipment_category: string
 }
 
 type CIDEINWorkhand = {

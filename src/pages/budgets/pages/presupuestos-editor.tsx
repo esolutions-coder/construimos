@@ -31,16 +31,7 @@ import { useParams } from "react-router-dom";
 import ApusPreview from "./apusPreview";
 import LocalApusPreview from "./localApuPreview";
 import { useAuth } from "../../../customHooks/auth/useAuth";
-
-const currentProject = new CideinProject(
-  Project.apus,
-  Project.project_activities,
-  Project.local_apus,
-  Project.budget_prices,
-  Project.project_config,
-  Project.project_general_info,
-  Project.user_id
-);
+import { BudgetProvider, useBudgetContext } from "../context/budgetContext";
 
 const currentApu = new ApuCreator(
   ApuMock._id,
@@ -57,6 +48,8 @@ const currentApu = new ApuCreator(
 );
 
 export default function PresupuestosEditor() {
+  const { currentProject } = useBudgetContext();
+
   const { projectId } = useParams();
   const { loading, error, data } = useQuery(GET_PROJECT_BY_ID, {
     variables: {
@@ -208,7 +201,6 @@ export default function PresupuestosEditor() {
 
   useEffect(() => {
     if (data) {
-      console.log(data);
       let projectData = data.getProjectById as CIDEINProject;
       if (projectData !== null) {
         currentProject.apus = JSON.parse(JSON.stringify(projectData.apus));
@@ -311,6 +303,7 @@ export default function PresupuestosEditor() {
   }
 
   return (
+    <BudgetProvider>
     <CideinLayOut>
       <CideinWarning
         state={warningProps.warningState}
@@ -324,12 +317,12 @@ export default function PresupuestosEditor() {
         <div className="span_sm_1">{rightMenu}</div>
       </div>
       <BudgetBottomNavBar
-        currentProject={currentProject}
         projectInfo={projectInfo}
         setProjectInfo={setProjectInfo}
         setActiveTab={setActiveTab}
         saveProject={saveProject}
       />
     </CideinLayOut>
+    </BudgetProvider>
   );
 }

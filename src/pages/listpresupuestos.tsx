@@ -1,9 +1,8 @@
 import { useQuery } from "@apollo/client";
 import { GET_PROJECTS_BY_USER_ID } from "../assets/apus_queries/materialsQueries";
-import Loading from "../components/loading";
+//import Loading from "../components/loading";
 import { useState, useMemo, useEffect } from "react";
 import CideinLayout from "../components/cidein_layout";
-import signointerrogacion from "../assets/img/signointerrogacion.png";
 import Pagination from "../components/pagination";
 import { useAuth } from "../customHooks/auth/useAuth";
 import { useNavigate } from "react-router-dom";
@@ -11,7 +10,6 @@ import Formatter from "../utils/formatter";
 import { useMutation } from "@apollo/client";
 import { DELETE_PROJECT_BUDGET } from "../api/budgets/projects.mutations";
 import CideinWarning from "../components/warning";
-import refreshicon from "../assets/img/refreshicon.png";
 import ActionsMenu from "../components/actionsmenu";
 
 export default function ListPresupuestos() {
@@ -52,9 +50,13 @@ export default function ListPresupuestos() {
     }, time * 1000);
   };
 
+  // LLAMADA A LA QUERY
+
   const { loading, error, data } = useQuery(GET_PROJECTS_BY_USER_ID, {
     variables: { userId: user?.id },
   });
+
+  // MUTACION PARA ELIMINAR EL PRESUPUESTO DE LA LISTA
 
   const [deleteProject, { loading: deletingProject }] = useMutation(
     DELETE_PROJECT_BUDGET
@@ -64,6 +66,8 @@ export default function ListPresupuestos() {
     e.preventDefault();
     setSubmittedQuery(query.trim());
   };
+
+  // PLASMAMOS LA QUERY
 
   const rows = useMemo(() => {
     const list = (data?.getProjectByUserId ?? []).map((p: any) => ({
@@ -80,6 +84,8 @@ export default function ListPresupuestos() {
     return list;
   }, [data]);
 
+  // FILTRAR POR FECHA
+
   const startDate = useMemo(() => {
     if (!startDateStr) return null;
     const d = new Date(startDateStr + "T00:00:00");
@@ -94,11 +100,15 @@ export default function ListPresupuestos() {
     return d;
   }, [endDateStr]);
 
+  // FUNCION PARA RESTABLECER EL FILTRO POR FECHA
+
   const restablecerFiltros = () => {
     setStartDateStr(null);
     setEndDateStr(null);
     setSubmittedQuery("");
   };
+
+  // FUNCION PARA FORMATEAR LA FECHA
 
   const formatFechaHora = (d: Date | null) =>
     d
@@ -113,6 +123,8 @@ export default function ListPresupuestos() {
           timeZone: "Europe/Madrid",
         }).format(d)
       : "—";
+
+  // FILTRAR POR TEXTO
 
   const filteredRows = useMemo(() => {
     const q = submittedQuery.trim().toLowerCase();
@@ -181,7 +193,15 @@ export default function ListPresupuestos() {
       <div className="containersss">
         <div className="row">
           <div className="col-12">
-            <h1>PRESUPUESTOS: PANEL PRINCIPAL </h1>
+            <h1>
+              PRESUPUESTOS: PANEL PRINCIPAL
+              <span
+                className="material-symbols-outlined helpp"
+                title="Busca tus presupuestos guardados, por nombre, o por fecha."
+              >
+                help
+              </span>{" "}
+            </h1>
 
             {error && (
               <div

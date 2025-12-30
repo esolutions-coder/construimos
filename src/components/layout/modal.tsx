@@ -1,5 +1,11 @@
+//React Imports
 import { PropsWithChildren, useEffect, useRef, useState } from "react";
+//Estilos
+import "../../assets/styles/_modal.scss"
+//Images
 import CONST_LOGO from "../../assets/img/cidein_logo.png";
+
+
 type Modal = {
   modal: boolean;
   setModal: React.Dispatch<React.SetStateAction<boolean>>;

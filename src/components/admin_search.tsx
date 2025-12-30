@@ -1,3 +1,4 @@
+import { BudgetProvider } from "../pages/budgets/context/budgetContext";
 import SearchApus from "./searchApus";
 import SearchEquipment from "./searchEquipment";
 import SearchMaterials from "./searchMaterials";
@@ -11,6 +12,7 @@ type AdminSearchProps = {
   addWorkHand: Function;
   addTransportation: Function;
   addApu: Function;
+  bdd: "construimos_db" | "local_db";
 };
 
 const MAT = 0;
@@ -26,24 +28,25 @@ export default function AdminSearch({
   addWorkHand,
   addTransportation,
   addApu,
+  bdd
 }: AdminSearchProps) {
   const selectedPill = pillsInfo.findIndex((pillInfo) => pillInfo === true);
   if (selectedPill === MAT) {
-    return <SearchMaterials addMaterial={addMaterial} />;
+    return <BudgetProvider><SearchMaterials addMaterial={addMaterial} bdd={bdd} /></BudgetProvider>;
   }
   if (selectedPill === EQP) {
-    return <SearchEquipment addEquipment={addEquipment} />;
+    return <BudgetProvider><SearchEquipment addEquipment={addEquipment} /></BudgetProvider>;
   }
   if (selectedPill === MDO) {
-    return <SearchWorkHand addWorkHand={addWorkHand} />;
+    return <BudgetProvider><SearchWorkHand addWorkHand={addWorkHand} /></BudgetProvider>;
   }
 
   if (selectedPill === APU) {
-    return <SearchApus addApu={addApu} />;
+    return <BudgetProvider><SearchApus addApu={addApu} /></BudgetProvider>;
   }
 
   if (selectedPill === TPT) {
-    return <SearchTransportation addTransportation={addTransportation} />;
+    return <BudgetProvider><SearchTransportation addTransportation={addTransportation} /></BudgetProvider>;
   }
   return (
     <div className="no_searched">

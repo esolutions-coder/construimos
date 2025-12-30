@@ -8,6 +8,22 @@
   },
   "apus": [],
   "local_apus":[],
+  "local_materials":[{
+      "_id": "6313ca47beb7e67b5e3e3c49",
+      "material_name": "Cemento Gris",
+      "material_unitary_price": 579.18,
+      "material_provider": "CIRCULO DE INGENIEROS SAS",
+      "material_code": "MATCC-001",
+      "material_unit": "KG",
+      "material_rud": 0.05,
+      "material_category": "CONCRETOS",
+      "material_amount": 0,
+      "material_partial_value": 0
+
+    }],
+  "local_equipment":[],
+  "local_transportation":[],
+  "local_workHand":[],
   "project_activities": [],
   "budget_prices": {
     "IVA": 0,

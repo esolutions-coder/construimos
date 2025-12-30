@@ -26,19 +26,19 @@ function calculateTotals(project: CIDEINProject) {
     /**COSTOS DE ADMINISTRACION
      * Son un porcentaje de los costos directos, debe ser asignado por el usuario en las configuraciones del proyecto
      */
-    project.budget_prices.admin = directCosts * project.project_config.ADMIN
+    project.budget_prices.admin = directCosts * project.project_config.admin
     /**COSTOS POR IMPREVISTOS
      * Son un porcentaje de los costos directos, debe ser asignado por el usuario en las configuraciones del proyecto
      */
-    project.budget_prices.unforeseen = directCosts * project.project_config.UNFORESEEN
+    project.budget_prices.unforeseen = directCosts * project.project_config.unforeseen
     /**UTILIDAD
     * Son un porcentaje de los costos directos, debe ser asignado por el usuario en las configuraciones del proyecto
     */
-    project.budget_prices.utility = directCosts * project.project_config.UTILITY
+    project.budget_prices.utility = directCosts * project.project_config.utility
     /**IVA
    * Es un porcentaje calculado sobre el valor de la utilidad
    */
-    project.budget_prices.IVA = project.budget_prices.utility * project.project_config.IVA
+    project.budget_prices.IVA = project.budget_prices.utility * project.project_config.iva
 
     /**VALOR TOTAL
      * Es la suma de los costos por administracion, imprevistos, utilidad, iva y costos directos

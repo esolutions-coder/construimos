@@ -3,22 +3,34 @@ import { useLazyQuery } from "@apollo/client";
 import { GET_MATERIAL_BY_USERINPUT } from "../assets/apus_queries/allApus";
 import { MaterialCard } from "./materialCard";
 import QueryResult from "./QueryResult";
+import { useBudgetContext } from "../pages/budgets/context/budgetContext";
 
 interface SearchBoxProps {
   addMaterial: Function;
+  bdd: "construimos_db" | "local_db";
 }
 
-const MAT = 0;
-const EQP = 1;
-const MDO = 2;
-const APU = 3;
-
-export default function SearchMaterials({ addMaterial }: SearchBoxProps) {
+export default function SearchMaterials({ addMaterial, bdd }: SearchBoxProps) {
+  //State from provider
+  const { currentProject } = useBudgetContext();
   const [userInput, setUserInput] = useState("");
   const [searchedThings, setSearchedThings] = useState<any[]>([]);
   const [searchMaterials, { loading, error, data }] = useLazyQuery(
     GET_MATERIAL_BY_USERINPUT
   );
+
+  const handleSearch = () => {
+    if(bdd === "construimos_db"){
+      console.log("Searching remote materials for:", userInput);
+      searchMaterials({ variables: { userInput } })
+    }
+    if(bdd === "local_db"){
+      console.log("Searching local materials for:", userInput);
+      console.log(currentProject);
+      const searchResults = currentProject.searchLocalMaterialsByString(userInput);
+      setSearchedThings(searchResults);
+    }
+  }
 
   useEffect(() => {
     if (data) {
@@ -38,13 +50,13 @@ export default function SearchMaterials({ addMaterial }: SearchBoxProps) {
         <button
           className="btn primary_theme"
           type="submit"
-          onClick={() => searchMaterials({ variables: { userInput } })}
+          onClick={handleSearch}
         >
           Buscar
         </button>
       </div>
       <div className="results_container">
-        <QueryResult
+        {bdd==="construimos_db" ? (<QueryResult
           loading={loading}
           error={error}
           data={data}
@@ -59,7 +71,17 @@ export default function SearchMaterials({ addMaterial }: SearchBoxProps) {
               />
             );
           })}
-        </QueryResult>
+        </QueryResult>):(<div className="results_container">
+          {searchedThings.map((material: CIDEINMaterials) => {
+            return (
+              <MaterialCard
+                material={material}
+                key={material.material_code}
+                addMaterial={addMaterial}
+              />
+            );
+          })}
+        </div>)}
       </div>
     </div>
   );

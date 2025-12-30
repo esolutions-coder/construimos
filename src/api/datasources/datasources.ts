@@ -15,9 +15,9 @@ export function dataSource(){
         return "https://capi.lorem.fun/construimosApi"
     }
     if(MODE === "DEV"){
-        return "http://localhost:3500/construimosApi"
+        return "http://localhost:3500/graphql"
     }
-    return "http://localhost:3500/construimosApi"
+    return "http://localhost:3500/graphql"
 }
 
 export function imagesSource(){
@@ -35,9 +35,9 @@ export function adminDataSource(){
         return "https://capi.lorem.fun/admin"
     }
     if(MODE === "DEV"){
-        return "http://localhost:3500/admin"
+        return "http://localhost:3500/graphql"
     }
-    return "http://localhost:3500/admin"
+    return "http://localhost:3500/graphql"
 }
 
 
@@ -46,8 +46,8 @@ export function graphDataSource(){
         return "https://cgraph.lorem.fun/"
     }
     if(MODE === "DEV"){
-        return "http://localhost:3000/"
+        return "http://localhost:3500/graphql"
     }
-    return "http://localhost:3000/"
+    return "http://localhost:3500/graphql"
 }
 

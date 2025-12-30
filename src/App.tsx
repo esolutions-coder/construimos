@@ -26,6 +26,7 @@ import { ProtectedRoute } from "./pages/protectedRoute";
 import AUTHORIZATION from "./settings/authorized.json";
 import PresupuestosEditor from "./pages/budgets/pages/presupuestos-editor";
 import ListPresupuestos from "./pages/listpresupuestos";
+import { BudgetProvider } from "./pages/budgets/context/budgetContext";
 
 function App() {
   return (
@@ -42,8 +43,8 @@ function App() {
         <Route path="/cliente" element={<Cliente />} />
         <Route path="/showroom" element={<ShowRoom />} />
         <Route path="/" element={<Home />} />
-        <Route path="/presupuestos/pill/:slug" element={<Presupuestos />} />
-        <Route path="/presupuestos/pill/:slug/id/:projectId" element={<PresupuestosEditor />} />
+        <Route path="/presupuestos/pill/:slug" element={<BudgetProvider><Presupuestos /></BudgetProvider>} />
+        <Route path="/presupuestos/pill/:slug/id/:projectId" element={<BudgetProvider><PresupuestosEditor /></BudgetProvider>} />
         <Route path="/admin/apu-editor" element={<AdminApus />} />
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />

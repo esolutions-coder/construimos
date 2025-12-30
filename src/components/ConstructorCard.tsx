@@ -1,6 +1,5 @@
 import "../assets/styles/_containers.scss";
 import { Link } from "react-router-dom";
-import "../assets/styles/_constructord.scss";
 
 interface ConstructorCardProps {
   nombre: string;

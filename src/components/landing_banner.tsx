@@ -10,7 +10,9 @@ function Banner() {
           Los clientes son las personas que quieren desarrollar un proyecto y
           necesitan de profesionales para llevarlos a cabo
         </p>
-        <button className="btn primary_theme">Registrarme como cliente</button>
+        <button className="btnbanner primary_theme">
+          Registrarme como cliente
+        </button>
       </div>
     </div>
   );

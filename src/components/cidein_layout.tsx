@@ -98,10 +98,6 @@ function CideinLayout({ children }: CideinLayouProps) {
                     <p>SG-SST</p>
                   </a>
                 </li>
-                <button
-                  onClick={goToDashboard}
-                  className="btn-gotodasboard"
-                ></button>
               </ul>
             </div>
           </div>
@@ -130,6 +126,10 @@ function CideinLayout({ children }: CideinLayouProps) {
                   </span>
                   <p className="label">Notificaciones</p>
                 </a>
+              </li>
+              <li onClick={goToDashboard} className="button_list">
+                <span className="material-symbols-outlined">list</span>
+                <p className="labels">Tus presupuestos</p>
               </li>
             </ul>
           </div>

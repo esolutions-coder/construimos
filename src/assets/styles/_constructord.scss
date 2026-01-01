@@ -127,12 +127,6 @@ $success: rgb(32, 197, 32);
   font-size: 18px;
 }
 
-/* Button */
-.profileAction {
-  margin-top: 40px;
-  text-align: center;
-}
-
 .btnContact {
   background: #f4b41a;
   border: none;
@@ -145,8 +139,91 @@ $success: rgb(32, 197, 32);
   transition: background 0.3s ease;
 }
 
-.btnContact:hover {
-  background: $primary;
+.imagen-wrapper {
+  position: relative;
+  width: 220px;
+  height: 220px;
+  border-radius: 50%;
+  overflow: hidden;
+  cursor: pointer;
+}
+
+/* imagen base */
+.imagen-wrapper img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.7s cubic-bezier(0.22, 1, 0.36, 1), filter 0.6s ease;
+}
+
+/* overlay elegante con gradiente */
+.imagen-wrapper::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(
+    circle at 30% 30%,
+    rgba(253, 190, 51, 0.15),
+    rgba(3, 15, 39, 0.75)
+  );
+  opacity: 0;
+  transition: opacity 0.6s ease;
+  pointer-events: none;
+}
+
+/* Link ocupa todo */
+.imagen-wrapper a {
+  position: absolute;
+  inset: 0;
+  z-index: 3;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
+}
+
+/* CTA premium */
+.imagen-wrapper .btn_primary_theme {
+  background: none;
+  box-shadow: none;
+  border: none;
+  padding: 0;
+  margin-bottom: 5rem;
+  color: #ffffff;
+  font-size: 0.95rem;
+  font-weight: 500;
+  letter-spacing: 0.35em;
+  text-transform: uppercase;
+
+  opacity: 0;
+  transform: translateY(12px);
+  transition: opacity 0.5s ease, transform 0.6s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+/* línea sutil debajo del texto */
+.imagen-wrapper .btn_primary_theme::after {
+  content: "";
+  display: block;
+  width: 40%;
+  height: 1px;
+  margin: 0.6rem auto 0;
+  background: linear-gradient(90deg, transparent, $primary, transparent);
+  opacity: 0.8;
+}
+
+/* hover effects */
+.imagen-wrapper:hover img {
+  transform: scale(1.08);
+  filter: brightness(0.65) saturate(1.05);
+}
+
+.imagen-wrapper:hover::after {
+  opacity: 1;
+}
+
+.imagen-wrapper:hover .btn_primary_theme {
+  opacity: 1;
+  transform: translateY(0);
 }
 
 /* Responsive */

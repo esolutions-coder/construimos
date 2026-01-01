@@ -1,19 +1,14 @@
 import { useState } from "react";
 import cideinLogoYellow from "../assets/img/cidein_logo_yellow.png";
 import userImage from "../assets/img/user_image.png";
-import { useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
+import { RoutesConstruimos } from "../utils/routes";
 
 type CideinLayouProps = {
   children: React.ReactNode;
 };
 
 function CideinLayout({ children }: CideinLayouProps) {
-  const navigate = useNavigate(); // inicializas el hook
-
-  const goToDashboard = () => {
-    navigate("/presupuestos/list"); // navega a la ruta /dashboard
-  };
-  //When false the navbar is minimized
   const [leftNav, setLeftNav] = useState(false);
   return (
     <div className="layout_grid">
@@ -107,29 +102,27 @@ function CideinLayout({ children }: CideinLayouProps) {
         <div className="layout_top_navbar">
           <div className="main_middle_navbar">
             <ul>
-              <li>
-                <a href="">
+              <li className="button_list">
+                <Link to={RoutesConstruimos.HOME}>
                   <span className="material-symbols-outlined">home</span>
                   <p className="label">Inicio</p>
-                </a>
+                </Link>
               </li>
-              <li>
-                <a href="">
+              <li className="button_list">
+                <Link to={RoutesConstruimos.PRESUPUESTOS}>
                   <span className="material-symbols-outlined">add</span>
                   <p className="label">Añadir proyecto</p>
-                </a>
+                </Link>
               </li>
-              <li>
-                <a href="">
-                  <span className="material-symbols-outlined">
-                    notifications
-                  </span>
-                  <p className="label">Notificaciones</p>
-                </a>
+              <li className="button_list">
+                <span className="material-symbols-outlined">notifications</span>
+                <p className="label">Notificaciones</p>
               </li>
-              <li onClick={goToDashboard} className="button_list">
-                <span className="material-symbols-outlined">list</span>
-                <p className="labels">Tus presupuestos</p>
+              <li className="button_list">
+                <Link to={RoutesConstruimos.PRESUPUESTOS_LIST}>
+                  <span className="material-symbols-outlined">List</span>
+                  <p className="labels">Tus presupuestos</p>
+                </Link>
               </li>
             </ul>
           </div>

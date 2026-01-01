@@ -10,6 +10,8 @@ import { CREATE_USER } from "../assets/apus_queries/userQueries";
 import construimosLogo from "../assets/img/cidein_logo_yellow.png";
 import Swal from "sweetalert2";
 import withReactContent from "sweetalert2-react-content";
+import { RoutesConstruimos } from "../utils/routes";
+import { Link } from "react-router-dom";
 
 const MySwal = withReactContent(Swal);
 
@@ -110,6 +112,23 @@ export default function Register() {
 
   return (
     <div className="bg_secondary grid justify_content_sm_center min_height_100 alig_items_sm_center">
+      <Link to={RoutesConstruimos.HOME}>
+        <span
+          style={{
+            cursor: "pointer",
+            color: "white",
+            left: "0",
+            top: "0",
+            marginLeft: "1rem",
+            marginTop: "1rem",
+            position: "absolute",
+          }}
+          className="material-symbols-outlined"
+        >
+          {" "}
+          arrow_back{" "}
+        </span>
+      </Link>
       <div>
         <div className="logo txt_center">
           <img src={construimosLogo} alt="" />

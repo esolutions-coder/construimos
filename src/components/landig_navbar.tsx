@@ -2,6 +2,7 @@ import { Link } from "react-router-dom";
 import cideinLogo from "../assets/img/cidein_logo.png";
 import { useAuth } from "../customHooks/auth/useAuth";
 import { NAV_ITEMS_BY_ROLE } from "../utils/tipousuarios";
+import { RoutesConstruimos } from "../utils/routes";
 
 function LandingNavBar() {
   const { user, logout } = useAuth();
@@ -11,6 +12,7 @@ function LandingNavBar() {
 
   const table = NAV_ITEMS_BY_ROLE ?? ({} as typeof NAV_ITEMS_BY_ROLE);
   const items = Array.isArray(table[role]) ? table[role] : [];
+  console.log(role);
 
   return (
     <nav id="landing_navbar">
@@ -34,22 +36,22 @@ function LandingNavBar() {
       <ul className="navigation" id="navList">
         {items.map((item) => (
           <li key={item.to}>
-            <a href={item.to}>{item.label}</a>
+            <Link to={item.to}>{item.label}</Link>
           </li>
         ))}
 
         {!user ? (
           <li className="auth_buttons mobile-auth">
-            <Link to="/login">
+            <Link to={RoutesConstruimos.AUTH_LOGIN}>
               <button className="boton-iniciar">Iniciar Sesión</button>
             </Link>
-            <Link to="/#/register">
+            <Link to={RoutesConstruimos.AUTH_REGISTER}>
               <button className="boton-registrate">Regístrate</button>
             </Link>
           </li>
         ) : (
           <li className="auth_buttons mobile-auth">
-            <Link to="/#/perfil">
+            <Link to="/perfil">
               <button className="boton-registrate">
                 {user.name?.split(" ")[0] ?? "Perfil"}
               </button>

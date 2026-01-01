@@ -8,6 +8,8 @@ export default class Materiales {
   }
 
   getState() {
-    return JSON.parse(JSON.stringify(this.material)) as CurrentMaterialFromQuery;
+    return JSON.parse(
+      JSON.stringify(this.material)
+    ) as CurrentMaterialFromQuery;
   }
 }

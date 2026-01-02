@@ -47,6 +47,7 @@ function App() {
         <Route path="/presupuestos/pill/:slug/id/:projectId" element={<BudgetProvider><PresupuestosEditor /></BudgetProvider>} />
         <Route path="/admin/apu-editor" element={<AdminApus />} />
         <Route path="/login" element={<Login />} />
+        <Route path="/presupuestos/list" element={<ListPresupuestos />} />
         <Route path="/register" element={<Register />} />
         <Route path="/admin/materials" element={<Materials />} />
         <Route path="/material/info/:materialId" element={<MaterialById />} />

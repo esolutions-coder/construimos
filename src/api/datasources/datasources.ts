@@ -12,7 +12,7 @@ export function excelSource(){
 
 export function dataSource(){
     if(MODE === "PRODUCTION"){
-        return "https://capi.lorem.fun/construimosApi"
+        return "https://capi.lorem.fun/graphql"
     }
     if(MODE === "DEV"){
         return "http://localhost:3500/graphql"
@@ -43,7 +43,7 @@ export function adminDataSource(){
 
 export function graphDataSource(){
     if(MODE === "PRODUCTION"){
-        return "https://cgraph.lorem.fun/"
+        return "https://capi.lorem.fun/graphql"
     }
     if(MODE === "DEV"){
         return "http://localhost:3500/graphql"

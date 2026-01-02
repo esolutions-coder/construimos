@@ -11,7 +11,7 @@ type AuthUser = {
   role: Role;
   token: string;
   image: string;
-  id: string;
+  _id: string;
 };
 
 type UseAuthTypes = {

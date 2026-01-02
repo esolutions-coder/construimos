@@ -36,7 +36,6 @@ function App() {
         <Route path="/constructores/:nombre" element={<ProtectedRoute roles={AUTHORIZATION.CONSTRUCTORES}><ConstructorDetalle /></ProtectedRoute>} />
         <Route path="/proveedores" element={<Proveedores />} />
         <Route path="/dashboard" element={<Dashboard />} />
-        <Route path="presupuestos" element={<Presupuestos />} />
         <Route path="/crearnuevoproducto" element={<CrearPro />} />
         <Route path="/contratista" element={<Contratista />} />
         <Route path="/provider" element={<ProviderSection />} />

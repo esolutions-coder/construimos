@@ -1,9 +1,8 @@
 import { useQuery } from "@apollo/client";
 import { GET_PROJECTS_BY_USER_ID } from "../assets/apus_queries/materialsQueries";
-import Loading from "../components/loading";
+//import Loading from "../components/loading";
 import { useState, useMemo, useEffect } from "react";
 import CideinLayout from "../components/cidein_layout";
-import signointerrogacion from "../assets/img/signointerrogacion.png";
 import Pagination from "../components/pagination";
 import { useAuth } from "../customHooks/auth/useAuth";
 import { useNavigate } from "react-router-dom";
@@ -11,6 +10,7 @@ import Formatter from "../utils/formatter";
 import { useMutation } from "@apollo/client";
 import { DELETE_PROJECT_BUDGET } from "../api/budgets/projects.mutations";
 import CideinWarning from "../components/warning";
+import ActionsMenu from "../components/actionsmenu";
 
 export default function ListPresupuestos() {
   const { user } = useAuth();
@@ -50,29 +50,24 @@ export default function ListPresupuestos() {
     }, time * 1000);
   };
 
+  // LLAMADA A LA QUERY
+
   const { loading, error, data } = useQuery(GET_PROJECTS_BY_USER_ID, {
     variables: { userId: user?.id },
   });
+
+  // MUTACION PARA ELIMINAR EL PRESUPUESTO DE LA LISTA
 
   const [deleteProject, { loading: deletingProject }] = useMutation(
     DELETE_PROJECT_BUDGET
   );
 
-  useEffect(() => {
-    if (error) {
-      <div>Hubo un error</div>;
-    }
-    if (loading) {
-      <div>
-        <Loading />
-      </div>;
-    }
-  }, [data]);
-
   const onSubmitBuscar = (e: React.FormEvent) => {
     e.preventDefault();
     setSubmittedQuery(query.trim());
   };
+
+  // PLASMAMOS LA QUERY
 
   const rows = useMemo(() => {
     const list = (data?.getProjectByUserId ?? []).map((p: any) => ({
@@ -80,12 +75,16 @@ export default function ListPresupuestos() {
       name: p.project_general_info?.name ?? "",
       description: p.project_general_info?.description ?? "",
       total_cost: p.project_general_info?.total_cost ?? 0,
+      location: p.project_general_info?.location ?? "",
+      postal_code: p.project_general_info?.postal_code ?? 0,
       fecha: p.project_general_info?.date
         ? new Date(p.project_general_info.date)
         : null,
     }));
     return list;
   }, [data]);
+
+  // FILTRAR POR FECHA
 
   const startDate = useMemo(() => {
     if (!startDateStr) return null;
@@ -100,6 +99,32 @@ export default function ListPresupuestos() {
     d.setDate(d.getDate() + 1);
     return d;
   }, [endDateStr]);
+
+  // FUNCION PARA RESTABLECER EL FILTRO POR FECHA
+
+  const restablecerFiltros = () => {
+    setStartDateStr(null);
+    setEndDateStr(null);
+    setSubmittedQuery("");
+  };
+
+  // FUNCION PARA FORMATEAR LA FECHA
+
+  const formatFechaHora = (d: Date | null) =>
+    d
+      ? new Intl.DateTimeFormat("es-ES", {
+          year: "numeric",
+          month: "2-digit",
+          day: "2-digit",
+          hour: "2-digit",
+          minute: "2-digit",
+          second: "2-digit",
+          hour12: false,
+          timeZone: "Europe/Madrid",
+        }).format(d)
+      : "—";
+
+  // FILTRAR POR TEXTO
 
   const filteredRows = useMemo(() => {
     const q = submittedQuery.trim().toLowerCase();
@@ -130,16 +155,11 @@ export default function ListPresupuestos() {
     if (!action) return;
 
     if (action === "edit") {
-      navigate(`/presupuestos/editor/${id}`);
+      navigate(`/presupuestos/pill/:slug/id/${id}`);
       return;
     }
 
     if (action === "delete") {
-      const ok = window.confirm(
-        "¿Seguro que quieres eliminar este presupuesto?"
-      );
-      if (!ok) return;
-
       try {
         await deleteProject({
           variables: { projectId: id },
@@ -174,12 +194,13 @@ export default function ListPresupuestos() {
         <div className="row">
           <div className="col-12">
             <h1>
-              PRESUPUESTOS: PANEL PRINCIPAL{" "}
-              <img
-                src={signointerrogacion}
-                alt=""
-                title="Busca tus presupuestos guardados por NOMBRE O FECHA"
-              />
+              PRESUPUESTOS: PANEL PRINCIPAL
+              <span
+                className="material-symbols-outlined helpp"
+                title="Busca tus presupuestos guardados, por nombre, o por fecha."
+              >
+                help
+              </span>{" "}
             </h1>
 
             {error && (
@@ -224,6 +245,17 @@ export default function ListPresupuestos() {
                   onChange={(e) => setEndDateStr(e.target.value)}
                   value={endDateStr}
                 />
+                <span
+                  style={{
+                    cursor: "pointer",
+                    position: "absolute",
+                    marginTop: "12px",
+                  }}
+                  className="material-symbols-outlined"
+                  onClick={restablecerFiltros}
+                >
+                  refresh
+                </span>
               </div>
             </div>
 
@@ -252,8 +284,9 @@ export default function ListPresupuestos() {
                   <tr>
                     <th>ITEM</th>
                     <th>NOMBRE PRESUPUESTO</th>
-                    <th>LOCALIZACIÓN</th>
                     <th>PRECIO TOTAL</th>
+                    <th>LOCALIZACIÓN</th>
+                    <th>CÓDIGO POSTAL</th>
                     <th>FECHA</th>
                     <th>OPCIONES</th>
                   </tr>
@@ -269,7 +302,7 @@ export default function ListPresupuestos() {
                   {filteredRows.length ? (
                     filteredRows.map((item, index) => (
                       <tr key={item._id}>
-                        <td data-label="ID">{index}</td>
+                        <td data-label="ID">{index + 1}</td>
                         <td
                           data-label="Nombre"
                           className="presupuestos-name"
@@ -279,52 +312,23 @@ export default function ListPresupuestos() {
                         >
                           {item.name}
                         </td>
-
-                        <td data-label="Descripción actividad">
-                          {item.description}
-                        </td>
                         <td data-label="Precio total">
                           {Formatter(item.total_cost)}
                         </td>
+                        <td data-label="Ubicación">{item.location}</td>
+                        <td data-label="Código postal">{item.postal_code}</td>
                         <td data-label="Fecha">
                           <span className="badge-date">
-                            {item.fecha
-                              ? item.fecha.toLocaleDateString("es-ES")
-                              : "—"}
+                            {formatFechaHora(item.fecha)}
                           </span>
                         </td>
                         <td data-label="options">
-                          <select
-                            defaultValue=""
-                            disabled={deletingProject}
-                            onChange={(e) => {
-                              const value = e.target.value;
-                              onRowAction(value, item._id);
-                              // volver al placeholder
-                              e.currentTarget.selectedIndex = 0;
-                              helpfulAlert(
-                                "Presupuesto eliminado correctamente",
-                                "success_theme",
-                                5,
-                                "check_circle"
-                              );
-                            }}
-                            style={{
-                              padding: "6px 8px",
-                              borderRadius: 8,
-                              border: "1px solid #ddd",
-                              background: "#fff",
-                              cursor: "pointer",
-                            }}
-                            aria-label="Acciones del presupuesto"
-                            title="Acciones"
-                          >
-                            <option value="" disabled>
-                              ⚙️
-                            </option>
-                            <option value="edit">✏️ Editar</option>
-                            <option value="delete">🗑️ Eliminar</option>
-                          </select>
+                          <ActionsMenu
+                            itemId={item._id}
+                            deletingProject={deletingProject}
+                            onRowAction={onRowAction}
+                            helpfulAlert={helpfulAlert}
+                          />
                         </td>
                       </tr>
                     ))

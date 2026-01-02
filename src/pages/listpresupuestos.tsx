@@ -53,7 +53,7 @@ export default function ListPresupuestos() {
   // LLAMADA A LA QUERY
 
   const { loading, error, data } = useQuery(GET_PROJECTS_BY_USER_ID, {
-    variables: { userId: user?.id },
+    variables: { userId: user?._id },
   });
 
   // MUTACION PARA ELIMINAR EL PRESUPUESTO DE LA LISTA
@@ -187,6 +187,13 @@ export default function ListPresupuestos() {
       }
     }
   };
+
+  useEffect(()=>{
+    if(data){
+      console.log(user)
+      console.log(data);
+    }
+  },[data])
 
   return (
     <CideinLayout>

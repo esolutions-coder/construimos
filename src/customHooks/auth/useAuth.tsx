@@ -7,9 +7,8 @@ type AuthUser = {
   name: string;
   role: Role;
   token: string;
-  position: string;
-  image: string | null;
-  id: string;
+  image: string;
+  _id: string;
 };
 
 type UseAuthTypes = {

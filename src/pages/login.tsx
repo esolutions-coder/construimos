@@ -1,5 +1,10 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import construimosLogo from "../assets/img/cidein_logo.png";
+import { useLazyQuery } from "@apollo/client";
+import { LOGIN_USER } from "../api/budgets/projects.queries";
+import { Link } from "react-router-dom";
+// import { RoutesConstruimos } from "../utils/routes";
+import { useAuth } from "../customHooks/auth/useAuth";
 // import { postDataNoToken } from "../api/fetchData";
 // import { dataSource, imagesSource } from "../api/datasources/datasources";
 // import { useAuth } from "../customHooks/auth/useAuth";
@@ -11,27 +16,29 @@ import { RoutesConstruimos } from "../utils/routes";
 export default function Login() {
   const [name, setName] = useState("");
   const [password, setPassword] = useState("");
-
+  const {login} = useAuth();
   const [isValid, setIsValid] = useState<undefined | boolean>(undefined);
 
-  const [submit, { data, loading, error }] = useLazyQuery(LOGIN_USER, {
-    variables: {
-      login: {
-        name: name,
-        password: password,
-      },
-    },
-  });
+  const [submit, { data, loading, error }] = useLazyQuery(LOGIN_USER);
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    submit();
+    console.log("Submitting login for:", name, password);
+    submit({variables: {
+      username: name,
+      password: password
+    }});
   };
+
+  useEffect(()=>{
+    if(data){
+      login(data.login)
+  }},[data])
 
   return (
     <>
       <div className="bg_primary grid justify_content_sm_center min_height_100 alig_items_sm_center">
-        <Link to={RoutesConstruimos.HOME}>
+        <Link to={"/#"}>
           <span
             style={{
               cursor: "pointer",

@@ -29,6 +29,7 @@ import CreateLocalApu from "./budgets/pages/createLocalApu";
 import ApusPreview from "./budgets/pages/apusPreview";
 import LocalApusPreview from "./budgets/pages/localApuPreview";
 import { useAuth } from "../customHooks/auth/useAuth";
+import { BudgetProvider } from "./budgets/context/budgetContext";
 
 const currentProject = new CideinProject(
   Project.apus,
@@ -334,27 +335,29 @@ function Presupuestos() {
   };
 
   return (
-    <CideinLayOut>
-      {/* Estas son las alertas */}
-      <CideinWarning
-        state={warningProps.warningState}
-        message={warningProps.message}
-        color={warningProps.color}
-        icon={warningProps.icon}
-        setWarningProps={setWarningProps}
-      />
-      <div className="grid col_sm_3 gap_sm_12">
-        <div className="span_sm_2 cidein_window">{activeTabContent}</div>
-        <div className="span_sm_1">{rightMenu}</div>
-      </div>
-      <BudgetBottomNavBar
-        currentProject={currentProject}
-        projectInfo={projectInfo}
-        setProjectInfo={setProjectInfo}
-        setActiveTab={setActiveTab}
-        saveProject={saveProject}
-      />
-    </CideinLayOut>
+    <BudgetProvider>
+      <CideinLayOut>
+        <CideinWarning
+          state={warningProps.warningState}
+          message={warningProps.message}
+          color={warningProps.color}
+          icon={warningProps.icon}
+          setWarningProps={setWarningProps}
+        />
+
+        <div className="grid col_sm_3 gap_sm_12">
+          <div className="span_sm_2 cidein_window">{activeTabContent}</div>
+          <div className="span_sm_1">{rightMenu}</div>
+        </div>
+
+        <BudgetBottomNavBar
+          projectInfo={projectInfo}
+          setProjectInfo={setProjectInfo}
+          setActiveTab={setActiveTab}
+          saveProject={saveProject}
+        />
+      </CideinLayOut>
+    </BudgetProvider>
   );
 }
 

@@ -12,4 +12,5 @@ export default class Materiales {
       JSON.stringify(this.material)
     ) as CurrentMaterialFromQuery;
   }
+
 }

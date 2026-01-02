@@ -12,12 +12,12 @@ export function excelSource() {
 
 export function dataSource() {
   if (MODE === "PRODUCTION") {
-    return "https://capi.lorem.fun/graphql";
+    return "https://capi.lorem.fun/construimosApi";
   }
   if (MODE === "DEV") {
-    return "http://localhost:3500/construimosApi";
+    return "http://localhost:3500/graphql";
   }
-  return "http://localhost:3500/construimosApi";
+  return "http://localhost:3500/graphql";
 }
 
 export function imagesSource() {
@@ -32,20 +32,20 @@ export function imagesSource() {
 
 export function adminDataSource() {
   if (MODE === "PRODUCTION") {
-    return "https://capi.lorem.fun/graphql";
+    return "https://capi.lorem.fun/admin";
   }
   if (MODE === "DEV") {
-    return "http://localhost:3500/admin";
+    return "http://localhost:3500/graphql";
   }
-  return "http://localhost:3500/admin";
+  return "http://localhost:3500/graphql";
 }
 
 export function graphDataSource() {
   if (MODE === "PRODUCTION") {
-    return "https://capi.lorem.fun/graphql";
+    return "https://cgraph.lorem.fun/";
   }
   if (MODE === "DEV") {
-    return "http://localhost:3000/";
+    return "http://localhost:3500/graphql";
   }
-  return "http://localhost:3000/";
+  return "http://localhost:3500/graphql";
 }

@@ -84,12 +84,7 @@ export default function Login() {
               <label htmlFor="role" className="button  txt_secondary">
                 TIPO DE USUARIO
               </label>
-              <select
-                name="role"
-                id="role"
-                placeholder="Tipo de usuario"
-                //onChange={(e) => setRole(e.target.value)}
-              >
+              <select name="role" id="role">
                 <option value="CLIENTE">CLIENTE</option>
                 <option value="CONTRATISTA">CONTRATISTA</option>
                 <option value="PROVEEDOR">PROVEEDOR</option>

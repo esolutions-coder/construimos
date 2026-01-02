@@ -1,5 +1,3 @@
-import "../types";
-
 function LandingCard({ icon, title, description, theme }: Card) {
   return (
     <div className={`landing_card_body ${theme}`}>

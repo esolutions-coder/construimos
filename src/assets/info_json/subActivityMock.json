@@ -30,7 +30,8 @@
       "equipment_unit": "UND",
       "equipment_amount": 123,
       "equipment_rud": 0.3,
-      "equipment_partial_value": 400
+      "equipment_partial_value": 400,
+      "equipment_category": "TALADROS"
     }
   ],
   "apu_workHand": [

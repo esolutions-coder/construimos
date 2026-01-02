@@ -1,5 +1,8 @@
 # CONSTRUIMOS - LOREM WEB DESIGN
 
+## ESTILOS
+Los estilos deben estar relacionados con el archivo al que estan afectando en la misma jerarquía de carpetas, por ejemplo, para un archivo pages/budget/materiales.tsx debe haber un archivo assets/styles/pages/budget/materiales.scss si es necesario
+
 ## PESTAÑAS
 
 - MATERIALES

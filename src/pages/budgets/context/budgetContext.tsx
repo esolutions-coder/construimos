@@ -2,10 +2,13 @@
 import React, { createContext, useState, ReactNode, useContext } from "react";
 import CideinProject from "../../../utils/project_constructor";
 import Project from "../../../assets/info_json/project_info.json";
+import ApuMock from "../../../assets/info_json/layout_apu.json";
+import ApuCreator from "../../../utils/apus_constructor";
 
 // Define la forma de tu contexto
 interface BudgetContextType {
   currentProject: CideinProject
+  currentApu: ApuCreator
 }
 
 // Crea el contexto con undefined inicial
@@ -26,10 +29,24 @@ const currentProject = new CideinProject(
   Project.user_id
 );
 
+const currentApu = new ApuCreator(
+  ApuMock._id,
+  ApuMock.apu_name,
+  ApuMock.apu_unit,
+  ApuMock.apu_price,
+  ApuMock.apu_materials,
+  ApuMock.apu_equipment,
+  ApuMock.apu_description,
+  ApuMock.apu_workHand,
+  ApuMock.apu_transportation,
+  ApuMock.apu_apu,
+  ApuMock.apu_chaper
+);
+
 // Proveedor del contexto
 export const BudgetProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
   return (
-    <MyContext.Provider value={{ currentProject }}>
+    <MyContext.Provider value={{ currentProject, currentApu }}>
       {children}
     </MyContext.Provider>
   );

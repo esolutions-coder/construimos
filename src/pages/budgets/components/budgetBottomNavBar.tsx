@@ -15,12 +15,7 @@ type BudgetBottomNavBarProps = {
   saveProject: () => void;
 };
 
-export default function BudgetBottomNavBar({
-  setProjectInfo,
-  projectInfo,
-  setActiveTab,
-  saveProject,
-}: BudgetBottomNavBarProps) {
+export default function BudgetBottomNavBar({ setProjectInfo, projectInfo, setActiveTab, saveProject }: BudgetBottomNavBarProps) {
   const { currentProject } = useBudgetContext();
 
   //Show or hide general config menu
@@ -73,12 +68,7 @@ export default function BudgetBottomNavBar({
     icon: "info",
   });
 
-  const helpfulAlert = (
-    message: string,
-    color: string,
-    time: number,
-    icon: string
-  ) => {
+  const helpfulAlert = (message: string, color: string, time: number, icon: string) => {
     setWarningProps({
       message: message,
       warningState: true,
@@ -138,22 +128,15 @@ export default function BudgetBottomNavBar({
       {/* End of Modal: Add Workhand */}
 
       {/* Modal: Add Transportation */}
-      <Modal
-        modal={addTransportationModal}
-        setModal={setAddTransportationModal}
-      >
+      <Modal modal={addTransportationModal} setModal={setAddTransportationModal}>
         <AddTransportationForm handleSave={addThings} />
       </Modal>
       {/* End of Modal: Add Transportation */}
 
       <div className="bottom_options_nav">
         <div className="bottom_nav_container">
-          {/* Edit AIU Menu */}
-          <div
-            className={`project_general_config_menu ${
-              configMenu ? "hide" : ""
-            }`}
-          >
+          {/* Add Things Menu */}
+          <div className={`project_general_config_menu ${addThingsMenu ? "hide" : ""}`}>
             <div
               className="config_field yellow_bg_hover"
               onClick={() => {
@@ -195,23 +178,15 @@ export default function BudgetBottomNavBar({
               </div>
             </div>
           </div>
-          {/* Add Things Menu */}
-          <div
-            className={`project_general_config_menu ${
-              addThingsMenu ? "hide" : ""
-            }`}
-          >
+          {/* End of Add Things Menu */}
+          {/* Edit AIU Menu */}
+          <div className={`project_general_config_menu ${configMenu ? "hide" : ""}`}>
             <div className="config_field">
               <div className="config_name">
                 <p className="caption">IVA(%)</p>
               </div>
               <div className="config_value">
-                <input
-                  type="number"
-                  value={projectInfo.project_config.iva * 100}
-                  placeholder="iva"
-                  onChange={editIva}
-                />
+                <input type="number" value={projectInfo.project_config.iva * 100} placeholder="iva" onChange={editIva} />
               </div>
             </div>
             <div className="config_field">
@@ -219,12 +194,7 @@ export default function BudgetBottomNavBar({
                 <p className="caption">ADMINISTRACIÓN(%)</p>
               </div>
               <div className="config_value">
-                <input
-                  type="number"
-                  value={projectInfo.project_config.admin * 100}
-                  placeholder="ADMINISTRACIÓN"
-                  onChange={editAdmin}
-                />
+                <input type="number" value={projectInfo.project_config.admin * 100} placeholder="ADMINISTRACIÓN" onChange={editAdmin} />
               </div>
             </div>
             <div className="config_field">
@@ -232,12 +202,7 @@ export default function BudgetBottomNavBar({
                 <p className="caption">IMPREVISTOS(%)</p>
               </div>
               <div className="config_value">
-                <input
-                  type="number"
-                  value={projectInfo.project_config.unforeseen * 100}
-                  placeholder="IMPREVISTOS"
-                  onChange={editUnforeseen}
-                />
+                <input type="number" value={projectInfo.project_config.unforeseen * 100} placeholder="IMPREVISTOS" onChange={editUnforeseen} />
               </div>
             </div>
             <div className="config_field">
@@ -245,15 +210,11 @@ export default function BudgetBottomNavBar({
                 <p className="caption">UTILIDAD(%)</p>
               </div>
               <div className="config_value">
-                <input
-                  type="number"
-                  value={projectInfo.project_config.utility * 100}
-                  placeholder="utilidad"
-                  onChange={editUtility}
-                />
+                <input type="number" value={projectInfo.project_config.utility * 100} placeholder="utilidad" onChange={editUtility} />
               </div>
             </div>
           </div>
+          {/* End of Edit AIU Menu*/}
           <ul>
             <li>
               <div className="bottom_nav_icon">
@@ -273,12 +234,7 @@ export default function BudgetBottomNavBar({
                   className="material-symbols-outlined"
                   onClick={() => {
                     addActivity();
-                    helpfulAlert(
-                      "Nueva actividad creada correctamente",
-                      "success_theme",
-                      5,
-                      "check_circle"
-                    );
+                    helpfulAlert("Nueva actividad creada correctamente", "success_theme", 5, "check_circle");
                   }}
                 >
                   library_add
@@ -299,12 +255,7 @@ export default function BudgetBottomNavBar({
                   className="material-symbols-outlined"
                   onClick={() => {
                     saveProject();
-                    helpfulAlert(
-                      "APU guardado en el proyecto exitosamente",
-                      "success_theme",
-                      5,
-                      "check_circle"
-                    );
+                    helpfulAlert("APU guardado en el proyecto exitosamente", "success_theme", 5, "check_circle");
                   }}
                 >
                   save
@@ -313,20 +264,14 @@ export default function BudgetBottomNavBar({
             </li>
             <li>
               <div className="bottom_nav_icon">
-                <span
-                  className="material-symbols-outlined"
-                  onClick={() => setConfigMenu(!configMenu)}
-                >
+                <span className="material-symbols-outlined" onClick={() => setConfigMenu(!configMenu)}>
                   settings
                 </span>
               </div>
             </li>
             <li>
               <div className="bottom_nav_icon">
-                <span
-                  className="material-symbols-outlined"
-                  onClick={() => setConfigMenu(!addThingsMenu)}
-                >
+                <span className="material-symbols-outlined" onClick={() => setAddThingsMenu(!addThingsMenu)}>
                   add
                 </span>
               </div>

@@ -623,6 +623,34 @@ class CideinProject {
       material.material_name.toLowerCase().includes(string.toLowerCase())
     );
   }
+
+  searchLocalEquipmentByString(string: string){
+    //search in this.local_equipment by string filtering material_name
+    return this.local_equipment.filter((equipment) => 
+      equipment.equipment_name.toLowerCase().includes(string.toLowerCase())
+    );
+  }
+
+  searchLocalWorkhandByString(string: string){
+    //search in this.local_workHand by string filtering material_name
+    return this.local_workHand.filter((workHand) => 
+      workHand.workHand_name.toLowerCase().includes(string.toLowerCase())
+    );
+  }
+
+  searchLocalTransportationByString(string: string){
+    //search in this.local_transportation by string filtering material_name
+    return this.local_transportation.filter((transportation) => 
+      transportation.transportation_name.toLowerCase().includes(string.toLowerCase())
+    );
+  }
+
+  searchLocalApuByString(string: string){
+    //search in this.local_apus by string filtering material_name
+    return this.local_apus.filter((apu) => 
+      apu.apu_name.toLowerCase().includes(string.toLowerCase())
+    );
+  }
 }
 
 export default CideinProject;

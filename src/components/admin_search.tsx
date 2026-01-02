@@ -35,18 +35,18 @@ export default function AdminSearch({
     return <BudgetProvider><SearchMaterials addMaterial={addMaterial} bdd={bdd} /></BudgetProvider>;
   }
   if (selectedPill === EQP) {
-    return <BudgetProvider><SearchEquipment addEquipment={addEquipment} /></BudgetProvider>;
+    return <BudgetProvider><SearchEquipment addEquipment={addEquipment} bdd={bdd}/></BudgetProvider>;
   }
   if (selectedPill === MDO) {
-    return <BudgetProvider><SearchWorkHand addWorkHand={addWorkHand} /></BudgetProvider>;
+    return <BudgetProvider><SearchWorkHand addWorkHand={addWorkHand} bdd={bdd}/></BudgetProvider>;
   }
 
   if (selectedPill === APU) {
-    return <BudgetProvider><SearchApus addApu={addApu} /></BudgetProvider>;
+    return <BudgetProvider><SearchApus addApu={addApu} bdd={bdd}/></BudgetProvider>;
   }
 
   if (selectedPill === TPT) {
-    return <BudgetProvider><SearchTransportation addTransportation={addTransportation} /></BudgetProvider>;
+    return <BudgetProvider><SearchTransportation addTransportation={addTransportation} bdd={bdd}/></BudgetProvider>;
   }
   return (
     <div className="no_searched">

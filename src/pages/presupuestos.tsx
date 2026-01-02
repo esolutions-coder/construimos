@@ -5,13 +5,11 @@ import { useEffect, useState } from "react";
 import CideinLayOut from "../components/cidein_layout";
 
 //INFO
-import Project from "../assets/info_json/project_info.json";
 import SubActivityMock from "../assets/info_json/subActivityMock.json";
 
 //UTILS
 import React from "react";
 import CideinWarning from "../components/warning";
-import CideinProject from "../utils/project_constructor";
 
 //APOLLO
 import { useLazyQuery, useMutation } from "@apollo/client";
@@ -335,29 +333,26 @@ function Presupuestos() {
   };
 
   return (
-    <BudgetProvider>
-      <CideinLayOut>
-        <CideinWarning
-          state={warningProps.warningState}
-          message={warningProps.message}
-          color={warningProps.color}
-          icon={warningProps.icon}
-          setWarningProps={setWarningProps}
-        />
-
-        <div className="grid col_sm_3 gap_sm_12">
-          <div className="span_sm_2 cidein_window">{activeTabContent}</div>
-          <div className="span_sm_1">{rightMenu}</div>
-        </div>
-
-        <BudgetBottomNavBar
-          projectInfo={projectInfo}
-          setProjectInfo={setProjectInfo}
-          setActiveTab={setActiveTab}
-          saveProject={saveProject}
-        />
-      </CideinLayOut>
-    </BudgetProvider>
+    <CideinLayOut>
+      {/* Estas son las alertas */}
+      <CideinWarning
+        state={warningProps.warningState}
+        message={warningProps.message}
+        color={warningProps.color}
+        icon={warningProps.icon}
+        setWarningProps={setWarningProps}
+      />
+      <div className="grid col_sm_3 gap_sm_12">
+        <div className="span_sm_2 cidein_window">{activeTabContent}</div>
+        <div className="span_sm_1">{rightMenu}</div>
+      </div>
+      <BudgetBottomNavBar
+        projectInfo={projectInfo}
+        setProjectInfo={setProjectInfo}
+        setActiveTab={setActiveTab}
+        saveProject={saveProject}
+      />
+    </CideinLayOut>
   );
 }
 

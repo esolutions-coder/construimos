@@ -3,22 +3,33 @@ import { useLazyQuery } from "@apollo/client";
 import { GET_WORKHAND_BY_USERINPUT } from "../assets/apus_queries/allApus";
 import { WorkHandCard } from "./materialCard";
 import QueryResult from "./QueryResult";
+import { useBudgetContext } from "../pages/budgets/context/budgetContext";
 
 interface SearchBoxProps {
   addWorkHand: Function;
+  bdd: "construimos_db" | "local_db";
 }
 
-const MAT = 0;
-const EQP = 1;
-const MDO = 2;
-const APU = 3;
-
-export default function SearchMaterials({ addWorkHand }: SearchBoxProps) {
+export default function SearchWorkhand({ addWorkHand, bdd }: SearchBoxProps) {
+  const { currentProject } = useBudgetContext();
   const [userInput, setUserInput] = useState("");
   const [searchedThings, setSearchedThings] = useState<any[]>([]);
   const [searchWorkHand, { loading, error, data }] = useLazyQuery(
     GET_WORKHAND_BY_USERINPUT
   );
+
+  const handleSearch = () => {
+    if(bdd === "construimos_db"){
+      console.log("Searching remote workhand for:", userInput);
+      searchWorkHand({ variables: { userInput } })
+    }
+    if(bdd === "local_db"){
+      console.log("Searching local workhand for:", userInput);
+      console.log(currentProject);
+      const searchResults = currentProject.searchLocalWorkhandByString(userInput);
+      setSearchedThings(searchResults);
+    }
+  }
 
   useEffect(() => {
     if (data) {
@@ -38,29 +49,26 @@ export default function SearchMaterials({ addWorkHand }: SearchBoxProps) {
         <button
           className="btn primary_theme"
           type="submit"
-          onClick={() => searchWorkHand({ variables: { userInput } })}
+          onClick={handleSearch}
         >
           Buscar
         </button>
       </div>
-      <div className="results_container">
-        <QueryResult
-          error={error}
-          data={data}
-          loading={loading}
-          searchName="workHandByString"
-        >
-          {searchedThings.map((workHand: CIDEINWorkhand) => {
-            return (
-              <WorkHandCard
-                workHand={workHand}
-                key={workHand.workHand_code}
-                addWorkHand={addWorkHand}
-              />
-            );
-          })}
-        </QueryResult>
-      </div>
+ <div className="results_container">
+          {bdd === "construimos_db" ? (
+            <QueryResult loading={loading} error={error} data={data} searchName="workHandByString">
+              {searchedThings.map((workHand: CIDEINWorkhand) => {
+                return <WorkHandCard workHand={workHand} key={workHand.workHand_code} addWorkHand={addWorkHand} />;
+              })}
+            </QueryResult>
+          ) : (
+            <div className="results_container">
+              {searchedThings.map((workHand: CIDEINWorkhand) => {
+                return <WorkHandCard workHand={workHand} key={workHand.workHand_code} addWorkHand={addWorkHand} />;
+              })}
+            </div>
+          )}
+        </div>
     </div>
   );
 }

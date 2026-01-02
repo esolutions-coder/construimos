@@ -5,6 +5,13 @@ import { LOGIN_USER } from "../api/budgets/projects.queries";
 import { Link } from "react-router-dom";
 // import { RoutesConstruimos } from "../utils/routes";
 import { useAuth } from "../customHooks/auth/useAuth";
+// import { postDataNoToken } from "../api/fetchData";
+// import { dataSource, imagesSource } from "../api/datasources/datasources";
+// import { useAuth } from "../customHooks/auth/useAuth";
+import { useLazyQuery } from "@apollo/client";
+import { LOGIN_USER } from "../api/budgets/projects.queries";
+import { Link } from "react-router-dom";
+import { RoutesConstruimos } from "../utils/routes";
 
 export default function Login() {
   const [name, setName] = useState("");
@@ -95,7 +102,7 @@ export default function Login() {
             </div>
             <div className="procced_login flex flex_sm_colum gap_sm_12">
               <Link
-                to={"RoutesConstruimos.AUTH_REGISTER"}
+                to={RoutesConstruimos.AUTH_REGISTER}
                 className="txt_secondary"
               >
                 ¿No tienes cuenta? - Regístrate

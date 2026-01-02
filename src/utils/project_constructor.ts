@@ -47,7 +47,9 @@ class CideinProject {
     this.local_equipment = local_equipment;
     this.local_transportation = local_transportation;
     this.local_workHand = local_workHand;
-    this.project_activities = this.projectActivitiesBuilder(project_activities_initial_state);
+    this.project_activities = this.projectActivitiesBuilder(
+      project_activities_initial_state
+    );
     this.budget_prices = budget_prices;
     this.project_config = project_config;
     this.project_activities_initial_state = project_activities_initial_state;
@@ -69,7 +71,11 @@ class CideinProject {
   get toApi() {
     this.updateProject();
     let toApiJson = {
-      project_general_info: { ...this.project_general_info, total_cost: this.budget_prices.total_cost, date: new Date() },
+      project_general_info: {
+        ...this.project_general_info,
+        total_cost: this.budget_prices.total_cost,
+        date: new Date(),
+      },
       project_config: this.project_config,
       apus: this.apus,
       local_apus: this.local_apus,
@@ -79,10 +85,14 @@ class CideinProject {
     return JSON.parse(JSON.stringify(toApiJson));
   }
 
-    // Estos metodos son los necesarios para construir el proyecto una vez se ha cargado la informacion desde la base de datos
-  projectActivitiesBuilder(activitiesData: ProjecActivitiesInitialState[]): ProjecActivities[] {
+  // Estos metodos son los necesarios para construir el proyecto una vez se ha cargado la informacion desde la base de datos
+  projectActivitiesBuilder(
+    activitiesData: ProjecActivitiesInitialState[]
+  ): ProjecActivities[] {
     const builtActivities = activitiesData.map((activity) => {
-      let subActivities = this.projectSubActivitiesBuilder(activity.subActivities);
+      let subActivities = this.projectSubActivitiesBuilder(
+        activity.subActivities
+      );
       return {
         activity_id: activity.activity_id,
         activity_name: activity.activity_name,
@@ -94,7 +104,9 @@ class CideinProject {
     return builtActivities;
   }
 
-  projectActivityToApi(activities: ProjecActivities[]): ProjecActivitiesInitialState[] {
+  projectActivityToApi(
+    activities: ProjecActivities[]
+  ): ProjecActivitiesInitialState[] {
     return activities.map((activity) => {
       return {
         activity_id: activity.activity_id,
@@ -114,8 +126,6 @@ class CideinProject {
     });
   }
 
-
-
   //MODULO ACTIVIDADES
   calculateActivitySubtotal(subActivities: SubActivities[]): number {
     let subtotal = 0;
@@ -126,12 +136,19 @@ class CideinProject {
     return subtotal;
   }
 
-  projectSubActivitiesBuilder(subActivitiesData: SubActivitiesInitialState[]): SubActivities[] {
+  projectSubActivitiesBuilder(
+    subActivitiesData: SubActivitiesInitialState[]
+  ): SubActivities[] {
     return subActivitiesData.map((subActivity) => ({
       amount: subActivity.amount,
       subActivity_id: subActivity.subActivity_id,
       flag: subActivity.flag,
-      subActivity_apu: ApuCreator.CalculateApuCost(this.searchApuFromId(subActivity.subActivity_apu.apu_id, subActivity.flag)!),
+      subActivity_apu: ApuCreator.CalculateApuCost(
+        this.searchApuFromId(
+          subActivity.subActivity_apu.apu_id,
+          subActivity.flag
+        )!
+      ),
       subActivity_total: 0, //ApuCreator.CalculateApuCost(this.searchApuFromId(subActivity.subActivity_apu.apu_id, subActivity.flag)!).apu_price,
     }));
   }
@@ -206,7 +223,9 @@ class CideinProject {
       for (let j = 0; j < subActivity.length; j++) {
         const currentSubActivity = subActivity[j];
         //Calculo del valor total de la sub actividad seleccionada
-        currentSubActivity.subActivity_total = currentSubActivity.amount * currentSubActivity.subActivity_apu.apu_price;
+        currentSubActivity.subActivity_total =
+          currentSubActivity.amount *
+          currentSubActivity.subActivity_apu.apu_price;
         //El total de la actividad es el resultado de la multiplicación de la cantidad por el valor unitario
         total_activity += currentSubActivity.subActivity_total;
       }
@@ -226,7 +245,8 @@ class CideinProject {
     /**COSTOS POR IMPREVISTOS
      * Son un porcentaje de los costos directos, debe ser asignado por el usuario en las configuraciones del proyecto
      */
-    this.budget_prices.unforeseen = directCosts * this.project_config.unforeseen;
+    this.budget_prices.unforeseen =
+      directCosts * this.project_config.unforeseen;
     /**UTILIDAD
      * Son un porcentaje de los costos directos, debe ser asignado por el usuario en las configuraciones del proyecto
      */
@@ -234,13 +254,18 @@ class CideinProject {
     /**IVA
      * Es un porcentaje calculado sobre el valor de la utilidad
      */
-    this.budget_prices.IVA = this.budget_prices.utility * this.project_config.iva;
+    this.budget_prices.IVA =
+      this.budget_prices.utility * this.project_config.iva;
 
     /**VALOR TOTAL
      * Es la suma de los costos por administracion, imprevistos, utilidad, iva y costos directos
      */
     this.budget_prices.total_cost =
-      this.budget_prices.admin + this.budget_prices.unforeseen + this.budget_prices.IVA + this.budget_prices.utility + directCosts;
+      this.budget_prices.admin +
+      this.budget_prices.unforeseen +
+      this.budget_prices.IVA +
+      this.budget_prices.utility +
+      directCosts;
   }
 
   calculateBudget() {
@@ -255,7 +280,9 @@ class CideinProject {
       for (let j = 0; j < subActivity.length; j++) {
         const currentSubActivity = subActivity[j];
         //Calculo del valor total de la sub actividad seleccionada
-        currentSubActivity.subActivity_total = currentSubActivity.amount * currentSubActivity.subActivity_apu.apu_price;
+        currentSubActivity.subActivity_total =
+          currentSubActivity.amount *
+          currentSubActivity.subActivity_apu.apu_price;
         //El total de la actividad es el resultado de la multiplicación de la cantidad por el valor unitario
         total_activity += currentSubActivity.subActivity_total;
       }
@@ -277,7 +304,8 @@ class CideinProject {
     /**COSTOS POR IMPREVISTOS
      * Son un porcentaje de los costos directos, debe ser asignado por el usuario en las configuraciones del proyecto
      */
-    this.budget_prices.unforeseen = directCosts * this.project_config.unforeseen;
+    this.budget_prices.unforeseen =
+      directCosts * this.project_config.unforeseen;
     /**UTILIDAD
      * Son un porcentaje de los costos directos, debe ser asignado por el usuario en las configuraciones del proyecto
      */
@@ -285,13 +313,18 @@ class CideinProject {
     /**IVA
      * Es un porcentaje calculado sobre el valor de la utilidad
      */
-    this.budget_prices.IVA = this.budget_prices.utility * this.project_config.iva;
+    this.budget_prices.IVA =
+      this.budget_prices.utility * this.project_config.iva;
 
     /**VALOR TOTAL
      * Es la suma de los costos por administracion, imprevistos, utilidad, iva y costos directos
      */
     this.budget_prices.total_cost =
-      this.budget_prices.admin + this.budget_prices.unforeseen + this.budget_prices.IVA + this.budget_prices.utility + directCosts;
+      this.budget_prices.admin +
+      this.budget_prices.unforeseen +
+      this.budget_prices.IVA +
+      this.budget_prices.utility +
+      directCosts;
   }
 
   updateIva(newIva: number) {
@@ -314,46 +347,87 @@ class CideinProject {
     this.calculateBudget();
   }
 
-  updateSubActivityAmount(activityId: string, subActivityId: string, newValue: number) {
+  updateSubActivityAmount(
+    activityId: string,
+    subActivityId: string,
+    newValue: number
+  ) {
     this.activityId = activityId;
     this.newValue = newValue;
-    const activityIndex = this.project_activities.findIndex((activityId) => activityId.activity_id === this.activityId);
+    const activityIndex = this.project_activities.findIndex(
+      (activityId) => activityId.activity_id === this.activityId
+    );
 
     const selectedActivity = this.project_activities[activityIndex];
-    const subActivityIndex = selectedActivity.subActivities.findIndex((subActivity) => subActivity.subActivity_id === subActivityId);
+    const subActivityIndex = selectedActivity.subActivities.findIndex(
+      (subActivity) => subActivity.subActivity_id === subActivityId
+    );
 
-    this.project_activities[activityIndex].subActivities[subActivityIndex].amount = this.newValue;
+    this.project_activities[activityIndex].subActivities[
+      subActivityIndex
+    ].amount = this.newValue;
   }
 
-  updateSubActivityPrice(activityId: string, subActivityId: string, newValue: number) {
+  updateSubActivityPrice(
+    activityId: string,
+    subActivityId: string,
+    newValue: number
+  ) {
     this.activityId = activityId;
     this.newValue = newValue;
-    const activityIndex = this.project_activities.findIndex((activityId) => activityId.activity_id === this.activityId);
+    const activityIndex = this.project_activities.findIndex(
+      (activityId) => activityId.activity_id === this.activityId
+    );
 
     const selectedActivity = this.project_activities[activityIndex];
-    const subActivityIndex = selectedActivity.subActivities.findIndex((subActivity) => subActivity.subActivity_id === subActivityId);
+    const subActivityIndex = selectedActivity.subActivities.findIndex(
+      (subActivity) => subActivity.subActivity_id === subActivityId
+    );
 
-    this.project_activities[activityIndex].subActivities[subActivityIndex].subActivity_apu.apu_price = this.newValue;
+    this.project_activities[activityIndex].subActivities[
+      subActivityIndex
+    ].subActivity_apu.apu_price = this.newValue;
   }
 
   subActivityCalculator(subActivities: SubActivities): number {
     this.subActivities = subActivities;
     const materials = this.subActivities.subActivity_apu.apu_materials;
-    const materials_cost = materials.reduce((prev, curr) => prev + curr.material_partial_value, 0);
+    const materials_cost = materials.reduce(
+      (prev, curr) => prev + curr.material_partial_value,
+      0
+    );
 
     const equipment = this.subActivities.subActivity_apu.apu_equipment;
-    const equipment_cost = equipment.reduce((prev, curr) => prev + curr.equipment_partial_value, 0);
+    const equipment_cost = equipment.reduce(
+      (prev, curr) => prev + curr.equipment_partial_value,
+      0
+    );
 
     const workHand = this.subActivities.subActivity_apu.apu_workHand;
-    const workHand_cost = workHand.reduce((prev, curr) => prev + curr.workHand_partial_value, 0);
+    const workHand_cost = workHand.reduce(
+      (prev, curr) => prev + curr.workHand_partial_value,
+      0
+    );
 
-    const transportation = this.subActivities.subActivity_apu.apu_transportation;
-    const transportation_cost = transportation.reduce((prev, curr) => prev + curr.transportation_partial_value, 0);
+    const transportation =
+      this.subActivities.subActivity_apu.apu_transportation;
+    const transportation_cost = transportation.reduce(
+      (prev, curr) => prev + curr.transportation_partial_value,
+      0
+    );
 
     const subApu = this.subActivities.subActivity_apu.apu_apu;
-    const subApu_cost = subApu.reduce((prev, curr) => prev + curr.apu_partial_value, 0);
+    const subApu_cost = subApu.reduce(
+      (prev, curr) => prev + curr.apu_partial_value,
+      0
+    );
 
-    const total_cost = materials_cost + equipment_cost + workHand_cost + transportation_cost + subApu_cost;
+    const total_cost =
+      materials_cost +
+      equipment_cost +
+      workHand_cost +
+      transportation_cost +
+      subApu_cost;
 
     return parseFloat(total_cost.toFixed(3));
   }
@@ -361,11 +435,18 @@ class CideinProject {
   addSubActivity(activityId: string, subActivity: SubActivities) {
     this.subActivity = subActivity;
     if (this.project_activities.length !== 0) {
-      const activityIndex = this.project_activities.findIndex((activity) => activity.activity_id === activityId);
+      const activityIndex = this.project_activities.findIndex(
+        (activity) => activity.activity_id === activityId
+      );
 
-      this.subActivity.subActivity_apu.apu_price = this.subActivityCalculator(this.subActivity);
+      this.subActivity.subActivity_apu.apu_price = this.subActivityCalculator(
+        this.subActivity
+      );
 
-      this.project_activities[activityIndex].subActivities = [...this.project_activities[activityIndex].subActivities, this.subActivity];
+      this.project_activities[activityIndex].subActivities = [
+        ...this.project_activities[activityIndex].subActivities,
+        this.subActivity,
+      ];
 
       return subActivity;
     }
@@ -377,15 +458,22 @@ class CideinProject {
 
   deleteActivity(activityId: string) {
     this.activityId = activityId;
-    const currentActivityIndex = this.project_activities.findIndex((activity) => activity.activity_id === activityId);
+    const currentActivityIndex = this.project_activities.findIndex(
+      (activity) => activity.activity_id === activityId
+    );
 
-    const removedActivityInfo = this.project_activities.splice(currentActivityIndex, 1);
+    const removedActivityInfo = this.project_activities.splice(
+      currentActivityIndex,
+      1
+    );
 
     return removedActivityInfo;
   }
 
   activitiesList() {
-    let activitiesList: [{ activity_name: string; activity_id: string }] = [{ activity_name: "", activity_id: "" }];
+    let activitiesList: [{ activity_name: string; activity_id: string }] = [
+      { activity_name: "", activity_id: "" },
+    ];
 
     for (let i = 0; i < this.project_activities.length; i++) {
       const currentActivity = this.project_activities[i];
@@ -402,7 +490,9 @@ class CideinProject {
   }
 
   changeActivityName(activityId: string, newActivityName: string): void {
-    const currentActivity = this.project_activities.find((activity) => activity.activity_id === activityId);
+    const currentActivity = this.project_activities.find(
+      (activity) => activity.activity_id === activityId
+    );
     if (currentActivity) {
       currentActivity.activity_name = newActivityName;
     }
@@ -421,7 +511,10 @@ class CideinProject {
     //Analize apu data --> Materials
     for (let i = 0; i < materials?.length; i++) {
       const currentMaterial = materials[i];
-      const analizedPartialValue = currentMaterial.material_amount * currentMaterial.material_unitary_price * (1 + currentMaterial.material_rud);
+      const analizedPartialValue =
+        currentMaterial.material_amount *
+        currentMaterial.material_unitary_price *
+        (1 + currentMaterial.material_rud);
       currentMaterial.material_partial_value = analizedPartialValue;
 
       subTotal += analizedPartialValue;
@@ -431,7 +524,9 @@ class CideinProject {
     for (let i = 0; i < equipment?.length; i++) {
       const currentEquipment = equipment[i];
       const analizedPartialValue =
-        currentEquipment.equipment_amount * currentEquipment.equipment_unitary_price * (1 + currentEquipment.equipment_rud);
+        currentEquipment.equipment_amount *
+        currentEquipment.equipment_unitary_price *
+        (1 + currentEquipment.equipment_rud);
 
       currentEquipment.equipment_partial_value = analizedPartialValue;
       subTotal += analizedPartialValue;
@@ -440,7 +535,10 @@ class CideinProject {
     //Analize apu data --> WorkHand
     for (let i = 0; i < workHand?.length; i++) {
       const currentWorkHand = workHand[i];
-      const analizedPartialValue = currentWorkHand.workHand_amount * currentWorkHand.workHand_unitary_price * (1 + currentWorkHand.workHand_rud);
+      const analizedPartialValue =
+        currentWorkHand.workHand_amount *
+        currentWorkHand.workHand_unitary_price *
+        (1 + currentWorkHand.workHand_rud);
 
       currentWorkHand.workHand_partial_value = analizedPartialValue;
       subTotal += analizedPartialValue;
@@ -449,7 +547,8 @@ class CideinProject {
     //Analize apu data --> subApu
     for (let i = 0; i < subApu?.length; i++) {
       const currentApu = subApu[i];
-      const analizedPartialValue = currentApu.apu_amount * currentApu.apu_price * (1 + currentApu.apu_rud);
+      const analizedPartialValue =
+        currentApu.apu_amount * currentApu.apu_price * (1 + currentApu.apu_rud);
 
       currentApu.apu_partial_value = analizedPartialValue;
       subTotal += analizedPartialValue;
@@ -459,7 +558,9 @@ class CideinProject {
     for (let i = 0; i < transportation?.length; i++) {
       const currentTransport = transportation[i];
       const analizedPartialValue =
-        currentTransport.transportation_amount * currentTransport.transportation_unitary_price * (1 + currentTransport.transportation_rud);
+        currentTransport.transportation_amount *
+        currentTransport.transportation_unitary_price *
+        (1 + currentTransport.transportation_rud);
 
       currentTransport.transportation_partial_value = analizedPartialValue;
       subTotal += analizedPartialValue;
@@ -474,19 +575,27 @@ class CideinProject {
     this.activityId = activityId;
     this.subActivityId = subActivityId;
 
-    const activityIndex = this.project_activities.findIndex((activity) => activity.activity_id === this.activityId);
+    const activityIndex = this.project_activities.findIndex(
+      (activity) => activity.activity_id === this.activityId
+    );
 
-    const subActivityIndex = this.project_activities[activityIndex].subActivities.findIndex(
+    const subActivityIndex = this.project_activities[
+      activityIndex
+    ].subActivities.findIndex(
       (subActivity) => subActivity.subActivity_id === this.subActivityId
     );
 
-    const removedSubActivity = this.project_activities[activityIndex].subActivities.splice(subActivityIndex, 1);
+    const removedSubActivity = this.project_activities[
+      activityIndex
+    ].subActivities.splice(subActivityIndex, 1);
 
     return removedSubActivity;
   }
 
   filterApusByUserInput(userInput: string): APU[] {
-    const filteredApus = this.local_apus.filter((apu) => apu.apu_name.toLowerCase().includes(userInput.toLowerCase()));
+    const filteredApus = this.local_apus.filter((apu) =>
+      apu.apu_name.toLowerCase().includes(userInput.toLowerCase())
+    );
     return filteredApus;
   }
 
@@ -495,22 +604,22 @@ class CideinProject {
     return filteredApu;
   }
 
-  addMaterial(data: CIDEINMaterials){
+  addMaterial(data: CIDEINMaterials) {
     this.local_materials.push(data);
   }
-  addEquipment(data: CIDEINEquipment){
+  addEquipment(data: CIDEINEquipment) {
     this.local_equipment.push(data);
   }
-  addTransportation(data: CIDEINTransportation){
+  addTransportation(data: CIDEINTransportation) {
     this.local_transportation.push(data);
   }
-  addWorkhand(data: CIDEINWorkhand){
+  addWorkhand(data: CIDEINWorkhand) {
     this.local_workHand.push(data);
   }
 
-  searchLocalMaterialsByString(string: string){
+  searchLocalMaterialsByString(string: string) {
     //search in this.local_materials by string filtering material_name
-    return this.local_materials.filter((material) => 
+    return this.local_materials.filter((material) =>
       material.material_name.toLowerCase().includes(string.toLowerCase())
     );
   }

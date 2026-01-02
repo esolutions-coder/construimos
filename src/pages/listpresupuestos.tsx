@@ -166,14 +166,14 @@ export default function ListPresupuestos() {
           update(cache) {
             const existing: any = cache.readQuery({
               query: GET_PROJECTS_BY_USER_ID,
-              variables: { userId: user?.id },
+              variables: { userId: user?._id },
             });
 
             if (!existing?.getProjectByUserId) return;
 
             cache.writeQuery({
               query: GET_PROJECTS_BY_USER_ID,
-              variables: { userId: user?.id },
+              variables: { userId: user?._id },
               data: {
                 getProjectByUserId: existing.getProjectByUserId.filter(
                   (p: any) => p._id !== id
@@ -188,12 +188,12 @@ export default function ListPresupuestos() {
     }
   };
 
-  useEffect(()=>{
-    if(data){
-      console.log(user)
+  useEffect(() => {
+    if (data) {
+      console.log(user);
       console.log(data);
     }
-  },[data])
+  }, [data]);
 
   return (
     <CideinLayout>

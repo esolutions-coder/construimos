@@ -2,13 +2,19 @@ import { createContext, PropsWithChildren, useContext, useMemo } from "react";
 import { useNavigate } from "react-router-dom";
 import { useLocalStorage } from "./useLocalStorage";
 
-type Role = "ADMIN" | "CLIENTE" | "CONTRATISTA" | "PROVEEDOR" | "SOPORTE";
+type Role = "ADMIN" | "VISITOR" | "CONTRATISTA" | "PROVEEDOR" | "SOPORTE";
+
 type AuthUser = {
-  name: string;
+  _id: string;
+  username: string;
   role: Role;
   token: string;
-  image: string;
-  _id: string;
+  image?: string;
+  password?: string;
+  creationDate?: string;
+  nit?: string;
+  email?: string;
+  location?: string;
 };
 
 type UseAuthTypes = {

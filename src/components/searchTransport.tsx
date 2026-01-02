@@ -3,19 +3,35 @@ import { useLazyQuery } from "@apollo/client";
 import { GET_TRANSPORTATION_BY_USERINPUT } from "../assets/apus_queries/allApus";
 import { TransportationCard } from "./materialCard";
 import QueryResult from "./QueryResult";
+import { useBudgetContext } from "../pages/budgets/context/budgetContext";
 
 interface SearchBoxProps {
   addTransportation: Function;
+  bdd: "construimos_db" | "local_db";
 }
 
 export default function SearchTransportation({
-  addTransportation,
+  addTransportation, bdd
 }: SearchBoxProps) {
+  const { currentProject } = useBudgetContext();
   const [userInput, setUserInput] = useState("");
   const [searchedThings, setSearchedThings] = useState<any[]>([]);
-  const [searchWorkHand, { loading, error, data }] = useLazyQuery(
+  const [searchTransportation, { loading, error, data }] = useLazyQuery(
     GET_TRANSPORTATION_BY_USERINPUT
   );
+
+    const handleSearch = () => {
+    if(bdd === "construimos_db"){
+      console.log("Searching remote transportation for:", userInput);
+      searchTransportation({ variables: { userInput } })
+    }
+    if(bdd === "local_db"){
+      console.log("Searching local workhand for:", userInput);
+      console.log(currentProject);
+      const searchResults = currentProject.searchLocalWorkhandByString(userInput);
+      setSearchedThings(searchResults);
+    }
+  }
 
   useEffect(() => {
     if (data) {
@@ -35,29 +51,26 @@ export default function SearchTransportation({
         <button
           className="btn primary_theme"
           type="submit"
-          onClick={() => searchWorkHand({ variables: { userInput } })}
+          onClick={handleSearch}
         >
           Buscar
         </button>
       </div>
-      <div className="results_container">
-        <QueryResult
-          error={error}
-          data={data}
-          loading={loading}
-          searchName="transportationByString"
-        >
-          {searchedThings.map((transportation: CIDEINTransportation) => {
-            return (
-              <TransportationCard
-                transportation={transportation}
-                key={transportation.transportation_code}
-                addTransportation={addTransportation}
-              />
-            );
-          })}
-        </QueryResult>
-      </div>
+ <div className="results_container">
+          {bdd === "construimos_db" ? (
+            <QueryResult loading={loading} error={error} data={data} searchName="transportationByString">
+              {searchedThings.map((transportation: CIDEINTransportation) => {
+                return <TransportationCard transportation={transportation} key={transportation.transportation_code} addTransportation={addTransportation} />;
+              })}
+            </QueryResult>
+          ) : (
+            <div className="results_container">
+              {searchedThings.map((transportation: CIDEINTransportation) => {
+                return <TransportationCard transportation={transportation} key={transportation.transportation_code} addTransportation={addTransportation} />;
+              })}
+            </div>
+          )}
+        </div>
     </div>
   );
 }

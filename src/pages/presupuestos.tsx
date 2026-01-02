@@ -5,13 +5,11 @@ import { useEffect, useState } from "react";
 import CideinLayOut from "../components/cidein_layout";
 
 //INFO
-import Project from "../assets/info_json/project_info.json";
 import SubActivityMock from "../assets/info_json/subActivityMock.json";
 
 //UTILS
 import React from "react";
 import CideinWarning from "../components/warning";
-import CideinProject from "../utils/project_constructor";
 
 //APOLLO
 import { useLazyQuery, useMutation } from "@apollo/client";
@@ -29,36 +27,10 @@ import CreateLocalApu from "./budgets/pages/createLocalApu";
 import ApusPreview from "./budgets/pages/apusPreview";
 import LocalApusPreview from "./budgets/pages/localApuPreview";
 import { useAuth } from "../customHooks/auth/useAuth";
-
-const currentProject = new CideinProject(
-  Project.apus,
-  Project.project_activities,
-  Project.local_apus,
-  Project.local_materials,
-  Project.local_equipment,
-  Project.local_transportation,
-  Project.local_workHand,
-  Project.budget_prices,
-  Project.project_config,
-  Project.project_general_info,
-  Project.user_id
-);
-
-const currentApu = new ApuCreator(
-  ApuMock._id,
-  ApuMock.apu_name,
-  ApuMock.apu_unit,
-  ApuMock.apu_price,
-  ApuMock.apu_materials,
-  ApuMock.apu_equipment,
-  ApuMock.apu_description,
-  ApuMock.apu_workHand,
-  ApuMock.apu_transportation,
-  ApuMock.apu_apu,
-  ApuMock.apu_chaper
-);
+import { useBudgetContext } from "./budgets/context/budgetContext";
 
 function Presupuestos() {
+  const { currentProject, currentApu } = useBudgetContext();
   const [projectInfo, setProjectInfo] = useState<CIDEINProject>(currentProject.state);
   const [activityList, setActivityList] = useState([{ activity_name: "", activity_id: "" }]);
   const [selectedActivity, setSelectedActivity] = useState("");
@@ -282,7 +254,6 @@ function Presupuestos() {
         <div className="span_sm_1">{rightMenu}</div>
       </div>
       <BudgetBottomNavBar
-        currentProject={currentProject}
         projectInfo={projectInfo}
         setProjectInfo={setProjectInfo}
         setActiveTab={setActiveTab}

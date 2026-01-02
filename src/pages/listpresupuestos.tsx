@@ -103,8 +103,8 @@ export default function ListPresupuestos() {
   // FUNCION PARA RESTABLECER EL FILTRO POR FECHA
 
   const restablecerFiltros = () => {
-    setStartDateStr(null);
-    setEndDateStr(null);
+    setStartDateStr(null as any);
+    setEndDateStr(null as any);
     setSubmittedQuery("");
   };
 
@@ -129,7 +129,7 @@ export default function ListPresupuestos() {
   const filteredRows = useMemo(() => {
     const q = submittedQuery.trim().toLowerCase();
 
-    return rows.filter((r) => {
+    return rows.filter((r: any) => {
       const passText =
         !q ||
         (r.name ?? "").toLowerCase().includes(q) ||
@@ -300,7 +300,7 @@ export default function ListPresupuestos() {
                     setWarningProps={setWarningProps}
                   />
                   {filteredRows.length ? (
-                    filteredRows.map((item, index) => (
+                    filteredRows.map((item: any, index: number) => (
                       <tr key={item._id}>
                         <td data-label="ID">{index + 1}</td>
                         <td

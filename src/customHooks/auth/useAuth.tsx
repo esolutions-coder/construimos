@@ -3,14 +3,12 @@ import { useNavigate } from "react-router-dom";
 import { useLocalStorage } from "./useLocalStorage";
 
 type Role = "ADMIN" | "CLIENTE" | "CONTRATISTA" | "PROVEEDOR" | "SOPORTE";
-
-
-
 type AuthUser = {
   name: string;
   role: Role;
   token: string;
-  image: string;
+  position: string;
+  image: string | null;
   id: string;
 };
 

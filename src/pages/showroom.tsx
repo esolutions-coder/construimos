@@ -41,23 +41,28 @@ function ShowRoom() {
     <CideinLayout>
       <div className="title-section">
         <h1> Encuentra al Constructor Ideal para tu Proyecto</h1>
-        <p>Conecta con expertos confiables según tu ubicación y necesidades.</p>
+        <p>
+          Conecta con expertos confiables según tu ubicación y necesidades.{" "}
+          <strong style={{ color: "#b98b27ff" }}>
+            Para ver la informacion del constructor, haz click en la imagen.
+          </strong>
+        </p>
       </div>
 
-      <div className="contenedor-principal">
-        <div className="areabusqueda">
+      <form className="input-groups" style={{ marginBottom: "2rem" }}>
+        <div className="busqueda_constructores">
           <input
             type="text"
             placeholder="Buscar constructores por su nombre..."
             value={busqueda}
             onChange={(e) => setBusqueda(e.target.value)}
+            className="input-gr"
           />
-          <button className="btn_primary_theme" onClick={handleBuscar}>
+          <button className="btn_buscar_presupuestoss" onClick={handleBuscar}>
             Buscar
           </button>
         </div>
-      </div>
-
+      </form>
       <div className="contenedor-imagenes">
         {(resultados.length > 0 ? resultados : constructores).map(
           (nombre, index) => (

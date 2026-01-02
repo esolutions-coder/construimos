@@ -86,7 +86,14 @@ export default function BudgetBottomNavBar({ setProjectInfo, projectInfo, setAct
     }, time * 1000);
   };
 
-  const addThings = (data: CIDEINMaterials | CIDEINEquipment | CIDEINWorkhand | CIDEINTransportation, type: string) => {
+  const addThings = (
+    data:
+      | CIDEINMaterials
+      | CIDEINEquipment
+      | CIDEINWorkhand
+      | CIDEINTransportation,
+    type: string
+  ) => {
     if (type === "material") {
       currentProject.addMaterial(data as CIDEINMaterials);
       console.log(currentProject);

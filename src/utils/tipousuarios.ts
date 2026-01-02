@@ -14,11 +14,11 @@ export const NAV_ITEMS_BY_ROLE: Record<
   ],
   VISITOR: [
     { label: "Inicio", to: "/" },
-    { label: "Clientes", to: "/#/cliente" },
-    { label: "Proveedores", to: "/#/proveedores" },
-    { label: "Presupuestos", to: "/#/presupuestos" },
-    { label: "Contratistas", to: "/#/contratista" },
-    { label: "Constructores", to: "/#/showroom" },
+    { label: "Clientes", to: "/cliente" },
+    { label: "Proveedores", to: "/proveedores" },
+    { label: "Presupuestos", to: "/presupuestos" },
+    { label: "Contratistas", to: "/contratista" },
+    { label: "Constructores", to: "/showroom" },
   ],
   CONTRATISTA: [
     { label: "Inicio", to: "/" },

@@ -1,7 +1,4 @@
 import CideinLayout from "../components/cidein_layout";
-import ShowRoomItem from "../components/ShowRoomItem";
-import ShowRoomItems from "../assets/info_json/showroom_item.json";
-import ShowRoomStars from "../components/showroom_stars";
 import constructor from "../assets/img/constructor.png";
 import "../assets/styles/_containers.scss";
 import { useState } from "react";

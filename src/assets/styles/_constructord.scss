@@ -3,97 +3,164 @@ $secondary: #030f27;
 $tertiary: #efe1c8;
 $success: rgb(32, 197, 32);
 
-.detalle-constructor-horizontal {
+.profileWrapper {
+  min-height: 80vh;
   display: flex;
-  justify-content: space-between;
+  align-items: center;
+  justify-content: center;
+}
+
+.profileCard {
+  max-width: 1200px;
+  width: 100%;
+  background: #ffffff;
+  border-radius: 6px;
+  padding: 13px;
+}
+
+/* Header */
+.profileHeader {
+  display: flex;
+  gap: 30px;
   align-items: flex-start;
-  gap: 2rem;
-  padding: 2rem;
-  background-color: $secondary;
-  border-radius: 1rem;
-  box-shadow: 10px 10px 10px $primary;
-  flex-wrap: wrap;
+}
+
+.profileImage {
+  width: 250px;
+  height: 250px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.profileInfo h1 {
+  font-size: 40px;
+  font-weight: 700;
+  margin-bottom: 10px;
+  font-family: "Poppins", sans-serif;
+}
+
+.profileInfo p {
+  font-size: 18px;
   width: 80%;
-  margin: 0 auto;
+  color: #444;
+  text-align: left;
+  line-height: 1.6;
+  font-family: "Poppins", sans-serif;
+}
 
-  .imagen-nombre-container {
-    display: flex;
+.ubicacion {
+  font-size: 18px;
+  width: 80%;
+  color: #444;
+  text-align: left;
+  line-height: 1.6;
+  font-family: "Poppins", sans-serif;
+  margin-top: 5px;
+}
+
+.divider {
+  margin: 30px 0;
+  border: none;
+  border-top: 1px solid #000000;
+  width: 80%;
+}
+
+/* Content */
+.profileContent {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 40px;
+}
+
+.column h3 {
+  font-size: 24px;
+  font-weight: 700;
+  margin-bottom: 15px;
+}
+
+.column ul {
+  padding-left: 20px;
+  margin-bottom: 3rem;
+}
+.barraazul {
+  width: 100%;
+  height: 8vh;
+  background-color: $secondary;
+  top: 0;
+  text-align: center;
+  justify-content: center;
+  display: flex;
+}
+
+.logoknowmore {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+#logo {
+  height: 42px;
+}
+.textknowmore {
+  font-size: 44px;
+  font-weight: 800;
+  color: $primary;
+  margin: 0;
+  text-align: center;
+}
+.barraazulabajo {
+  width: 100%;
+  height: 5vh;
+  background-color: $secondary;
+  position: relative;
+  bottom: 0;
+}
+.column li {
+  font-size: 14px;
+  margin-bottom: 8px;
+  font-size: 18px;
+}
+
+.column p {
+  font-size: 14px;
+  line-height: 1.6;
+  text-align: left;
+  font-size: 18px;
+}
+
+/* Button */
+.profileAction {
+  margin-top: 40px;
+  text-align: center;
+}
+
+.btnContact {
+  background: #f4b41a;
+  border: none;
+  padding: 10px 28px;
+  border-radius: 6px;
+  font-size: 14px;
+  margin-left: 3rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+.btnContact:hover {
+  background: $primary;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .profileHeader {
     flex-direction: column;
-    align-items: center;
-    flex: 1;
-  }
-
-  .imagen-constructor-horizontal {
-    width: 250px;
-    height: 250px;
-    object-fit: cover;
-    border-radius: 50%;
-    margin-bottom: 2rem;
-    mask-image: none;
-    -webkit-mask-image: linear-gradient(
-      to bottom,
-      rgb(255, 255, 255) 50%,
-      transparent
-    );
-  }
-
-  .nombre-constructor-detalle {
-    font-size: 1.8rem;
-    font-weight: bold;
     text-align: center;
-    color: $primary;
   }
 
-  .info-constructor {
-    flex: 2;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    color: white;
+  .profileContent {
+    grid-template-columns: 1fr;
   }
 
-  .lista-detalles {
-    list-style: none;
-    padding: 0;
-    margin: 30px;
-
-    li {
-      margin-bottom: 0.8rem;
-      font-size: 1.3rem;
-
-      strong {
-        color: $primary;
-        margin-right: 0.3rem;
-      }
-    }
-  }
-
-  .contenedor-boton {
-    margin-top: 1rem;
-    display: flex;
-    justify-content: center;
-  }
-
-  .boton-contactar {
-    padding: 0.8rem 2rem;
-    font-size: 1.1rem;
-    background-color: $primary;
-    color: white;
-    border: none;
-    border-radius: 0.5rem;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-    font-weight: bold;
-    text-align: center;
-    font-family: "Poppins", sans-serif;
-    letter-spacing: 0.1rem;
-    justify-content: center;
-    align-items: center;
-    display: flex;
-    background-image: linear-gradient(150deg, #f5a506, #0e090188);
-
-    &:hover {
-      background-color: #ffffff;
-    }
+  .profileImage {
+    margin: 0 auto;
   }
 }

@@ -2,50 +2,46 @@ import { createContext, PropsWithChildren, useContext, useMemo } from "react";
 import { useNavigate } from "react-router-dom";
 import { useLocalStorage } from "./useLocalStorage";
 
+type Role = "ADMIN" | "CLIENTE" | "CONTRATISTA" | "PROVEEDOR" | "SOPORTE";
+
+
+
 type AuthUser = {
   name: string;
-  role: string;
+  role: Role;
   token: string;
-  image: string
+  image: string;
   id: string;
 };
 
 type UseAuthTypes = {
-  user: AuthUser;
-  login: Function;
-  logout: Function;
+  user: AuthUser | null;
+  login: (data: AuthUser) => Promise<void> | void;
+  logout: () => void;
 };
 
-/* @ts-ignore */
-const AuthContext = createContext();
+const AuthContext = createContext<UseAuthTypes | undefined>(undefined);
 
 export const AuthProvider = ({ children }: PropsWithChildren) => {
-  const [user, setUser] = useLocalStorage("construimos", null);
+  const [user, setUser] = useLocalStorage<AuthUser | null>("construimos", null);
   const navigate = useNavigate();
 
-  // call this function when you want to authenticate the user
-  const login = async (data: any) => {
+  const login: UseAuthTypes["login"] = async (data) => {
     setUser(data);
     navigate("/");
   };
 
-  // call this function to sign out logged in user
-  const logout = () => {
+  const logout: UseAuthTypes["logout"] = () => {
     setUser(null);
     navigate("/login", { replace: true });
   };
 
-  const value = useMemo(
-    () => ({
-      user,
-      login,
-      logout,
-    }),
-    [user]
-  );
+  const value = useMemo(() => ({ user, login, logout }), [user]);
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
 };
 
 export const useAuth = () => {
-  return useContext<UseAuthTypes>(AuthContext as any);
+  const ctx = useContext(AuthContext);
+  if (!ctx) throw new Error("useAuth must be used within <AuthProvider />");
+  return ctx;
 };

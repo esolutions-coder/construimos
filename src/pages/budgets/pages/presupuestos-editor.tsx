@@ -230,7 +230,7 @@ export default function PresupuestosEditor() {
   const { user } = useAuth();
 
   const saveProject = () => {
-    currentProject.user_id = user.id;
+    currentProject.user_id = user.id || "";
     editProject({
       variables: {
         projectId: projectId,

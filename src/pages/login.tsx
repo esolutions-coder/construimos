@@ -48,7 +48,7 @@ export default function Login() {
             arrow_back{" "}
           </span>
         </Link>
-        <div>
+        <div className="login_container">
           <div className="logo txt_center">
             <img src={construimosLogo} alt="" />
           </div>
@@ -81,15 +81,6 @@ export default function Login() {
                 placeholder="Contraseña"
                 onChange={(e) => setPassword(e.target.value)}
               />
-              <label htmlFor="role" className="button  txt_secondary">
-                TIPO DE USUARIO
-              </label>
-              <select name="role" id="role">
-                <option value="CLIENTE">CLIENTE</option>
-                <option value="CONTRATISTA">CONTRATISTA</option>
-                <option value="PROVEEDOR">PROVEEDOR</option>
-                <option value="SOPORTE">SOPORTE</option>
-              </select>
             </div>
             <div className="input_container">
               {isValid === undefined ? (
@@ -103,9 +94,12 @@ export default function Login() {
               )}
             </div>
             <div className="procced_login flex flex_sm_colum gap_sm_12">
-              <a href="/#/register" className="txt_secondary">
+              <Link
+                to={RoutesConstruimos.AUTH_REGISTER}
+                className="txt_secondary"
+              >
                 ¿No tienes cuenta? - Regístrate
-              </a>
+              </Link>
               <button className="btn secondary_theme" type="submit">
                 Iniciar sesion
               </button>

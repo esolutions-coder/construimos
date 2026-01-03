@@ -132,11 +132,42 @@ export default function ActionsMenu({
               zIndex: 10000,
             }}
           >
-            <MenuItem label="✏️ Editar" onClick={() => handleAction("edit")} />
             <MenuItem
-              label="🗑️ Eliminar"
+              reactIcon={
+                <span className="menu-item-icon">
+                  <span className="material-symbols-outlined">edit</span>
+                  <span
+                    className="menu-item-text"
+                    style={{
+                      display: "flex",
+                      justifyContent: "center",
+                      marginTop: "-1.5rem",
+                    }}
+                  >
+                    Editar
+                  </span>
+                </span>
+              }
+              onClick={() => handleAction("edit")}
+            />
+
+            <MenuItem
+              reactIcon={
+                <span className="menu-item-icon">
+                  <span className="material-symbols-outlined">delete</span>
+                  <span
+                    className="menu-item-text"
+                    style={{
+                      display: "flex",
+                      justifyContent: "center",
+                      marginTop: "-1.5rem",
+                    }}
+                  >
+                    Eliminar
+                  </span>
+                </span>
+              }
               onClick={() => handleAction("delete")}
-              danger
             />
           </div>,
           document.body
@@ -146,11 +177,11 @@ export default function ActionsMenu({
 }
 
 function MenuItem({
-  label,
+  reactIcon,
   onClick,
   danger = false,
 }: {
-  label: string;
+  reactIcon: React.ReactNode;
   onClick: () => void;
   danger?: boolean;
 }) {
@@ -173,7 +204,7 @@ function MenuItem({
       onMouseEnter={(e) => (e.currentTarget.style.background = "#f3f4f6")}
       onMouseLeave={(e) => (e.currentTarget.style.background = "transparent")}
     >
-      {label}
+      {reactIcon}
     </button>
   );
 }

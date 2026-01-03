@@ -1,9 +1,21 @@
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import { CONSTRUCTORES } from "../utils/constructoresInfo";
-import { useNavigate } from "react-router-dom";
 import construimosLogo from "../assets/img/cidein_logo_yellow.png";
+import { GET_USER_BY_ROLE } from "../assets/apus_queries/userQueries";
+import { useQuery } from "@apollo/client";
+import { useEffect, useState } from "react";
+import CONSTRUCTOR from "../utils/materials/mocks/constructor.json";
+import Constructors from "../utils/materials/controllers/constructors.controller";
+import Loading from "./loading";
+import { RoutesConstruimos } from "../utils/routes";
+
+let ConstructorController = new Constructors([CONSTRUCTOR]); // esta clase es de Rafael
 
 const ConstructorDetalle = () => {
+  const [constructorss, setConstructors] = useState(
+    ConstructorController.getState()
+  );
+
   const { nombre } = useParams();
   const constructor = CONSTRUCTORES.find(
     (c) => c.nombre === decodeURIComponent(nombre || "")
@@ -12,7 +24,30 @@ const ConstructorDetalle = () => {
   if (!constructor) {
     return <p>No se encontró el constructor.</p>;
   }
-  const navigate = useNavigate();
+  // Llamamos a GET_USER_BY_ROLE query de GRAPHQL
+  const { data, loading, error } = useQuery(GET_USER_BY_ROLE, {
+    variables: {
+      role: "admin",
+    },
+  });
+
+  // Cuando se cargue la página, se ejecuta esta función
+  useEffect(() => {
+    if (data) {
+      ConstructorController.constructorss = JSON.parse(
+        JSON.stringify(data.constructors)
+      );
+      setConstructors(ConstructorController.getState());
+    }
+    if (loading) {
+      <Loading />;
+    }
+    if (error) {
+      <div>Hubo un error</div>;
+    }
+  }, [data, loading, error]);
+
+  console.log(constructorss);
 
   return (
     <>
@@ -22,34 +57,36 @@ const ConstructorDetalle = () => {
           <p className="textknowmore">CONSTRUÍMOS</p>
         </header>
       </div>
-      <span
-        style={{ cursor: "pointer", marginLeft: "1rem", marginTop: "1rem" }}
-        className="material-symbols-outlined"
-        onClick={() => navigate(`/showroom`)}
-      >
-        {" "}
-        arrow_back{" "}
-      </span>
+      <Link to={RoutesConstruimos.SHOWROOM}>
+        <span
+          style={{ cursor: "pointer", marginLeft: "1rem", marginTop: "1rem" }}
+          className="material-symbols-outlined"
+        >
+          {" "}
+          arrow_back{" "}
+        </span>
+      </Link>
+
       <section className="profileWrapper">
         <div className="profileCard">
-          {/* Header */}
           <div className="profileHeader">
             <img
-              src={constructor.imagen}
-              alt={constructor.nombre}
+              src={constructorss.image ?? "no hay imagen"}
+              alt={constructorss.username ?? "Nombre desconocido"}
               className="profileImage"
             />
 
             <div className="profileInfo">
               <h1>
-                {constructor.nombre}
+                {constructorss.username ?? "Nombre desconocido"}
                 <button className="btnContact">Contacto</button>
               </h1>
               <p>{constructor.descripcion}</p>{" "}
+              <p>{constructorss.email ?? "Email desconocido"}</p>
               <p className="ubicacion">
-                {constructor.ubicacion}{" "}
+                {constructorss.location ?? "Ubicación desconocida"}{" "}
                 <span className="material-symbols-outlined">location_on</span>
-              </p>{" "}
+              </p>
             </div>
           </div>
 
@@ -59,22 +96,20 @@ const ConstructorDetalle = () => {
           <div className="profileContent">
             <div className="column">
               <h3>Experiencia en</h3>
-              <ul>
-                <li>{constructor.experiencia[0]}</li>
-                <li>{constructor.experiencia[1]}</li>
-                <li>{constructor.experiencia[2]}</li>
-                <li>{constructor.experiencia[3]}</li>
-              </ul>
+              {constructor.experiencia.map((experience, index) => (
+                <ul key={index}>
+                  <li>{experience}</li>
+                </ul>
+              ))}
             </div>
 
             <div className="column">
               <h3>Obras</h3>
-              <ul>
-                <li>{constructor.obras[0]}</li>
-                <li>{constructor.obras[1]}</li>
-                <li>{constructor.obras[2]}</li>
-                <li>{constructor.obras[3]}</li>
-              </ul>
+              {constructor.obras.map((obra, index) => (
+                <ul key={index}>
+                  <li>{obra}</li>
+                </ul>
+              ))}
             </div>
           </div>
 

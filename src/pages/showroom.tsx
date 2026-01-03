@@ -1,55 +1,62 @@
 import CideinLayout from "../components/cidein_layout";
-import constructor from "../assets/img/constructor.png";
 import "../assets/styles/_containers.scss";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import ConstructorCard from "../components/ConstructorCard";
-import camila from "../assets/img/camila.png";
-import miguel from "../assets/img/miguel.png";
-import carlos from "../assets/img/carlos.png";
-import rafael from "../assets/img/rafael.png";
-import angelyn from "../assets/img/angelyn.png";
+import { useQuery } from "@apollo/client";
+import { GET_USER_BY_ROLE } from "../assets/apus_queries/userQueries";
+import Loading from "../components/loading";
+
+type ConstructorFromQuery = {
+  username: string;
+  image: string;
+};
 
 function ShowRoom() {
   const [busqueda, setBusqueda] = useState("");
-  const [resultados, setResultados] = useState<string[]>([]);
+  const [filtrar, setFiltrar] = useState<ConstructorFromQuery[]>([]);
+  const [resultados, setResultados] = useState<ConstructorFromQuery[]>([]);
 
-  const constructores = [
-    "Miguel Tapia",
-    "Camila Lopez",
-    "Rafael Zambrano",
-    "Juan Carlos",
-    "Angelyn Alameda",
-  ];
+  const { data, loading, error } = useQuery(GET_USER_BY_ROLE, {
+    variables: { role: "admin" },
+  });
 
-  const obtenerImagen = (nombre: string) => {
-    if (nombre === "Camila Lopez") return camila;
-    if (nombre === "Miguel Tapia") return miguel;
-    if (nombre === "Rafael Zambrano") return rafael;
-    if (nombre === "Juan Carlos") return carlos;
-    if (nombre === "Angelyn Alameda") return angelyn;
-    return constructor;
-  };
+  useEffect(() => {
+    if (data?.getUsersByRole) {
+      setFiltrar(data.getUsersByRole);
+      setResultados(data.getUsersByRole);
+    }
+  }, [data]);
 
+  // 🔍 buscador correcto
   const handleBuscar = () => {
-    const filtrados = constructores.filter((nombre) =>
-      nombre.toLowerCase().includes(busqueda.toLowerCase())
+    if (!busqueda.trim()) {
+      setResultados(filtrar);
+      return;
+    }
+
+    const filtrados = filtrar.filter((item) =>
+      item.username.toLowerCase().includes(busqueda.toLowerCase())
     );
+
     setResultados(filtrados);
   };
+
+  if (loading) return <Loading />;
+  if (error) return <div>Hubo un error</div>;
 
   return (
     <CideinLayout>
       <div className="title-section">
-        <h1> Encuentra al Constructor Ideal para tu Proyecto</h1>
+        <h1>Encuentra al Constructor Ideal para tu Proyecto</h1>
         <p>
           Conecta con expertos confiables según tu ubicación y necesidades.{" "}
           <strong style={{ color: "#b98b27ff" }}>
-            Para ver la informacion del constructor, haz click en la imagen.
+            Para ver la información del constructor, haz click en la imagen.
           </strong>
         </p>
       </div>
 
-      <form className="input-groups" style={{ marginBottom: "2rem" }}>
+      <div className="input-groups" style={{ marginBottom: "2rem" }}>
         <div className="busqueda_constructores">
           <input
             type="text"
@@ -58,21 +65,24 @@ function ShowRoom() {
             onChange={(e) => setBusqueda(e.target.value)}
             className="input-gr"
           />
-          <button className="btn_buscar_presupuestoss" onClick={handleBuscar}>
+          <button
+            type="button"
+            className="btn_buscar_presupuestoss"
+            onClick={handleBuscar}
+          >
             Buscar
           </button>
         </div>
-      </form>
+      </div>
+
       <div className="contenedor-imagenes">
-        {(resultados.length > 0 ? resultados : constructores).map(
-          (nombre, index) => (
-            <ConstructorCard
-              key={index}
-              nombre={nombre}
-              imagen={obtenerImagen(nombre)}
-            />
-          )
-        )}
+        {resultados.map((item, index) => (
+          <ConstructorCard
+            key={index}
+            nombre={item.username}
+            imagen={item.image}
+          />
+        ))}
       </div>
     </CideinLayout>
   );

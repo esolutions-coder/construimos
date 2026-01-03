@@ -24,28 +24,6 @@ const ConstructorDetalle = () => {
   if (!constructor) {
     return <p>No se encontró el constructor.</p>;
   }
-  // Llamamos a GET_USER_BY_ROLE query de GRAPHQL
-  const { data, loading, error } = useQuery(GET_USER_BY_ROLE, {
-    variables: {
-      role: "admin",
-    },
-  });
-
-  // Cuando se cargue la página, se ejecuta esta función
-  useEffect(() => {
-    if (data) {
-      ConstructorController.constructorss = JSON.parse(
-        JSON.stringify(data.constructors)
-      );
-      setConstructors(ConstructorController.getState());
-    }
-    if (loading) {
-      <Loading />;
-    }
-    if (error) {
-      <div>Hubo un error</div>;
-    }
-  }, [data, loading, error]);
 
   console.log(constructorss);
 

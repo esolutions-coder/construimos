@@ -1,8 +1,13 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import cideinLogoYellow from "../assets/img/cidein_logo_yellow.png";
 import userImage from "../assets/img/user_image.png";
 import { Link } from "react-router-dom";
 import { RoutesConstruimos } from "../utils/routes";
+import { useQuery } from "@apollo/client";
+import { GET_USER_BY_ROLE } from "../assets/apus_queries/userQueries";
+import CONSTRUCTOR from "../utils/materials/mocks/constructor.json";
+import Constructors from "../utils/materials/controllers/constructors.controller";
+import { useAuth } from "../customHooks/auth/useAuth";
 
 type CideinLayouProps = {
   children: React.ReactNode;
@@ -10,6 +15,8 @@ type CideinLayouProps = {
 
 function CideinLayout({ children }: CideinLayouProps) {
   const [leftNav, setLeftNav] = useState(false);
+
+  const { user } = useAuth();
   return (
     <div className="layout_grid">
       <div className={`layout_left_navbar ${leftNav ? " " : "minimized"}`}>
@@ -27,8 +34,11 @@ function CideinLayout({ children }: CideinLayouProps) {
             </span>
           </div>
           <div className="user_section">
-            <img src={userImage} alt="" />
-            <p className="caption txt_primary">MIGUEL TAPIA</p>
+            <img src={user?.image || ""} alt="" />
+            <p className="caption txt_primary">
+              {" "}
+              {user?.username || "Usuario"}
+            </p>
           </div>
           <div className="left_nav_section">
             <div className="interests_title">
@@ -128,8 +138,11 @@ function CideinLayout({ children }: CideinLayouProps) {
           </div>
           <div className="main_right_navbar">
             <div className="user_options_navbar">
-              <img src={userImage} alt="" />
-              <p className="caption txt_primary">MIGUEL TAPIA</p>
+              <img src={user?.image || ""} alt="" />
+              <p className="caption txt_primary">
+                {" "}
+                {user?.username || "Usuario"}
+              </p>
             </div>
           </div>
         </div>

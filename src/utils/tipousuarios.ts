@@ -6,16 +6,16 @@ export const NAV_ITEMS_BY_ROLE: Record<
 > = {
   ADMIN: [
     { label: "Inicio", to: "/" },
-    { label: "Clientes", to: "/#/cliente" },
-    { label: "Presupuestos", to: "/#/presupuestos" },
-    { label: "Proveedores", to: "/#/proveedores" },
-    { label: "Contratistas", to: "/#/contratista" },
-    { label: "Constructores", to: "/#/showroom" },
+    { label: "Clientes", to: "/cliente" },
+    { label: "Presupuestos", to: "/presupuestos/pill/:slug" },
+    { label: "Proveedores", to: "/proveedores" },
+    { label: "Contratistas", to: "/contratista" },
+    { label: "Constructores", to: "/showroom" },
   ],
   VISITOR: [
     { label: "Inicio", to: "/" },
     { label: "Clientes", to: "/cliente" },
-    { label: "Proveedores", to: "/proveedores" },
+    { label: "Proveedores", to: "/presupuestos/pill/:slug" },
     { label: "Presupuestos", to: "/presupuestos" },
     { label: "Contratistas", to: "/contratista" },
     { label: "Constructores", to: "/showroom" },

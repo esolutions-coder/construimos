@@ -18,12 +18,20 @@ export const GET_USER_BY_ROLE = gql`
   query GetUsersByRole($role: String) {
     getUsersByRole(role: $role) {
       creationDate
+      description
       email
       image
       location
-      nit
-      role
+      xp {
+        description
+        duration
+        title
+      }
       username
+      role
+      postalCode
+      nit
+      _id
     }
   }
 `;

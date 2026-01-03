@@ -7,6 +7,7 @@ import { GET_USER_BY_ROLE } from "../assets/apus_queries/userQueries";
 import Loading from "../components/loading";
 
 type ConstructorFromQuery = {
+  _id: string;
   username: string;
   image: string;
 };
@@ -76,9 +77,10 @@ function ShowRoom() {
       </div>
 
       <div className="contenedor-imagenes">
-        {resultados.map((item, index) => (
+        {resultados.map((item) => (
           <ConstructorCard
-            key={index}
+            key={item._id}
+            id={item._id}
             nombre={item.username}
             imagen={item.image}
           />

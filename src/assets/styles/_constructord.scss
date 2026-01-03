@@ -38,7 +38,9 @@ $success: rgb(32, 197, 32);
   margin-bottom: 10px;
   font-family: "Poppins", sans-serif;
 }
-
+.column {
+  text-align: left;
+}
 .profileInfo p {
   font-size: 18px;
   width: 80%;
@@ -46,6 +48,9 @@ $success: rgb(32, 197, 32);
   text-align: left;
   line-height: 1.6;
   font-family: "Poppins", sans-serif;
+}
+.profileInfo {
+  width: 100%;
 }
 
 .ubicacion {

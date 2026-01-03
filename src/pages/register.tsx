@@ -168,6 +168,7 @@ export default function Register() {
               id="email"
               placeholder="Nombre de usuario"
               value={registerForm.email}
+              required={true}
               onChange={handleChange}
             />
           </div>
@@ -181,6 +182,7 @@ export default function Register() {
               id="password"
               placeholder="Contraseña"
               value={registerForm.password}
+              required={true}
               onChange={handleChange}
             />
           </div>
@@ -193,6 +195,7 @@ export default function Register() {
               name="confirmPassword"
               id="confirmPassword"
               placeholder="Confirmar Contraseña"
+              required={true}
               value={registerForm.confirmPassword}
               onChange={handleChange}
             />
@@ -204,8 +207,9 @@ export default function Register() {
             >
               TIPO DE USUARIO
             </label>
-            <select name="role" id="role">
+            <select name="role" id="role" required={true}>
               <option value="CLIENTE">CLIENTE</option>
+
               <option value="CONTRATISTA">CONTRATISTA</option>
               <option value="PROVEEDOR">PROVEEDOR</option>
               <option value="SOPORTE">SOPORTE</option>

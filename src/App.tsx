@@ -34,7 +34,7 @@ function App() {
       <AuthProvider>
         <Routes>
           <Route
-            path="/constructores/:nombre"
+            path="/constructores/:id"
             element={
               <ProtectedRoute roles={AUTHORIZATION.CONSTRUCTORES}>
                 <ConstructorDetalle />

@@ -231,7 +231,7 @@ function Presupuestos() {
 
   const { user } = useAuth();
   const saveProject = () => {
-    currentProject.user_id = user.id;
+    currentProject.user_id = user._id;
     saveBuget({
       variables: {
         projectData: currentProject.toApi,

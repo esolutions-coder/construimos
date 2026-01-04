@@ -1,8 +1,14 @@
-import { createContext, PropsWithChildren, useContext, useMemo } from "react";
-import { useNavigate } from "react-router-dom";
+import {
+  createContext,
+  PropsWithChildren,
+  useContext,
+  useEffect,
+  useMemo,
+} from "react";
+import { Link, useNavigate } from "react-router-dom";
 import { useLocalStorage } from "./useLocalStorage";
 
-type Role = "ADMIN" | "VISITOR" | "CONTRATISTA" | "PROVEEDOR" | "SOPORTE";
+type Role = "ADMIN" | "VISITOR" | "CONTRATISTA" | "PROVIDER" | "SOPORTE";
 
 type AuthUser = {
   _id: string;
@@ -31,7 +37,12 @@ export const AuthProvider = ({ children }: PropsWithChildren) => {
 
   const login: UseAuthTypes["login"] = async (data) => {
     setUser(data);
-    navigate("/");
+
+    if (data.role === "PROVIDER") {
+      navigate("/provdashboard", { replace: true });
+    } else {
+      navigate("/", { replace: true });
+    }
   };
 
   const logout: UseAuthTypes["logout"] = () => {

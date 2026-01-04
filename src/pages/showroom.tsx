@@ -18,7 +18,7 @@ function ShowRoom() {
   const [resultados, setResultados] = useState<ConstructorFromQuery[]>([]);
 
   const { data, loading, error } = useQuery(GET_USER_BY_ROLE, {
-    variables: { role: "admin" },
+    variables: { role: "PROVIDER" },
   });
 
   useEffect(() => {

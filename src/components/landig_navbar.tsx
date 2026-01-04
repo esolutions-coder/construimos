@@ -12,7 +12,7 @@ function LandingNavBar() {
 
   const table = NAV_ITEMS_BY_ROLE ?? ({} as typeof NAV_ITEMS_BY_ROLE);
   const items = Array.isArray(table[role]) ? table[role] : [];
-  console.log(role);
+  //console.log(role);
 
   return (
     <nav id="landing_navbar">
@@ -53,7 +53,7 @@ function LandingNavBar() {
           <li className="auth_buttons mobile-auth">
             <Link to="/perfil">
               <button className="boton-registrate">
-                {user.name?.split(" ")[0] ?? "Perfil"}
+                {user.username?.split(" ")[0] ?? "Perfil"}
               </button>
             </Link>
             <button className="boton-iniciar" onClick={logout}>

@@ -1,6 +1,4 @@
-@use "colors" as *;
-$primary: #fdbe33;
-$secondary: #030f27;
+@use "colors";
 
 .loading {
   position: fixed;
@@ -9,7 +7,7 @@ $secondary: #030f27;
   display: flex;
   align-items: center;
   justify-content: center;
-  background: $secondary;
+  background: colors.$secondary;
   backdrop-filter: blur(6px);
   transition: opacity 0.4s ease;
 
@@ -29,7 +27,7 @@ $secondary: #030f27;
       inset: 0;
       border-radius: 50%;
       border: 6px solid rgba(255, 255, 255, 0.15);
-      border-top-color: $primary;
+      border-top-color: colors.$primary;
       animation: spin 1.2s ease-in-out infinite;
     }
 

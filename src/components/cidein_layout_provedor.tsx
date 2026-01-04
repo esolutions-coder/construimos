@@ -9,12 +9,12 @@ type CideinLayouProps = {
   children: React.ReactNode;
 };
 
-function CideinLayout({ children }: CideinLayouProps) {
+export default function CideinLayoutProvedor({ children }: CideinLayouProps) {
   const [leftNav, setLeftNav] = useState(false);
 
-  const { user } = useAuth();
-
   const { logout } = useAuth();
+
+  const { user } = useAuth();
   return (
     <div className="layout_grid">
       <div className={`layout_left_navbar ${leftNav ? " " : "minimized"}`}>
@@ -32,7 +32,11 @@ function CideinLayout({ children }: CideinLayouProps) {
             </span>
           </div>
           <div className="user_section">
-            <img src={user?.image || ""} alt="" />
+            <img
+              src={user?.image || ""}
+              alt=""
+              style={{ borderRadius: "50%" }}
+            />
             <p className="caption txt_primary">
               {" "}
               {user?.username || "Usuario"}
@@ -40,70 +44,47 @@ function CideinLayout({ children }: CideinLayouProps) {
           </div>
           <div className="left_nav_section">
             <div className="interests_title">
-              <p className="caption txt_primary">TUS INTERESES</p>
+              <p className="caption txt_primary">MIS ELEMENTOS</p>
             </div>
             <div className="layout_navbar_list">
               <ul>
                 <li>
-                  <a href="">
-                    <span className="material-symbols-outlined">
-                      architecture
-                    </span>{" "}
-                    <p>DISEÑOS</p>
-                  </a>
-                </li>
-                <li>
-                  <a href="">
+                  <Link to={RoutesConstruimos.CREATENEWPRODUCT}>
                     <span className="material-symbols-outlined">
                       tools_power_drill
-                    </span>{" "}
-                    <p>REMODELACIONES</p>
-                  </a>
+                    </span>
+
+                    <p>Añadir materiales</p>
+                  </Link>
                 </li>
                 <li>
-                  <a href="">
+                  <Link to={RoutesConstruimos.MATERIALS}>
                     <span className="material-symbols-outlined">
-                      tools_power_drill
-                    </span>{" "}
-                    <p>CONSTRUCCIÓN</p>
-                  </a>
+                      precision_manufacturing
+                    </span>
+                    <p>Añadir equipos</p>
+                  </Link>
+                </li>
+                <li className="button_list">
+                  <Link to={RoutesConstruimos.DASHBOARD}>
+                    <span className="material-symbols-outlined">
+                      front_hand
+                    </span>
+                    <p className="label">Mano de obra</p>
+                  </Link>
+                </li>
+                <li className="button_list">
+                  <Link to={RoutesConstruimos.DASHBOARD}>
+                    <span className="material-symbols-outlined">
+                      local_shipping
+                    </span>
+                    <p className="label">Añadir transporte</p>
+                  </Link>
                 </li>
               </ul>
             </div>
           </div>
-          <div className="left_nav_section">
-            <div className="interests_title">
-              <p className="caption txt_primary">APLICACIONES - CONTRATISTA</p>
-            </div>
-            <div className="layout_navbar_list">
-              <ul>
-                <li>
-                  <a href="">
-                    <span className="material-symbols-outlined">
-                      architecture
-                    </span>{" "}
-                    <p>PRESUPUESTOS</p>
-                  </a>
-                </li>
-                <li>
-                  <a href="">
-                    <span className="material-symbols-outlined">
-                      tools_power_drill
-                    </span>{" "}
-                    <p>NÓMINAS</p>
-                  </a>
-                </li>
-                <li>
-                  <a href="">
-                    <span className="material-symbols-outlined">
-                      tools_power_drill
-                    </span>{" "}
-                    <p>SG-SST</p>
-                  </a>
-                </li>
-              </ul>
-            </div>
-          </div>
+          <div className="left_nav_section"></div>
         </div>
       </div>
       <div className="right_section">
@@ -111,44 +92,37 @@ function CideinLayout({ children }: CideinLayouProps) {
           <div className="main_middle_navbar">
             <ul>
               <li className="button_list">
-                <Link to={RoutesConstruimos.HOME}>
-                  <span className="material-symbols-outlined">home</span>
-                  <p className="label">Inicio</p>
+                <Link to={RoutesConstruimos.DASHBOARD}>
+                  <span className="material-symbols-outlined">add_home</span>
+                  <p className="label">Dashboard</p>
                 </Link>
               </li>
               <li className="button_list">
-                <Link to={RoutesConstruimos.PRESUPUESTOS}>
-                  <span className="material-symbols-outlined">add</span>
-                  <p className="label">Añadir proyecto</p>
+                <Link to={RoutesConstruimos.MATERIALS}>
+                  <span className="material-symbols-outlined">lists</span>{" "}
+                  <p className="labels">Mis elementos</p>
                 </Link>
               </li>
               <li className="button_list">
                 <span className="material-symbols-outlined">notifications</span>
                 <p className="label">Notificaciones</p>
               </li>
-              <li className="button_list">
-                <Link to={RoutesConstruimos.PRESUPUESTOS_LIST}>
-                  <span className="material-symbols-outlined">List</span>
-                  <p className="labels">Tus presupuestos</p>
-                </Link>
-              </li>
             </ul>
           </div>
           <div className="main_right_navbar">
             <div className="user_options_navbar">
-              <img src={user?.image || ""} alt="" />
+              <img
+                src={user?.image || ""}
+                alt=""
+                style={{ borderRadius: "50%" }}
+              />
               <p className="caption txt_primary">
                 {" "}
                 {user?.username || "Usuario"}
               </p>
               <span
                 className="material-symbols-outlined"
-                style={{
-                  color: "#fdbe33",
-                  cursor: "pointer",
-                  position: "absolute",
-                  right: "6rem",
-                }}
+                style={{ color: "#fdbe33", cursor: "pointer" }}
                 onClick={logout}
                 title="Cerrar sesión"
               >
@@ -162,5 +136,3 @@ function CideinLayout({ children }: CideinLayouProps) {
     </div>
   );
 }
-
-export default CideinLayout;

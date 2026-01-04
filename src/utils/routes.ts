@@ -14,4 +14,9 @@ export const RoutesConstruimos = {
 
   //PROFILE ROUTES
   PROFILE: "/perfil",
+
+  //PROVEEDOR ROUTES
+  CREATENEWPRODUCT: "/crearnuevoproducto",
+  MATERIALS: "/provider/materials",
+  DASHBOARD: "/provdashboard",
 } as const;

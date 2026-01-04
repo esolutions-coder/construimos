@@ -1,48 +1,58 @@
 import "../assets/styles/_crearnewpro.scss";
-import Sidebar from "../components/layout/sidebar";
+import CideinLayoutProvedor from "../components/cidein_layout_provedor";
 
 function CrearPro() {
   return (
-    <div className="dashboard-details">
-      <Sidebar />
-      <h1 className="añadirnewmat">AÑADIR NUEVO MATERIAL</h1>
-      <textarea placeholder="Nombre del material" className="inputnombre" />
-      <textarea placeholder="Descripción larga" className="textareass" />
-      <div className="infoazul">
-        <h1 className="infopro">INFORMACIÓN DEL PRODUCTO</h1>
-      </div>
-      <div className="general">
-        <h1 className="minitixs">GENERAL</h1>
-      </div>
-      <div className="inventarios">
-        <h1 className="minitixs">INVENTARIO</h1>
-      </div>
-      <div className="fichatecnica">
-        <h1 className="minitixs">FICHA TÉCNICA</h1>
-      </div>
-      <div>
-        <textarea placeholder="$ Precio normal" className="precioinputuno" />
-        <textarea
-          placeholder="$ Precio con rebaja"
-          className="precioinputdos"
-        />
-      </div>
-      <div className="guardarproducto">
-        <div className="apartadoazul">
-          <h1 className="inf">GUARDAR PRODUCTO</h1>
+    <CideinLayoutProvedor>
+      <div className="dashboard-detailsone">
+        <div className="left-panel">
+          <h1 className="añadirnewmat">AÑADIR NUEVO MATERIAL</h1>
+
+          <input placeholder="Nombre del material" className="inputnombre" />
+          <textarea placeholder="Descripción larga" className="textareass" />
+
+          <div className="infoazul">
+            <h1 className="infopro">INFORMACIÓN DEL PRODUCTO</h1>
+          </div>
+
+          <div className="tabs">
+            <div className="flexcolumn">
+              <div className="tab active">GENERAL</div>
+              <div className="tab">INVENTARIO</div>
+              <div className="tab">FICHA TÉCNICA</div>
+            </div>
+            <div className="inputsflexs">
+              {" "}
+              <input placeholder="$ Precio normal" className="precioinput" />
+              <input
+                placeholder="$ Precio con rebaja"
+                className="precioinput"
+              />
+            </div>
+          </div>
+        </div>
+
+        {/* COLUMNA DERECHA */}
+        <div className="right-panel">
+          <div className="card">
+            <div className="apartadoazul">IMAGEN DEL PRODUCTO</div>
+            <input type="file" className="upload-box" id="file-upload" />
+          </div>
+
+          <div className="card">
+            <div className="apartadoazul">GALERÍA DEL PRODUCTO</div>{" "}
+            <input
+              type="file"
+              className="upload-box small"
+              id="upload-gallery"
+            />
+            <div className="card">
+              <button className="save-btn">Guardar</button>
+            </div>
+          </div>
         </div>
       </div>
-      <div className="imagendelproducto">
-        <div className="apartadoazul">
-          <h1 className="inf">IMAGEN DEL PRODUCTO</h1>
-        </div>
-      </div>
-      <div className="productodos">
-        <div className="apartadoazul">
-          <h1 className="inf">GALERIA DEL PRODUCTO</h1>
-        </div>
-      </div>
-    </div>
+    </CideinLayoutProvedor>
   );
 }
 

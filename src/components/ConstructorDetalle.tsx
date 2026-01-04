@@ -25,7 +25,7 @@ const ConstructorDetalle = () => {
   const [constructor, setConstructor] = useState<InfoConstructor | null>(null);
 
   const { data, loading, error } = useQuery(GET_USER_BY_ROLE, {
-    variables: { role: "admin" },
+    variables: { role: "PROVIDER" },
   });
 
   useEffect(() => {

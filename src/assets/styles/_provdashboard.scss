@@ -1,0 +1,41 @@
+@use "colors";
+
+.grid-divs-prov {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  grid-template-rows: repeat(2, 1fr);
+  gap: 2rem;
+  color: colors.$primary;
+  margin-top: 2rem;
+}
+
+.materiables_prov {
+  display: flex;
+  justify-content: center;
+  color: colors.$primary;
+  border-radius: 10px;
+}
+
+.mano_prov {
+  background-color: colors.$secondary;
+  display: flex;
+  justify-content: center;
+  color: colors.$primary;
+  border-radius: 10px;
+}
+
+.transporte_prov {
+  background-color: colors.$secondary;
+  display: flex;
+  justify-content: center;
+  color: colors.$primary;
+  border-radius: 10px;
+}
+
+.anadir_prov {
+  background-color: colors.$secondary;
+  display: flex;
+  justify-content: center;
+  color: colors.$primary;
+  border-radius: 10px;
+}

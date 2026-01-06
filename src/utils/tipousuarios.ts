@@ -26,10 +26,7 @@ export const NAV_ITEMS_BY_ROLE: Record<
     { label: "Presupuestos", to: "/presupuestos" },
     { label: "Proveedores", to: "/proveedores" },
   ],
-  PROVIDER: [
-    { label: "Mis elementos", to: "/provider/materials" },
-    { label: "Añadir elementos", to: "/crearnuevoproducto" },
-  ],
+  PROVIDER: [],
   SOPORTE: [
     { label: "Inicio", to: "/" },
     { label: "Tickets", to: "/soporte" },

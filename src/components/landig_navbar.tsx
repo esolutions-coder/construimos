@@ -52,13 +52,31 @@ function LandingNavBar() {
         ) : (
           <li className="auth_buttons mobile-auth">
             <Link to="/perfil">
-              <button className="boton-registrate">
-                {user.username?.split(" ")[0] ?? "Perfil"}
-              </button>
+              <img
+                src={user.image ?? "PeImarfil"}
+                alt={user.username?.split(" ")[0] ?? "Perfil"}
+                style={{
+                  borderRadius: "50%",
+                  width: "50px",
+                  height: "50px",
+                  border: "2px solid #030f27",
+                  marginRight: "20px",
+                }}
+              />
             </Link>
-            <button className="boton-iniciar" onClick={logout}>
-              Cerrar sesión
-            </button>
+            <span
+              className="material-symbols-outlined"
+              style={{
+                color: "#030f27",
+                cursor: "pointer",
+                marginTop: "13px",
+                marginRight: "20px",
+              }}
+              onClick={logout}
+              title="Cerrar sesión"
+            >
+              exit_to_app
+            </span>
           </li>
         )}
       </ul>

@@ -28,6 +28,7 @@ import PresupuestosEditor from "./pages/budgets/pages/presupuestos-editor";
 import ListPresupuestos from "./pages/listpresupuestos";
 import { BudgetProvider } from "./pages/budgets/context/budgetContext";
 import ProvDashboard from "./pages/provdashboard";
+import ListaProveedores from "./pages/listproveedores";
 
 function App() {
   return (
@@ -44,6 +45,7 @@ function App() {
           />
           <Route path="/proveedores" element={<Proveedores />} />
           <Route path="/dashboard" element={<Dashboard />} />{" "}
+          <Route path="/materialesprov/list" element={<ListaProveedores />} />
           <Route
             path="presupuestos"
             element={

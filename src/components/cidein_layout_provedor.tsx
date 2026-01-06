@@ -34,8 +34,13 @@ export default function CideinLayoutProvedor({ children }: CideinLayouProps) {
           <div className="user_section">
             <img
               src={user?.image || ""}
-              alt=""
-              style={{ borderRadius: "50%" }}
+              alt={user?.username || ""}
+              style={{
+                borderRadius: "50%",
+                border: "2px solid #fdbe33",
+                width: "40px",
+                height: "40px",
+              }}
             />
             <p className="caption txt_primary">
               {" "}
@@ -114,7 +119,12 @@ export default function CideinLayoutProvedor({ children }: CideinLayouProps) {
               <img
                 src={user?.image || ""}
                 alt=""
-                style={{ borderRadius: "50%" }}
+                style={{
+                  borderRadius: "50%",
+                  border: "2px solid #fdbe33",
+                  width: "50px",
+                  height: "50px",
+                }}
               />
               <p className="caption txt_primary">
                 {" "}
@@ -122,7 +132,12 @@ export default function CideinLayoutProvedor({ children }: CideinLayouProps) {
               </p>
               <span
                 className="material-symbols-outlined"
-                style={{ color: "#fdbe33", cursor: "pointer" }}
+                style={{
+                  color: "#fdbe33",
+                  cursor: "pointer",
+                  position: "absolute",
+                  right: "6rem",
+                }}
                 onClick={logout}
                 title="Cerrar sesión"
               >

@@ -32,7 +32,16 @@ function CideinLayout({ children }: CideinLayouProps) {
             </span>
           </div>
           <div className="user_section">
-            <img src={user?.image || ""} alt="" />
+            <img
+              src={user?.image || ""}
+              alt=""
+              style={{
+                borderRadius: "50%",
+                border: "2px solid #fdbe33",
+                width: "40px",
+                height: "40px",
+              }}
+            />
             <p className="caption txt_primary">
               {" "}
               {user?.username || "Usuario"}
@@ -123,8 +132,12 @@ function CideinLayout({ children }: CideinLayouProps) {
                 </Link>
               </li>
               <li className="button_list">
-                <span className="material-symbols-outlined">notifications</span>
-                <p className="label">Notificaciones</p>
+                <Link to={RoutesConstruimos.HOME}>
+                  <span className="material-symbols-outlined">
+                    notifications
+                  </span>
+                  <p className="label">Notificaciones</p>
+                </Link>
               </li>
               <li className="button_list">
                 <Link to={RoutesConstruimos.PRESUPUESTOS_LIST}>
@@ -136,7 +149,16 @@ function CideinLayout({ children }: CideinLayouProps) {
           </div>
           <div className="main_right_navbar">
             <div className="user_options_navbar">
-              <img src={user?.image || ""} alt="" />
+              <img
+                src={user?.image || ""}
+                alt=""
+                style={{
+                  borderRadius: "50%",
+                  border: "2px solid #fdbe33",
+                  width: "50px",
+                  height: "50px",
+                }}
+              />
               <p className="caption txt_primary">
                 {" "}
                 {user?.username || "Usuario"}

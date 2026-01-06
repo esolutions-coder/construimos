@@ -14,8 +14,22 @@ import CardsInfo from "../assets/info_json/cards.json";
 import CardsCliente from "../assets/info_json/client_options.json";
 import CardsContractor from "../assets/info_json/contractor_options.json";
 import CardsProvider from "../assets/info_json/provider_options.json";
+import { useEffect } from "react";
+import { useAuth } from "../customHooks/auth/useAuth";
+import { useNavigate } from "react-router-dom";
 
 function Home() {
+  const { user } = useAuth();
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if (user) {
+      if (user.role === "PROVIDER") {
+        navigate("/provdashboard", { replace: true });
+      }
+    }
+  }, []);
+
   return (
     <>
       <LandingNavBar />

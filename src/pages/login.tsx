@@ -19,7 +19,6 @@ export default function Login() {
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    console.log("Submitting login for:", name, password);
     submit({
       variables: {
         username: name,

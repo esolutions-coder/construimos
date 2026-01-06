@@ -1,6 +1,7 @@
 import { useEffect, useLayoutEffect, useRef, useState } from "react";
 import { createPortal } from "react-dom";
 import settingsun from "../assets/img/settingsun.png";
+import { useAuth } from "../customHooks/auth/useAuth";
 
 type Action = "edit" | "delete";
 
@@ -21,6 +22,7 @@ export default function ActionsMenu({
   ) => void;
 }) {
   const [open, setOpen] = useState(false);
+  const { user } = useAuth();
   const [pos, setPos] = useState<{ top: number; left: number; width: number }>({
     top: 0,
     left: 0,
@@ -53,6 +55,7 @@ export default function ActionsMenu({
       )
         setOpen(false);
     };
+
     const onEsc = (e: KeyboardEvent) => e.key === "Escape" && setOpen(false);
     window.addEventListener("scroll", onScrollOrResize, true);
     window.addEventListener("resize", onScrollOrResize);
@@ -150,25 +153,26 @@ export default function ActionsMenu({
               }
               onClick={() => handleAction("edit")}
             />
-
-            <MenuItem
-              reactIcon={
-                <span className="menu-item-icon">
-                  <span className="material-symbols-outlined">delete</span>
-                  <span
-                    className="menu-item-text"
-                    style={{
-                      display: "flex",
-                      justifyContent: "center",
-                      marginTop: "-1.5rem",
-                    }}
-                  >
-                    Eliminar
+            {user?.role !== "PROVIDER" && (
+              <MenuItem
+                reactIcon={
+                  <span className="menu-item-icon">
+                    <span className="material-symbols-outlined">delete</span>
+                    <span
+                      className="menu-item-text"
+                      style={{
+                        display: "flex",
+                        justifyContent: "center",
+                        marginTop: "-1.5rem",
+                      }}
+                    >
+                      Eliminar
+                    </span>
                   </span>
-                </span>
-              }
-              onClick={() => handleAction("delete")}
-            />
+                }
+                onClick={() => handleAction("delete")}
+              />
+            )}
           </div>,
           document.body
         )}

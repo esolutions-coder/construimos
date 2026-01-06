@@ -174,6 +174,7 @@ export const LOGIN_USER = gql`
     login(username: $username, password: $password) {
       token
       _id
+      image
       username
       role
     }

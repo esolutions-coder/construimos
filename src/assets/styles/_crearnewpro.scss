@@ -1,140 +1,187 @@
-.dashboard-details {
-  overflow-x: hidden;
+@use "colors";
+
+.dashboard-detailsone {
+  padding-bottom: 4rem;
+  display: flex;
+  flex-wrap: wrap;
+  margin-top: 2rem;
+  gap: 2rem;
+
+  background: #fff;
+
+  h1 {
+    margin: 0;
+  }
 }
 
 .añadirnewmat {
-  margin-top: 2rem;
-  margin-left: 3rem;
+  margin: 2rem 0 1.5rem 3rem;
+  font-size: 2rem;
+  font-weight: 600;
 }
-.inputnombre {
-  height: 50px;
-  width: 800px;
-  border-radius: 4px;
+
+.flexcolumn {
   display: flex;
-  margin-top: 6rem;
-  margin-left: -26rem;
-  padding-left: 1rem;
-  padding-top: 0.8rem;
+  flex-direction: column;
+  gap: 1rem;
 }
+
+.inputsflexs {
+  display: flex;
+  gap: 1rem;
+  width: 750px;
+  flex-direction: column;
+}
+
+.layout-grid {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  gap: 2rem;
+  padding: 0 3rem;
+}
+
+.left-panel {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.inputnombre,
+.textareass,
+.precioinput {
+  width: 100%;
+  border-radius: 6px;
+  border: 1px solid #d1d1d1;
+  padding: 0.9rem 1rem;
+  font-size: 0.95rem;
+  font-family: inherit;
+
+  &:focus {
+    outline: none;
+    border-color: colors.$secondary;
+  }
+}
+
 .textareass {
-  height: 100px;
-  width: 800px;
-  border-radius: 4px;
-  display: flex;
-  margin-top: 11rem;
-  margin-left: -50rem;
-  padding-left: 1rem;
-  padding-top: 0.8rem;
+  min-height: 120px;
+  resize: vertical;
+  width: 100%;
 }
-.infopro {
-  width: 600px;
-  color: #ffd700;
-  font-size: 1.2rem;
-  font-weight: 500;
-  margin-top: 0.6rem;
-  margin-left: 0.6rem;
-}
+
 .infoazul {
-  background-color: #061840;
-  width: 800px;
+  background-color: colors.$secondary;
   height: 50px;
-  margin-top: 19rem;
-  margin-left: -50.5rem;
-  border-radius: 4px;
-  padding-left: 0.5rem;
-}
-
-.general {
-  width: 200px;
-  height: 50px;
-  background-color: #efe1c8;
-  border-radius: 4px;
-  margin-top: 23rem;
-  margin-left: -50rem;
-}
-.minitixs {
-  font-size: 1.2rem;
-  padding-top: 0.5rem;
-  padding-left: 0.5rem;
-  font-weight: 500;
-}
-
-.inventarios {
-  width: 200px;
-  height: 50px;
-  background-color: #efe1c8;
-  border-radius: 4px;
-  margin-top: 27rem;
-  margin-left: -12.5rem;
-}
-
-.fichatecnica {
-  width: 200px;
-  height: 50px;
-  background-color: #efe1c8;
-  border-radius: 4px;
-  margin-top: 31rem;
-  margin-left: -12.5rem;
-}
-.precioinputuno {
-  height: 50px;
-  width: 585px;
-  border-radius: 4px;
-  display: flex;
-  margin-top: 23rem;
-  margin-left: 1rem;
-  padding-left: 1rem;
-  padding-top: 0.8rem;
-}
-
-.precioinputdos {
-  height: 50px;
-  width: 585px;
-  border-radius: 4px;
-  display: flex;
-  margin-top: 1rem;
-  margin-left: 1rem;
-  padding-left: 1rem;
-  padding-top: 0.8rem;
-}
-.guardarproducto {
-  width: 350px;
-  height: 280px;
-  background-color: #efe1c8;
   border-radius: 6px;
-  margin-top: 6rem;
-  margin-left: 1rem;
+  display: flex;
+  align-items: center;
+  padding-left: 1rem;
+  margin-top: 1.5rem;
 }
-.apartadoazul {
-  height: 50px;
-  border-radius: 4px;
-  width: 350px;
-  background-color: #061840;
-  padding-top: 0.5rem;
-  padding-left: 0.5rem;
-}
-.inf {
-  width: 600px;
+
+.infopro {
   color: #ffd700;
-  font-size: 1.2rem;
+  font-size: 1.1rem;
   font-weight: 500;
-  margin-top: 0rem;
-  margin-left: 0.6rem;
 }
 
-.imagendelproducto {
-  width: 350px;
-  height: 150px;
-  background-color: #efe1c8;
-  border-radius: 6px;
-  margin-top: 24.1rem;
-  margin-left: -22rem;
+.tabs {
+  display: flex;
+  gap: 1rem;
+  margin-top: 1rem;
 }
-.productodos {
-  width: 350px;
-  height: 150px;
+
+.tab {
   background-color: #efe1c8;
+  padding: 0.7rem 1.4rem;
   border-radius: 6px;
-  margin-top: 34.1rem;
-  margin-left: -22rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+
+  &:hover {
+    background-color: #e4d3b5;
+  }
+
+  &.active {
+    background-color: colors.$secondary;
+    color: colors.$primary;
+  }
+}
+
+.precioinput {
+  max-width: 600px;
+}
+
+.right-panel {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.card {
+  background-color: #efe1c8;
+  border-radius: 10px;
+  padding: 1rem;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+}
+
+.apartadoazul {
+  height: 45px;
+  background-color: colors.$secondary;
+  border-radius: 6px;
+  display: flex;
+  align-items: center;
+  padding-left: 1rem;
+  font-size: 1rem;
+  font-weight: 500;
+  color: colors.$primary;
+}
+
+.save-btn {
+  margin-top: 1rem;
+  width: 100%;
+  padding: 0.9rem;
+  background-color: colors.$secondary;
+  color: colors.$primary;
+  border: none;
+  border-radius: 6px;
+  font-size: 1rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.25s ease;
+
+  &:hover {
+    background-color: colors.$secondary;
+    transform: translateY(-1px);
+  }
+}
+
+.upload-box {
+  margin-top: 1rem;
+  border: 2px dashed colors.$secondary;
+  border-radius: 8px;
+  padding: 1.6rem;
+  text-align: center;
+  font-size: 0.9rem;
+  color: colors.$secondary;
+  cursor: pointer;
+  transition: all 0.2s ease;
+
+  &:hover {
+    background-color: rgba(6, 24, 64, 0.05);
+  }
+
+  &.small {
+    padding: 1.1rem;
+  }
+}
+
+@media (max-width: 1024px) {
+  .layout-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .precioinput {
+    max-width: 100%;
+  }
 }

@@ -18,7 +18,7 @@ function ShowRoom() {
   const [resultados, setResultados] = useState<ConstructorFromQuery[]>([]);
 
   const { data, loading, error } = useQuery(GET_USER_BY_ROLE, {
-    variables: { role: "admin" },
+    variables: { role: "PROVIDER" },
   });
 
   useEffect(() => {
@@ -48,11 +48,11 @@ function ShowRoom() {
   return (
     <CideinLayout>
       <div className="title-section">
-        <h1>Encuentra al Constructor Ideal para tu Proyecto</h1>
+        <h1>Encuentra al Proveedor Ideal para tu Proyecto</h1>
         <p>
           Conecta con expertos confiables según tu ubicación y necesidades.{" "}
-          <strong style={{ color: "#b98b27ff" }}>
-            Para ver la información del constructor, haz click en la imagen.
+          <strong style={{ color: "#fdbe33" }}>
+            Para ver la información del proveedor, haz click en la imagen.
           </strong>
         </p>
       </div>

@@ -1,7 +1,7 @@
 export type NavItem = { label: string; to: string };
 
 export const NAV_ITEMS_BY_ROLE: Record<
-  "ADMIN" | "VISITOR" | "CONTRATISTA" | "PROVEEDOR" | "SOPORTE",
+  "ADMIN" | "VISITOR" | "CONTRATISTA" | "PROVIDER" | "SOPORTE",
   NavItem[]
 > = {
   ADMIN: [
@@ -26,11 +26,7 @@ export const NAV_ITEMS_BY_ROLE: Record<
     { label: "Presupuestos", to: "/presupuestos" },
     { label: "Proveedores", to: "/proveedores" },
   ],
-  PROVEEDOR: [
-    { label: "Inicio", to: "/" },
-    { label: "Proveedores", to: "/proveedores" },
-    { label: "Constructores", to: "/showroom" },
-  ],
+  PROVIDER: [],
   SOPORTE: [
     { label: "Inicio", to: "/" },
     { label: "Tickets", to: "/soporte" },

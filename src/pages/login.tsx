@@ -13,6 +13,7 @@ export default function Login() {
   const [name, setName] = useState("");
   const [password, setPassword] = useState("");
   const { login } = useAuth();
+  const [showPassword, setShowPassword] = useState(false);
   const [isValid, setIsValid] = useState<undefined | boolean>(undefined);
 
   const [submit, { data, loading, error }] = useLazyQuery(LOGIN_USER);
@@ -77,17 +78,39 @@ export default function Login() {
               />
             </div>
             <div className="form_input_container">
-              <label htmlFor="password" className="button  txt_secondary">
-                CONTRASEÑA
-              </label>
-              <input
-                type="password"
-                name="password"
-                id="password"
-                placeholder="Contraseña"
-                onChange={(e) => setPassword(e.target.value)}
-              />
+              <div
+                className="form_input_container"
+                style={{ position: "relative" }}
+              >
+                <label htmlFor="password" className="button txt_secondary">
+                  CONTRASEÑA
+                </label>
+
+                <input
+                  type={showPassword ? "text" : "password"}
+                  name="password"
+                  id="password"
+                  placeholder="Contraseña"
+                  onChange={(e) => setPassword(e.target.value)}
+                />
+
+                <span
+                  className="material-symbols-outlined"
+                  onClick={() => setShowPassword(!showPassword)}
+                  style={{
+                    position: "absolute",
+                    right: "12px",
+                    top: "68%",
+                    transform: "translateY(-50%)",
+                    cursor: "pointer",
+                    color: "#030f27",
+                  }}
+                >
+                  {showPassword ? "visibility_off" : "visibility"}
+                </span>
+              </div>
             </div>
+
             <div className="input_container">
               {isValid === undefined ? (
                 <p></p>

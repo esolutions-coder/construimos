@@ -15,10 +15,8 @@ export const NAV_ITEMS_BY_ROLE: Record<
   VISITOR: [
     { label: "Inicio", to: "/" },
     { label: "Clientes", to: "/cliente" },
-    { label: "Proveedores", to: "/presupuestos/pill/:slug" },
-    { label: "Presupuestos", to: "/presupuestos" },
+    { label: "Proveedores", to: "/proveedores" },
     { label: "Contratistas", to: "/contratista" },
-    { label: "Constructores", to: "/showroom" },
   ],
   CONTRATISTA: [
     { label: "Inicio", to: "/" },

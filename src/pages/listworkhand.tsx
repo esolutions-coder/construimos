@@ -10,28 +10,29 @@ import { useMutation } from "@apollo/client";
 import { DELETE_PROJECT_BUDGET } from "../api/budgets/projects.mutations";
 import CideinWarning from "../components/warning";
 import ActionsMenu from "../components/actionsmenu";
-import { GET_MATERIALS_BY_PROVIDER_ID } from "../api/materials/materials.query";
+import {
+  GET_MATERIALS_BY_PROVIDER_ID,
+  WORKHAND_BY_PROVIDER_ID,
+} from "../api/materials/materials.query";
 import Formatter from "../utils/formatter";
 import CideinLayoutProvedor from "../components/cidein_layout_provedor";
 
-type MaterialsByProviderId = {
+type WorkhandByProviderId = {
   _id: string;
-  material_category: string;
-  material_code: string;
-  material_name: string;
-  material_provider: string;
-  material_rud: number;
-  material_unit: string;
-  material_unitary_price: number;
   stock: number;
+  workHand_code: string;
+  workHand_name: string;
+  workHand_provider: string;
+  workHand_rud: number;
+  workHand_unit: string;
+  workHand_unitary_price: number;
 };
 
-export default function ListaProveedores() {
+export default function ListWorkhand() {
   const { user } = useAuth();
   const [query, setQuery] = useState("");
   const [submittedQuery, setSubmittedQuery] = useState("");
   const [filtro, setFiltro] = useState("");
-  const [resultados, setResultados] = useState<MaterialsByProviderId[]>([]);
   const navigate = useNavigate();
   const [warningProps, setWarningProps] = useState({
     warningState: false,
@@ -65,8 +66,9 @@ export default function ListaProveedores() {
 
   // LLAMADA A LA QUERY
 
-  const { loading, error, data } = useQuery(GET_MATERIALS_BY_PROVIDER_ID, {
+  const { loading, error, data } = useQuery(WORKHAND_BY_PROVIDER_ID, {
     variables: { providerId: user?._id },
+    fetchPolicy: "no-cache",
   });
 
   // MUTACION PARA ELIMINAR EL PRESUPUESTO DE LA LISTA
@@ -83,14 +85,16 @@ export default function ListaProveedores() {
   // PLASMAMOS LA QUERY
 
   const rows = useMemo(() => {
-    return (data?.materialsByProviderId ?? []).map(
-      (p: MaterialsByProviderId) => ({
+    return (data?.workhandByProviderId ?? []).map(
+      (p: WorkhandByProviderId) => ({
         _id: p._id,
-        material_name: p.material_name,
-        material_code: p.material_code,
-        material_unit: p.material_unit,
-        material_unitary_price: p.material_unitary_price,
         stock: p.stock,
+        workHand_code: p.workHand_code,
+        workHand_name: p.workHand_name,
+        workHand_provider: p.workHand_provider,
+        workHand_rud: p.workHand_rud,
+        workHand_unit: p.workHand_unit,
+        workHand_unitary_price: p.workHand_unitary_price,
       })
     );
   }, [data]);
@@ -98,7 +102,7 @@ export default function ListaProveedores() {
   const filteredRows = useMemo(() => {
     const q = submittedQuery.trim().toLowerCase();
     return rows.filter((r: any) => {
-      const passText = (r.material_name ?? "").toLowerCase().includes(q);
+      const passText = (r.workHand_name ?? "").toLowerCase().includes(q);
 
       return passText;
     });
@@ -147,10 +151,10 @@ export default function ListaProveedores() {
         <div className="row">
           <div className="col-12">
             <h1>
-              TUS MATERIALES
+              MANO DE OBRA
               <span
                 className="material-symbols-outlined helpp"
-                title="Busca tus presupuestos materiales por nombre."
+                title="Busca tus mano de obra guardados, por nombre."
               >
                 help
               </span>{" "}
@@ -181,7 +185,7 @@ export default function ListaProveedores() {
               marginTop: "-1rem",
             }}
           >
-            Busca tus materiales guardados, por nombre
+            Busca tu mano de obra guardados, por nombre
           </p>
           <form
             className="input-groups"
@@ -207,11 +211,13 @@ export default function ListaProveedores() {
               <thead>
                 <tr>
                   <th>#</th>
-                  <th>NOMBRE MATERIAL</th>
+                  <th>NOMBRE EQUIPO</th>
                   <th>CODIGO</th>
+                  <th>PROVEEDOR</th>
                   <th>UNIDAD</th>
                   <th>STOCK</th>
                   <th>PRECIO UNITARIO</th>
+                  <th>RUD</th>
                   <th>OPCIONES</th>
                 </tr>
               </thead>
@@ -225,7 +231,7 @@ export default function ListaProveedores() {
                 />
                 {filteredRows.length ? (
                   filteredRows.map(
-                    (item: MaterialsByProviderId, index: number) => (
+                    (item: WorkhandByProviderId, index: number) => (
                       <tr key={item._id}>
                         <td data-label="ID">{index + 1}</td>
                         <td
@@ -233,16 +239,19 @@ export default function ListaProveedores() {
                           className="presupuestos-name"
                           onClick={() => navigate(`/provider/materials`)}
                         >
-                          {item.material_name}
+                          {item.workHand_name}
                         </td>
-                        <td data-label="Precio total">{item.material_code}</td>
+                        <td data-label="Precio total">{item.workHand_code}</td>
                         <td data-label="Código postal">
-                          {item.material_unit ?? "0"}
+                          {item.workHand_provider}
                         </td>
+                        <td data-label="Fecha">{item.workHand_unit}</td>
                         <td data-label="Fecha">{item.stock ?? "0"}</td>
                         <td data-label="Fecha">
-                          {Formatter(item.material_unitary_price)}
+                          {Formatter(item.workHand_unitary_price)}
                         </td>
+                        <td data-label="Fecha">{item.workHand_rud}</td>
+
                         <td data-label="options">
                           <ActionsMenu
                             itemId={item._id}
@@ -256,7 +265,7 @@ export default function ListaProveedores() {
                   )
                 ) : (
                   <tr>
-                    <td colSpan={7}>
+                    <td colSpan={9}>
                       <div
                         style={{
                           textAlign: "center",
@@ -273,12 +282,12 @@ export default function ListaProveedores() {
                         <h4 style={{ marginTop: 16 }}>
                           {submittedQuery
                             ? "No hay resultados para esta búsqueda"
-                            : "No hay presupuestos guardados todavía"}
+                            : "No hay equipos para esta búsqueda"}
                         </h4>
                         <p className="presupuestos_no_hay">
                           {submittedQuery
                             ? "Ajusta el término y vuelve a buscar."
-                            : "Usa el botón de arriba para crear tu primer presupuesto."}
+                            : "Usa el botón de arriba para crear tu primer equipo."}
                         </p>
                       </div>
                       <div className="container-pagination">

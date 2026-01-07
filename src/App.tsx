@@ -29,6 +29,9 @@ import ListPresupuestos from "./pages/listpresupuestos";
 import { BudgetProvider } from "./pages/budgets/context/budgetContext";
 import ProvDashboard from "./pages/provdashboard";
 import ListaProveedores from "./pages/listproveedores";
+import ListWorkhand from "./pages/listworkhand";
+import ListTransportation from "./pages/listtransport";
+import ListadeEquipo from "./pages/listequipo";
 
 function App() {
   return (
@@ -45,7 +48,11 @@ function App() {
           />
           <Route path="/proveedores" element={<Proveedores />} />
           <Route path="/dashboard" element={<Dashboard />} />{" "}
-          <Route path="/materialesprov/list" element={<ListaProveedores />} />
+          <Route
+            path="/materialesprovider/list"
+            element={<ListaProveedores />}
+          />
+          <Route path="/equipoprovider/list" element={<ListadeEquipo />} />
           <Route
             path="presupuestos"
             element={
@@ -53,6 +60,11 @@ function App() {
                 <Presupuestos />
               </BudgetProvider>
             }
+          />
+          <Route path="/manodeobraprovider/list" element={<ListWorkhand />} />
+          <Route
+            path="/transporteprovider/list"
+            element={<ListTransportation />}
           />
           <Route
             path="/provdashboard"

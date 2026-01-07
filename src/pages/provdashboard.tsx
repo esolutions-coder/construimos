@@ -1,50 +1,52 @@
 import CideinLayoutProvedor from "../components/cidein_layout_provedor";
 import "../assets/styles/_provdashboard.scss";
 import materiales from "../assets/img/materiales.png";
-import { Link } from "react-router-dom";
-import { RoutesConstruimos } from "../utils/routes";
+import manodobra from "../assets/img/manodobra.png";
+import transportep from "../assets/img/transportep.png";
+import equipop from "../assets/img/equipop.png";
+import { ProviderCards } from "../components/providercards";
 
 export default function ProvedorDashboard() {
   return (
-    <CideinLayoutProvedor>
-      <div className="containersss">
-        <div className="row">
-          <div className="col-12">
-            <h1>
-              PROVEEDOR: PANEL PRINCIPAL
-              <span
-                className="material-symbols-outlined helpp"
-                title="Busca tus presupuestos guardados, por nombre, o por fecha."
-              >
-                help
-              </span>{" "}
-              <section className="grid-divs-prov">
-                <Link to="/materialesprov/list">
-                  <div
-                    className="materiables_prov"
-                    style={{ backgroundImage: `url(${materiales})` }}
-                  >
-                    <h1>MATERIALES</h1>
-                  </div>
-                </Link>
-
-                <div className="mano_prov">
-                  {" "}
-                  <h1>MANO DE OBRA</h1>
-                </div>
-                <div className="transporte_prov">
-                  {" "}
-                  <h1>TRANSPORTE</h1>
-                </div>
-                <div className="anadir_prov">
-                  {" "}
-                  <h1>AÑADIR</h1>
-                </div>
-              </section>
-            </h1>
-          </div>
+    <>
+      <CideinLayoutProvedor>
+        <div className="title-section">
+          <h1>PROVEEDOR DASHBOARD</h1>
+          <p>
+            Tu panel de proveedor, con tus materiales, mano de obra y transporte{" "}
+            <strong style={{ color: "#fdbe33" }}>
+              Para ver las funcionalidades de cada sección, haz click en la
+              imagen.
+            </strong>
+          </p>
         </div>
-      </div>
-    </CideinLayoutProvedor>
+        <section className="grid-divs-prov">
+          <ProviderCards
+            url="/materialesprovider/list"
+            nombre="MATERIALES"
+            imagen={materiales}
+            title="MATERIALES"
+          />
+          <ProviderCards
+            url="/manodeobraprovider/list"
+            nombre="MANO DE OBRA"
+            imagen={manodobra}
+            title="MANO DE OBRA"
+          />
+          <ProviderCards
+            url="/transporteprovider/list"
+            nombre="TRANSPORTE"
+            imagen={transportep}
+            title="TRANSPORTE"
+          />
+          <ProviderCards
+            url="/equipoprovider/list"
+            nombre="EQUIPO"
+            imagen={equipop}
+            title="EQUIPO"
+          />
+        </section>
+      </CideinLayoutProvedor>
+    </>
   );
 }

@@ -83,9 +83,11 @@ function App() {
           <Route
             path="/presupuestos/pill/:slug"
             element={
-              <BudgetProvider>
-                <Presupuestos />
-              </BudgetProvider>
+              <ProtectedRoute roles={AUTHORIZATION.CONSTRUCTORES}>
+                <BudgetProvider>
+                  <Presupuestos />
+                </BudgetProvider>
+              </ProtectedRoute>
             }
           />
           <Route

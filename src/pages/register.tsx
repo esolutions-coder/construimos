@@ -70,6 +70,8 @@ export default function Register() {
     }
   };
   const [createNewUser, { loading, data, error }] = useMutation(CREATE_USER);
+  const [showPassword, setShowPassword] = useState(false);
+  const [showconfirmPassword, setShowconfirmPassword] = useState(false);
 
   useEffect(() => {
     if (data) {
@@ -199,23 +201,40 @@ export default function Register() {
           <div className="form_input_container">
             <label htmlFor="password" className="button txt_primary">
               CONTRASEÑA
-            </label>
+            </label>{" "}
             <input
-              type="password"
+              type={showPassword ? "text" : "password"}
               name="password"
               id="password"
               placeholder="Contraseña"
               value={registerForm.password}
               required={true}
               onChange={handleChange}
-            />
+              style={{}}
+            />{" "}
+            <span
+              className="material-symbols-outlined"
+              onClick={() => setShowPassword(!showPassword)}
+              style={{
+                right: "12px",
+                top: "68%",
+                transform: "translateY(-50%)",
+                cursor: "pointer",
+                color: "#030f27",
+                position: "relative",
+                marginTop: "-1.2rem",
+                marginLeft: "20rem",
+              }}
+            >
+              {showPassword ? "visibility_off" : "visibility"}
+            </span>
           </div>
           <div className="form_input_container">
             <label htmlFor="confirmPassword" className="button txt_primary">
               CONFIRMAR CONTRASEÑA
             </label>
             <input
-              type="password"
+              type={showconfirmPassword ? "text" : "password"}
               name="confirmPassword"
               id="confirmPassword"
               placeholder="Confirmar Contraseña"
@@ -223,6 +242,22 @@ export default function Register() {
               value={registerForm.confirmPassword}
               onChange={handleChange}
             />
+            <span
+              className="material-symbols-outlined"
+              onClick={() => setShowconfirmPassword(!showconfirmPassword)}
+              style={{
+                right: "12px",
+                top: "68%",
+                transform: "translateY(-50%)",
+                cursor: "pointer",
+                color: "#030f27",
+                position: "relative",
+                marginTop: "-1.2rem",
+                marginLeft: "20rem",
+              }}
+            >
+              {showconfirmPassword ? "visibility_off" : "visibility"}
+            </span>
             <label
               htmlFor="role"
               className="button  txt_primary"

@@ -1,7 +1,4 @@
-$primary: #fdbe33;
-$secondary: #030f27;
-$tertiary: #efe1c8;
-$success: rgb(32, 197, 32);
+@use "colors";
 
 .containersss {
   display: grid;
@@ -85,8 +82,8 @@ $success: rgb(32, 197, 32);
 
 /* Cabezera */
 .table thead th {
-  background: $secondary;
-  color: $primary;
+  background: colors.$secondary;
+  color: colors.$primary;
   font: 500 0.75rem / 1.2 "Poppins", system-ui, sans-serif;
   text-transform: uppercase;
   padding: 14px 16px;
@@ -100,7 +97,7 @@ $success: rgb(32, 197, 32);
   color: #888;
 }
 .btn_buscar_presupuestoss {
-  background-color: $primary;
+  background-color: colors.$primary;
   border: none;
   color: #111a2b;
   padding: 10px;
@@ -158,7 +155,7 @@ $success: rgb(32, 197, 32);
 
 .table tbody td {
   padding: 14px 16px;
-  color: $secondary;
+  color: colors.$secondary;
   font: 600 1rem/1.2 "Poppins", system-ui, sans-serif;
   text-transform: none; /* mejor legibilidad */
   border-top: 1px solid rgba(0, 0, 0, 0.06);
@@ -203,6 +200,21 @@ $success: rgb(32, 197, 32);
 }
 .table th:nth-child(7),
 .table td:nth-child(7) {
+  width: 100%;
+  text-align: center;
+}
+.table th:nth-child(8),
+.table td:nth-child(8) {
+  width: 100%;
+  text-align: center;
+}
+.table th:nth-child(9),
+.table td:nth-child(9) {
+  width: 100%;
+  text-align: center;
+}
+.table th:nth-child(10),
+.table td:nth-child(10) {
   width: 100%;
   text-align: center;
 }

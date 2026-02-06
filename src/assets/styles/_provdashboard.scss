@@ -1,0 +1,8 @@
+@use "colors";
+
+.grid-divs-prov {
+  display: flex;
+  gap: 5rem;
+  margin-top: 2rem;
+  flex-wrap: wrap;
+}

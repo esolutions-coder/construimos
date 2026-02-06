@@ -1,24 +1,28 @@
 import { Link } from "react-router-dom";
 
 interface ConstructorCardProps {
-  id: string;
+  url: string;
   nombre: string;
   imagen: string;
+  title: string;
 }
 
-const ConstructorCard = ({ id, nombre, imagen }: ConstructorCardProps) => {
+export const ProviderCards = ({
+  url,
+  nombre,
+  imagen,
+  title,
+}: ConstructorCardProps) => {
   return (
     <div className="item-imagen">
-      <div className="imagen-wrapper">
+      <div className="imagen-wrappers">
         <img src={imagen} alt={nombre} />
 
-        <Link to={`/constructores/${id}`}>
-          <button className="btn_primary_theme">CONOCE MÁS</button>
+        <Link to={url}>
+          <button className="btn_primary_themes">{title}</button>
         </Link>
       </div>
       <h6 className="nombre-constructor-card">{nombre}</h6>
     </div>
   );
 };
-
-export default ConstructorCard;

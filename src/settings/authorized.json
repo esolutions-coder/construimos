@@ -1,3 +1,4 @@
 {
-    "CONSTRUCTORES": ["admin"]
+  "CONSTRUCTORES": ["admin"],
+  "PROVIDER": ["PROVIDER", "admin"]
 }

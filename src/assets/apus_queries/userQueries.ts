@@ -15,15 +15,23 @@ export const CREATE_USER = gql`
   }
 `;
 export const GET_USER_BY_ROLE = gql`
-  query GetUserByRole($role: String) {
-    getUserByRole(role: $role) {
-      username
-      email
-      nit
-      location
-      role
+  query GetUsersByRole($role: String) {
+    getUsersByRole(role: $role) {
       creationDate
+      description
+      email
       image
+      location
+      xp {
+        description
+        duration
+        title
+      }
+      username
+      role
+      postalCode
+      nit
+      _id
     }
   }
 `;

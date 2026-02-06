@@ -1,31 +1,39 @@
-import { useLazyQuery } from "@apollo/client";
 import { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
-import { LOGIN_USER } from "../api/budgets/projects.queries";
 import construimosLogo from "../assets/img/cidein_logo.png";
 import { useAuth } from "../customHooks/auth/useAuth";
+// import { postDataNoToken } from "../api/fetchData";
+// import { dataSource, imagesSource } from "../api/datasources/datasources";
+import { useLazyQuery } from "@apollo/client";
+import { LOGIN_USER } from "../api/budgets/projects.queries";
+import { Link } from "react-router-dom";
+
 import { RoutesConstruimos } from "../utils/routes";
 
 export default function Login() {
   const [name, setName] = useState("");
   const [password, setPassword] = useState("");
-  const {login} = useAuth();
+  const { login } = useAuth();
+  const [showPassword, setShowPassword] = useState(false);
   const [isValid, setIsValid] = useState<undefined | boolean>(undefined);
 
   const [submit, { data, loading, error }] = useLazyQuery(LOGIN_USER);
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    submit({variables: {
-      username: name,
-      password: password
-    }});
+    submit({
+      variables: {
+        username: name,
+        password: password,
+        role: "user",
+      },
+    });
   };
 
-  useEffect(()=>{
-    if(data){
-      login(data.login)
-  }},[data])
+  useEffect(() => {
+    if (data) {
+      login(data.login);
+    }
+  }, [data]);
 
   return (
     <>
@@ -70,17 +78,39 @@ export default function Login() {
               />
             </div>
             <div className="form_input_container">
-              <label htmlFor="password" className="button  txt_secondary">
-                CONTRASEÑA
-              </label>
-              <input
-                type="password"
-                name="password"
-                id="password"
-                placeholder="Contraseña"
-                onChange={(e) => setPassword(e.target.value)}
-              />
+              <div
+                className="form_input_container"
+                style={{ position: "relative" }}
+              >
+                <label htmlFor="password" className="button txt_secondary">
+                  CONTRASEÑA
+                </label>
+
+                <input
+                  type={showPassword ? "text" : "password"}
+                  name="password"
+                  id="password"
+                  placeholder="Contraseña"
+                  onChange={(e) => setPassword(e.target.value)}
+                />
+
+                <span
+                  className="material-symbols-outlined"
+                  onClick={() => setShowPassword(!showPassword)}
+                  style={{
+                    position: "absolute",
+                    right: "12px",
+                    top: "68%",
+                    transform: "translateY(-50%)",
+                    cursor: "pointer",
+                    color: "#030f27",
+                  }}
+                >
+                  {showPassword ? "visibility_off" : "visibility"}
+                </span>
+              </div>
             </div>
+
             <div className="input_container">
               {isValid === undefined ? (
                 <p></p>

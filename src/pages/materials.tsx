@@ -4,6 +4,7 @@ import CideinLayout from "../components/cidein_layout";
 import MaterialWindow1 from "../components/material_window_1";
 import MaterialWindow2 from "../components/material_window_2";
 import AddMaterialForm from "./budgets/forms/addMaterialForm";
+import CideinLayoutProvedor from "../components/cidein_layout_provedor";
 
 //QUERIES
 
@@ -18,7 +19,7 @@ export default function Materials() {
     renderedWindow = <MaterialWindow2 />;
   }
   return (
-    <CideinLayout>
+    <CideinLayoutProvedor>
       <div className="grid col_sm_3 gap_sm_12">
         {renderedWindow}
         <div>
@@ -41,6 +42,6 @@ export default function Materials() {
           </ul>
         </div>
       </div>
-    </CideinLayout>
+    </CideinLayoutProvedor>
   );
 }

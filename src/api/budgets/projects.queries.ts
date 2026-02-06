@@ -174,11 +174,14 @@ export const EDIT_PROJECT_BY_ID = gql`
   }
 `;
 
-export const LOGIN_USER = gql`query GetUsersByRole($username: String!, $password: String!) {
-  login(username: $username, password: $password) {
-    token
-    _id
-    username
-    role
+export const LOGIN_USER = gql`
+  query GetUsersByRole($username: String!, $password: String!) {
+    login(username: $username, password: $password) {
+      token
+      _id
+      image
+      username
+      role
+    }
   }
-}`
+`;

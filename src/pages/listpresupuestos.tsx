@@ -188,13 +188,6 @@ export default function ListPresupuestos() {
     }
   };
 
-  useEffect(()=>{
-    if(data){
-      console.log(user)
-      console.log(data);
-    }
-  },[data])
-
   return (
     <CideinLayout>
       <div className="containersss">

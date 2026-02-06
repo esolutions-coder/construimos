@@ -27,11 +27,10 @@ import CreateLocalApu from "./budgets/pages/createLocalApu";
 import ApusPreview from "./budgets/pages/apusPreview";
 import LocalApusPreview from "./budgets/pages/localApuPreview";
 import { useAuth } from "../customHooks/auth/useAuth";
-import { BudgetProvider, useBudgetContext } from "./budgets/context/budgetContext";
+import { useBudgetContext } from "./budgets/context/budgetContext";
 
 function Presupuestos() {
-  const {currentProject, currentApu} = useBudgetContext();
-
+  const { currentProject, currentApu } = useBudgetContext();
   const [projectInfo, setProjectInfo] = useState<CIDEINProject>(
     currentProject.state
   );
@@ -298,8 +297,7 @@ function Presupuestos() {
 
   const { user } = useAuth();
   const saveProject = () => {
-    if(user){
-      currentProject.user_id = user._id;
+    currentProject.user_id = user._id;
     saveBuget({
       variables: {
         projectData: currentProject.toApi,

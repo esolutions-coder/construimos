@@ -18,6 +18,7 @@ const MySwal = withReactContent(Swal);
 const cleanForm = {
   username: "",
   email: "",
+  role: "",
   password: "",
   confirmPassword: "",
 };
@@ -25,8 +26,16 @@ const cleanForm = {
 type UserInfo = {
   username: string;
   email: string;
+  role: string;
   password: string;
   confirmPassword: string;
+  nit?: string;
+  location?: string;
+  creationDate?: string;
+  image?: string;
+  description?: string;
+  postalCode?: number;
+  xp?: any[];
 };
 
 type RegisterResponse = {
@@ -60,6 +69,15 @@ export default function Register() {
         return { ...cleanForm };
     }
   };
+  const [createNewUser, { loading, data, error }] = useMutation(CREATE_USER);
+  const [showPassword, setShowPassword] = useState(false);
+  const [showconfirmPassword, setShowconfirmPassword] = useState(false);
+
+  useEffect(() => {
+    if (data) {
+      setRegisterState(data.addNewUser);
+    }
+  }, [data]);
 
   const [registerForm, dispatch] = useReducer(registerReducer, cleanForm);
 
@@ -74,42 +92,50 @@ export default function Register() {
     });
   };
 
-  const [createNewUser, { loading, data, error }] = useMutation(CREATE_USER);
-
   const registerButton = useRef<HTMLButtonElement>(null);
 
-  const saveUser = () => {
-    MySwal.fire({
-      title: "Registro exitoso",
-      text: "Inicia sesión para continuar",
-      icon: "success",
-      background: "#061840",
-      color: "#ffd700",
-    });
+  const saveUser = async (e: React.MouseEvent<HTMLButtonElement>) => {
+    e.preventDefault();
 
-    createNewUser({
-      variables: {
-        userData: {
-          username: registerForm.username,
-          password: registerForm.password,
-          email: registerForm.email,
-          role: "admin",
+    try {
+      await createNewUser({
+        variables: {
+          userData: {
+            username: registerForm.username,
+            password: registerForm.password,
+            email: registerForm.email,
+            role: registerForm.role,
+            nit: "N/A",
+            location: "N/A",
+            creationDate: new Date().toISOString(),
+            image: "default.png",
+            description: "Usuario recién registrado",
+            postalCode: 0,
+            xp: [],
+          },
         },
-      },
-    });
-    dispatch({
-      type: "cleanForm",
-    });
-    if (registerButton.current) {
-      registerButton.current.setAttribute("disabled", "true");
+      });
+
+      MySwal.fire({
+        title: "Registro exitoso",
+        text: "Inicia sesión para continuar",
+        icon: "success",
+        background: "#061840",
+        color: "#ffd700",
+      });
+
+      dispatch({ type: "cleanForm" });
+    } catch (err) {
+      console.error(err);
+      MySwal.fire({
+        title: "Error",
+        text: "No se pudo crear el usuario",
+        icon: "error",
+      });
     }
   };
+
   const [registerState, setRegisterState] = useState<RegisterResponse>();
-  useEffect(() => {
-    if (data) {
-      setRegisterState(data.addNewUser);
-    }
-  }, [data]);
 
   return (
     <div className="bg_secondary grid justify_content_sm_center min_height_100 alig_items_sm_center">
@@ -168,34 +194,70 @@ export default function Register() {
               id="email"
               placeholder="Nombre de usuario"
               value={registerForm.email}
+              required={true}
               onChange={handleChange}
             />
           </div>
           <div className="form_input_container">
             <label htmlFor="password" className="button txt_primary">
               CONTRASEÑA
-            </label>
+            </label>{" "}
             <input
-              type="password"
+              type={showPassword ? "text" : "password"}
               name="password"
               id="password"
               placeholder="Contraseña"
               value={registerForm.password}
+              required={true}
               onChange={handleChange}
-            />
+              style={{}}
+            />{" "}
+            <span
+              className="material-symbols-outlined"
+              onClick={() => setShowPassword(!showPassword)}
+              style={{
+                right: "12px",
+                top: "68%",
+                transform: "translateY(-50%)",
+                cursor: "pointer",
+                color: "#030f27",
+                position: "relative",
+                marginTop: "-1.2rem",
+                marginLeft: "20rem",
+              }}
+            >
+              {showPassword ? "visibility_off" : "visibility"}
+            </span>
           </div>
           <div className="form_input_container">
             <label htmlFor="confirmPassword" className="button txt_primary">
               CONFIRMAR CONTRASEÑA
             </label>
             <input
-              type="password"
+              type={showconfirmPassword ? "text" : "password"}
               name="confirmPassword"
               id="confirmPassword"
               placeholder="Confirmar Contraseña"
+              required={true}
               value={registerForm.confirmPassword}
               onChange={handleChange}
             />
+            <span
+              className="material-symbols-outlined"
+              onClick={() => setShowconfirmPassword(!showconfirmPassword)}
+              style={{
+                right: "12px",
+                top: "68%",
+                transform: "translateY(-50%)",
+                cursor: "pointer",
+                color: "#030f27",
+                position: "relative",
+                marginTop: "-1.2rem",
+                marginLeft: "20rem",
+              }}
+            >
+              {showconfirmPassword ? "visibility_off" : "visibility"}
+            </span>
             <label
               htmlFor="role"
               className="button  txt_primary"
@@ -204,10 +266,23 @@ export default function Register() {
             >
               TIPO DE USUARIO
             </label>
-            <select name="role" id="role">
+            <select
+              name="role"
+              id="role"
+              value={registerForm.role}
+              onChange={(e) =>
+                dispatch({
+                  type: "changeValue",
+                  payload: { inputName: "role", inputValue: e.target.value },
+                })
+              }
+            >
               <option value="CLIENTE">CLIENTE</option>
               <option value="CONTRATISTA">CONTRATISTA</option>
-              <option value="PROVEEDOR">PROVEEDOR</option>
+              <option value="PROVEEDOR" id="proveedor">
+                PROVEEDOR
+              </option>
+
               <option value="SOPORTE">SOPORTE</option>
             </select>
           </div>

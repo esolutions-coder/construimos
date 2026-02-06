@@ -1,13 +1,13 @@
 export type NavItem = { label: string; to: string };
 
 export const NAV_ITEMS_BY_ROLE: Record<
-  "ADMIN" | "VISITOR" | "CONTRATISTA" | "PROVEEDOR" | "SOPORTE",
+  "ADMIN" | "VISITOR" | "CONTRATISTA" | "PROVIDER" | "SOPORTE",
   NavItem[]
 > = {
   ADMIN: [
     { label: "Inicio", to: "/" },
     { label: "Clientes", to: "/cliente" },
-    { label: "Presupuestos", to: "/presupuestos" },
+    { label: "Presupuestos", to: "/presupuestos/pill/:slug" },
     { label: "Proveedores", to: "/proveedores" },
     { label: "Contratistas", to: "/contratista" },
     { label: "Constructores", to: "/showroom" },
@@ -16,9 +16,7 @@ export const NAV_ITEMS_BY_ROLE: Record<
     { label: "Inicio", to: "/" },
     { label: "Clientes", to: "/cliente" },
     { label: "Proveedores", to: "/proveedores" },
-    { label: "Presupuestos", to: "/presupuestos" },
     { label: "Contratistas", to: "/contratista" },
-    { label: "Constructores", to: "/showroom" },
   ],
   CONTRATISTA: [
     { label: "Inicio", to: "/" },
@@ -26,11 +24,7 @@ export const NAV_ITEMS_BY_ROLE: Record<
     { label: "Presupuestos", to: "/presupuestos" },
     { label: "Proveedores", to: "/proveedores" },
   ],
-  PROVEEDOR: [
-    { label: "Inicio", to: "/" },
-    { label: "Proveedores", to: "/proveedores" },
-    { label: "Constructores", to: "/showroom" },
-  ],
+  PROVIDER: [],
   SOPORTE: [
     { label: "Inicio", to: "/" },
     { label: "Tickets", to: "/soporte" },

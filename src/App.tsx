@@ -1,5 +1,5 @@
 import { Route, Routes } from "react-router-dom";
-//PAGES
+// PAGES
 import "react-icons/io5";
 import Home from "../src/pages/index";
 import ConstructorDetalle from "./components/ConstructorDetalle";
@@ -27,37 +27,90 @@ import AUTHORIZATION from "./settings/authorized.json";
 import PresupuestosEditor from "./pages/budgets/pages/presupuestos-editor";
 import ListPresupuestos from "./pages/listpresupuestos";
 import { BudgetProvider } from "./pages/budgets/context/budgetContext";
+import ProvDashboard from "./pages/provdashboard";
+import ListaProveedores from "./pages/listproveedores";
+import ListWorkhand from "./pages/listworkhand";
+import ListTransportation from "./pages/listtransport";
+import ListadeEquipo from "./pages/listequipo";
 
-//Update 
 function App() {
   return (
     <div className="App">
       <AuthProvider>
-      <Routes>
-        <Route path="/constructores/:nombre" element={<ProtectedRoute roles={AUTHORIZATION.CONSTRUCTORES}><ConstructorDetalle /></ProtectedRoute>} />
-        <Route path="/proveedores" element={<Proveedores />} />
-        <Route path="/dashboard" element={<Dashboard />} />
-        <Route path="/crearnuevoproducto" element={<CrearPro />} />
-        <Route path="/contratista" element={<Contratista />} />
-        <Route path="/provider" element={<ProviderSection />} />
-        <Route path="/cliente" element={<Cliente />} />
-        <Route path="/showroom" element={<ShowRoom />} />
-        <Route path="/" element={<Home />} />
-        <Route path="/presupuestos/pill/:slug" element={<BudgetProvider><Presupuestos /></BudgetProvider>} />
-        <Route path="/presupuestos/pill/:slug/id/:projectId" element={<BudgetProvider><PresupuestosEditor /></BudgetProvider>} />
-        <Route path="/admin/apu-editor" element={<AdminApus />} />
-        <Route path="/login" element={<Login />} />
-        <Route path="/presupuestos/list" element={<ListPresupuestos />} />
-        <Route path="/register" element={<Register />} />
-        <Route path="/admin/materials" element={<Materials />} />
-        <Route path="/material/info/:materialId" element={<MaterialById />} />
-        <Route
-          path="/transportation/info/:code"
-          element={<TransportationInfo />}
-        />
-        <Route path="/equipment/info/:code" element={<EquipmentInfo />} />
-        <Route path="/workhand/info/:code" element={<WorkhandInfo />} />
-      </Routes>
+        <Routes>
+          <Route
+            path="/constructores/:id"
+            element={
+              <ProtectedRoute roles={AUTHORIZATION.CONSTRUCTORES}>
+                <ConstructorDetalle />
+              </ProtectedRoute>
+            }
+          />
+          <Route path="/proveedores" element={<Proveedores />} />
+          <Route path="/dashboard" element={<Dashboard />} />{" "}
+          <Route
+            path="/materialesprovider/list"
+            element={<ListaProveedores />}
+          />
+          <Route path="/equipoprovider/list" element={<ListadeEquipo />} />
+          <Route
+            path="presupuestos"
+            element={
+              <BudgetProvider>
+                <Presupuestos />
+              </BudgetProvider>
+            }
+          />
+          <Route path="/manodeobraprovider/list" element={<ListWorkhand />} />
+          <Route
+            path="/transporteprovider/list"
+            element={<ListTransportation />}
+          />
+          <Route
+            path="/provdashboard"
+            element={
+              <ProtectedRoute roles={AUTHORIZATION.PROVIDER}>
+                <ProvDashboard />{" "}
+              </ProtectedRoute>
+            }
+          />
+          <Route path="/crearnuevoproducto" element={<CrearPro />} />
+          <Route path="/contratista" element={<Contratista />} />
+          <Route path="/provider" element={<ProviderSection />} />
+          <Route path="/cliente" element={<Cliente />} />
+          <Route path="/showroom" element={<ShowRoom />} />
+          <Route path="/" element={<Home />} />
+          <Route
+            path="/presupuestos/pill/:slug"
+            element={
+              <ProtectedRoute roles={AUTHORIZATION.CONSTRUCTORES}>
+                <BudgetProvider>
+                  <Presupuestos />
+                </BudgetProvider>
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/presupuestos/pill/:slug/id/:projectId"
+            element={
+              <BudgetProvider>
+                <PresupuestosEditor />
+              </BudgetProvider>
+            }
+          />
+          <Route path="/admin/apu-editor" element={<AdminApus />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/register" element={<Register />} />
+          <Route path="/provider/materials" element={<Materials />} />
+          <Route path="/material/info/:materialId" element={<MaterialById />} />
+          <Route
+            path="/transportation/info/:code"
+            element={<TransportationInfo />}
+          />
+          <Route path="/presupuestos/list" element={<ListPresupuestos />} />
+          <Route path="/equipment/info/:code" element={<EquipmentInfo />} />
+          <Route path="/workhand/info/:code" element={<WorkhandInfo />} />
+        </Routes>
       </AuthProvider>
     </div>
   );

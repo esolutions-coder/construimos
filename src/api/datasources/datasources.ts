@@ -34,6 +34,7 @@ export function adminDataSource() {
   if (MODE === "PRODUCTION") {
     return "https://capi.lorem.fun/graphql";
   }
+
   if (MODE === "DEV") {
     return "http://localhost:3500/graphql";
   }

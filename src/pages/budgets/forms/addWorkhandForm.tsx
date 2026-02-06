@@ -15,7 +15,6 @@ export default function AddWorkhandForm({handleSave}:AddWorkhandProps){
 
   const handleChange = (evt: ChangeEvent<HTMLInputElement>) => {
     const {name, value} = evt.target;
-    console.log(name)
     setData((prev)=>({
       ...prev,
       [name]:value
@@ -24,6 +23,7 @@ export default function AddWorkhandForm({handleSave}:AddWorkhandProps){
 
   const handleSubmit = (evt: FormEvent<HTMLFormElement>) => {
     evt.preventDefault();
+    console.log(data);
     handleSave(data, "workhand");
   }
 

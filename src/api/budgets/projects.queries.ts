@@ -6,7 +6,11 @@ export const GET_PROJECT_BY_ID = gql`
       _id
       project_general_info {
         name
-        description
+      description
+      total_cost
+      date
+      location
+      postal_code
       }
       apus {
         _id
@@ -68,6 +72,7 @@ export const GET_PROJECT_BY_ID = gql`
         apu_chapter
       }
       local_apus {
+        _id
         apu_name
         apu_id
         apu_unit
@@ -168,18 +173,6 @@ export const EDIT_PROJECT_BY_ID = gql`
     }
   }
 `;
-
-export const LOGIN_USER = gql`
-  query Login($login: LoginInput!) {
-    login(login: $login) {
-      image
-      name
-      position
-      role
-      token
-    }
-  }
-}`
 
 export const LOGIN_USER = gql`query GetUsersByRole($username: String!, $password: String!) {
   login(username: $username, password: $password) {

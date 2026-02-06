@@ -1,16 +1,9 @@
+import { useLazyQuery } from "@apollo/client";
 import { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
+import { LOGIN_USER } from "../api/budgets/projects.queries";
 import construimosLogo from "../assets/img/cidein_logo.png";
-import { useLazyQuery } from "@apollo/client";
-import { LOGIN_USER } from "../api/budgets/projects.queries";
-import { Link } from "react-router-dom";
-// import { RoutesConstruimos } from "../utils/routes";
 import { useAuth } from "../customHooks/auth/useAuth";
-// import { postDataNoToken } from "../api/fetchData";
-// import { dataSource, imagesSource } from "../api/datasources/datasources";
-// import { useAuth } from "../customHooks/auth/useAuth";
-import { useLazyQuery } from "@apollo/client";
-import { LOGIN_USER } from "../api/budgets/projects.queries";
-import { Link } from "react-router-dom";
 import { RoutesConstruimos } from "../utils/routes";
 
 export default function Login() {
@@ -23,7 +16,6 @@ export default function Login() {
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    console.log("Submitting login for:", name, password);
     submit({variables: {
       username: name,
       password: password

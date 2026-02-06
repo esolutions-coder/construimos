@@ -1,6 +1,8 @@
-import { SetStateAction } from "react";
+import { SetStateAction, useEffect } from "react";
 import Formatter from "../utils/formatter";
 import CideinProject from "../utils/project_constructor";
+import { useBudgetContext } from "../pages/budgets/context/budgetContext";
+import ApuCreator from "../utils/apus_constructor";
 
 interface ApuCard {
   apuInfo: APU;
@@ -9,22 +11,27 @@ interface ApuCard {
   flag: string
   currentProject: CideinProject
   setSelectedApu: React.Dispatch<SetStateAction<APU>>
-  //@ts-ignore
-  getFullApu: LazyQueryExecFunction<any, OperationVariables>
 }
 
 function ApuCard({
   apuInfo,
   addSubActivity,
-  setTab,
-  setSelectedApu,
-  flag,
-  getFullApu
+  flag
 }: ApuCard) {
+
+  const {setActiveTab, setApuCreatorFlag, setApuInfo, getFullApu, GetFullApuResponse, currentProject, setSelectedApu} = useBudgetContext();
+
+    //Cargar data del apu seleccionado una vez el estado de data cambie
+  useEffect(() => {
+    if (GetFullApuResponse.data) {
+      const analizedApu = currentProject.APUCalculator(GetFullApuResponse.data.apu);
+      setSelectedApu(analizedApu);
+    }
+  }, [GetFullApuResponse.data]);
 
   const setTabAndShowAPU = () => {
     if(flag==="construimos_db"){
-      setTab("apu_viewer");
+      setActiveTab("apu_viewer");
       getFullApu({
         variables:{
           apuId: apuInfo._id
@@ -33,10 +40,10 @@ function ApuCard({
     }
 
     if(flag==="local_db"){
-      setTab("local_apu_viewer");
-      setSelectedApu(apuInfo);
+      setActiveTab("local_apu_viewer");
+      setApuCreatorFlag(false);
+      setApuInfo(apuInfo);
     }
-
   };
 
   return (
@@ -45,7 +52,7 @@ function ApuCard({
         <p className="apu_card_title">{apuInfo.apu_name}</p>
         <p className="apu_card_description">{apuInfo.apu_description}</p>
         <p className="apu_card_description">
-          Costo: {Formatter(apuInfo.apu_price)}
+          Costo: {flag === "construimos_db" ? Formatter(apuInfo.apu_price) : Formatter(currentProject.APUCalculator(apuInfo).apu_price)}
         </p>
       </div>
       <div className="apu_card_actions">
@@ -57,7 +64,9 @@ function ApuCard({
         </span>
         <span
           className="material-symbols-outlined"
-          onClick={() => addSubActivity(apuInfo._id, flag)}
+          onClick={() => {
+            addSubActivity(apuInfo._id, flag)
+          }}
         >
           add_box
         </span>

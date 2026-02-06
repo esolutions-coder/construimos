@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { SetStateAction, useEffect, useState } from "react";
 import CideinProject from "../../../utils/project_constructor";
 import Project from "../../../assets/info_json/project_info.json";
 import SubActivityMock from "../../../assets/info_json/subActivityMock.json";
@@ -6,11 +6,14 @@ import { useLazyQuery } from "@apollo/client";
 import { GET_FULL_APU_BY_ID } from "../../../assets/apus_queries/allApus";
 import Formatter from "../../../utils/formatter";
 import Grid from "../../../components/layout/grid";
+import { sub } from "date-fns";
+import { useBudgetContext } from "../context/budgetContext";
 
 type BudgetPageProps = {
-  currentProject: CideinProject;
   projectInfo: CIDEINProject;
   setProjectInfo: React.Dispatch<React.SetStateAction<CIDEINProject>>;
+  setTab: React.Dispatch<React.SetStateAction<string>>;
+  setSelectedApu: React.Dispatch<SetStateAction<APU>>
   setActivityList: React.Dispatch<
     React.SetStateAction<
       {
@@ -21,10 +24,9 @@ type BudgetPageProps = {
   >;
 };
 
-export default function BudgetPage({ currentProject, setActivityList, projectInfo, setProjectInfo }: BudgetPageProps) {
-  // const [activityList, setActivityList] = useState([{ name: "", id: "" }]);
+export default function BudgetPage({ setActivityList, projectInfo, setProjectInfo }: BudgetPageProps) {
+  const {setActiveTab, setSelectedApu, getFullApu, GetFullApuResponse, setApuCreatorFlag, setApuInfo, currentProject} = useBudgetContext();
   const [selectedActivity, setSelectedActivity] = useState("");
-  const [searchedApus, setSearchedApus] = useState<APU[]>([]);
 
   const [warningProps, setWarningProps] = useState({
     warningState: false,
@@ -33,10 +35,6 @@ export default function BudgetPage({ currentProject, setActivityList, projectInf
     icon: "info",
   });
 
-  const subAct = SubActivityMock as APU;
-  const [selectedApu, setSelectedApu] = useState(subAct);
-  //Search the full info of the selected APU
-  const [getFullApu, GetFullApuResponse] = useLazyQuery(GET_FULL_APU_BY_ID);
   //Add the full info of the selected APU
   const [addFullApu, addFullApuResponse] = useLazyQuery(GET_FULL_APU_BY_ID);
   //AddSubactivity
@@ -126,14 +124,6 @@ export default function BudgetPage({ currentProject, setActivityList, projectInf
     setProjectInfo(currentProject.state);
   };
 
-  //Cargar data del apu seleccionado una vez el estado de data cambie
-  useEffect(() => {
-    if (GetFullApuResponse.data) {
-      const analizedApu = currentProject.APUCalculator(GetFullApuResponse.data.apu);
-      setSelectedApu(analizedApu);
-    }
-  }, [GetFullApuResponse.data]);
-
   const helpfulAlert = (message: string, color: string, time: number, icon: string) => {
     setWarningProps({
       message: message,
@@ -141,7 +131,6 @@ export default function BudgetPage({ currentProject, setActivityList, projectInf
       icon: icon,
       color: color,
     });
-    console.log(message);
     setTimeout(() => {
       setWarningProps({
         message: "Aquí aparecerán tus mensajes",
@@ -158,6 +147,11 @@ export default function BudgetPage({ currentProject, setActivityList, projectInf
     setProjectInfo(currentProject.state);
 
     helpfulAlert(`Has eliminado la sub actividad: ${removeSubActivity[0].subActivity_apu.apu_name}`, "primary_theme", 3, "info");
+  };
+
+    const setTabAndShowAPU = (flag: string, apuInfo: APU) => {
+    setActiveTab("local_apu_viewer");
+      setSelectedApu(apuInfo);
   };
 
   return (
@@ -251,7 +245,11 @@ export default function BudgetPage({ currentProject, setActivityList, projectInf
                         <React.Fragment key={subActivity.subActivity_apu.apu_id}>
                           <tr className="subActivity_row">
                             <td>{`${index + 1}.${subIndex + 1}`}</td>
-                            <td>{subActivity.subActivity_apu.apu_name}</td>
+                            <td style={{cursor:"pointer"}} onClick={()=>{
+                              setTabAndShowAPU(subActivity.flag, subActivity.subActivity_apu)
+                              setApuCreatorFlag(false);
+                              setApuInfo(subActivity.subActivity_apu);
+                            }}>{subActivity.subActivity_apu.apu_name}</td>
                             <td>{subActivity.subActivity_apu.apu_unit}</td>
                             <td>
                               <input

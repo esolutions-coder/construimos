@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import CideinProject from "../../../utils/project_constructor";
 import CideinWarning from "../../../components/warning";
 import Modal from "../../../components/layout/modal";
@@ -7,16 +7,14 @@ import AddEquipmentForm from "../forms/addEquipmentForm";
 import AddWorkhandForm from "../forms/addWorkhandForm";
 import AddTransportationForm from "../forms/addTransportationForm";
 import { useBudgetContext } from "../context/budgetContext";
+import { useNavigate, useParams } from "react-router-dom";
 
-type BudgetBottomNavBarProps = {
-  setProjectInfo: (value: React.SetStateAction<CIDEINProject>) => void;
-  projectInfo: CIDEINProject;
-  setActiveTab: React.Dispatch<React.SetStateAction<string>>;
-  saveProject: () => void;
-};
+export default function BudgetBottomNavBar() {
+  const { currentProject, updateProject, projectInfo, setProjectInfo, setActiveTab, saveNewProject, saveNewProjectData } = useBudgetContext();
 
-export default function BudgetBottomNavBar({ setProjectInfo, projectInfo, setActiveTab, saveProject }: BudgetBottomNavBarProps) {
-  const { currentProject } = useBudgetContext();
+  const navigate = useNavigate();
+
+  const {projectId} = useParams();
 
   //Show or hide general config menu
   const [configMenu, setConfigMenu] = useState(true);
@@ -86,26 +84,51 @@ export default function BudgetBottomNavBar({ setProjectInfo, projectInfo, setAct
     }, time * 1000);
   };
 
-  const addThings = (
-    data:
-      | CIDEINMaterials
-      | CIDEINEquipment
-      | CIDEINWorkhand
-      | CIDEINTransportation,
-    type: string
-  ) => {
+  const addThings = (data: CIDEINMaterials | CIDEINEquipment | CIDEINWorkhand | CIDEINTransportation, type: string) => {
     if (type === "material") {
-      currentProject.addMaterial(data as CIDEINMaterials);
-      console.log(currentProject);
+      let fixedData = data as any;
+      fixedData.material_rud = parseFloat(fixedData.material_rud);
+      fixedData.material_unitary_price = parseFloat(fixedData.material_unitary_price);
+      currentProject.addMaterial(fixedData);
     } else if (type === "equipment") {
-      currentProject.addEquipment(data as CIDEINEquipment);
+      let fixedData = data as any;
+      fixedData.equipment_rud = parseFloat(fixedData.equipment_rud);
+      fixedData.equipment_unitary_price = parseFloat(fixedData.equipment_unitary_price);
+      currentProject.addEquipment(fixedData);
     } else if (type === "workhand") {
-      currentProject.addWorkhand(data as CIDEINWorkhand);
+      let fixedData = data as any;
+      fixedData.workHand_rud = parseFloat(fixedData.workHand_rud);
+      fixedData.workHand_unitary_price = parseFloat(fixedData.workHand_unitary_price);
+      currentProject.addWorkhand(fixedData);
     } else if (type === "transportation") {
-      currentProject.addTransportation(data as CIDEINTransportation);
+      let fixedData = data as any;
+      fixedData.transportation_rud = parseFloat(fixedData.transportation_rud);
+      fixedData.transportation_unitary_price = parseFloat(fixedData.transportation_unitary_price);
+      currentProject.addTransportation(fixedData);
     }
     setProjectInfo(currentProject.state);
   };
+
+  const handleSave = () => {
+    if(projectId!== "new"){
+      updateProject();
+    } else {
+      saveNewProject();
+    }
+  };
+
+  useEffect(()=>{
+    if(saveNewProjectData.loading){
+      helpfulAlert("Guardando presupuesto, esto puede tardar un momento...", "info", 10, "hourglass_top");
+    }
+    if(saveNewProjectData.data){
+      console.log(saveNewProjectData.data)
+      navigate(`/presupuestos/pill/create_apus_local/id/${saveNewProjectData.data.addProject.project._id}`);
+    }
+    if(saveNewProjectData.error){
+      helpfulAlert("Error guardando el presupuesto, intenta de nuevo", "error_theme", 5, "error");
+    }
+  },[saveNewProjectData.data, saveNewProjectData.error, saveNewProjectData.loading])
 
   return (
     <>
@@ -177,6 +200,16 @@ export default function BudgetBottomNavBar({ setProjectInfo, projectInfo, setAct
                 <p className="caption">TRANSPORTE</p>
               </div>
             </div>
+            <div
+              className="config_field yellow_bg_hover"
+              onClick={() => {
+                setAddTransportationModal(true);
+              }}
+            >
+              <div className="config_name">
+                <p className="caption">MEMORIA DE CÁLCULO</p>
+              </div>
+            </div>
           </div>
           {/* End of Add Things Menu */}
           {/* Edit AIU Menu */}
@@ -221,6 +254,7 @@ export default function BudgetBottomNavBar({ setProjectInfo, projectInfo, setAct
                 <span
                   className="material-symbols-outlined"
                   onClick={() => {
+                    setProjectInfo(currentProject.state);
                     setActiveTab("budget");
                   }}
                 >
@@ -254,8 +288,8 @@ export default function BudgetBottomNavBar({ setProjectInfo, projectInfo, setAct
                 <span
                   className="material-symbols-outlined"
                   onClick={() => {
-                    saveProject();
-                    helpfulAlert("APU guardado en el proyecto exitosamente", "success_theme", 5, "check_circle");
+                    handleSave()
+                    helpfulAlert("APU actualizado en el proyecto exitosamente", "success_theme", 5, "check_circle");
                   }}
                 >
                   save

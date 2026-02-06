@@ -3,11 +3,12 @@ import ApuCard from "../../../components/apuCard";
 import SearchBox from "../../../components/search";
 import CideinProject from "../../../utils/project_constructor";
 import BudgetPills from "./budgetPills";
+import { BudgetProvider, useBudgetContext } from "../context/budgetContext";
+import { useParams } from "react-router-dom";
 
 
 type BudgetRightMenuProps = {
     handleSelectedActivity: (evt: React.ChangeEvent<HTMLSelectElement>) => void
-    projectInfo: CIDEINProject
     setSearchedApus: React.Dispatch<React.SetStateAction<SearchedApusState>>
     searchedApus: SearchedApusState
     addSubActivity: (apuId: string, flag: string) => Promise<void>
@@ -16,15 +17,14 @@ type BudgetRightMenuProps = {
     env: "editor" | "creator"
     id?: string
     setSelectedApu: React.Dispatch<React.SetStateAction<APU>>
-      //@ts-ignore
-  getFullApu: LazyQueryExecFunction<any, OperationVariables>
 }
 
-export default function BudgetRightMenu({handleSelectedActivity, projectInfo, setSearchedApus, searchedApus, addSubActivity, setActiveTab, currentProject, env, id, setSelectedApu, getFullApu}: BudgetRightMenuProps) {
+export default function BudgetRightMenu({handleSelectedActivity, setSearchedApus, searchedApus, addSubActivity, env, setSelectedApu}: BudgetRightMenuProps) {
+  const { setActiveTab, currentProject, projectInfo } = useBudgetContext();
+  const { projectId } = useParams();
     return(
         <div className="pill_selection_container my_sm_16">
-          <BudgetPills setActiveTab={setActiveTab} env={env} id={id}/>
-          
+          <BudgetPills setActiveTab={setActiveTab} env={env} id={projectId}/> 
             <div className="activity_selector_nav">
               <h5>ACTIVIDAD</h5>
               {/* Los apus se podrán seleccionar de la bases de datos de Construimos o una base de datos Local */}
@@ -59,8 +59,8 @@ export default function BudgetRightMenu({handleSelectedActivity, projectInfo, se
                       key={apu.apu_id}
                       flag={searchedApus.db} 
                       currentProject={currentProject} 
-                      setSelectedApu={setSelectedApu}        
-                      getFullApu={getFullApu}            />
+                      setSelectedApu={setSelectedApu}
+                      />
                   );
                 })
               )}

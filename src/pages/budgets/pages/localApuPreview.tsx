@@ -1,12 +1,8 @@
-import { ApolloError, OperationVariables } from "@apollo/client";
-import QueryResult from "../../../components/QueryResult";
 import Formatter from "../../../utils/formatter";
+import { useBudgetContext } from "../context/budgetContext";
 
-type LocalApusPreviewProps = {
-    selectedApu: APU
-}
-
-export default function LocalApusPreview({selectedApu}: LocalApusPreviewProps) {
+export default function LocalApusPreview() {
+  const {selectedApu} = useBudgetContext();
     return(
         <div className="cidein_window_2">
               <div className="apu_description my_sm_16">

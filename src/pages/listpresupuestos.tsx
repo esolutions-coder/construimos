@@ -5,7 +5,7 @@ import { useState, useMemo, useEffect } from "react";
 import CideinLayout from "../components/cidein_layout";
 import Pagination from "../components/pagination";
 import { useAuth } from "../customHooks/auth/useAuth";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import Formatter from "../utils/formatter";
 import { useMutation } from "@apollo/client";
 import { DELETE_PROJECT_BUDGET } from "../api/budgets/projects.mutations";
@@ -219,6 +219,9 @@ export default function ListPresupuestos() {
               </div>
             )}
 
+            <div>
+              <Link to="/presupuestos/pill/create_apus_local/id/new">Crear nuevo</Link>
+            </div>
             <div className="input-group">
               <select
                 id="servicio"

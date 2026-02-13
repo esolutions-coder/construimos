@@ -27,7 +27,7 @@
   text-align: center;
   margin-left: 3rem;
   font-size: 1.2rem;
-  margin-bottom: 4rem;
+  margin-bottom: 1rem;
 }
 
 .busqueda_presupuestos {
@@ -84,7 +84,10 @@
 .table thead th {
   background: colors.$secondary;
   color: colors.$primary;
-  font: 500 0.75rem / 1.2 "Poppins", system-ui, sans-serif;
+  font:
+    500 0.75rem / 1.2 "Poppins",
+    system-ui,
+    sans-serif;
   text-transform: uppercase;
   padding: 14px 16px;
   position: sticky;
@@ -131,7 +134,10 @@
     padding: 0 1rem;
     border-radius: 12px;
     color: #fff;
-    font: 500 1rem/1.2 "Poppins", system-ui, sans-serif;
+    font:
+      500 1rem/1.2 "Poppins",
+      system-ui,
+      sans-serif;
     border: none;
     outline: none;
   }
@@ -156,7 +162,10 @@
 .table tbody td {
   padding: 14px 16px;
   color: colors.$secondary;
-  font: 600 1rem/1.2 "Poppins", system-ui, sans-serif;
+  font:
+    600 1rem/1.2 "Poppins",
+    system-ui,
+    sans-serif;
   text-transform: none; /* mejor legibilidad */
   border-top: 1px solid rgba(0, 0, 0, 0.06);
   overflow: hidden;
@@ -226,10 +235,15 @@
   padding: 10px 12px;
   border: 1px solid rgba(0, 0, 0, 0.15);
   border-radius: 10px;
-  font: 500 0.95rem/1.2 "Poppins", system-ui, sans-serif;
+  font:
+    500 0.95rem/1.2 "Poppins",
+    system-ui,
+    sans-serif;
   background: #fff;
   outline: none;
-  transition: box-shadow 0.2s ease, border-color 0.2s ease;
+  transition:
+    box-shadow 0.2s ease,
+    border-color 0.2s ease;
 }
 .table input:focus,
 .table textarea:focus {
@@ -244,7 +258,10 @@
   color: #223a8f;
   padding: 6px 10px;
   border-radius: 999px;
-  font: 600 0.85rem/1 "Poppins", system-ui, sans-serif;
+  font:
+    600 0.85rem/1 "Poppins",
+    system-ui,
+    sans-serif;
 }
 
 /* Responsivo: tarjetas en móvil */
@@ -312,7 +329,10 @@
   .table td::before {
     content: attr(data-label);
     display: block;
-    font: 600 0.82rem/1 "Poppins", system-ui, sans-serif;
+    font:
+      600 0.82rem/1 "Poppins",
+      system-ui,
+      sans-serif;
     color: #5b6b82;
     text-transform: uppercase;
     margin-bottom: 4px;

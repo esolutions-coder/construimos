@@ -1,41 +1,24 @@
-import { useQuery } from "@apollo/client";
-import { GET_PROJECTS_BY_USER_ID } from "../assets/apus_queries/materialsQueries";
-//import Loading from "../components/loading";
+import { useQuery, useMutation } from "@apollo/client";
 import { useState, useMemo, useEffect } from "react";
-import CideinLayout from "../components/cidein_layout";
-import Pagination from "../components/pagination";
 import { useAuth } from "../customHooks/auth/useAuth";
 import { useNavigate } from "react-router-dom";
-import { useMutation } from "@apollo/client";
 import { DELETE_PROJECT_BUDGET } from "../api/budgets/projects.mutations";
+import { GET_MATERIALS_BY_PROVIDER_ID } from "../api/materials/materials.query";
 import CideinWarning from "../components/warning";
 import ActionsMenu from "../components/actionsmenu";
-import { GET_MATERIALS_BY_PROVIDER_ID } from "../api/materials/materials.query";
 import Formatter from "../utils/formatter";
 import CideinLayoutProvedor from "../components/cidein_layout_provedor";
-
-type MaterialsByProviderId = {
-  _id: string;
-  material_category: string;
-  material_code: string;
-  material_name: string;
-  material_provider: string;
-  material_rud: number;
-  material_unit: string;
-  material_unitary_price: number;
-  stock: number;
-};
+import Loading from "../components/loading";
+import { usePages } from "../customHooks/auth/usePages";
+import { MaterialsByProviderId } from "../utils/list_types";
 
 export default function ListaProveedores() {
   const { user } = useAuth();
-  const [query, setQuery] = useState("");
-  const [submittedQuery, setSubmittedQuery] = useState("");
-  const [filtro, setFiltro] = useState("");
-  const [resultados, setResultados] = useState<MaterialsByProviderId[]>([]);
   const navigate = useNavigate();
+  const [query, setQuery] = useState("");
   const [warningProps, setWarningProps] = useState({
     warningState: false,
-    message: "La APU se ha creado correctamente",
+    message: "Mensaje",
     color: "primary_theme",
     icon: "info",
   });
@@ -44,18 +27,18 @@ export default function ListaProveedores() {
     message: string,
     color: string,
     time: number,
-    icon: string
+    icon: string,
   ) => {
     setWarningProps({
-      message: message,
+      message,
       warningState: true,
-      icon: icon,
-      color: color,
+      icon,
+      color,
     });
 
     setTimeout(() => {
       setWarningProps({
-        message: "Aquí aparecerán tus mensajes",
+        message: "",
         warningState: false,
         icon: "info",
         color: "primary_theme",
@@ -63,24 +46,14 @@ export default function ListaProveedores() {
     }, time * 1000);
   };
 
-  // LLAMADA A LA QUERY
-
   const { loading, error, data } = useQuery(GET_MATERIALS_BY_PROVIDER_ID, {
     variables: { providerId: user?._id },
+    skip: !user?._id,
   });
 
-  // MUTACION PARA ELIMINAR EL PRESUPUESTO DE LA LISTA
-
   const [deleteProject, { loading: deletingProject }] = useMutation(
-    DELETE_PROJECT_BUDGET
+    DELETE_PROJECT_BUDGET,
   );
-
-  const onSubmitBuscar = (e: React.FormEvent) => {
-    e.preventDefault();
-    setSubmittedQuery(query.trim());
-  };
-
-  // PLASMAMOS LA QUERY
 
   const rows = useMemo(() => {
     return (data?.materialsByProviderId ?? []).map(
@@ -91,18 +64,28 @@ export default function ListaProveedores() {
         material_unit: p.material_unit,
         material_unitary_price: p.material_unitary_price,
         stock: p.stock,
-      })
+      }),
     );
   }, [data]);
 
-  const filteredRows = useMemo(() => {
-    const q = submittedQuery.trim().toLowerCase();
-    return rows.filter((r: any) => {
-      const passText = (r.material_name ?? "").toLowerCase().includes(q);
+  const {
+    paginatedRows,
+    totalPages,
+    currentPage,
+    itemsPerPage,
+    setCurrentPage,
+    submittedQuery,
+    setSubmittedQuery,
+  } = usePages<MaterialsByProviderId>({
+    rows,
+    itemsPerPage: 20,
+    searchFn: (row, query) => row.material_name.toLowerCase().includes(query),
+  });
 
-      return passText;
-    });
-  }, [rows, submittedQuery]);
+  const onSubmitBuscar = (e: React.FormEvent) => {
+    e.preventDefault();
+    setSubmittedQuery(query.trim());
+  };
 
   const onRowAction = async (action: string, id: string) => {
     if (!action) return;
@@ -111,34 +94,6 @@ export default function ListaProveedores() {
       navigate(`/provider/materials`);
       return;
     }
-
-    // if (action === "delete") {
-    //   try {
-    //     await deleteProject({
-    //       variables: { projectId: id },
-    //       update(cache) {
-    //         const existing: any = cache.readQuery({
-    //           query: GET_PROJECTS_BY_USER_ID,
-    //           variables: { userId: user?._id },
-    //         });
-
-    //         if (!existing?.getProjectByUserId) return;
-
-    //         cache.writeQuery({
-    //           query: GET_PROJECTS_BY_USER_ID,
-    //           variables: { userId: user?._id },
-    //           data: {
-    //             getProjectByUserId: existing.getProjectByUserId.filter(
-    //               (p: any) => p._id !== id
-    //             ),
-    //           },
-    //         });
-    //       },
-    //     });
-    //   } catch (e) {
-    //     alert("No se pudo eliminar. Intenta de nuevo.");
-    //   }
-    // }
   };
 
   return (
@@ -147,14 +102,19 @@ export default function ListaProveedores() {
         <div className="row">
           <div className="col-12">
             <h1>
-              TUS MATERIALES
+              MATERIALES
               <span
                 className="material-symbols-outlined helpp"
-                title="Busca tus presupuestos materiales por nombre."
+                title="Busca tus materiales guardados, por nombre."
               >
                 help
               </span>{" "}
             </h1>
+
+            <p style={{ display: "flex", marginLeft: "0.3rem" }}>
+              {" "}
+              Busca tus materiales guardados por nombre
+            </p>
 
             {error && (
               <div
@@ -167,37 +127,24 @@ export default function ListaProveedores() {
                   border: "1px solid #ffecb5",
                 }}
               >
-                No se pudieron cargar algunos datos. Intentaremos de nuevo al
-                guardar o recargar. Puedes seguir usando la tabla.
+                No se pudo cargar los materiales.
               </div>
             )}
           </div>
-          <p
-            style={{
-              display: "flex",
-              justifyContent: "left",
-              fontSize: "1.3rem",
-              marginBottom: "1rem",
-              marginTop: "-1rem",
-            }}
-          >
-            Busca tus materiales guardados, por nombre
-          </p>
+
           <form
             className="input-groups"
             style={{ marginBottom: "2rem" }}
             onSubmit={onSubmitBuscar}
           >
-            <div className="busqueda_presupuestos">
-              <input
-                value={query}
-                type="text"
-                placeholder="BUSCAR PRESUPUESTOS"
-                onChange={(e) => setQuery(e.target.value)}
-                className="input-gr"
-              />
-            </div>
-            <button className="btn_buscar_presupuestoss" type="submit">
+            <input
+              value={query}
+              type="text"
+              placeholder="BUSCAR MATERIAL"
+              onChange={(e) => setQuery(e.target.value)}
+              className="input-gr"
+            />
+            <button type="submit" className="btn_buscar_presupuestoss">
               BUSCAR
             </button>
           </form>
@@ -207,15 +154,25 @@ export default function ListaProveedores() {
               <thead>
                 <tr>
                   <th>#</th>
-                  <th>NOMBRE MATERIAL</th>
+                  <th>NOMBRE</th>
                   <th>CODIGO</th>
                   <th>UNIDAD</th>
                   <th>STOCK</th>
-                  <th>PRECIO UNITARIO</th>
+                  <th>PRECIO</th>
                   <th>OPCIONES</th>
                 </tr>
               </thead>
+
               <tbody>
+                {loading ? (
+                  <tr>
+                    <td colSpan={7}>
+                      <Loading />
+                    </td>
+                  </tr>
+                ) : (
+                  ""
+                )}
                 <CideinWarning
                   state={warningProps.warningState}
                   message={warningProps.message}
@@ -223,27 +180,23 @@ export default function ListaProveedores() {
                   icon={warningProps.icon}
                   setWarningProps={setWarningProps}
                 />
-                {filteredRows.length ? (
-                  filteredRows.map(
+
+                {paginatedRows.length ? (
+                  paginatedRows.map(
                     (item: MaterialsByProviderId, index: number) => (
                       <tr key={item._id}>
-                        <td data-label="ID">{index + 1}</td>
+                        <td>{currentPage * itemsPerPage + index + 1}</td>
                         <td
-                          data-label="Nombre"
-                          className="presupuestos-name"
                           onClick={() => navigate(`/provider/materials`)}
+                          style={{ cursor: "pointer" }}
                         >
                           {item.material_name}
                         </td>
-                        <td data-label="Precio total">{item.material_code}</td>
-                        <td data-label="Código postal">
-                          {item.material_unit ?? "0"}
-                        </td>
-                        <td data-label="Fecha">{item.stock ?? "0"}</td>
-                        <td data-label="Fecha">
-                          {Formatter(item.material_unitary_price)}
-                        </td>
-                        <td data-label="options">
+                        <td>{item.material_code}</td>
+                        <td>{item.material_unit ?? "0"}</td>
+                        <td>{item.stock ?? "0"}</td>
+                        <td>{Formatter(item.material_unitary_price)}</td>
+                        <td>
                           <ActionsMenu
                             itemId={item._id}
                             deletingProject={deletingProject}
@@ -252,44 +205,52 @@ export default function ListaProveedores() {
                           />
                         </td>
                       </tr>
-                    )
+                    ),
                   )
                 ) : (
                   <tr>
-                    <td colSpan={7}>
-                      <div
-                        style={{
-                          textAlign: "center",
-                          padding: "3rem 0",
-                          color: "#666",
-                        }}
-                      >
-                        <span
-                          className="material-symbols-outlined"
-                          style={{ fontSize: 48, color: "#ccc" }}
-                        >
-                          content_paste_off
-                        </span>
-                        <h4 style={{ marginTop: 16 }}>
-                          {submittedQuery
-                            ? "No hay resultados para esta búsqueda"
-                            : "No hay presupuestos guardados todavía"}
-                        </h4>
-                        <p className="presupuestos_no_hay">
-                          {submittedQuery
-                            ? "Ajusta el término y vuelve a buscar."
-                            : "Usa el botón de arriba para crear tu primer presupuesto."}
-                        </p>
-                      </div>
-                      <div className="container-pagination">
-                        <Pagination />
-                      </div>
+                    <td
+                      colSpan={7}
+                      style={{ textAlign: "center", padding: "2rem" }}
+                    >
+                      {submittedQuery
+                        ? "No hay resultados para esta búsqueda"
+                        : "No hay materiales guardados todavía"}
                     </td>
                   </tr>
                 )}
               </tbody>
             </table>
           </div>
+
+          {totalPages > 1 && (
+            <div style={{ marginTop: 20 }}>
+              <ul
+                style={{
+                  display: "flex",
+                  gap: 10,
+                  listStyle: "none",
+                  justifyContent: "center",
+                }}
+              >
+                {Array.from({ length: 20 }, (_, index) => (
+                  <li
+                    key={index}
+                    onClick={() => setCurrentPage(index)}
+                    style={{
+                      cursor: "pointer",
+                      padding: "6px 12px",
+                      borderRadius: 6,
+                      background: currentPage === index ? "#fdbe33" : "#eee",
+                      color: currentPage === index ? "#fff" : "#000",
+                    }}
+                  >
+                    {index + 1}
+                  </li>
+                ))}
+              </ul>
+            </div>
+          )}
         </div>
       </div>
     </CideinLayoutProvedor>

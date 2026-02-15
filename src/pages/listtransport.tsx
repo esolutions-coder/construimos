@@ -1,8 +1,6 @@
 import { useQuery } from "@apollo/client";
-import { GET_PROJECTS_BY_USER_ID } from "../assets/apus_queries/materialsQueries";
-//import Loading from "../components/loading";
-import { useState, useMemo, useEffect } from "react";
-import CideinLayout from "../components/cidein_layout";
+import Loading from "../components/loading";
+import { useState, useMemo } from "react";
 import Pagination from "../components/pagination";
 import { useAuth } from "../customHooks/auth/useAuth";
 import { useNavigate } from "react-router-dom";
@@ -10,31 +8,15 @@ import { useMutation } from "@apollo/client";
 import { DELETE_PROJECT_BUDGET } from "../api/budgets/projects.mutations";
 import CideinWarning from "../components/warning";
 import ActionsMenu from "../components/actionsmenu";
-import {
-  GET_MATERIALS_BY_PROVIDER_ID,
-  GET_TRANSPORTATION_BY_PROVIDER_ID,
-  WORKHAND_BY_PROVIDER_ID,
-} from "../api/materials/materials.query";
+import { GET_TRANSPORTATION_BY_PROVIDER_ID } from "../api/materials/materials.query";
 import Formatter from "../utils/formatter";
 import CideinLayoutProvedor from "../components/cidein_layout_provedor";
-
-type TransportationByProviderId = {
-  _id: string;
-  stock: number;
-  transportation_category: string;
-  transportation_code: string;
-  transportation_name: string;
-  transportation_provider: string;
-  transportation_rud: number;
-  transportation_unit: string;
-  transportation_unitary_price: number;
-};
+import { TransportationByProviderId } from "../utils/list_types";
+import { usePages } from "../customHooks/auth/usePages";
 
 export default function ListTransportation() {
   const { user } = useAuth();
   const [query, setQuery] = useState("");
-  const [submittedQuery, setSubmittedQuery] = useState("");
-  const [filtro, setFiltro] = useState("");
   const navigate = useNavigate();
   const [warningProps, setWarningProps] = useState({
     warningState: false,
@@ -47,7 +29,7 @@ export default function ListTransportation() {
     message: string,
     color: string,
     time: number,
-    icon: string
+    icon: string,
   ) => {
     setWarningProps({
       message: message,
@@ -73,18 +55,16 @@ export default function ListTransportation() {
     fetchPolicy: "no-cache",
   });
 
-  // MUTACION PARA ELIMINAR EL PRESUPUESTO DE LA LISTA
+  console.log("data", data);
 
   const [deleteProject, { loading: deletingProject }] = useMutation(
-    DELETE_PROJECT_BUDGET
+    DELETE_PROJECT_BUDGET,
   );
 
   const onSubmitBuscar = (e: React.FormEvent) => {
     e.preventDefault();
     setSubmittedQuery(query.trim());
   };
-
-  // PLASMAMOS LA QUERY
 
   const rows = useMemo(() => {
     return (data?.transportationByProviderId ?? []).map(
@@ -98,18 +78,24 @@ export default function ListTransportation() {
         transportation_rud: p.transportation_provider,
         transportation_unit: p.transportation_unit,
         transportation_unitary_price: p.transportation_unitary_price,
-      })
+      }),
     );
   }, [data]);
 
-  const filteredRows = useMemo(() => {
-    const q = submittedQuery.trim().toLowerCase();
-    return rows.filter((r: any) => {
-      const passText = (r.transportation_name ?? "").toLowerCase().includes(q);
-
-      return passText;
-    });
-  }, [rows, submittedQuery]);
+  const {
+    paginatedRows,
+    totalPages,
+    currentPage,
+    itemsPerPage,
+    setCurrentPage,
+    submittedQuery,
+    setSubmittedQuery,
+  } = usePages<TransportationByProviderId>({
+    rows,
+    itemsPerPage: 20,
+    searchFn: (row, query) =>
+      row.transportation_name.toLowerCase().includes(query),
+  });
 
   const onRowAction = async (action: string, id: string) => {
     if (!action) return;
@@ -118,34 +104,6 @@ export default function ListTransportation() {
       navigate(`/provider/materials`);
       return;
     }
-
-    // if (action === "delete") {
-    //   try {
-    //     await deleteProject({
-    //       variables: { projectId: id },
-    //       update(cache) {
-    //         const existing: any = cache.readQuery({
-    //           query: GET_PROJECTS_BY_USER_ID,
-    //           variables: { userId: user?._id },
-    //         });
-
-    //         if (!existing?.getProjectByUserId) return;
-
-    //         cache.writeQuery({
-    //           query: GET_PROJECTS_BY_USER_ID,
-    //           variables: { userId: user?._id },
-    //           data: {
-    //             getProjectByUserId: existing.getProjectByUserId.filter(
-    //               (p: any) => p._id !== id
-    //             ),
-    //           },
-    //         });
-    //       },
-    //     });
-    //   } catch (e) {
-    //     alert("No se pudo eliminar. Intenta de nuevo.");
-    //   }
-    // }
   };
 
   return (
@@ -174,8 +132,7 @@ export default function ListTransportation() {
                   border: "1px solid #ffecb5",
                 }}
               >
-                No se pudieron cargar algunos datos. Intentaremos de nuevo al
-                guardar o recargar. Puedes seguir usando la tabla.
+                No se pudo cargar los transportes.
               </div>
             )}
           </div>
@@ -226,6 +183,15 @@ export default function ListTransportation() {
                 </tr>
               </thead>
               <tbody>
+                {loading ? (
+                  <tr>
+                    <td colSpan={10}>
+                      <Loading />
+                    </td>
+                  </tr>
+                ) : (
+                  ""
+                )}
                 <CideinWarning
                   state={warningProps.warningState}
                   message={warningProps.message}
@@ -233,40 +199,25 @@ export default function ListTransportation() {
                   icon={warningProps.icon}
                   setWarningProps={setWarningProps}
                 />
-                {filteredRows.length ? (
-                  filteredRows.map(
+                {paginatedRows.length ? (
+                  paginatedRows.map(
                     (item: TransportationByProviderId, index: number) => (
                       <tr key={item._id}>
-                        <td data-label="ID">{index + 1}</td>
+                        <td>{currentPage * itemsPerPage + index + 1}</td>
                         <td
-                          data-label="Nombre"
-                          className="presupuestos-name"
                           onClick={() => navigate(`/provider/materials`)}
+                          style={{ cursor: "pointer" }}
                         >
                           {item.transportation_name}
                         </td>
-                        <td data-label="Precio total">
-                          {item.transportation_code}
-                        </td>
-                        <td data-label="Código postal">
-                          {item.transportation_provider}
-                        </td>
-                        <td data-label="Fecha">
-                          {" "}
-                          {item.transportation_category ?? "0"}
-                        </td>
-                        <td data-label="Fecha"> {item.transportation_unit}</td>
-                        <td data-label="Fecha">
-                          {" "}
-                          <td data-label="Fecha">
-                            {item.stock ?? "No hay stock"}
-                          </td>
-                        </td>
-                        <td data-label="Fecha">
-                          {Formatter(item.transportation_unitary_price)}
-                        </td>
-                        <td data-label="Fecha">{item.transportation_rud}</td>
-                        <td data-label="options">
+                        <td>{item.transportation_code}</td>
+                        <td>{item.transportation_provider}</td>
+                        <td>{item.transportation_category ?? "0"}</td>
+                        <td> {item.transportation_unit}</td>
+                        <td>{item.stock ?? "No hay stock"}</td>
+                        <td>{Formatter(item.transportation_unitary_price)}</td>
+                        <td>{item.transportation_rud}</td>
+                        <td>
                           <ActionsMenu
                             itemId={item._id}
                             deletingProject={deletingProject}
@@ -275,44 +226,52 @@ export default function ListTransportation() {
                           />
                         </td>
                       </tr>
-                    )
+                    ),
                   )
                 ) : (
                   <tr>
-                    <td colSpan={10}>
-                      <div
-                        style={{
-                          textAlign: "center",
-                          padding: "3rem 0",
-                          color: "#666",
-                        }}
-                      >
-                        <span
-                          className="material-symbols-outlined"
-                          style={{ fontSize: 48, color: "#ccc" }}
-                        >
-                          content_paste_off
-                        </span>
-                        <h4 style={{ marginTop: 16 }}>
-                          {submittedQuery
-                            ? "No hay resultados para esta búsqueda"
-                            : "No hay transporte para esta búsqueda"}
-                        </h4>
-                        <p className="presupuestos_no_hay">
-                          {submittedQuery
-                            ? "Ajusta el término y vuelve a buscar."
-                            : "Usa el botón de arriba para crear tu primer transporte."}
-                        </p>
-                      </div>
-                      <div className="container-pagination">
-                        <Pagination />
-                      </div>
+                    <td
+                      colSpan={10}
+                      style={{ textAlign: "center", padding: "2rem" }}
+                    >
+                      {submittedQuery
+                        ? "No hay resultados para esta búsqueda"
+                        : "No hay transportes guardados todavía"}
                     </td>
                   </tr>
                 )}
               </tbody>
             </table>
           </div>
+
+          {totalPages > 1 && (
+            <div style={{ marginTop: 20 }}>
+              <ul
+                style={{
+                  display: "flex",
+                  gap: 10,
+                  listStyle: "none",
+                  justifyContent: "center",
+                }}
+              >
+                {Array.from({ length: 20 }, (_, index) => (
+                  <li
+                    key={index}
+                    onClick={() => setCurrentPage(index)}
+                    style={{
+                      cursor: "pointer",
+                      padding: "6px 12px",
+                      borderRadius: 6,
+                      background: currentPage === index ? "#fdbe33" : "#eee",
+                      color: currentPage === index ? "#fff" : "#000",
+                    }}
+                  >
+                    {index + 1}
+                  </li>
+                ))}
+              </ul>
+            </div>
+          )}
         </div>
       </div>
     </CideinLayoutProvedor>

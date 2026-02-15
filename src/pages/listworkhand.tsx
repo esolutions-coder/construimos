@@ -52,7 +52,6 @@ export default function ListWorkhand() {
     fetchPolicy: "no-cache",
   });
 
-  console.log("data", data);
   const [deleteProject, { loading: deletingProject }] = useMutation(
     DELETE_PROJECT_BUDGET,
   );

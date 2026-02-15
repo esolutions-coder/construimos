@@ -1,16 +1,17 @@
-import { useQuery } from "@apollo/client";
-import { GET_PROJECTS_BY_USER_ID } from "../assets/apus_queries/materialsQueries";
-//import Loading from "../components/loading";
-import { useState, useMemo, useEffect } from "react";
-import CideinLayout from "../components/cidein_layout";
-import Pagination from "../components/pagination";
-import { useAuth } from "../customHooks/auth/useAuth";
+import { useQuery, useMutation } from "@apollo/client";
+import { useState, useMemo } from "react";
 import { useNavigate } from "react-router-dom";
-import Formatter from "../utils/formatter";
-import { useMutation } from "@apollo/client";
+import { useAuth } from "../customHooks/auth/useAuth";
+import { GET_PROJECTS_BY_USER_ID } from "../assets/apus_queries/materialsQueries";
 import { DELETE_PROJECT_BUDGET } from "../api/budgets/projects.mutations";
+import { usePages } from "../customHooks/auth/usePages";
+import { Presupuesto } from "../utils/list_types";
+import { useDateFilter } from "../customHooks/auth/useDateFilter";
+import CideinLayout from "../components/cidein_layout";
+import Formatter from "../utils/formatter";
 import CideinWarning from "../components/warning";
 import ActionsMenu from "../components/actionsmenu";
+import Loading from "../components/loading";
 
 export default function ListPresupuestos() {
   const { user } = useAuth();
@@ -31,7 +32,7 @@ export default function ListPresupuestos() {
     message: string,
     color: string,
     time: number,
-    icon: string
+    icon: string,
   ) => {
     setWarningProps({
       message: message,
@@ -59,13 +60,8 @@ export default function ListPresupuestos() {
   // MUTACION PARA ELIMINAR EL PRESUPUESTO DE LA LISTA
 
   const [deleteProject, { loading: deletingProject }] = useMutation(
-    DELETE_PROJECT_BUDGET
+    DELETE_PROJECT_BUDGET,
   );
-
-  const onSubmitBuscar = (e: React.FormEvent) => {
-    e.preventDefault();
-    setSubmittedQuery(query.trim());
-  };
 
   // PLASMAMOS LA QUERY
 
@@ -85,29 +81,38 @@ export default function ListPresupuestos() {
   }, [data]);
 
   // FILTRAR POR FECHA
+  const { filteredByDate } = useDateFilter<Presupuesto>({
+    rows,
+    startDateStr,
+    endDateStr,
+    getDate: (row) => row.fecha,
+  });
 
-  const startDate = useMemo(() => {
-    if (!startDateStr) return null;
-    const d = new Date(startDateStr + "T00:00:00");
-    return isNaN(d.getTime()) ? null : d;
-  }, [startDateStr]);
-
-  const endDateExclusive = useMemo(() => {
-    if (!endDateStr) return null;
-    const d = new Date(endDateStr + "T00:00:00");
-    if (isNaN(d.getTime())) return null;
-    d.setDate(d.getDate() + 1);
-    return d;
-  }, [endDateStr]);
+  const {
+    totalPages,
+    currentPage,
+    setCurrentPage,
+    itemsPerPage,
+    paginatedRows,
+  } = usePages<Presupuesto>({
+    rows: filteredByDate,
+    searchQuery: submittedQuery,
+    itemsPerPage: 20,
+    searchFn: (row, query) => row.name.toLowerCase().includes(query),
+  });
 
   // FUNCION PARA RESTABLECER EL FILTRO POR FECHA
 
   const restablecerFiltros = () => {
-    setStartDateStr(null as any);
-    setEndDateStr(null as any);
+    setStartDateStr("");
+    setEndDateStr("");
     setSubmittedQuery("");
   };
 
+  const onSubmitBuscar = (e: React.FormEvent) => {
+    e.preventDefault();
+    setSubmittedQuery(query.trim());
+  };
   // FUNCION PARA FORMATEAR LA FECHA
 
   const formatFechaHora = (d: Date | null) =>
@@ -125,31 +130,6 @@ export default function ListPresupuestos() {
       : "—";
 
   // FILTRAR POR TEXTO
-
-  const filteredRows = useMemo(() => {
-    const q = submittedQuery.trim().toLowerCase();
-
-    return rows.filter((r: any) => {
-      const passText =
-        !q ||
-        (r.name ?? "").toLowerCase().includes(q) ||
-        (r.description ?? "").toLowerCase().includes(q);
-
-      let passDate = true;
-      if (startDate || endDateExclusive) {
-        if (!r.fecha) {
-          passDate = false;
-        } else {
-          const t = r.fecha.getTime();
-          if (startDate && t < startDate.getTime()) passDate = false;
-          if (endDateExclusive && t >= endDateExclusive.getTime())
-            passDate = false;
-        }
-      }
-
-      return passText && passDate;
-    });
-  }, [rows, submittedQuery, startDate, endDateExclusive]);
 
   const onRowAction = async (action: string, id: string) => {
     if (!action) return;
@@ -176,7 +156,7 @@ export default function ListPresupuestos() {
               variables: { userId: user?._id },
               data: {
                 getProjectByUserId: existing.getProjectByUserId.filter(
-                  (p: any) => p._id !== id
+                  (p: any) => p._id !== id,
                 ),
               },
             });
@@ -292,6 +272,15 @@ export default function ListPresupuestos() {
                   </tr>
                 </thead>
                 <tbody>
+                  {loading ? (
+                    <tr>
+                      <td colSpan={6}>
+                        <Loading />
+                      </td>
+                    </tr>
+                  ) : (
+                    ""
+                  )}
                   <CideinWarning
                     state={warningProps.warningState}
                     message={warningProps.message}
@@ -299,12 +288,12 @@ export default function ListPresupuestos() {
                     icon={warningProps.icon}
                     setWarningProps={setWarningProps}
                   />
-                  {filteredRows.length ? (
-                    filteredRows.map((item: any, index: number) => (
+                  {paginatedRows.length ? (
+                    paginatedRows.map((item: Presupuesto, index: number) => (
                       <tr key={item._id}>
-                        <td data-label="ID">{index + 1}</td>
+                        <td>{currentPage * itemsPerPage + index + 1}</td>
                         <td
-                          data-label="Nombre"
+                          style={{ cursor: "pointer", color: "#243c90" }}
                           className="presupuestos-name"
                           onClick={() =>
                             navigate(`/presupuestos/pill/:slug/id/${item._id}`)
@@ -312,17 +301,15 @@ export default function ListPresupuestos() {
                         >
                           {item.name}
                         </td>
-                        <td data-label="Precio total">
-                          {Formatter(item.total_cost)}
-                        </td>
-                        <td data-label="Ubicación">{item.location}</td>
-                        <td data-label="Código postal">{item.postal_code}</td>
-                        <td data-label="Fecha">
+                        <td>{Formatter(item.total_cost)}</td>
+                        <td>{item.location}</td>
+                        <td>{item.postal_code}</td>
+                        <td>
                           <span className="badge-date">
                             {formatFechaHora(item.fecha)}
                           </span>
                         </td>
-                        <td data-label="options">
+                        <td>
                           <ActionsMenu
                             itemId={item._id}
                             deletingProject={deletingProject}
@@ -334,40 +321,48 @@ export default function ListPresupuestos() {
                     ))
                   ) : (
                     <tr>
-                      <td colSpan={6}>
-                        <div
-                          style={{
-                            textAlign: "center",
-                            padding: "3rem 0",
-                            color: "#666",
-                          }}
-                        >
-                          <span
-                            className="material-symbols-outlined"
-                            style={{ fontSize: 48, color: "#ccc" }}
-                          >
-                            content_paste_off
-                          </span>
-                          <h4 style={{ marginTop: 16 }}>
-                            {submittedQuery
-                              ? "No hay resultados para esta búsqueda"
-                              : "No hay presupuestos guardados todavía"}
-                          </h4>
-                          <p className="presupuestos_no_hay">
-                            {submittedQuery
-                              ? "Ajusta el término y vuelve a buscar."
-                              : "Usa el botón de arriba para crear tu primer presupuesto."}
-                          </p>
-                        </div>
-                        <div className="container-pagination">
-                          <Pagination />
-                        </div>
+                      <td
+                        colSpan={6}
+                        style={{ textAlign: "center", padding: "2rem" }}
+                      >
+                        {submittedQuery
+                          ? "No hay resultados para esta búsqueda"
+                          : "No hay presupuestos guardados todavía"}
                       </td>
                     </tr>
                   )}
                 </tbody>
               </table>
             </div>
+
+            {totalPages > 1 && (
+              <div style={{ marginTop: 20 }}>
+                <ul
+                  style={{
+                    display: "flex",
+                    gap: 10,
+                    listStyle: "none",
+                    justifyContent: "center",
+                  }}
+                >
+                  {Array.from({ length: totalPages }, (_, index) => (
+                    <li
+                      key={index}
+                      onClick={() => setCurrentPage(index)}
+                      style={{
+                        cursor: "pointer",
+                        padding: "6px 12px",
+                        borderRadius: 6,
+                        background: currentPage === index ? "#fdbe33" : "#eee",
+                        color: currentPage === index ? "#fff" : "#000",
+                      }}
+                    >
+                      {index + 1}
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            )}
           </div>
         </div>
       </div>

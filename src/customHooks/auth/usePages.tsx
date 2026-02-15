@@ -3,23 +3,28 @@ import { useEffect, useMemo, useState } from "react";
 type UsePagesProps<T> = {
   rows: T[];
   searchFn: (row: T, query: string) => boolean;
+  searchQuery?: string;
   itemsPerPage?: number;
 };
 
 export function usePages<T>({
   rows,
   searchFn,
+  searchQuery,
   itemsPerPage = 10,
 }: UsePagesProps<T>) {
-  const [submittedQuery, setSubmittedQuery] = useState("");
+  const [internalQuery, setInternalQuery] = useState("");
   const [currentPage, setCurrentPage] = useState(0);
 
-  const filteredRows = useMemo(() => {
-    if (!submittedQuery) return rows;
+  const effectiveQuery =
+    searchQuery !== undefined ? searchQuery : internalQuery;
 
-    const q = submittedQuery.toLowerCase();
+  const filteredRows = useMemo(() => {
+    if (!effectiveQuery) return rows;
+
+    const q = effectiveQuery.toLowerCase();
     return rows.filter((row) => searchFn(row, q));
-  }, [rows, submittedQuery, searchFn]);
+  }, [rows, effectiveQuery, searchFn]);
 
   const totalPages = Math.ceil(filteredRows.length / itemsPerPage);
 
@@ -31,7 +36,7 @@ export function usePages<T>({
 
   useEffect(() => {
     setCurrentPage(0);
-  }, [submittedQuery]);
+  }, [effectiveQuery]);
 
   return {
     paginatedRows,
@@ -39,7 +44,7 @@ export function usePages<T>({
     currentPage,
     setCurrentPage,
     itemsPerPage,
-    submittedQuery,
-    setSubmittedQuery,
+    submittedQuery: internalQuery,
+    setSubmittedQuery: setInternalQuery,
   };
 }

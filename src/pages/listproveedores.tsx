@@ -23,12 +23,7 @@ export default function ListaProveedores() {
     icon: "info",
   });
 
-  const helpfulAlert = (
-    message: string,
-    color: string,
-    time: number,
-    icon: string,
-  ) => {
+  const helpfulAlert = (message: string, color: string, time: number, icon: string) => {
     setWarningProps({
       message,
       warningState: true,
@@ -51,36 +46,29 @@ export default function ListaProveedores() {
     skip: !user?._id,
   });
 
-  const [deleteProject, { loading: deletingProject }] = useMutation(
-    DELETE_PROJECT_BUDGET,
-  );
+  const [deleteProject, { loading: deletingProject }] = useMutation(DELETE_PROJECT_BUDGET);
 
   const rows = useMemo(() => {
-    return (data?.materialsByProviderId ?? []).map(
-      (p: MaterialsByProviderId) => ({
-        _id: p._id,
-        material_name: p.material_name,
-        material_code: p.material_code,
-        material_unit: p.material_unit,
-        material_unitary_price: p.material_unitary_price,
-        stock: p.stock,
-      }),
-    );
+    return (data?.materialsByProviderId ?? []).map((p: MaterialsByProviderId) => ({
+      _id: p._id,
+      material_name: p.material_name,
+      material_code: p.material_code,
+      material_unit: p.material_unit,
+      material_unitary_price: p.material_unitary_price,
+      stock: p.stock,
+    }));
   }, [data]);
 
-  const {
-    paginatedRows,
-    totalPages,
-    currentPage,
-    itemsPerPage,
-    setCurrentPage,
-    submittedQuery,
-    setSubmittedQuery,
-  } = usePages<MaterialsByProviderId>({
-    rows,
-    itemsPerPage: 20,
-    searchFn: (row, query) => row.material_name.toLowerCase().includes(query),
-  });
+  const { paginatedRows, totalPages, currentPage, itemsPerPage, setCurrentPage, submittedQuery, setSubmittedQuery } =
+    usePages<MaterialsByProviderId>({
+      rows,
+      itemsPerPage: 20,
+      searchFn: (row, query) => row.material_name.toLowerCase().includes(query),
+    });
+
+  const sortedRows = useMemo(() => {
+    return [...paginatedRows].sort((a, b) => a.material_name.toLowerCase().localeCompare(b.material_name.toLowerCase()));
+  }, [paginatedRows]);
 
   const onSubmitBuscar = (e: React.FormEvent) => {
     e.preventDefault();
@@ -103,18 +91,12 @@ export default function ListaProveedores() {
           <div className="col-12">
             <h1>
               MATERIALES
-              <span
-                className="material-symbols-outlined helpp"
-                title="Busca tus materiales guardados, por nombre."
-              >
+              <span className="material-symbols-outlined helpp" title="Busca tus materiales guardados, por nombre.">
                 help
               </span>{" "}
             </h1>
 
-            <p style={{ display: "flex", marginLeft: "0.3rem" }}>
-              {" "}
-              Busca tus materiales guardados por nombre
-            </p>
+            <p style={{ display: "flex", marginLeft: "0.3rem" }}> Busca tus materiales guardados por nombre</p>
 
             {error && (
               <div
@@ -132,11 +114,7 @@ export default function ListaProveedores() {
             )}
           </div>
 
-          <form
-            className="input-groups"
-            style={{ marginBottom: "2rem" }}
-            onSubmit={onSubmitBuscar}
-          >
+          <form className="input-groups" style={{ marginBottom: "2rem" }} onSubmit={onSubmitBuscar}>
             <input
               value={query}
               type="text"
@@ -181,41 +159,31 @@ export default function ListaProveedores() {
                   setWarningProps={setWarningProps}
                 />
 
-                {paginatedRows.length ? (
-                  paginatedRows.map(
-                    (item: MaterialsByProviderId, index: number) => (
-                      <tr key={item._id}>
-                        <td>{currentPage * itemsPerPage + index + 1}</td>
-                        <td
-                          onClick={() => navigate(`/provider/materials`)}
-                          style={{ cursor: "pointer" }}
-                        >
-                          {item.material_name}
-                        </td>
-                        <td>{item.material_code}</td>
-                        <td>{item.material_unit ?? "0"}</td>
-                        <td>{item.stock ?? "0"}</td>
-                        <td>{Formatter(item.material_unitary_price)}</td>
-                        <td>
-                          <ActionsMenu
-                            itemId={item._id}
-                            deletingProject={deletingProject}
-                            onRowAction={onRowAction}
-                            helpfulAlert={helpfulAlert}
-                          />
-                        </td>
-                      </tr>
-                    ),
-                  )
+                {sortedRows.length ? (
+                  sortedRows.map((item: MaterialsByProviderId, index: number) => (
+                    <tr key={item._id}>
+                      <td>{currentPage * itemsPerPage + index + 1}</td>
+                      <td onClick={() => navigate(`/provider/materials`)} style={{ cursor: "pointer" }}>
+                        {item.material_name}
+                      </td>
+                      <td>{item.material_code}</td>
+                      <td>{item.material_unit ?? "0"}</td>
+                      <td>{item.stock ?? "0"}</td>
+                      <td>{Formatter(item.material_unitary_price)}</td>
+                      <td>
+                        <ActionsMenu
+                          itemId={item._id}
+                          deletingProject={deletingProject}
+                          onRowAction={onRowAction}
+                          helpfulAlert={helpfulAlert}
+                        />
+                      </td>
+                    </tr>
+                  ))
                 ) : (
                   <tr>
-                    <td
-                      colSpan={7}
-                      style={{ textAlign: "center", padding: "2rem" }}
-                    >
-                      {submittedQuery
-                        ? "No hay resultados para esta búsqueda"
-                        : "No hay materiales guardados todavía"}
+                    <td colSpan={7} style={{ textAlign: "center", padding: "2rem" }}>
+                      {submittedQuery ? "No hay resultados para esta búsqueda" : "No hay materiales guardados todavía"}
                     </td>
                   </tr>
                 )}

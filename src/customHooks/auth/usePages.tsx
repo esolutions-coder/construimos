@@ -7,17 +7,11 @@ type UsePagesProps<T> = {
   itemsPerPage?: number;
 };
 
-export function usePages<T>({
-  rows,
-  searchFn,
-  searchQuery,
-  itemsPerPage = 10,
-}: UsePagesProps<T>) {
+export function usePages<T>({ rows, searchFn, searchQuery, itemsPerPage = 10 }: UsePagesProps<T>) {
   const [internalQuery, setInternalQuery] = useState("");
   const [currentPage, setCurrentPage] = useState(0);
 
-  const effectiveQuery =
-    searchQuery !== undefined ? searchQuery : internalQuery;
+  const effectiveQuery = searchQuery !== undefined ? searchQuery : internalQuery;
 
   const filteredRows = useMemo(() => {
     if (!effectiveQuery) return rows;

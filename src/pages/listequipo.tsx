@@ -24,12 +24,7 @@ export default function ListadeEquipo() {
     icon: "info",
   });
 
-  const helpfulAlert = (
-    message: string,
-    color: string,
-    time: number,
-    icon: string,
-  ) => {
+  const helpfulAlert = (message: string, color: string, time: number, icon: string) => {
     setWarningProps({
       message: message,
       warningState: true,
@@ -56,9 +51,7 @@ export default function ListadeEquipo() {
 
   // MUTACION PARA ELIMINAR EL PRESUPUESTO DE LA LISTA
 
-  const [deleteProject, { loading: deletingProject }] = useMutation(
-    DELETE_PROJECT_BUDGET,
-  );
+  const [deleteProject, { loading: deletingProject }] = useMutation(DELETE_PROJECT_BUDGET);
 
   const onSubmitBuscar = (e: React.FormEvent) => {
     e.preventDefault();
@@ -68,33 +61,28 @@ export default function ListadeEquipo() {
   // PLASMAMOS LA QUERY
 
   const rows = useMemo(() => {
-    return (data?.equipmentByProviderId ?? []).map(
-      (p: EquipmentByProviderId) => ({
-        _id: p._id,
-        stock: p.stock,
-        equipment_code: p.equipment_code,
-        equipment_name: p.equipment_name,
-        equipment_provider: p.equipment_provider,
-        equipment_rud: p.equipment_rud,
-        equipment_unit: p.equipment_unit,
-        equipment_unitary_price: p.equipment_unitary_price,
-      }),
-    );
+    return (data?.equipmentByProviderId ?? []).map((p: EquipmentByProviderId) => ({
+      _id: p._id,
+      stock: p.stock,
+      equipment_code: p.equipment_code,
+      equipment_name: p.equipment_name,
+      equipment_provider: p.equipment_provider,
+      equipment_rud: p.equipment_rud,
+      equipment_unit: p.equipment_unit,
+      equipment_unitary_price: p.equipment_unitary_price,
+    }));
   }, [data]);
 
-  const {
-    paginatedRows,
-    totalPages,
-    currentPage,
-    itemsPerPage,
-    setCurrentPage,
-    submittedQuery,
-    setSubmittedQuery,
-  } = usePages<EquipmentByProviderId>({
-    rows,
-    itemsPerPage: 20,
-    searchFn: (row, query) => row.equipment_name.toLowerCase().includes(query),
-  });
+  const { paginatedRows, totalPages, currentPage, itemsPerPage, setCurrentPage, submittedQuery, setSubmittedQuery } =
+    usePages<EquipmentByProviderId>({
+      rows,
+      itemsPerPage: 20,
+      searchFn: (row, query) => row.equipment_name.toLowerCase().includes(query),
+    });
+
+  const sortedRows = useMemo(() => {
+    return [...paginatedRows].sort((a, b) => a.equipment_name.toLowerCase().localeCompare(b.equipment_name.toLowerCase()));
+  }, [paginatedRows]);
 
   const onRowAction = async (action: string, id: string) => {
     if (!action) return;
@@ -112,10 +100,7 @@ export default function ListadeEquipo() {
           <div className="col-12">
             <h1>
               EQUIPO
-              <span
-                className="material-symbols-outlined helpp"
-                title="Busca tus equipos guardados, por nombre."
-              >
+              <span className="material-symbols-outlined helpp" title="Busca tus equipos guardados, por nombre.">
                 help
               </span>
             </h1>
@@ -143,11 +128,7 @@ export default function ListadeEquipo() {
             )}
           </div>
 
-          <form
-            className="input-groups"
-            style={{ marginBottom: "2rem" }}
-            onSubmit={onSubmitBuscar}
-          >
+          <form className="input-groups" style={{ marginBottom: "2rem" }} onSubmit={onSubmitBuscar}>
             <div className="busqueda_presupuestos">
               <input
                 value={query}
@@ -194,43 +175,33 @@ export default function ListadeEquipo() {
                   icon={warningProps.icon}
                   setWarningProps={setWarningProps}
                 />
-                {paginatedRows.length ? (
-                  paginatedRows.map(
-                    (item: EquipmentByProviderId, index: number) => (
-                      <tr key={item._id}>
-                        <td>{currentPage * itemsPerPage + index + 1}</td>
-                        <td
-                          onClick={() => navigate(`/provider/materials`)}
-                          style={{ cursor: "pointer" }}
-                        >
-                          {item.equipment_name}
-                        </td>
-                        <td>{item.equipment_code}</td>
-                        <td>{item.equipment_provider}</td>
-                        <td>{item.equipment_unit}</td>
-                        <td>{item.stock ?? "0"}</td>
-                        <td>{Formatter(item.equipment_unitary_price)}</td>
-                        <td>{item.equipment_rud}</td>
-                        <td>
-                          <ActionsMenu
-                            itemId={item._id}
-                            deletingProject={deletingProject}
-                            onRowAction={onRowAction}
-                            helpfulAlert={helpfulAlert}
-                          />
-                        </td>
-                      </tr>
-                    ),
-                  )
+                {sortedRows.length ? (
+                  sortedRows.map((item: EquipmentByProviderId, index: number) => (
+                    <tr key={item._id}>
+                      <td>{currentPage * itemsPerPage + index + 1}</td>
+                      <td onClick={() => navigate(`/provider/materials`)} style={{ cursor: "pointer" }}>
+                        {item.equipment_name}
+                      </td>
+                      <td>{item.equipment_code}</td>
+                      <td>{item.equipment_provider}</td>
+                      <td>{item.equipment_unit}</td>
+                      <td>{item.stock ?? "0"}</td>
+                      <td>{Formatter(item.equipment_unitary_price)}</td>
+                      <td>{item.equipment_rud}</td>
+                      <td>
+                        <ActionsMenu
+                          itemId={item._id}
+                          deletingProject={deletingProject}
+                          onRowAction={onRowAction}
+                          helpfulAlert={helpfulAlert}
+                        />
+                      </td>
+                    </tr>
+                  ))
                 ) : (
                   <tr>
-                    <td
-                      colSpan={9}
-                      style={{ textAlign: "center", padding: "2rem" }}
-                    >
-                      {submittedQuery
-                        ? "No hay resultados para esta búsqueda"
-                        : "No hay materiales guardados todavía"}
+                    <td colSpan={9} style={{ textAlign: "center", padding: "2rem" }}>
+                      {submittedQuery ? "No hay resultados para esta búsqueda" : "No hay materiales guardados todavía"}
                     </td>
                   </tr>
                 )}

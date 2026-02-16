@@ -28,12 +28,7 @@ export default function ListPresupuestos() {
     icon: "info",
   });
 
-  const helpfulAlert = (
-    message: string,
-    color: string,
-    time: number,
-    icon: string,
-  ) => {
+  const helpfulAlert = (message: string, color: string, time: number, icon: string) => {
     setWarningProps({
       message: message,
       warningState: true,
@@ -59,9 +54,7 @@ export default function ListPresupuestos() {
 
   // MUTACION PARA ELIMINAR EL PRESUPUESTO DE LA LISTA
 
-  const [deleteProject, { loading: deletingProject }] = useMutation(
-    DELETE_PROJECT_BUDGET,
-  );
+  const [deleteProject, { loading: deletingProject }] = useMutation(DELETE_PROJECT_BUDGET);
 
   // PLASMAMOS LA QUERY
 
@@ -73,9 +66,7 @@ export default function ListPresupuestos() {
       total_cost: p.project_general_info?.total_cost ?? 0,
       location: p.project_general_info?.location ?? "",
       postal_code: p.project_general_info?.postal_code ?? 0,
-      fecha: p.project_general_info?.date
-        ? new Date(p.project_general_info.date)
-        : null,
+      fecha: p.project_general_info?.date ? new Date(p.project_general_info.date) : null,
     }));
     return list;
   }, [data]);
@@ -88,18 +79,16 @@ export default function ListPresupuestos() {
     getDate: (row) => row.fecha,
   });
 
-  const {
-    totalPages,
-    currentPage,
-    setCurrentPage,
-    itemsPerPage,
-    paginatedRows,
-  } = usePages<Presupuesto>({
+  const { totalPages, currentPage, setCurrentPage, itemsPerPage, paginatedRows } = usePages<Presupuesto>({
     rows: filteredByDate,
     searchQuery: submittedQuery,
     itemsPerPage: 20,
     searchFn: (row, query) => row.name.toLowerCase().includes(query),
   });
+
+  const sortedRows = useMemo(() => {
+    return [...paginatedRows].sort((a, b) => a.name.toLowerCase().localeCompare(b.name.toLowerCase()));
+  }, [paginatedRows]);
 
   // FUNCION PARA RESTABLECER EL FILTRO POR FECHA
 
@@ -155,9 +144,7 @@ export default function ListPresupuestos() {
               query: GET_PROJECTS_BY_USER_ID,
               variables: { userId: user?._id },
               data: {
-                getProjectByUserId: existing.getProjectByUserId.filter(
-                  (p: any) => p._id !== id,
-                ),
+                getProjectByUserId: existing.getProjectByUserId.filter((p: any) => p._id !== id),
               },
             });
           },
@@ -175,10 +162,7 @@ export default function ListPresupuestos() {
           <div className="col-12">
             <h1>
               PRESUPUESTOS: PANEL PRINCIPAL
-              <span
-                className="material-symbols-outlined helpp"
-                title="Busca tus presupuestos guardados, por nombre, o por fecha."
-              >
+              <span className="material-symbols-outlined helpp" title="Busca tus presupuestos guardados, por nombre, o por fecha.">
                 help
               </span>{" "}
             </h1>
@@ -194,18 +178,12 @@ export default function ListPresupuestos() {
                   border: "1px solid #ffecb5",
                 }}
               >
-                No se pudieron cargar algunos datos. Intentaremos de nuevo al
-                guardar o recargar. Puedes seguir usando la tabla.
+                No se pudieron cargar algunos datos. Intentaremos de nuevo al guardar o recargar. Puedes seguir usando la tabla.
               </div>
             )}
 
             <div className="input-group">
-              <select
-                id="servicio"
-                className="filltroo"
-                value={filtro}
-                onChange={(e) => setFiltro(e.target.value)}
-              >
+              <select id="servicio" className="filltroo" value={filtro} onChange={(e) => setFiltro(e.target.value)}>
                 <option value="" disabled>
                   FILTROS: NOMBRE
                 </option>
@@ -214,17 +192,9 @@ export default function ListPresupuestos() {
               </select>
               <div className="busquedafechass">
                 <span>FECHA: DESDE</span>
-                <input
-                  type="date"
-                  onChange={(e) => setStartDateStr(e.target.value)}
-                  value={startDateStr}
-                />
+                <input type="date" onChange={(e) => setStartDateStr(e.target.value)} value={startDateStr} />
                 <span>A</span>
-                <input
-                  type="date"
-                  onChange={(e) => setEndDateStr(e.target.value)}
-                  value={endDateStr}
-                />
+                <input type="date" onChange={(e) => setEndDateStr(e.target.value)} value={endDateStr} />
                 <span
                   style={{
                     cursor: "pointer",
@@ -239,11 +209,7 @@ export default function ListPresupuestos() {
               </div>
             </div>
 
-            <form
-              className="input-groups"
-              style={{ marginBottom: "2rem" }}
-              onSubmit={onSubmitBuscar}
-            >
+            <form className="input-groups" style={{ marginBottom: "2rem" }} onSubmit={onSubmitBuscar}>
               <div className="busqueda_presupuestos">
                 <input
                   value={query}
@@ -288,16 +254,14 @@ export default function ListPresupuestos() {
                     icon={warningProps.icon}
                     setWarningProps={setWarningProps}
                   />
-                  {paginatedRows.length ? (
-                    paginatedRows.map((item: Presupuesto, index: number) => (
+                  {sortedRows.length ? (
+                    sortedRows.map((item: Presupuesto, index: number) => (
                       <tr key={item._id}>
                         <td>{currentPage * itemsPerPage + index + 1}</td>
                         <td
                           style={{ cursor: "pointer", color: "#243c90" }}
                           className="presupuestos-name"
-                          onClick={() =>
-                            navigate(`/presupuestos/pill/:slug/id/${item._id}`)
-                          }
+                          onClick={() => navigate(`/presupuestos/pill/:slug/id/${item._id}`)}
                         >
                           {item.name}
                         </td>
@@ -305,9 +269,7 @@ export default function ListPresupuestos() {
                         <td>{item.location}</td>
                         <td>{item.postal_code}</td>
                         <td>
-                          <span className="badge-date">
-                            {formatFechaHora(item.fecha)}
-                          </span>
+                          <span className="badge-date">{formatFechaHora(item.fecha)}</span>
                         </td>
                         <td>
                           <ActionsMenu
@@ -321,13 +283,8 @@ export default function ListPresupuestos() {
                     ))
                   ) : (
                     <tr>
-                      <td
-                        colSpan={6}
-                        style={{ textAlign: "center", padding: "2rem" }}
-                      >
-                        {submittedQuery
-                          ? "No hay resultados para esta búsqueda"
-                          : "No hay presupuestos guardados todavía"}
+                      <td colSpan={6} style={{ textAlign: "center", padding: "2rem" }}>
+                        {submittedQuery ? "No hay resultados para esta búsqueda" : "No hay presupuestos guardados todavía"}
                       </td>
                     </tr>
                   )}

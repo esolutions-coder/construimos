@@ -1,16 +1,15 @@
-import { useQuery } from "@apollo/client";
+import { useQuery, useMutation } from "@apollo/client";
 import { useState, useMemo } from "react";
 import { useAuth } from "../customHooks/auth/useAuth";
 import { useNavigate } from "react-router-dom";
-import { useMutation } from "@apollo/client";
 import { DELETE_PROJECT_BUDGET } from "../api/budgets/projects.mutations";
-import CideinWarning from "../components/warning";
-import ActionsMenu from "../components/actionsmenu";
 import { GET_EQUIPMENT_BY_PROVIDER_ID } from "../api/materials/materials.query";
-import Formatter from "../utils/formatter";
-import CideinLayoutProvedor from "../components/cidein_layout_provedor";
 import { EquipmentByProviderId } from "../utils/list_types";
 import { usePages } from "../customHooks/auth/usePages";
+import CideinWarning from "../components/warning";
+import ActionsMenu from "../components/actionsmenu";
+import Formatter from "../utils/formatter";
+import CideinLayoutProvedor from "../components/cidein_layout_provedor";
 import Loading from "../components/loading";
 
 export default function ListadeEquipo() {

@@ -1,5 +1,6 @@
 import { useNavigate, useParams } from "react-router-dom";
 import Pills from "../../../assets/info_json/pills.json";
+import { useBudgetContext } from "../context/budgetContext";
 
 type BudgetPillsProps = {
   setActiveTab: React.Dispatch<React.SetStateAction<string>>
@@ -8,6 +9,7 @@ type BudgetPillsProps = {
 }
 
 function BudgetPills({setActiveTab, env, id}:BudgetPillsProps) {
+  const {setApuCreatorFlag} = useBudgetContext(); 
     const {slug} = useParams();
     const navigate = useNavigate();
 
@@ -17,6 +19,7 @@ function BudgetPills({setActiveTab, env, id}:BudgetPillsProps) {
         setActiveTab(pillSlug);
       }
       if(env === "editor"){
+        setApuCreatorFlag(true);
         navigate(`/presupuestos/pill/${pillSlug}/id/${id}`)
         setActiveTab(pillSlug);
       }

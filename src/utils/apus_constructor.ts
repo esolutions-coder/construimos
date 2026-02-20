@@ -144,7 +144,7 @@ class ApuCreator {
     this.apu_apu.push(JSON.parse(JSON.stringify({ ...apu, apu_amount: 0, apu_rud: 0, apu_partial_value: 0 })));
   }
 
-  calculateApuCost() {
+    public calculateApuCost() {
     let materialCost = 0;
     let equipmentCost = 0;
     let workHandCost = 0;

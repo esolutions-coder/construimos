@@ -4,13 +4,10 @@ import PillsInfo from "../../../assets/info_json/admin_pills.json";
 import { useState } from "react";
 import ApuCreator from "../../../utils/apus_constructor";
 import BddFormSelector from "./bddFormSelector";
+import { useBudgetContext } from "../context/budgetContext";
 
-type LocalApuRightMenuProps = {
-  currentApu: ApuCreator;
-  setApuInfo: React.Dispatch<React.SetStateAction<APUNoId>>;
-};
-
-export default function LocalApuRightMenu({ currentApu, setApuInfo }: LocalApuRightMenuProps) {
+export default function LocalApuRightMenu() {
+  const {currentApu, setApuInfo} = useBudgetContext();
   const [pillsState, setPillsState] = useState([false, false, false, false]);
   const [bdd, setBdd] = useState<"construimos_db" | "local_db">("construimos_db");
 

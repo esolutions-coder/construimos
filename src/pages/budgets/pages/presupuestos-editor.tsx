@@ -5,20 +5,16 @@ import { useEffect, useState } from "react";
 import CideinLayOut from "../../../components/cidein_layout";
 
 //INFO
-import Project from "../../../assets/info_json/project_info.json";
-import SubActivityMock from "../../../assets/info_json/subActivityMock.json";
 
 //UTILS
-import React from "react";
 import CideinWarning from "../../../components/warning";
-import CideinProject from "../../../utils/project_constructor";
 
 //APOLLO
-import { useLazyQuery, useMutation, useQuery } from "@apollo/client";
+import { useQuery } from "@apollo/client";
 
 //QUERIES
-import { SAVE_PROJECT_BUDGET } from "../../../api/budgets/projects.mutations";
-import { GET_FULL_APU_BY_ID } from "../../../assets/apus_queries/allApus";
+import { useParams } from "react-router-dom";
+import { GET_PROJECT_BY_ID } from "../../../api/budgets/projects.queries";
 import ApuMock from "../../../assets/info_json/layout_apu.json";
 import ApuCreator from "../../../utils/apus_constructor";
 import BudgetBottomNavBar from "../.././budgets/components/budgetBottomNavBar";
@@ -47,18 +43,23 @@ const currentApu = new ApuCreator(
   ApuMock.apu_workHand,
   ApuMock.apu_transportation,
   ApuMock.apu_apu,
-  ApuMock.apu_chaper
+  ApuMock.apu_chaper,
 );
 
-export default function PresupuestosEditor() {
-  const { currentProject } = useBudgetContext();
+/*
+Orden para las funciones
+1. Contexto
+2. Route Params
+3. Estados
+4. Queries y Mutations
+5. UseEffects
+*/
 
+export default function PresupuestosEditor() {
+  const { currentProject, setActiveTab, setSelectedApu, GetFullApuResponse, activeTabContent, rightMenu, projectInfo, setProjectInfo, helpfulAlert, editData, editError, editLoading,addFullApuResponse, selectedActivity, setWarningProps, warningProps, addSubCounter} =
+    useBudgetContext();
+    
   const { projectId } = useParams();
-  const { loading, error, data } = useQuery(GET_PROJECT_BY_ID, {
-    variables: {
-      projectId,
-    },
-  });
 
   const [
     editProject,
@@ -89,14 +90,9 @@ export default function PresupuestosEditor() {
     icon: "info",
   });
 
-  const subAct = SubActivityMock as APU;
-  const [selectedApu, setSelectedApu] = useState(subAct);
-  //Search the full info of the selected APU
-  const [getFullApu, GetFullApuResponse] = useLazyQuery(GET_FULL_APU_BY_ID);
-  //Add the full info of the selected APU
-  const [addFullApu, addFullApuResponse] = useLazyQuery(GET_FULL_APU_BY_ID);
-  //AddSubactivity
-  const [addSubCounter, setAddSubCounter] = useState(true);
+  useEffect(() => {
+    document.title = `${projectInfo.project_general_info.name} - CONSTRUÍMOS SAS` || "Editor de presupuestos";
+  }, [projectInfo]);
 
   useEffect(() => {
     if (addFullApuResponse.data) {

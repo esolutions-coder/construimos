@@ -182,6 +182,9 @@ export default function ListPresupuestos() {
               </div>
             )}
 
+            <div>
+              <Link to="/presupuestos/pill/create_apus_local/id/new">Crear nuevo</Link>
+            </div>
             <div className="input-group">
               <select id="servicio" className="filltroo" value={filtro} onChange={(e) => setFiltro(e.target.value)}>
                 <option value="" disabled>

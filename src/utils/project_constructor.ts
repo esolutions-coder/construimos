@@ -260,7 +260,7 @@ class CideinProject {
     /**VALOR TOTAL
      * Es la suma de los costos por administracion, imprevistos, utilidad, iva y costos directos
      */
-    this.budget_prices.total_cost =
+      this.budget_prices.total_cost =
       this.budget_prices.admin +
       this.budget_prices.unforeseen +
       this.budget_prices.IVA +

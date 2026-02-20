@@ -1,28 +1,50 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import AdminApuTable from "../../../components/admin_apus_table";
-import ApuCreator from "../../../utils/apus_constructor";
-import CideinProject from "../../../utils/project_constructor";
 import CideinWarning from "../../../components/warning";
+import { useBudgetContext } from "../context/budgetContext";
 
-type CreateLocalApuProps = {
-  setApuInfo: React.Dispatch<React.SetStateAction<APUNoId>>;
-  currentApu: ApuCreator;
-  apuInfo: APUNoId;
-  currentProject: CideinProject;
-};
-
-export default function CreateLocalApu({
-  setApuInfo,
-  currentApu,
-  apuInfo,
-  currentProject,
-}: CreateLocalApuProps) {
+export default function CreateLocalApu() {
+  const { setApuInfo, currentApu, apuInfo, currentProject, apuCreatorFlag } = useBudgetContext();
   const [warningProps, setWarningProps] = useState({
     warningState: false,
     message: "La APU se ha creado correctamente",
     color: "primary_theme",
     icon: "info",
   });
+
+  useEffect(() => {
+    if(apuCreatorFlag){
+      console.log("Creador de Apus Iniciado")
+      currentApu.apu_id = `APU-${Date.now()}`;
+      currentApu._id = currentApu.apu_id;
+      currentApu.apu_name = "";
+      currentApu.apu_unit = "";
+      currentApu.apu_description = "";
+      currentApu.apu_chapter = "";
+      currentApu.apu_materials = [];
+      currentApu.apu_equipment = [];
+      currentApu.apu_workHand = [];
+      currentApu.apu_transportation = [];
+      currentApu.apu_apu = [];
+      setApuInfo(currentApu.updateApu());
+    }else{
+      console.log(`Editando APU existente: ${apuInfo.apu_name}`)
+      const selectedApu = currentProject.local_apus.find((apu) => apu._id === apuInfo._id);
+      if(selectedApu){
+        currentApu.apu_id = selectedApu.apu_id;
+      currentApu.apu_name = selectedApu.apu_name;
+      currentApu.apu_unit = selectedApu.apu_unit;
+      currentApu.apu_description = selectedApu.apu_description;
+      currentApu.apu_chapter = selectedApu.apu_chapter;
+      currentApu.apu_materials = selectedApu.apu_materials;
+      currentApu.apu_equipment = selectedApu.apu_equipment;
+      currentApu.apu_workHand = selectedApu.apu_workHand;
+      currentApu.apu_transportation = selectedApu.apu_transportation;
+      currentApu.apu_apu = selectedApu.apu_apu;
+      setApuInfo(currentApu.updateApu());
+    }
+    }
+  }, [apuCreatorFlag]);
 
   const helpfulAlert = (
     message: string,
@@ -163,8 +185,12 @@ export default function CreateLocalApu({
   };
 
   const saveApu = () => {
-    currentApu.apu_id = `APU-${Date.now()}`;
+    if(apuCreatorFlag){
+      console.log("Creando nuevo APU...")
+      currentApu.apu_id = `APU-${Date.now()}`;
+    currentApu._id = currentApu.apu_id;
     currentProject.local_apus.push(currentApu.state);
+    }
     helpfulAlert("APU guardado en el proyecto exitosamente", "success_theme", 5, "check_circle");
   };
 
@@ -220,6 +246,7 @@ export default function CreateLocalApu({
           <option value="ALCANTARILLADOS">ALCANTARILLADOS</option>
           <option value="ACUEDUCTOS">ACUEDUCTOS</option>
           <option value="TUBERIAS PVC">TUBERIA PVC</option>
+          <option value="OTRO">OTRO</option>
         </select>
         <textarea
           name="description"

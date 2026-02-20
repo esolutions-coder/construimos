@@ -163,7 +163,7 @@
   padding: 14px 16px;
   color: colors.$secondary;
   font:
-    600 1rem/1.2 "Poppins",
+    600 0.8rem/1.2 "Poppins",
     system-ui,
     sans-serif;
   text-transform: none; /* mejor legibilidad */
@@ -184,8 +184,8 @@
 }
 .table th:nth-child(2),
 .table td:nth-child(2) {
-  width: 100%;
-  text-align: center;
+  text-align: left;
+  width: 162%;
 }
 .table th:nth-child(3),
 .table td:nth-child(3) {

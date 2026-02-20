@@ -1,18 +1,17 @@
 import { useQuery } from "@apollo/client";
-import Loading from "../components/loading";
 import { useState, useMemo } from "react";
-import Pagination from "../components/pagination";
 import { useAuth } from "../customHooks/auth/useAuth";
 import { useNavigate } from "react-router-dom";
 import { useMutation } from "@apollo/client";
 import { DELETE_PROJECT_BUDGET } from "../api/budgets/projects.mutations";
-import CideinWarning from "../components/warning";
-import ActionsMenu from "../components/actionsmenu";
-import { GET_TRANSPORTATION_BY_PROVIDER_ID } from "../api/materials/materials.query";
-import Formatter from "../utils/formatter";
-import CideinLayoutProvedor from "../components/cidein_layout_provedor";
 import { TransportationByProviderId } from "../utils/list_types";
 import { usePages } from "../customHooks/auth/usePages";
+import { GET_TRANSPORTATION_BY_PROVIDER_ID } from "../api/materials/materials.query";
+import CideinWarning from "../components/warning";
+import ActionsMenu from "../components/actionsmenu";
+import Loading from "../components/loading";
+import Formatter from "../utils/formatter";
+import CideinLayoutProvedor from "../components/cidein_layout_provedor";
 
 export default function ListTransportation() {
   const { user } = useAuth();
@@ -25,12 +24,7 @@ export default function ListTransportation() {
     icon: "info",
   });
 
-  const helpfulAlert = (
-    message: string,
-    color: string,
-    time: number,
-    icon: string,
-  ) => {
+  const helpfulAlert = (message: string, color: string, time: number, icon: string) => {
     setWarningProps({
       message: message,
       warningState: true,
@@ -55,11 +49,7 @@ export default function ListTransportation() {
     fetchPolicy: "no-cache",
   });
 
-  console.log("data", data);
-
-  const [deleteProject, { loading: deletingProject }] = useMutation(
-    DELETE_PROJECT_BUDGET,
-  );
+  const [deleteProject, { loading: deletingProject }] = useMutation(DELETE_PROJECT_BUDGET);
 
   const onSubmitBuscar = (e: React.FormEvent) => {
     e.preventDefault();
@@ -67,35 +57,29 @@ export default function ListTransportation() {
   };
 
   const rows = useMemo(() => {
-    return (data?.transportationByProviderId ?? []).map(
-      (p: TransportationByProviderId) => ({
-        _id: p._id,
-        stock: p.stock,
-        transportation_category: p.transportation_category,
-        transportation_code: p.transportation_code,
-        transportation_name: p.transportation_name,
-        transportation_provider: p.transportation_provider,
-        transportation_rud: p.transportation_provider,
-        transportation_unit: p.transportation_unit,
-        transportation_unitary_price: p.transportation_unitary_price,
-      }),
-    );
+    return (data?.transportationByProviderId ?? []).map((p: TransportationByProviderId) => ({
+      _id: p._id,
+      stock: p.stock,
+      transportation_category: p.transportation_category,
+      transportation_code: p.transportation_code,
+      transportation_name: p.transportation_name,
+      transportation_provider: p.transportation_provider,
+      transportation_rud: p.transportation_provider,
+      transportation_unit: p.transportation_unit,
+      transportation_unitary_price: p.transportation_unitary_price,
+    }));
   }, [data]);
 
-  const {
-    paginatedRows,
-    totalPages,
-    currentPage,
-    itemsPerPage,
-    setCurrentPage,
-    submittedQuery,
-    setSubmittedQuery,
-  } = usePages<TransportationByProviderId>({
-    rows,
-    itemsPerPage: 20,
-    searchFn: (row, query) =>
-      row.transportation_name.toLowerCase().includes(query),
-  });
+  const { paginatedRows, totalPages, currentPage, itemsPerPage, setCurrentPage, submittedQuery, setSubmittedQuery } =
+    usePages<TransportationByProviderId>({
+      rows,
+      itemsPerPage: 20,
+      searchFn: (row, query) => row.transportation_name.toLowerCase().includes(query),
+    });
+
+  const sortedRows = useMemo(() => {
+    return [...paginatedRows].sort((a, b) => a.transportation_name.toLowerCase().localeCompare(b.transportation_name.toLowerCase()));
+  }, [paginatedRows]);
 
   const onRowAction = async (action: string, id: string) => {
     if (!action) return;
@@ -113,10 +97,7 @@ export default function ListTransportation() {
           <div className="col-12">
             <h1>
               TRANSPORTE
-              <span
-                className="material-symbols-outlined helpp"
-                title="Busca tus transportes guardados, por nombre."
-              >
+              <span className="material-symbols-outlined helpp" title="Busca tus transportes guardados, por nombre.">
                 help
               </span>{" "}
             </h1>
@@ -147,11 +128,7 @@ export default function ListTransportation() {
           >
             Busca tus transportes guardados, por nombre
           </p>
-          <form
-            className="input-groups"
-            style={{ marginBottom: "2rem" }}
-            onSubmit={onSubmitBuscar}
-          >
+          <form className="input-groups" style={{ marginBottom: "2rem" }} onSubmit={onSubmitBuscar}>
             <div className="busqueda_presupuestos">
               <input
                 value={query}
@@ -199,44 +176,34 @@ export default function ListTransportation() {
                   icon={warningProps.icon}
                   setWarningProps={setWarningProps}
                 />
-                {paginatedRows.length ? (
-                  paginatedRows.map(
-                    (item: TransportationByProviderId, index: number) => (
-                      <tr key={item._id}>
-                        <td>{currentPage * itemsPerPage + index + 1}</td>
-                        <td
-                          onClick={() => navigate(`/provider/materials`)}
-                          style={{ cursor: "pointer" }}
-                        >
-                          {item.transportation_name}
-                        </td>
-                        <td>{item.transportation_code}</td>
-                        <td>{item.transportation_provider}</td>
-                        <td>{item.transportation_category ?? "0"}</td>
-                        <td> {item.transportation_unit}</td>
-                        <td>{item.stock ?? "No hay stock"}</td>
-                        <td>{Formatter(item.transportation_unitary_price)}</td>
-                        <td>{item.transportation_rud}</td>
-                        <td>
-                          <ActionsMenu
-                            itemId={item._id}
-                            deletingProject={deletingProject}
-                            onRowAction={onRowAction}
-                            helpfulAlert={helpfulAlert}
-                          />
-                        </td>
-                      </tr>
-                    ),
-                  )
+                {sortedRows.length ? (
+                  sortedRows.map((item: TransportationByProviderId, index: number) => (
+                    <tr key={item._id}>
+                      <td>{currentPage * itemsPerPage + index + 1}</td>
+                      <td onClick={() => navigate(`/provider/materials`)} style={{ cursor: "pointer" }}>
+                        {item.transportation_name}
+                      </td>
+                      <td>{item.transportation_code}</td>
+                      <td>{item.transportation_provider}</td>
+                      <td>{item.transportation_category ?? "0"}</td>
+                      <td> {item.transportation_unit}</td>
+                      <td>{item.stock ?? "No hay stock"}</td>
+                      <td>{Formatter(item.transportation_unitary_price)}</td>
+                      <td>{item.transportation_rud}</td>
+                      <td>
+                        <ActionsMenu
+                          itemId={item._id}
+                          deletingProject={deletingProject}
+                          onRowAction={onRowAction}
+                          helpfulAlert={helpfulAlert}
+                        />
+                      </td>
+                    </tr>
+                  ))
                 ) : (
                   <tr>
-                    <td
-                      colSpan={10}
-                      style={{ textAlign: "center", padding: "2rem" }}
-                    >
-                      {submittedQuery
-                        ? "No hay resultados para esta búsqueda"
-                        : "No hay transportes guardados todavía"}
+                    <td colSpan={10} style={{ textAlign: "center", padding: "2rem" }}>
+                      {submittedQuery ? "No hay resultados para esta búsqueda" : "No hay transportes guardados todavía"}
                     </td>
                   </tr>
                 )}

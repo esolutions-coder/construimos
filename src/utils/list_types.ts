@@ -32,3 +32,24 @@ export type TransportationByProviderId = {
   transportation_unit: string;
   transportation_unitary_price: number;
 };
+
+export type EquipmentByProviderId = {
+  _id: string;
+  stock: number;
+  equipment_code: string;
+  equipment_name: string;
+  equipment_provider: string;
+  equipment_rud: number;
+  equipment_unit: string;
+  equipment_unitary_price: number;
+};
+
+export type Presupuesto = {
+  _id: string;
+  name: string;
+  description?: string;
+  total_cost: number;
+  location: string;
+  postal_code: number;
+  fecha: Date | null;
+};

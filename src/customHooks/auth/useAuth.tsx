@@ -1,11 +1,5 @@
-import {
-  createContext,
-  PropsWithChildren,
-  useContext,
-  useEffect,
-  useMemo,
-} from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { createContext, PropsWithChildren, useContext, useMemo } from "react";
+import { useNavigate } from "react-router-dom";
 import { useLocalStorage } from "./useLocalStorage";
 
 type Role = "ADMIN" | "VISITOR" | "CONTRATISTA" | "PROVIDER" | "SOPORTE";

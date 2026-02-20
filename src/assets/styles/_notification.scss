@@ -1,0 +1,176 @@
+@use "_colors";
+
+.notif-container {
+  position: relative;
+  display: inline-block;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+}
+
+.notif-bell-btn {
+  background: none;
+  border: none;
+  cursor: pointer;
+  border-radius: 50%;
+  transition: background 0.3s;
+  position: relative;
+}
+
+.notif-badge {
+  position: absolute;
+  top: 5px;
+  right: 5px;
+  background-color: #ff3b30;
+  color: white;
+  font-size: 11px;
+  font-weight: bold;
+  padding: 2px 6px;
+  border-radius: 10px;
+  border: 2px solid white;
+}
+
+.notif-subtitle {
+  color: colors.$primary;
+  margin: 0;
+  font-family: "Poppins";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 12px;
+  line-height: 18px;
+  letter-spacing: 0.4px;
+}
+
+.notif-dropdown {
+  position: absolute;
+  right: 0;
+  top: 100%;
+  margin-top: 10px;
+  width: 400px;
+  background: white;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  border: 1px solid #e4e6eb;
+  z-index: 1000;
+  overflow: hidden;
+}
+
+.notif-header {
+  padding: 12px 16px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid #e4e6eb;
+}
+
+.notif-header h3 {
+  margin: 0;
+  font-size: 16px;
+  font-weight: 600;
+  color: #1c1e21;
+}
+
+.notif-mark-all {
+  background: none;
+  border: none;
+  color: #0064d2;
+  font-size: 12px;
+  cursor: pointer;
+}
+
+.notif-list {
+  max-height: 400px;
+  overflow-y: auto;
+}
+
+.notif-item {
+  padding: 12px 16px;
+  cursor: pointer;
+  border-bottom: 1px solid #f0f2f5;
+  position: relative;
+  transition: background 0.2s;
+}
+
+.notif-text {
+  margin: 0;
+  font-size: 17px;
+  text-align: left;
+  color: #050505;
+  line-height: 1.4;
+}
+.notif-logo {
+  width: 30px;
+  height: 30px;
+  position: absolute;
+  right: 2rem;
+}
+
+.notif-time {
+  font-size: 12px;
+  color: #65676b;
+}
+
+.modal-notification p {
+  text-align: left;
+  font-size: 1.2rem;
+  margin-bottom: 0.5rem;
+}
+
+.modal-notification .meta {
+  font-size: 0.9rem;
+  color: #6b7280;
+}
+.meta h1 {
+  font-weight: bold;
+  color: black;
+  text-align: left;
+  font-size: 2rem;
+  margin-bottom: -1rem;
+  line-height: 1.5;
+}
+
+.modal-notification {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  padding: 2rem;
+  margin: 0 auto;
+}
+
+.modal-notification h2 {
+  font-size: 1.2rem;
+}
+
+.logo-modal {
+  width: 100%;
+
+  border-radius: 8px;
+  object-fit: cover;
+}
+
+.unread-dot {
+  position: absolute;
+  right: 16px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 8px;
+  height: 8px;
+  background-color: #0064d2;
+  border-radius: 50%;
+}
+
+.notif-empty {
+  padding: 20px;
+  text-align: center;
+  color: #65676b;
+  font-size: 14px;
+}
+
+.notif-footer {
+  padding: 12px;
+  text-align: center;
+  font-size: 14px;
+  color: #0064d2;
+  font-weight: 600;
+  cursor: pointer;
+  background-color: #fff;
+  border-top: 1px solid #e4e6eb;
+}

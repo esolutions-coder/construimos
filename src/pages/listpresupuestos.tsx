@@ -1,16 +1,17 @@
-import { useQuery } from "@apollo/client";
-import { GET_PROJECTS_BY_USER_ID } from "../assets/apus_queries/materialsQueries";
-//import Loading from "../components/loading";
-import { useState, useMemo, useEffect } from "react";
-import CideinLayout from "../components/cidein_layout";
-import Pagination from "../components/pagination";
+import { useQuery, useMutation } from "@apollo/client";
+import { useState, useMemo } from "react";
+import { useNavigate } from "react-router-dom";
 import { useAuth } from "../customHooks/auth/useAuth";
-import { Link, useNavigate } from "react-router-dom";
-import Formatter from "../utils/formatter";
-import { useMutation } from "@apollo/client";
+import { GET_PROJECTS_BY_USER_ID } from "../assets/apus_queries/materialsQueries";
 import { DELETE_PROJECT_BUDGET } from "../api/budgets/projects.mutations";
+import { usePages } from "../customHooks/auth/usePages";
+import { Presupuesto } from "../utils/list_types";
+import { useDateFilter } from "../customHooks/auth/useDateFilter";
+import CideinLayout from "../components/cidein_layout";
+import Formatter from "../utils/formatter";
 import CideinWarning from "../components/warning";
 import ActionsMenu from "../components/actionsmenu";
+import Loading from "../components/loading";
 
 export default function ListPresupuestos() {
   const { user } = useAuth();
@@ -27,12 +28,7 @@ export default function ListPresupuestos() {
     icon: "info",
   });
 
-  const helpfulAlert = (
-    message: string,
-    color: string,
-    time: number,
-    icon: string
-  ) => {
+  const helpfulAlert = (message: string, color: string, time: number, icon: string) => {
     setWarningProps({
       message: message,
       warningState: true,
@@ -58,14 +54,7 @@ export default function ListPresupuestos() {
 
   // MUTACION PARA ELIMINAR EL PRESUPUESTO DE LA LISTA
 
-  const [deleteProject, { loading: deletingProject }] = useMutation(
-    DELETE_PROJECT_BUDGET
-  );
-
-  const onSubmitBuscar = (e: React.FormEvent) => {
-    e.preventDefault();
-    setSubmittedQuery(query.trim());
-  };
+  const [deleteProject, { loading: deletingProject }] = useMutation(DELETE_PROJECT_BUDGET);
 
   // PLASMAMOS LA QUERY
 
@@ -77,37 +66,42 @@ export default function ListPresupuestos() {
       total_cost: p.project_general_info?.total_cost ?? 0,
       location: p.project_general_info?.location ?? "",
       postal_code: p.project_general_info?.postal_code ?? 0,
-      fecha: p.project_general_info?.date
-        ? new Date(p.project_general_info.date)
-        : null,
+      fecha: p.project_general_info?.date ? new Date(p.project_general_info.date) : null,
     }));
     return list;
   }, [data]);
 
   // FILTRAR POR FECHA
+  const { filteredByDate } = useDateFilter<Presupuesto>({
+    rows,
+    startDateStr,
+    endDateStr,
+    getDate: (row) => row.fecha,
+  });
 
-  const startDate = useMemo(() => {
-    if (!startDateStr) return null;
-    const d = new Date(startDateStr + "T00:00:00");
-    return isNaN(d.getTime()) ? null : d;
-  }, [startDateStr]);
+  const { totalPages, currentPage, setCurrentPage, itemsPerPage, paginatedRows } = usePages<Presupuesto>({
+    rows: filteredByDate,
+    searchQuery: submittedQuery,
+    itemsPerPage: 20,
+    searchFn: (row, query) => row.name.toLowerCase().includes(query),
+  });
 
-  const endDateExclusive = useMemo(() => {
-    if (!endDateStr) return null;
-    const d = new Date(endDateStr + "T00:00:00");
-    if (isNaN(d.getTime())) return null;
-    d.setDate(d.getDate() + 1);
-    return d;
-  }, [endDateStr]);
+  const sortedRows = useMemo(() => {
+    return [...paginatedRows].sort((a, b) => a.name.toLowerCase().localeCompare(b.name.toLowerCase()));
+  }, [paginatedRows]);
 
   // FUNCION PARA RESTABLECER EL FILTRO POR FECHA
 
   const restablecerFiltros = () => {
-    setStartDateStr(null as any);
-    setEndDateStr(null as any);
+    setStartDateStr("");
+    setEndDateStr("");
     setSubmittedQuery("");
   };
 
+  const onSubmitBuscar = (e: React.FormEvent) => {
+    e.preventDefault();
+    setSubmittedQuery(query.trim());
+  };
   // FUNCION PARA FORMATEAR LA FECHA
 
   const formatFechaHora = (d: Date | null) =>
@@ -125,31 +119,6 @@ export default function ListPresupuestos() {
       : "—";
 
   // FILTRAR POR TEXTO
-
-  const filteredRows = useMemo(() => {
-    const q = submittedQuery.trim().toLowerCase();
-
-    return rows.filter((r: any) => {
-      const passText =
-        !q ||
-        (r.name ?? "").toLowerCase().includes(q) ||
-        (r.description ?? "").toLowerCase().includes(q);
-
-      let passDate = true;
-      if (startDate || endDateExclusive) {
-        if (!r.fecha) {
-          passDate = false;
-        } else {
-          const t = r.fecha.getTime();
-          if (startDate && t < startDate.getTime()) passDate = false;
-          if (endDateExclusive && t >= endDateExclusive.getTime())
-            passDate = false;
-        }
-      }
-
-      return passText && passDate;
-    });
-  }, [rows, submittedQuery, startDate, endDateExclusive]);
 
   const onRowAction = async (action: string, id: string) => {
     if (!action) return;
@@ -175,9 +144,7 @@ export default function ListPresupuestos() {
               query: GET_PROJECTS_BY_USER_ID,
               variables: { userId: user?._id },
               data: {
-                getProjectByUserId: existing.getProjectByUserId.filter(
-                  (p: any) => p._id !== id
-                ),
+                getProjectByUserId: existing.getProjectByUserId.filter((p: any) => p._id !== id),
               },
             });
           },
@@ -195,10 +162,7 @@ export default function ListPresupuestos() {
           <div className="col-12">
             <h1>
               PRESUPUESTOS: PANEL PRINCIPAL
-              <span
-                className="material-symbols-outlined helpp"
-                title="Busca tus presupuestos guardados, por nombre, o por fecha."
-              >
+              <span className="material-symbols-outlined helpp" title="Busca tus presupuestos guardados, por nombre, o por fecha.">
                 help
               </span>{" "}
             </h1>
@@ -214,8 +178,7 @@ export default function ListPresupuestos() {
                   border: "1px solid #ffecb5",
                 }}
               >
-                No se pudieron cargar algunos datos. Intentaremos de nuevo al
-                guardar o recargar. Puedes seguir usando la tabla.
+                No se pudieron cargar algunos datos. Intentaremos de nuevo al guardar o recargar. Puedes seguir usando la tabla.
               </div>
             )}
 
@@ -223,12 +186,7 @@ export default function ListPresupuestos() {
               <Link to="/presupuestos/pill/create_apus_local/id/new">Crear nuevo</Link>
             </div>
             <div className="input-group">
-              <select
-                id="servicio"
-                className="filltroo"
-                value={filtro}
-                onChange={(e) => setFiltro(e.target.value)}
-              >
+              <select id="servicio" className="filltroo" value={filtro} onChange={(e) => setFiltro(e.target.value)}>
                 <option value="" disabled>
                   FILTROS: NOMBRE
                 </option>
@@ -237,17 +195,9 @@ export default function ListPresupuestos() {
               </select>
               <div className="busquedafechass">
                 <span>FECHA: DESDE</span>
-                <input
-                  type="date"
-                  onChange={(e) => setStartDateStr(e.target.value)}
-                  value={startDateStr}
-                />
+                <input type="date" onChange={(e) => setStartDateStr(e.target.value)} value={startDateStr} />
                 <span>A</span>
-                <input
-                  type="date"
-                  onChange={(e) => setEndDateStr(e.target.value)}
-                  value={endDateStr}
-                />
+                <input type="date" onChange={(e) => setEndDateStr(e.target.value)} value={endDateStr} />
                 <span
                   style={{
                     cursor: "pointer",
@@ -262,11 +212,7 @@ export default function ListPresupuestos() {
               </div>
             </div>
 
-            <form
-              className="input-groups"
-              style={{ marginBottom: "2rem" }}
-              onSubmit={onSubmitBuscar}
-            >
+            <form className="input-groups" style={{ marginBottom: "2rem" }} onSubmit={onSubmitBuscar}>
               <div className="busqueda_presupuestos">
                 <input
                   value={query}
@@ -295,6 +241,15 @@ export default function ListPresupuestos() {
                   </tr>
                 </thead>
                 <tbody>
+                  {loading ? (
+                    <tr>
+                      <td colSpan={6}>
+                        <Loading />
+                      </td>
+                    </tr>
+                  ) : (
+                    ""
+                  )}
                   <CideinWarning
                     state={warningProps.warningState}
                     message={warningProps.message}
@@ -302,30 +257,24 @@ export default function ListPresupuestos() {
                     icon={warningProps.icon}
                     setWarningProps={setWarningProps}
                   />
-                  {filteredRows.length ? (
-                    filteredRows.map((item: any, index: number) => (
+                  {sortedRows.length ? (
+                    sortedRows.map((item: Presupuesto, index: number) => (
                       <tr key={item._id}>
-                        <td data-label="ID">{index + 1}</td>
+                        <td>{currentPage * itemsPerPage + index + 1}</td>
                         <td
-                          data-label="Nombre"
+                          style={{ cursor: "pointer", color: "#243c90" }}
                           className="presupuestos-name"
-                          onClick={() =>
-                            navigate(`/presupuestos/pill/:slug/id/${item._id}`)
-                          }
+                          onClick={() => navigate(`/presupuestos/pill/:slug/id/${item._id}`)}
                         >
                           {item.name}
                         </td>
-                        <td data-label="Precio total">
-                          {Formatter(item.total_cost)}
+                        <td>{Formatter(item.total_cost)}</td>
+                        <td>{item.location}</td>
+                        <td>{item.postal_code}</td>
+                        <td>
+                          <span className="badge-date">{formatFechaHora(item.fecha)}</span>
                         </td>
-                        <td data-label="Ubicación">{item.location}</td>
-                        <td data-label="Código postal">{item.postal_code}</td>
-                        <td data-label="Fecha">
-                          <span className="badge-date">
-                            {formatFechaHora(item.fecha)}
-                          </span>
-                        </td>
-                        <td data-label="options">
+                        <td>
                           <ActionsMenu
                             itemId={item._id}
                             deletingProject={deletingProject}
@@ -337,40 +286,43 @@ export default function ListPresupuestos() {
                     ))
                   ) : (
                     <tr>
-                      <td colSpan={6}>
-                        <div
-                          style={{
-                            textAlign: "center",
-                            padding: "3rem 0",
-                            color: "#666",
-                          }}
-                        >
-                          <span
-                            className="material-symbols-outlined"
-                            style={{ fontSize: 48, color: "#ccc" }}
-                          >
-                            content_paste_off
-                          </span>
-                          <h4 style={{ marginTop: 16 }}>
-                            {submittedQuery
-                              ? "No hay resultados para esta búsqueda"
-                              : "No hay presupuestos guardados todavía"}
-                          </h4>
-                          <p className="presupuestos_no_hay">
-                            {submittedQuery
-                              ? "Ajusta el término y vuelve a buscar."
-                              : "Usa el botón de arriba para crear tu primer presupuesto."}
-                          </p>
-                        </div>
-                        <div className="container-pagination">
-                          <Pagination />
-                        </div>
+                      <td colSpan={6} style={{ textAlign: "center", padding: "2rem" }}>
+                        {submittedQuery ? "No hay resultados para esta búsqueda" : "No hay presupuestos guardados todavía"}
                       </td>
                     </tr>
                   )}
                 </tbody>
               </table>
             </div>
+
+            {totalPages > 1 && (
+              <div style={{ marginTop: 20 }}>
+                <ul
+                  style={{
+                    display: "flex",
+                    gap: 10,
+                    listStyle: "none",
+                    justifyContent: "center",
+                  }}
+                >
+                  {Array.from({ length: totalPages }, (_, index) => (
+                    <li
+                      key={index}
+                      onClick={() => setCurrentPage(index)}
+                      style={{
+                        cursor: "pointer",
+                        padding: "6px 12px",
+                        borderRadius: 6,
+                        background: currentPage === index ? "#fdbe33" : "#eee",
+                        color: currentPage === index ? "#fff" : "#000",
+                      }}
+                    >
+                      {index + 1}
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            )}
           </div>
         </div>
       </div>

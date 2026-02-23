@@ -65,6 +65,10 @@ class CideinProject {
       project_config: this.project_config,
       project_general_info: this.project_general_info,
       local_apus: this.local_apus,
+      local_materials: this.local_materials,
+      local_equipment: this.local_equipment,
+      local_workHand: this.local_workHand,
+      local_transportation: this.local_transportation,
     };
   }
 
@@ -81,6 +85,10 @@ class CideinProject {
       local_apus: this.local_apus,
       project_activities: this.projectActivityToApi(this.project_activities),
       user_id: this.user_id,
+      local_materials: this.local_materials,
+      local_equipment: this.local_equipment,
+      local_transportation: this.local_transportation,
+      local_workHand: this.local_workHand
     };
     return JSON.parse(JSON.stringify(toApiJson));
   }
@@ -368,6 +376,9 @@ class CideinProject {
     ].amount = this.newValue;
   }
 
+  /**
+ * @deprecated This method is deprecated
+ */
   updateSubActivityPrice(
     activityId: string,
     subActivityId: string,

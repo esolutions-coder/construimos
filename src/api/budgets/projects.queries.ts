@@ -138,6 +138,17 @@ export const GET_PROJECT_BY_ID = gql`
           apu_rud
         }
       }
+          local_materials {
+      _id
+      material_name
+      material_unitary_price
+      material_provider
+      material_code
+      material_unit
+      material_rud
+      material_category
+      stock
+    }
       project_activities {
         activity_id
         activity_name

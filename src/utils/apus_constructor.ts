@@ -217,6 +217,10 @@ class ApuCreator {
       const itemIndex = this.apu_workHand.findIndex((workHand) => workHand.workHand_code === itemId);
       return this.apu_workHand.splice(itemIndex, 1);
     }
+    if (itemType === "TPT") {
+      const itemIndex = this.apu_transportation.findIndex((transportation) => transportation.transportation_code === itemId);
+      return this.apu_transportation.splice(itemIndex, 1);
+    }
   }
 
   serializeApu() {

@@ -114,3 +114,24 @@
     height: 450px;
   }
 }
+
+.context_menu{
+  background-color: white;
+  border: solid black 1px;
+  color: colors.$secondary;
+  user-select: none;
+  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+  font-size: 12px;
+  ul{
+    min-width: 200px;
+    padding-left: 0;
+    li{
+      padding: 4px 8px;
+      list-style: none;
+      cursor: pointer;
+      &:hover{
+        background-color: colors.$primary;
+      }
+    }
+  }
+}

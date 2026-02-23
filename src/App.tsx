@@ -32,6 +32,7 @@ import ListaProveedores from "./pages/listproveedores";
 import ListWorkhand from "./pages/listworkhand";
 import ListTransportation from "./pages/listtransport";
 import ListadeEquipo from "./pages/listequipo";
+import UploadImages from "./pages/uploadImages";
 
 function App() {
   return (
@@ -110,6 +111,7 @@ function App() {
           <Route path="/presupuestos/list" element={<ListPresupuestos />} />
           <Route path="/equipment/info/:code" element={<EquipmentInfo />} />
           <Route path="/workhand/info/:code" element={<WorkhandInfo />} />
+          <Route path="/upload-images" element={<UploadImages />} />
         </Routes>
       </AuthProvider>
     </div>

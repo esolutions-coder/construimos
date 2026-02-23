@@ -4,7 +4,7 @@ import CideinWarning from "../../../components/warning";
 import { useBudgetContext } from "../context/budgetContext";
 
 export default function CreateLocalApu() {
-  const { setApuInfo, currentApu, apuInfo, currentProject, apuCreatorFlag } = useBudgetContext();
+  const { setApuInfo, currentApu, apuInfo, currentProject, apuCreatorFlag, setProjectInfo } = useBudgetContext();
   const [warningProps, setWarningProps] = useState({
     warningState: false,
     message: "La APU se ha creado correctamente",
@@ -13,8 +13,8 @@ export default function CreateLocalApu() {
   });
 
   useEffect(() => {
-    if(apuCreatorFlag){
-      console.log("Creador de Apus Iniciado")
+    if (apuCreatorFlag) {
+      console.log("Creador de Apus Iniciado");
       currentApu.apu_id = `APU-${Date.now()}`;
       currentApu._id = currentApu.apu_id;
       currentApu.apu_name = "";
@@ -27,31 +27,27 @@ export default function CreateLocalApu() {
       currentApu.apu_transportation = [];
       currentApu.apu_apu = [];
       setApuInfo(currentApu.updateApu());
-    }else{
-      console.log(`Editando APU existente: ${apuInfo.apu_name}`)
+    } else {
+      console.log(`Editando APU existente: ${apuInfo.apu_name}`);
       const selectedApu = currentProject.local_apus.find((apu) => apu._id === apuInfo._id);
-      if(selectedApu){
+      if (selectedApu) {
         currentApu.apu_id = selectedApu.apu_id;
-      currentApu.apu_name = selectedApu.apu_name;
-      currentApu.apu_unit = selectedApu.apu_unit;
-      currentApu.apu_description = selectedApu.apu_description;
-      currentApu.apu_chapter = selectedApu.apu_chapter;
-      currentApu.apu_materials = selectedApu.apu_materials;
-      currentApu.apu_equipment = selectedApu.apu_equipment;
-      currentApu.apu_workHand = selectedApu.apu_workHand;
-      currentApu.apu_transportation = selectedApu.apu_transportation;
-      currentApu.apu_apu = selectedApu.apu_apu;
-      setApuInfo(currentApu.updateApu());
-    }
+        currentApu.apu_name = selectedApu.apu_name;
+        currentApu.apu_unit = selectedApu.apu_unit;
+        currentApu.apu_description = selectedApu.apu_description;
+        currentApu.apu_chapter = selectedApu.apu_chapter;
+        currentApu.apu_materials = selectedApu.apu_materials;
+        currentApu.apu_equipment = selectedApu.apu_equipment;
+        currentApu.apu_workHand = selectedApu.apu_workHand;
+        currentApu.apu_transportation = selectedApu.apu_transportation;
+        currentApu.apu_apu = selectedApu.apu_apu;
+        currentApu._id = selectedApu._id;
+        setApuInfo(currentApu.updateApu());
+      }
     }
   }, [apuCreatorFlag]);
 
-  const helpfulAlert = (
-    message: string,
-    color: string,
-    time: number,
-    icon: string
-  ) => {
+  const helpfulAlert = (message: string, color: string, time: number, icon: string) => {
     setWarningProps({
       message: message,
       warningState: true,
@@ -89,55 +85,37 @@ export default function CreateLocalApu() {
     setApuInfo(currentApu.updateApu());
   };
 
-  const updateMaterialAmount = (
-    evt: React.ChangeEvent<HTMLInputElement>,
-    materialCode: string
-  ) => {
+  const updateMaterialAmount = (evt: React.ChangeEvent<HTMLInputElement>, materialCode: string) => {
     const newAmount = parseFloat(evt.target.value);
     currentApu.updateApuAmount(newAmount, `MAT*${materialCode}`);
     setApuInfo(currentApu.updateApu());
   };
 
-  const updateTransportationAmount = (
-    evt: React.ChangeEvent<HTMLInputElement>,
-    transportationCode: string
-  ) => {
+  const updateTransportationAmount = (evt: React.ChangeEvent<HTMLInputElement>, transportationCode: string) => {
     const newAmount = parseFloat(evt.target.value);
     currentApu.updateApuAmount(newAmount, `TPT*${transportationCode}`);
     setApuInfo(currentApu.updateApu());
   };
 
-  const updateEquipmentAmount = (
-    evt: React.ChangeEvent<HTMLInputElement>,
-    equipmentCode: string
-  ) => {
+  const updateEquipmentAmount = (evt: React.ChangeEvent<HTMLInputElement>, equipmentCode: string) => {
     const newAmount = parseFloat(evt.target.value);
     currentApu.updateApuAmount(newAmount, `EQP*${equipmentCode}`);
     setApuInfo(currentApu.updateApu());
   };
 
-  const updateWorkHandAmount = (
-    evt: React.ChangeEvent<HTMLInputElement>,
-    equipmentCode: string
-  ) => {
+  const updateWorkHandAmount = (evt: React.ChangeEvent<HTMLInputElement>, equipmentCode: string) => {
     const newAmount = parseFloat(evt.target.value);
     currentApu.updateApuAmount(newAmount, `MDO*${equipmentCode}`);
     setApuInfo(currentApu.updateApu());
   };
 
-  const updateApuAmount = (
-    evt: React.ChangeEvent<HTMLInputElement>,
-    apuCode: string
-  ) => {
+  const updateApuAmount = (evt: React.ChangeEvent<HTMLInputElement>, apuCode: string) => {
     const newAmount = parseFloat(evt.target.value);
     currentApu.updateApuAmount(newAmount, `APU*${apuCode}`);
     setApuInfo(currentApu.updateApu());
   };
 
-  const updateApuRud = (
-    evt: React.ChangeEvent<HTMLInputElement>,
-    apuCode: string
-  ) => {
+  const updateApuRud = (evt: React.ChangeEvent<HTMLInputElement>, apuCode: string) => {
     const newAmount = parseFloat(evt.target.value);
     currentApu.updateApuRud(newAmount, `APU*${apuCode}`);
     setApuInfo(currentApu.updateApu());
@@ -148,50 +126,42 @@ export default function CreateLocalApu() {
     setApuInfo(currentApu.updateApu());
     if (itemType === "APU" && deletedItem) {
       const deletedApuName = deletedItem[0] as CIDEINAPU;
-      helpfulAlert(
-        `Has eliminado el ítem ${deletedApuName.apu_name}`,
-        "primary_theme",
-        3,
-        "warning"
-      );
+      helpfulAlert(`Has eliminado el ítem ${deletedApuName.apu_name}`, "primary_theme", 3, "warning");
     }
     if (itemType === "MDO" && deletedItem) {
       const deletedApuName = deletedItem[0] as CIDEINWorkhand;
-      helpfulAlert(
-        `Has eliminado el ítem ${deletedApuName.workHand_name}`,
-        "primary_theme",
-        3,
-        "warning"
-      );
+      helpfulAlert(`Has eliminado el ítem ${deletedApuName.workHand_name}`, "primary_theme", 3, "warning");
     }
     if (itemType === "MAT" && deletedItem) {
       const deletedApuName = deletedItem[0] as CIDEINMaterials;
-      helpfulAlert(
-        `Has eliminado el ítem ${deletedApuName.material_name}`,
-        "primary_theme",
-        3,
-        "warning"
-      );
+      helpfulAlert(`Has eliminado el ítem ${deletedApuName.material_name}`, "primary_theme", 3, "warning");
     }
     if (itemType === "EQP" && deletedItem) {
       const deletedApuName = deletedItem[0] as CIDEINEquipment;
-      helpfulAlert(
-        `Has eliminado el ítem ${deletedApuName.equipment_name}`,
-        "primary_theme",
-        3,
-        "warning"
-      );
+      helpfulAlert(`Has eliminado el ítem ${deletedApuName.equipment_name}`, "primary_theme", 3, "warning");
+    }
+    if (itemType === "TPT" && deletedItem) {
+      const deletedApuName = deletedItem[0] as CIDEINTransportation;
+      helpfulAlert(`Has eliminado el ítem ${deletedApuName.transportation_name}`, "primary_theme", 3, "warning");
     }
   };
 
   const saveApu = () => {
-    if(apuCreatorFlag){
-      console.log("Creando nuevo APU...")
+    if (apuCreatorFlag) {
+      console.log("Creando nuevo APU...");
       currentApu.apu_id = `APU-${Date.now()}`;
-    currentApu._id = currentApu.apu_id;
-    currentProject.local_apus.push(currentApu.state);
+      currentApu._id = currentApu.apu_id;
+      currentProject.local_apus.push(currentApu.state);
+      helpfulAlert("APU guardado en el proyecto exitosamente", "success_theme", 5, "check_circle");
+    }else{
+      const apuIndex = currentProject.local_apus.findIndex((apu) => apu._id === apuInfo._id);
+      console.log(`Editando APU existente en el proyecto... Índice encontrado: ${apuIndex}`);
+      if (apuIndex !== -1) {
+        currentProject.local_apus[apuIndex] = currentApu.state;
+        setProjectInfo(currentProject);
+        helpfulAlert("APU actualizado en el proyecto exitosamente", "success_theme", 5, "check_circle");
+      }
     }
-    helpfulAlert("APU guardado en el proyecto exitosamente", "success_theme", 5, "check_circle");
   };
 
   return (
@@ -207,29 +177,10 @@ export default function CreateLocalApu() {
               setWarningProps={setWarningProps}
             />
           )}
-          <input
-            type="text"
-            className="title_input"
-            value={apuInfo.apu_name}
-            onChange={editApuName}
-            placeholder="Nombre del APU"
-            required={true}
-          />
-          <input
-            type="text"
-            className="unit_input"
-            value={apuInfo.apu_unit}
-            onChange={editApuUnit}
-            placeholder="Unidad"
-            required={true}
-          />
+          <input type="text" className="title_input" value={apuInfo.apu_name} onChange={editApuName} placeholder="Nombre del APU" required={true} />
+          <input type="text" className="unit_input" value={apuInfo.apu_unit} onChange={editApuUnit} placeholder="Unidad" required={true} />
         </div>
-        <select
-          name="apu_chapter"
-          id="apu_chapter"
-          className="my_sm_16 chapter_selector"
-          onChange={(evt) => updateApuChapter(evt.target.value)}
-        >
+        <select name="apu_chapter" id="apu_chapter" className="my_sm_16 chapter_selector" onChange={(evt) => updateApuChapter(evt.target.value)}>
           <option value="">SELECCIONE CAPÍTULO</option>
           <option value="CONCRETOS EN OBRA">CONCRETOS EN OBRA</option>
           <option value="PAÑETES">PAÑETES</option>
@@ -240,9 +191,7 @@ export default function CreateLocalApu() {
           <option value="CAMARAS DE INSPECCION">CAMARAS DE INSPECCION</option>
           <option value="CAJAS DE INSPECCION">CAJAS DE INSPECCION</option>
           <option value="EXCAVACIONES GENERALES">EXCAVACIONES GENERALES</option>
-          <option value="RELLENOS Y NIVELACIONES">
-            RELLENOS Y NIVELACIONES
-          </option>
+          <option value="RELLENOS Y NIVELACIONES">RELLENOS Y NIVELACIONES</option>
           <option value="ALCANTARILLADOS">ALCANTARILLADOS</option>
           <option value="ACUEDUCTOS">ACUEDUCTOS</option>
           <option value="TUBERIAS PVC">TUBERIA PVC</option>

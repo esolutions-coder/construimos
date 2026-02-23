@@ -87,21 +87,29 @@ export default function BudgetBottomNavBar() {
   const addThings = (data: CIDEINMaterials | CIDEINEquipment | CIDEINWorkhand | CIDEINTransportation, type: string) => {
     if (type === "material") {
       let fixedData = data as any;
+      fixedData._id = Date.now().toString();
+      fixedData.material_amount = 0;
       fixedData.material_rud = parseFloat(fixedData.material_rud);
       fixedData.material_unitary_price = parseFloat(fixedData.material_unitary_price);
       currentProject.addMaterial(fixedData);
     } else if (type === "equipment") {
       let fixedData = data as any;
+      fixedData._id = Date.now().toString();
+      fixedData.equipment_amount = 0;
       fixedData.equipment_rud = parseFloat(fixedData.equipment_rud);
       fixedData.equipment_unitary_price = parseFloat(fixedData.equipment_unitary_price);
       currentProject.addEquipment(fixedData);
     } else if (type === "workhand") {
       let fixedData = data as any;
+      fixedData.workHand_amount = 0;
+      fixedData._id = Date.now().toString();
       fixedData.workHand_rud = parseFloat(fixedData.workHand_rud);
       fixedData.workHand_unitary_price = parseFloat(fixedData.workHand_unitary_price);
       currentProject.addWorkhand(fixedData);
     } else if (type === "transportation") {
       let fixedData = data as any;
+      fixedData._id = Date.now().toString();
+      fixedData.transportation_amount = 0;
       fixedData.transportation_rud = parseFloat(fixedData.transportation_rud);
       fixedData.transportation_unitary_price = parseFloat(fixedData.transportation_unitary_price);
       currentProject.addTransportation(fixedData);

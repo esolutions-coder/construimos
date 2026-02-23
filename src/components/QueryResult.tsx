@@ -16,9 +16,11 @@ function QueryResult({
   searchName,
 }: QueryResultsProps): JSX.Element {
   if (error) {
+    console.log("Error in query")
     return <p>ERROR {error.message}</p>;
   }
   if (loading) {
+    console.log("Loading query")
     return (
       <div className="spinner_home">
         <div className="spinner-cidein">
@@ -33,6 +35,7 @@ function QueryResult({
     return <p>Aquí aparecerán tus resultados</p>;
   }
   if (data[searchName] === null || data[searchName].length === 0) {
+    console.log("Busqueda sin resultados")
     return (
       <div className="no_searched">
         <span className="material-symbols-outlined no_select">
@@ -43,6 +46,7 @@ function QueryResult({
     );
   }
   if (data) {
+    console.log("Loaded")
     return <>{children}</>;
   }
   return <p>Algo sucedió</p>;

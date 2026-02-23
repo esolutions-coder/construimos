@@ -21,9 +21,10 @@ function ApuCard({
 
   const {setActiveTab, setApuCreatorFlag, setApuInfo, getFullApu, GetFullApuResponse, currentProject, setSelectedApu} = useBudgetContext();
 
-    //Cargar data del apu seleccionado una vez el estado de data cambie
+  //Cargar data del apu seleccionado una vez el estado de data cambie
   useEffect(() => {
     if (GetFullApuResponse.data) {
+      console.log("Data")
       const analizedApu = currentProject.APUCalculator(GetFullApuResponse.data.apu);
       setSelectedApu(analizedApu);
     }
@@ -40,7 +41,7 @@ function ApuCard({
     }
 
     if(flag==="local_db"){
-      setActiveTab("local_apu_viewer");
+      setActiveTab("apu_viewer");
       setApuCreatorFlag(false);
       setApuInfo(apuInfo);
     }

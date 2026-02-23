@@ -37,6 +37,13 @@ export default function AdminApuTable({
   ApuPrice,
   DeleteOptions,
 }: AdminApuTableProps) {
+  
+    let finalPrice = MaterialOptions.apuMaterials.reduce((acc, material) => acc + material.material_partial_value, 0);
+    finalPrice += TransportationOptions.apuTransportation.reduce((acc, transportation) => acc + transportation.transportation_partial_value, 0);
+    finalPrice += EquipmentOptions.apuEquipment.reduce((acc, equipment) => acc + equipment.equipment_partial_value, 0);
+    finalPrice += WorkHandOptions.apuWorkHand.reduce((acc, workHand) => acc + workHand.workHand_partial_value, 0);
+    finalPrice += ApuApuOptions.apuApu.reduce((acc, apu) => acc + apu.apu_partial_value, 0);
+
   if (
     MaterialOptions.apuMaterials.length === 0 &&
     TransportationOptions.apuTransportation.length === 0 &&
@@ -44,6 +51,7 @@ export default function AdminApuTable({
     WorkHandOptions.apuWorkHand.length === 0 &&
     ApuApuOptions.apuApu.length === 0
   ) {
+
     return (
       <tbody>
         <tr>
@@ -194,7 +202,7 @@ export default function AdminApuTable({
                   className="material-symbols-outlined"
                   onClick={() =>
                     DeleteOptions.deleteApuItem(
-                      "EQP",
+                      "TPT",
                       transportation.transportation_code
                     )
                   }
@@ -245,7 +253,7 @@ export default function AdminApuTable({
         <tr className="subtotal_activity">
           <td colSpan={2}>Subtotal APU</td>
           <td colSpan={5} className="subtotal_price">
-            {Formatter(ApuPrice)}
+            {Formatter(finalPrice)}
           </td>
         </tr>
       </tbody>

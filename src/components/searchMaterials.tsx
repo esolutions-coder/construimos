@@ -26,7 +26,6 @@ export default function SearchMaterials({ addMaterial, bdd }: SearchBoxProps) {
     }
     if(bdd === "local_db"){
       console.log("Searching local materials for:", userInput);
-      console.log(currentProject);
       const searchResults = currentProject.searchLocalMaterialsByString(userInput);
       setSearchedThings(searchResults);
     }

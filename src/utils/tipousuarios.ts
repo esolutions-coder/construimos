@@ -1,9 +1,6 @@
 export type NavItem = { label: string; to: string };
 
-export const NAV_ITEMS_BY_ROLE: Record<
-  "ADMIN" | "VISITOR" | "CONTRATISTA" | "PROVIDER" | "SOPORTE",
-  NavItem[]
-> = {
+export const NAV_ITEMS_BY_ROLE: Record<"ADMIN" | "VISITOR" | "CONTRATISTA" | "PROVIDER" | "SOPORTE", NavItem[]> = {
   ADMIN: [
     { label: "Inicio", to: "/" },
     { label: "Clientes", to: "/cliente" },

@@ -8,12 +8,14 @@ import Formatter from "../../../utils/formatter";
 import Grid from "../../../components/layout/grid";
 import { sub } from "date-fns";
 import { useBudgetContext } from "../context/budgetContext";
+import useContextMenu from "../hooks/useContextMenu";
+import ContextMenu from "../components/contextMenu";
 
 type BudgetPageProps = {
   projectInfo: CIDEINProject;
   setProjectInfo: React.Dispatch<React.SetStateAction<CIDEINProject>>;
   setTab: React.Dispatch<React.SetStateAction<string>>;
-  setSelectedApu: React.Dispatch<SetStateAction<APU>>
+  setSelectedApu: React.Dispatch<SetStateAction<APU>>;
   setActivityList: React.Dispatch<
     React.SetStateAction<
       {
@@ -25,8 +27,11 @@ type BudgetPageProps = {
 };
 
 export default function BudgetPage({ setActivityList, projectInfo, setProjectInfo }: BudgetPageProps) {
-  const {setActiveTab, setSelectedApu, getFullApu, GetFullApuResponse, setApuCreatorFlag, setApuInfo, currentProject} = useBudgetContext();
+  const { currentProject } = useBudgetContext();
   const [selectedActivity, setSelectedActivity] = useState("");
+  const { clicked, setClicked, points, setPoints } = useContextMenu();
+  const [subActivityInfo, setSubActivityInfo] = useState<SubActivities | null>(null);
+  const [activityInfo, setActivityInfo] = useState<ProjecActivities | null>(null);
 
   const [warningProps, setWarningProps] = useState({
     warningState: false,
@@ -39,16 +44,6 @@ export default function BudgetPage({ setActivityList, projectInfo, setProjectInf
   const [addFullApu, addFullApuResponse] = useLazyQuery(GET_FULL_APU_BY_ID);
   //AddSubactivity
   const [addSubCounter, setAddSubCounter] = useState(true);
-
-  const handleSubactivityValue = (evt: React.ChangeEvent<HTMLInputElement>) => {
-    const inputId = evt.target.id;
-    const splitInput = inputId.split("+");
-    const [propName, activityId, subActivityId] = splitInput;
-    let newSubActivityPrice = parseFloat(evt.target.value);
-
-    currentProject.updateSubActivityPrice(activityId, subActivityId, newSubActivityPrice);
-    setProjectInfo(currentProject.state);
-  };
 
   const handleSubactivityAmount = (evt: React.ChangeEvent<HTMLInputElement>) => {
     const inputId = evt.target.id;
@@ -110,7 +105,7 @@ export default function BudgetPage({ setActivityList, projectInfo, setProjectInf
     //@ts-ignore
     currentProject.project_general_info[name] = value;
     setProjectInfo(currentProject.state);
-  }
+  };
 
   const changeProjectTitle = (evt: React.ChangeEvent<HTMLInputElement>) => {
     const newTitle = evt.target.value;
@@ -149,9 +144,16 @@ export default function BudgetPage({ setActivityList, projectInfo, setProjectInf
     helpfulAlert(`Has eliminado la sub actividad: ${removeSubActivity[0].subActivity_apu.apu_name}`, "primary_theme", 3, "info");
   };
 
-    const setTabAndShowAPU = (flag: string, apuInfo: APU) => {
-    setActiveTab("local_apu_viewer");
-      setSelectedApu(apuInfo);
+  const handleContextMenu = (evt: React.MouseEvent<HTMLTableCellElement, MouseEvent>, subActivity: SubActivities, activity: ProjecActivities) => {
+    evt.preventDefault();
+    setClicked(true);
+    setSubActivityInfo(subActivity);
+    setActivityInfo(activity);
+    setPoints({
+      x: evt.pageX,
+      y: evt.pageY,
+    });
+    console.log("Right Click", evt.pageX, evt.pageY);
   };
 
   return (
@@ -172,22 +174,22 @@ export default function BudgetPage({ setActivityList, projectInfo, setProjectInf
         placeholder="Descripción del proyecto"
       ></textarea>
       <Grid def={3} gap={12} lg={2} md={2} sm={2}>
-      <input
-        type="text"
-        className="title_input my_sm_16"
-        onChange={changeProjectGeneralInfoAttribute}
-        value={projectInfo.project_general_info.location}
-        placeholder="Localización"
-        id="location"
-      />
-      <input
-        type="text"
-        className="title_input my_sm_16"
-        onChange={changeProjectGeneralInfoAttribute}
-        value={projectInfo.project_general_info.postal_code}
-        placeholder="Código Postal"
-        id="postal_code"
-      />
+        <input
+          type="text"
+          className="title_input my_sm_16"
+          onChange={changeProjectGeneralInfoAttribute}
+          value={projectInfo.project_general_info.location}
+          placeholder="Localización"
+          id="location"
+        />
+        <input
+          type="text"
+          className="title_input my_sm_16"
+          onChange={changeProjectGeneralInfoAttribute}
+          value={projectInfo.project_general_info.postal_code}
+          placeholder="Código Postal"
+          id="postal_code"
+        />
       </Grid>
       <div className="table_container">
         <table className="cidein_table">
@@ -245,11 +247,9 @@ export default function BudgetPage({ setActivityList, projectInfo, setProjectInf
                         <React.Fragment key={subActivity.subActivity_apu.apu_id}>
                           <tr className="subActivity_row">
                             <td>{`${index + 1}.${subIndex + 1}`}</td>
-                            <td style={{cursor:"pointer"}} onClick={()=>{
-                              setTabAndShowAPU(subActivity.flag, subActivity.subActivity_apu)
-                              setApuCreatorFlag(false);
-                              setApuInfo(subActivity.subActivity_apu);
-                            }}>{subActivity.subActivity_apu.apu_name}</td>
+                            <td style={{ cursor: "pointer" }} onContextMenu={(e) => handleContextMenu(e, subActivity, activity)}>
+                              {subActivity.subActivity_apu.apu_name}
+                            </td>
                             <td>{subActivity.subActivity_apu.apu_unit}</td>
                             <td>
                               <input
@@ -261,13 +261,9 @@ export default function BudgetPage({ setActivityList, projectInfo, setProjectInf
                               />
                             </td>
                             <td>
-                              <input
-                                type="number"
-                                className="table_input"
-                                value={subActivity.subActivity_apu.apu_price}
-                                onChange={handleSubactivityValue}
-                                id={`vu+${activity.activity_id}+${subActivity.subActivity_id}`}
-                              />
+                              <div className="subActivity_options">
+                                {Formatter(subActivity.subActivity_apu.apu_price)}
+                              </div>
                             </td>
                             <td>
                               <div className="subActivity_options">
@@ -339,6 +335,7 @@ export default function BudgetPage({ setActivityList, projectInfo, setProjectInf
             </tbody>
           )}
         </table>
+        <ContextMenu subActivity={subActivityInfo} activity={activityInfo} clicked={clicked} points={points}/>
       </div>
     </div>
   );

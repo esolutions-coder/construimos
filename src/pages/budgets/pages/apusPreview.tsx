@@ -1,6 +1,7 @@
 import { ApolloError, OperationVariables } from "@apollo/client";
 import QueryResult from "../../../components/QueryResult";
 import Formatter from "../../../utils/formatter";
+import { useEffect } from "react";
 
 type ApusPreviewProps = {
     //@ts-ignore
@@ -9,6 +10,9 @@ type ApusPreviewProps = {
 }
 //Checking Github
 export default function ApusPreview({GetFullApuResponse, selectedApu}: ApusPreviewProps) {
+  useEffect(() => {
+    console.log("Selected APU en apu preview: ", selectedApu)
+  },[GetFullApuResponse])
     return(
         <div className="cidein_window_2">
               <QueryResult

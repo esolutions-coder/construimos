@@ -4,7 +4,7 @@ export const NAV_ITEMS_BY_ROLE: Record<"ADMIN" | "VISITOR" | "CONTRATISTA" | "PR
   ADMIN: [
     { label: "Inicio", to: "/" },
     { label: "Clientes", to: "/cliente" },
-    { label: "Presupuestos", to: "/presupuestos" },
+    { label: "Presupuestos", to: "/presupuestos/list" },
     { label: "Proveedores", to: "/proveedores" },
     { label: "Contratistas", to: "/contratista" },
     { label: "Constructores", to: "/showroom" },
@@ -18,7 +18,7 @@ export const NAV_ITEMS_BY_ROLE: Record<"ADMIN" | "VISITOR" | "CONTRATISTA" | "PR
   CONTRATISTA: [
     { label: "Inicio", to: "/" },
     { label: "Contratista", to: "/contratista" },
-    { label: "Presupuestos", to: "/presupuestos" },
+    { label: "Presupuestos", to: "/presupuestos/list" },
     { label: "Proveedores", to: "/proveedores" },
   ],
   PROVIDER: [],

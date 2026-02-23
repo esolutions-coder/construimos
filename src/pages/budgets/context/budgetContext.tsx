@@ -94,7 +94,7 @@ const currentApu = new ApuCreator(
 );
 
 // Proveedor del contexto
-export const BudgetProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
+export function BudgetProvider({ children }: { children: any }) {
   const [activeTab, setActiveTab] = useState("budget");
   const [apuCreatorFlag, setApuCreatorFlag] = useState(false);
   const [selectedApu, setSelectedApu] = useState(SubActivityMock as APU);
@@ -116,10 +116,7 @@ export const BudgetProvider: React.FC<{ children: ReactNode }> = ({ children }) 
   const [selectedActivity, setSelectedActivity] = useState("");
   const [addSubCounter, setAddSubCounter] = useState(true);
 
-  const [
-      saveBuget,
-      saveNewProjectData,
-    ] = useMutation(SAVE_PROJECT_BUDGET);
+  const [saveBuget, saveNewProjectData] = useMutation(SAVE_PROJECT_BUDGET);
 
   //Search the full info of the selected APU
   const { loading, error, data } = useQuery(GET_PROJECT_BY_ID, {
@@ -222,13 +219,13 @@ export const BudgetProvider: React.FC<{ children: ReactNode }> = ({ children }) 
   };
 
   const saveNewProject = () => {
-    if(user){
+    if (user) {
       currentProject.user_id = user._id;
-    saveBuget({
-      variables: {
-        projectData: currentProject.toApi,
-      },
-    });
+      saveBuget({
+        variables: {
+          projectData: currentProject.toApi,
+        },
+      });
     }
   };
 
@@ -259,9 +256,11 @@ export const BudgetProvider: React.FC<{ children: ReactNode }> = ({ children }) 
       );
       break;
     case "apu_viewer":
+      console.log("Display: Apu Viewer");
       activeTabContent = <ApusPreview GetFullApuResponse={GetFullApuResponse} selectedApu={selectedApu} />;
       break;
     case "create_apus_local":
+      console.log("Display: Create Local Apus");
       activeTabContent = <CreateLocalApu />;
       rightMenu = <LocalApuRightMenu />;
       break;
@@ -309,6 +308,7 @@ export const BudgetProvider: React.FC<{ children: ReactNode }> = ({ children }) 
       if (projectData !== null) {
         currentProject.apus = JSON.parse(JSON.stringify(projectData.apus));
         currentProject.local_apus = JSON.parse(JSON.stringify(projectData.local_apus));
+        currentProject.local_materials = JSON.parse(JSON.stringify(projectData.local_materials));
         ((currentProject.project_activities = currentProject.projectActivitiesBuilder(JSON.parse(JSON.stringify(projectData.project_activities)))),
           (currentProject.project_config = JSON.parse(JSON.stringify(projectData.project_config))),
           (currentProject.project_general_info = JSON.parse(JSON.stringify(projectData.project_general_info))));
@@ -320,6 +320,11 @@ export const BudgetProvider: React.FC<{ children: ReactNode }> = ({ children }) 
     }
   }, [data]);
 
+  useEffect(() => {
+    if (projectId === "new") {
+      setProjectInfo(currentProject.state);
+    }
+  }, [projectId]);
   return (
     <MyContext.Provider
       value={{
@@ -351,13 +356,13 @@ export const BudgetProvider: React.FC<{ children: ReactNode }> = ({ children }) 
         setWarningProps,
         addSubCounter,
         saveNewProject,
-        saveNewProjectData
+        saveNewProjectData,
       }}
     >
       {children}
     </MyContext.Provider>
   );
-};
+}
 
 // Hook para usar el contexto más fácilmente
 export const useBudgetContext = () => {
